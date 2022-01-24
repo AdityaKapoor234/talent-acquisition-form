@@ -1,3 +1,13 @@
 module.exports = {
-  reactStrictMode: true,
+  publicRuntimeConfig: {
+      API_BASE_URL_AUTH_SERVICE: process.env.API_BASE_URL_AUTH_SERVICE,
+      API_BASE_URL_USER_SERVICE: process.env.API_BASE_URL_USER_SERVICE,
+      API_BASE_URL_SPACE_SERVICE: process.env.API_BASE_URL_SPACE_SERVICE,
+      API_BASE_URL_PROPOSAL_SERVICE: process.env.API_BASE_URL_PROPOSAL_SERVICE,
+      WEBSITE_URL:process.env.WEBSITE_URL,
+      WEBSITE_NAME: process.env.WEBSITE_NAME,
+      WEBSITE_TAGLINE: process.env.WEBSITE_TAGLINE,
+      WEBSITE_IMAGE_URL: process.env.WEBSITE_IMAGE_URL,
+      NEXT_TELEMETRY_DISABLED: process.env.NEXT_TELEMETRY_DISABLED
+  }
 }

@@ -24,7 +24,7 @@ build_qa:
   image: docker:19.03.1
   script:
     - docker build --build-arg ENV=qa -t registry.gitlab.com/fitcart/frontend-apps/admin:qa .
-    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - echo "ygg-_byxzqgxjcHZsB__" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
     - docker push registry.gitlab.com/fitcart/frontend-apps/admin:qa
   tags:
     - build_qa
@@ -38,7 +38,7 @@ deploy_qa:
   image: docker:19.03.1
   script:
     - cd /home/ubuntu/fitcart-deploy/qa
-    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - echo "ygg-_byxzqgxjcHZsB__" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
     - docker-compose pull frontend_website
     - docker-compose up -d
     - docker system prune --force
@@ -54,7 +54,7 @@ build_prod:
   image: docker:19.03.1
   script:
     - docker build --build-arg ENV=prod -t registry.gitlab.com/fitcart/frontend-apps/admin:production .
-    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - echo "ygg-_byxzqgxjcHZsB__" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
     - docker push registry.gitlab.com/fitcart/frontend-apps/admin:production
   tags:
     - build_prod
@@ -68,7 +68,7 @@ deploy_prod:
   image: docker:19.03.1
   script:
     - cd /home/ubuntu/fitcart-deploy/prod
-    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - echo "ygg-_byxzqgxjcHZsB__" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
     - docker-compose pull frontend_website
     - docker-compose up -d
     - docker system prune --force

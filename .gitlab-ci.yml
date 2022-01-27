@@ -43,6 +43,7 @@ deploy_qa:
     - docker system prune --force
   tags:
     - deploy_qa
+  when: manual
   only:
     - dev
 

@@ -1,0 +1,79 @@
+stages:
+  - build_dev
+  - build_qa
+  - build_prod
+  - deploy_qa
+  - deploy_prod
+
+build_dev:
+  services:
+    - docker:19.03.1-dind
+  stage: build_dev
+  image: docker:19.03.1
+  script:
+    - docker build --build-arg ENV=qa -t registry.gitlab.com/fitcart/frontend-apps/admin:dev .
+  tags:
+    - build_dev
+  when: manual
+  except: ['master', 'qa']
+
+build_qa:
+  services:
+    - docker:19.03.1-dind
+  stage: build_qa
+  image: docker:19.03.1
+  script:
+    - docker build --build-arg ENV=qa -t registry.gitlab.com/fitcart/frontend-apps/admin:qa .
+    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - docker push registry.gitlab.com/fitcart/frontend-apps/admin:qa
+  tags:
+    - build_qa
+  only:
+    - qa
+
+deploy_qa:
+  services:
+    - docker:19.03.1-dind
+  stage: deploy_qa
+  image: docker:19.03.1
+  script:
+    - cd /home/ubuntu/fitcart-deploy/qa
+    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - docker-compose pull frontend_website
+    - docker-compose up -d
+    - docker system prune --force
+  tags:
+    - deploy_qa
+  only:
+    - dev
+
+build_prod:
+  services:
+    - docker:19.03.1-dind
+  stage: build_prod
+  image: docker:19.03.1
+  script:
+    - docker build --build-arg ENV=prod -t registry.gitlab.com/fitcart/frontend-apps/admin:production .
+    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - docker push registry.gitlab.com/fitcart/frontend-apps/admin:production
+  tags:
+    - build_prod
+  only:
+    - master
+
+deploy_prod:
+  services:
+    - docker:19.03.1-dind
+  stage: deploy_prod
+  image: docker:19.03.1
+  script:
+    - cd /home/ubuntu/fitcart-deploy/prod
+    - echo "wHY9DmKhyScicYB_Qf2A" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
+    - docker-compose pull frontend_website
+    - docker-compose up -d
+    - docker system prune --force
+  tags:
+    - deploy_prod
+  when: manual
+  only:
+    - master

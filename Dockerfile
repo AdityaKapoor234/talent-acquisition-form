@@ -19,5 +19,5 @@ COPY . /usr/src
 # start app
 ARG ENV="qa"
 RUN npm run build:$ENV
-EXPOSE 2000
-CMD npm run start -p 2000
+EXPOSE 2001
+CMD npm run start -p 2001

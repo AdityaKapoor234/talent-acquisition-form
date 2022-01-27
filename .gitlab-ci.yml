@@ -14,7 +14,6 @@ build_dev:
     - docker build --build-arg ENV=qa -t registry.gitlab.com/fitcart/frontend-apps/admin:dev .
   tags:
     - build_dev
-  when: manual
   except: ['master', 'qa']
 
 build_qa:

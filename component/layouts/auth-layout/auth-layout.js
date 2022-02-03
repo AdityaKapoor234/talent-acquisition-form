@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
-import {APP_NAME, APP_TAGLINE, APP_IMAGE} from "../../utils/constant";
+import {APP_NAME, APP_TAGLINE, APP_IMAGE} from "../../../utils/constant";
 
 
 export default function AuthLayoutComponent({children, image}) {

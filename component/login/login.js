@@ -29,7 +29,7 @@ export default class Login extends Component {
                     <label>Password<span className="mandatory-star">*</span></label>
                     <input type="text"  placeholder="Enter your password" />
                 </div>
-                <div className="custom-btn " >
+                <div className="custom-btn " onClick={()=>Router.push("/dashboard")}>
                     <span>Login </span>
                     <ArrowForwardIosIcon className='arrow-icon'/>
                 </div>

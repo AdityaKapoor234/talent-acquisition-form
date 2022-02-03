@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {APP_NAME} from "../utils/constant";
-import AuthLayoutComponent from "../component/auth-layout/auth-layout";
+import AuthLayoutComponent from "../component/layouts/auth-layout/auth-layout";
 import Login from '../component/login/login';
 
 export default function Home() {

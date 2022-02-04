@@ -6,3 +6,9 @@ export const APP_NAME = WEBSITE_NAME
 export const APP_TAGLINE = WEBSITE_TAGLINE
 export const APP_IMAGE = WEBSITE_IMAGE_URL
 export const APP_URL = WEBSITE_URL
+
+// Password Regex
+export const PASSWORD_REGEX = /^[a-zA-Z0-9.!#$%&'*+@/=?^_`():;,"<>{|}~-]{6,}$/
+
+export const LOGIN = `http://65.1.17.188:5000/admin/auth/login`;
+export const ADMIN_LOGIN = `http://65.1.17.188:5000/admin`

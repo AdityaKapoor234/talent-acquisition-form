@@ -14,6 +14,9 @@ import CategoryIcon from '@mui/icons-material/Category';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Cookies from "js-cookie";
+import {loginAPI} from "../../../services/login-service";
+import {toast } from 'react-toastify';
 
 
 export default function DashboardLayoutComponent({children}) {
@@ -24,6 +27,7 @@ export default function DashboardLayoutComponent({children}) {
     const [tabCustomer, setTabCustomer] = useState(false);
     const [categary, setCategary] = useState(0);
     const [logout, setLogout] = useState(false);
+    const [email,setEmail] = useState("admin@fitcart.com");
 
     const handleCategary=(url,value)=>{
         Router.push(url)
@@ -36,8 +40,23 @@ export default function DashboardLayoutComponent({children}) {
         setCategary(0)
     }
     const handleLogout=()=>{
+        Cookies.remove("access_token")
         Router.push("/")
     }
+
+    const getEmail=()=>{
+        loginAPI.adminLogin().then(response => {
+            if(response?.data?.httpStatusCode === 200){
+                let data = response.data?.data?.user
+                setEmail(data?.email)
+            }
+        }).catch(error => {
+        })
+    }
+
+    useEffect(() => {
+        getEmail()
+    }, []);
 
     return (
         <div>
@@ -63,7 +82,8 @@ export default function DashboardLayoutComponent({children}) {
                                 <li onClick={()=>handleLogout()}><LogoutIcon className='logout-icon'/>Logout</li>
                             </ul>
                         }
-                        <div className='login'>admin@gmail.com <ArrowDropDownIcon className={logout ?'drop-icon icon-drop':'drop-icon'} onClick={()=>{setLogout(!logout)}}/></div>
+                        {console.log("email",email)}
+                        <div className='login'>{email} <ArrowDropDownIcon className={logout ?'drop-icon icon-drop':'drop-icon'} onClick={()=>{setLogout(!logout)}}/></div>
                     </div>
                     <div className='main-module'>
                         <div className='module-menu'>

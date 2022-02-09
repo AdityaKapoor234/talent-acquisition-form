@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {APP_NAME} from "../utils/constant";
+import { useState, useEffect } from "react";
 import DashboardLayoutComponent from "../component/layouts/dashboard-layout/dashboard-layout";
 
 export default function Dashboard() {

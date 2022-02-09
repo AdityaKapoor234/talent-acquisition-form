@@ -62,3 +62,42 @@
         }
     }
 }
+
+[data-component="CustomerComponent"]{
+    .tableRow{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        text-transform: capitalize;
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $clr-dark-blue;
+        background-color: $clr-gray200;
+        margin: 0.5rem 0rem;
+    }
+    .tableCell{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        text-transform: capitalize;
+        padding: 0.5rem;
+        font-size: 0.8rem;
+        margin: 0.5rem 0rem;
+        border: 1.5px solid $clr-gray200;
+        color:$clr-table-content;
+        font-weight: 500;
+        .tableBody{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+        }
+    }
+}

@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import {useEffect, useState} from "react";
 import Router from "next/router"
+import {useRouter} from "next/router";
 import {APP_NAME, APP_TAGLINE, APP_IMAGE} from "../../../utils/constant";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
@@ -21,23 +21,25 @@ import {toast } from 'react-toastify';
 
 export default function DashboardLayoutComponent({children}) {
 
-    const [tab, setTab] = useState(1);
-    const [tabSale, setTabSale] = useState(false);
-    const [tabCatalog, setTabCatalog] = useState(false);
-    const [tabCustomer, setTabCustomer] = useState(false);
-    const [categary, setCategary] = useState(0);
+    const pathArr = useRouter().pathname.split("/")[1]
+
+    const [tab, setTab] = useState(pathArr);
+    const [tabSale, setTabSale] = useState(pathArr === "order" ?true:false);
+    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" ?true:false);
+    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ?true:false);
+    const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email,setEmail] = useState("admin@fitcart.com");
 
     const handleCategary=(url,value)=>{
         Router.push(url)
         setCategary(value)
-        setTab(0)
+        setTab('')
     }
     const handleDashboard=()=>{
         Router.push("/dashboard")
-        setTab(1)
-        setCategary(0)
+        setTab("dashboard")
+        setCategary("")
     }
     const handleLogout=()=>{
         Cookies.remove("access_token")
@@ -82,15 +84,14 @@ export default function DashboardLayoutComponent({children}) {
                                 <li onClick={()=>handleLogout()}><LogoutIcon className='logout-icon'/>Logout</li>
                             </ul>
                         }
-                        {console.log("email",email)}
                         <div className='login'>{email} <ArrowDropDownIcon className={logout ?'drop-icon icon-drop':'drop-icon'} onClick={()=>{setLogout(!logout)}}/></div>
                     </div>
                     <div className='main-module'>
                         <div className='module-menu'>
                             <div className='menu'>
-                                <div className={tab ===1 ?'menu-btn active':'menu-btn'} onClick={()=> handleDashboard()}>
+                                <div className={tab === "dashboard" ?'menu-btn active':'menu-btn'} onClick={()=> handleDashboard()}>
                                     <span>
-                                        {tab ===1 ?<DashboardIcon className='outline-icon'/>:<DashboardOutlinedIcon className='outline-icon'/>}
+                                        {tab === "dashboard" ?<DashboardIcon className='outline-icon'/>:<DashboardOutlinedIcon className='outline-icon'/>}
                                         dashboard
                                     </span>
                                 </div>
@@ -103,7 +104,7 @@ export default function DashboardLayoutComponent({children}) {
                                 </div>
                                     {tabSale  &&
                                         <ul>
-                                            <li className={categary=== 7 && "sub_active"} onClick={()=> handleCategary("#",7)}>order</li>
+                                            <li className={categary=== "order" ? "sub_active":""} onClick={()=> handleCategary("#","order")}>order</li>
                                         </ul>
                                     }
                                 <div className={tabCatalog  ?'menu-btn active':'menu-btn'} onClick={()=> setTabCatalog(!tabCatalog)}>
@@ -115,12 +116,12 @@ export default function DashboardLayoutComponent({children}) {
                                 </div>
                                     {tabCatalog &&
                                         <ul>
-                                            <li className={categary=== 1 && "sub_active"} onClick={()=> handleCategary("#",1)}>category</li>
-                                            <li className={categary=== 2 && "sub_active"} onClick={()=> handleCategary("#",2)}>ingredient</li>
-                                            <li className={categary=== 3 && "sub_active"} onClick={()=> handleCategary("#",3)}>classification</li>
-                                            <li className={categary=== 4 && "sub_active"} onClick={()=> handleCategary("#",4)}>brand</li>
-                                            <li className={categary=== 5 && "sub_active"} onClick={()=> handleCategary("#",5)}>product</li>
-                                            <li className={categary=== 6 && "sub_active"} onClick={()=> handleCategary("#",6)}>inventory</li>
+                                            <li className={categary=== "category" ? "sub_active":""} onClick={()=> handleCategary("#","category")}>category</li>
+                                            <li className={categary=== "ingredeint" ? "sub_active":""} onClick={()=> handleCategary("#","ingredeint")}>ingredient</li>
+                                            <li className={categary=== "classification" ? "sub_active":""} onClick={()=> handleCategary("#","classification")}>classification</li>
+                                            <li className={categary=== "barnd" ? "sub_active":""} onClick={()=> handleCategary("#","barnd")}>brand</li>
+                                            <li className={categary=== "product" ? "sub_active":""} onClick={()=> handleCategary("#","product")}>product</li>
+                                            <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li>
                                         </ul>
                                     }
                                 <div className={tabCustomer ?'menu-btn active':'menu-btn'} onClick={()=> setTabCustomer(!tabCustomer)}>
@@ -132,8 +133,8 @@ export default function DashboardLayoutComponent({children}) {
                                 </div>
                                     {tabCustomer &&
                                         <ul>
-                                            <li className={categary=== 8 && "sub_active"} onClick={()=> handleCategary("#",8)}>customer</li>
-                                            <li className={categary=== 9 && "sub_active"} onClick={()=> handleCategary("#",9)}>customer type</li>
+                                            <li className={categary=== "customer" ? "sub_active":""} onClick={()=> handleCategary("/customer","customer")}>customer</li>
+                                            <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li>
                                         </ul>
                                     }
                                     

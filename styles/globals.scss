@@ -5,7 +5,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,Graphik;
 }
 
 a {
@@ -33,4 +33,44 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.hamburger{
+  color: $clr-dark-blue;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+  padding: 0.3rem 0rem;
+  font-weight: 500;
+  span{
+    opacity: 0.4;
+  }
+}
+.page-name{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: $clr-dark-blue;
+  padding-bottom: 0.5rem;
+}
+.border-box{
+  border-bottom: 1.5px solid $clr-dark-blue;
+}
+
+.sticky-scroll{
+  height: 76vh;
+  overflow-y: scroll;
+}
+.edit-icon{
+  color: $clr-dark-blue;
+  font-size: 1.2rem;
+}
+.check-icon{
+  color:$clr-check;
+  font-size: 1.2rem;
+}
+.cancel-icon{
+  color:$clr-dark-orange;
+  font-size: 1.2rem;
+}
+.pagination{
+  background-color: $clr-gray200;
+  padding: 0.5rem;
 }

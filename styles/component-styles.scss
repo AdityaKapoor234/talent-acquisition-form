@@ -1,103 +1,202 @@
 @import "variables";
 
-[data-component='login'] {
-    .admin-login{
-        display: flex;
-        justify-content: center;
-        color: $clr-dark-orange;
-        font-size: 1rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
+[data-component="login"] {
+  .admin-login {
+    display: flex;
+    justify-content: center;
+    color: $clr-dark-orange;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .login-form {
+    margin: 0;
+    padding: 0 0 20px 0;
+    display: block;
+    font-size: 0.9rem;
+    label {
+      color: $clr-label-name;
+      padding: 0 0 6px 0;
+      margin: 0;
     }
-    .login-form {
-        margin: 0;
-        padding: 0 0 20px 0;
-        display: block;
-        font-size: 0.9rem;
-        label {
-            color: $clr-label-name;
-            padding: 0 0 6px 0;
-            margin: 0;
-        }
-        input {
-            border: 1px solid #8090B4;
-            width: 100%;
-            padding: 10px;
-            height: 40px;
-            color: $clr-label-name;
-        }
-        input::placeholder {
-            color: $clr-label-name;
-        }
-        input:focus {
-            outline: none;
-        }
+    input {
+      border: 1px solid #8090b4;
+      width: 100%;
+      padding: 10px;
+      height: 40px;
+      color: $clr-label-name;
     }
-    .signup-check {
-        display: flex;
-        font-size: 0.8rem;
-        padding: 0 0 15px 0;
-        color: $clr-label-name;
+    input::placeholder {
+      color: $clr-label-name;
+    }
+    input:focus {
+      outline: none;
+    }
+  }
+  .signup-check {
+    display: flex;
+    font-size: 0.8rem;
+    padding: 0 0 15px 0;
+    color: $clr-label-name;
 
-        label {
-            padding: 12px 0 0 0;
-            margin: 0;
-            a {
-                cursor: pointer;
-                text-decoration: inherit !important;
-                color: $clr-dark-blue;
-                font-weight: 500;
+    label {
+      padding: 12px 0 0 0;
+      margin: 0;
+      a {
+        cursor: pointer;
+        text-decoration: inherit !important;
+        color: $clr-dark-blue;
+        font-weight: 500;
 
-                &:hover,
-                &:focus {
-                    color: $clr-dark-blue;
-                }
-            }
+        &:hover,
+        &:focus {
+          color: $clr-dark-blue;
         }
+      }
     }
-    .custom-btn {
-        .arrow-icon {
-            font-size: 1.2rem;
-        }
+  }
+  .custom-btn {
+    .arrow-icon {
+      font-size: 1.2rem;
     }
+  }
 }
 
-[data-component="CustomerComponent"]{
-    .tableRow{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-        text-transform: capitalize;
-        padding: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: $clr-dark-blue;
-        background-color: $clr-gray200;
-        margin: 0.5rem 0rem;
+[data-component="CustomerComponent"] {
+  .view-icon {
+    cursor: pointer;
+    margin-right: 0.3rem;
+    color: $clr-dark-blue;
+    font-size: 1.2rem;
+  }
+  .tableRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $clr-dark-blue;
+    background-color: $clr-gray200;
+    margin: 0.5rem 0rem;
+  }
+  .tableCell {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    margin: 0.5rem 0rem;
+    border: 1.5px solid $clr-gray200;
+    color: $clr-table-content;
+    font-weight: 500;
+    .tableBody {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
     }
-    .tableCell{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-        text-transform: capitalize;
-        padding: 0.5rem;
-        font-size: 0.8rem;
-        margin: 0.5rem 0rem;
-        border: 1.5px solid $clr-gray200;
-        color:$clr-table-content;
-        font-weight: 500;
-        .tableBody{
-            display: flex;
-            flex-wrap: wrap;
-            align-content: center;
-            align-items: center;
-        }
+  }
+}
+
+[data-component="edit-customer"] {
+  .tab {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    color: $clr-label-name;
+    font-size: 1rem;
+    font-weight: 600;
+    border-bottom: 1.5px solid $clr-gray200;
+    margin-top: 1rem;
+    cursor: pointer;
+    .sub-tab {
+      padding: 0.5rem 2rem !important;
     }
+    .active-tab {
+      border-bottom: 2px solid $clr-dark-orange;
+      color: $clr-dark-blue;
+    }
+  }
+  .complete-address {
+    padding: 1rem;
+    padding-top: 0rem;
+
+    .name {
+      text-transform: capitalize;
+      color: $clr-dark-blue;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .address {
+      color: $clr-label-name;
+      font-size: 0.875rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .number {
+      color: $clr-label-name;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  .pagination {
+    width: calc(100% - 25px) !important;
+    bottom: 1%;
+  }
+  .scroll-table {
+    scroll-behavior: smooth;
+    overflow: scroll;
+    height: 75vh;
+  }
+}
+
+[page-component="category-page"] {
+  .custom-btn {
+    width: 100%;
+  }
+  .login-form .search-icon {
+    right: 11.5rem !important;
+  }
+  @media (max-width: 1500px) and (min-width: 1370px) {
+    .login-form .search-icon {
+      right: 13.5rem !important;
+    }
+  }
+  @media (max-width: 1370px) and (min-width: 1270px) {
+    .login-form .search-icon {
+      right: 12.5rem !important;
+    }
+  }
+  @media (max-width: 1270px) and (min-width: 1150px) {
+    .login-form .search-icon {
+      right: 11.5rem !important;
+    }
+  }
+  @media (max-width: 1660px) and (min-width: 1500px) {
+    .login-form .search-icon {
+      right: 14.5rem !important;
+    }
+  }
+  @media (max-width: 1800px) and (min-width: 1660px) {
+    .login-form .search-icon {
+      right: 15.5rem !important;
+    }
+  }
 }

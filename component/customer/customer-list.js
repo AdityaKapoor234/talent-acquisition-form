@@ -1,0 +1,73 @@
+import React, { Component } from "react";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import Router from "next/router";
+
+export default class CustomerList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      customer: props?.customer,
+    };
+  }
+
+  render() {
+    return (
+      <div data-component="CustomerComponent">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="tableRow">
+              <div className="col-2">Name</div>
+              <div className="col text-center">Type</div>
+              <div className="col-3 text-center">Email</div>
+              <div className="col text-center">Mobile No.</div>
+              <div className="col text-center">Reg. Date</div>
+              <div className="col-1 text-center">Active</div>
+              <div className="col-1 text-end">Action</div>
+            </div>
+          </div>
+        </div>
+        {this.state.customer?.map((p, index) => {
+          return (
+            <div className="row" key={index}>
+              <div className="col-md-12">
+                <div className="tableCell">
+                  <div className="tableBody col-2">{p?.name}</div>
+                  <div className="col text-center">{p?.type}</div>
+                  <div className="tableBody col-3 justify-content-center">
+                    {p?.email}
+                  </div>
+                  <div className="col text-center">{p?.phone_number}</div>
+                  <div className="col text-center">{p?.date}</div>
+                  <div className="col-1 text-center">
+                    {p?.active === true ? (
+                      <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                    ) : (
+                      <CancelOutlinedIcon className="cancel-icon" />
+                    )}
+                  </div>
+                  <div className="col-1 text-end">
+                    <RemoveRedEyeIcon
+                      className="view-icon"
+                      onClick={() => {
+                        Router.push(`/customer/${p?.id}/view`);
+                      }}
+                    />
+                    <EditOutlinedIcon
+                      className="edit-icon"
+                      onClick={() => {
+                        Router.push(`/customer/${p?.id}/edit`);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+}

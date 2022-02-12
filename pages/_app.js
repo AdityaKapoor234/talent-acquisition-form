@@ -4,6 +4,7 @@ import '../styles/dashboard-styles.scss';
 import "../styles/auth-styles.scss";
 import '../styles/component-styles.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import React from "react";
 import Head from 'next/head'

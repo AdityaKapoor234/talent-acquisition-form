@@ -98,7 +98,7 @@ export default class Login extends Component {
                 </div>
                 <div className="login-form">
                     <label>Password<span className="mandatory-star">*</span></label>
-                    <input type="text"  placeholder="Enter your password" 
+                    <input type="password"  placeholder="Enter your password" 
                          value={this.state.password}
                          onChange={(e) => {
                              this.setState({password: e.target.value})

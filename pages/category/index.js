@@ -156,10 +156,10 @@ export default function Category() {
               <div
                 className="custom-btn "
                 onClick={() => {
-                  Router.push(`/category`);
+                  Router.push(`/category/create`);
                 }}
               >
-                <span>Save </span>
+                <span>Add New </span>
               </div>
             </div>
           </div>

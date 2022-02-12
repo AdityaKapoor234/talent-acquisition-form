@@ -109,27 +109,6 @@
 }
 
 [data-component="edit-customer"] {
-  .tab {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    align-items: center;
-    text-transform: capitalize;
-    color: $clr-label-name;
-    font-size: 1rem;
-    font-weight: 600;
-    border-bottom: 1.5px solid $clr-gray200;
-    margin-top: 1rem;
-    cursor: pointer;
-    .sub-tab {
-      padding: 0.5rem 2rem !important;
-    }
-    .active-tab {
-      border-bottom: 2px solid $clr-dark-orange;
-      color: $clr-dark-blue;
-    }
-  }
   .complete-address {
     padding: 1rem;
     padding-top: 0rem;
@@ -199,4 +178,6 @@
       right: 15.5rem !important;
     }
   }
+}
+[ data-component="edit-category"]{
 }

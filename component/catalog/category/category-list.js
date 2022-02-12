@@ -23,6 +23,7 @@ export default class CategoryList extends Component {
               <div className="col text-center">Active</div>
               <div className="col text-center">Top Menu</div>
               <div className="col text-center">Display Order</div>
+              <div className="col-1 text-center">View</div>
               <div className="col-1 text-end">Edit</div>
             </div>
           </div>
@@ -48,11 +49,19 @@ export default class CategoryList extends Component {
                     )}
                   </div>
                   <div className="col text-center">{p?.display}</div>
+                  <div className="col-1 text-center">
+                    <RemoveRedEyeIcon
+                      className="edit-icon"
+                      onClick={() => {
+                        Router.push(`/category/${p?.id}/view`);
+                      }}
+                    />
+                  </div>
                   <div className="col-1 text-end">
                     <EditOutlinedIcon
                       className="edit-icon"
                       onClick={() => {
-                        Router.push(`/catogory/${p?.id}/edit`);
+                        Router.push(`/category/${p?.id}/edit`);
                       }}
                     />
                   </div>

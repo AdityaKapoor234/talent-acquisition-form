@@ -117,21 +117,21 @@ export default class CategoryCreate extends Component {
                         <Photo
                           mode={this.state.mode}
                           label={"Icon"}
-                          accept=".gif,.jpg,.jpeg,.png"
+                          accept=".jpg,.jpeg,.png"
                         />
                       </div>
                       <div className="mt-4">
                         <Photo
                           mode={this.state.mode}
                           label={"Full Banner image "}
-                          accept=".gif,.jpg,.jpeg,.png"
+                          accept=".jpg,.jpeg,.png"
                         />
                       </div>
                       <div className="mt-4">
                         <Photo
                           mode={this.state.mode}
                           label={"Short Banner image "}
-                          accept=".gif,.jpg,.jpeg,.png"
+                          accept=".jpg,.jpeg,.png"
                         />
                       </div>
                       <div className="signup-check mt-4">
@@ -232,21 +232,21 @@ export default class CategoryCreate extends Component {
                         <Photo
                           mode={this.state.mode}
                           label={"Icon"}
-                          accept=".gif,.jpg,.jpeg,.png"
+                          accept=".jpg,.jpeg,.png"
                         />
                       </div>
                       <div className="mt-4">
                         <Photo
                           mode={this.state.mode}
                           label={"Full Banner image "}
-                          accept=".gif,.jpg,.jpeg,.png"
+                          accept=".jpg,.jpeg,.png"
                         />
                       </div>
                       <div className="mt-4">
                         <Photo
                           mode={this.state.mode}
                           label={"Short Banner image "}
-                          accept=".gif,.jpg,.jpeg,.png"
+                          accept=".jpg,.jpeg,.png"
                         />
                       </div>
                       <div className="signup-check mt-4">

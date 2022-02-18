@@ -46,6 +46,18 @@ a {
   align-items: center;
   justify-content: space-between;
 }
+.custom-btn2 {
+  background-color: $clr-dark-orange;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.3rem 2.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .hamburger {
   color: $clr-dark-blue;
   text-transform: capitalize;

@@ -22,6 +22,10 @@ export default class BrandCreate extends Component {
             short_description: "",
             full_description: "",
             sort: "cat",
+            brand:props?.brand,
+            name:props?.brand?.name?props.brand?.name:"",
+            display: props?.brand?.display?props.brand?.display:"",
+            id:props?.brand?.id?props.brand?.id:"",
         };
     }
     handleChange = (event) => {
@@ -33,6 +37,10 @@ export default class BrandCreate extends Component {
     handleFullContent(value) {
         console.log("value.js", value);
     }
+    handleFullContent(value) {
+        console.log("value.js", value);
+    } 
+    
 
     render() {
         return (
@@ -64,7 +72,7 @@ export default class BrandCreate extends Component {
                                                 <label>
                                                     Name<span className="mandatory-star">*</span>
                                                 </label>
-                                                <input type="text" value={this.state.customer?.name} />
+                                                <input type="text" value={this.state.name} onChange={(event)=>{this.setState({name:event.target.value})}}/>
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +84,8 @@ export default class BrandCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={this.state.customer?.display}
+                                                    value={this.state.display}
+                                                    onChange={(event) => { this.setState({ display: event.target.value }) }}
                                                 />
                                             </div>
                                         </div>
@@ -93,7 +102,7 @@ export default class BrandCreate extends Component {
                                                 <label>
                                                     Name<span className="mandatory-star">*</span>
                                                 </label>
-                                                <input type="text" value={this.state.customer?.name} />
+                                                <input type="text" value={this.state.brand?.name} />
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +114,7 @@ export default class BrandCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={this.state.customer?.display}
+                                                    value={this.state.brand?.display}
                                                 />
                                             </div>
                                         </div>

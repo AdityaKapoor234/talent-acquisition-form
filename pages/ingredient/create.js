@@ -22,7 +22,7 @@ export default function IngredientCreate() {
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Category</title>
+                <title>{APP_NAME} - Incredient</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>

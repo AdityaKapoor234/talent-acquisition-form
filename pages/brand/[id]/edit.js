@@ -11,7 +11,6 @@ const brand ={
     id:"1",
     display:"0",
     name:"JYM Supplement Science"
-
 }
 
 export default function BrandEditDetails() {
@@ -27,7 +26,7 @@ export default function BrandEditDetails() {
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Category</title>
+                <title>{APP_NAME} - Brand</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -70,7 +69,7 @@ export default function BrandEditDetails() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <BrandCreateComponent customer={brand} mode={mode} />
+                            <BrandCreateComponent brand={brand} mode={mode} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

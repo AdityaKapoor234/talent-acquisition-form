@@ -7,12 +7,6 @@ import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/d
 import BrandCreateComponent from "../../component/catalog/brand/brand-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
-const brand = {
-    id: "1",
-    display: "0",
-    name: "JYM Supplement Science"
-};
-
 
 export default function BrandCreate() {
 
@@ -27,7 +21,7 @@ export default function BrandCreate() {
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Category</title>
+                <title>{APP_NAME} - Brand</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -62,7 +56,7 @@ export default function BrandCreate() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <BrandCreateComponent customer={brand} mode={mode} />
+                            <BrandCreateComponent  mode={mode} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

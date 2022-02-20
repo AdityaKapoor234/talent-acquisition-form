@@ -84,7 +84,7 @@ export default function Brand() {
     return (
         <div page-component="category-page">
             <Head>
-                <title>{APP_NAME} - Category</title>
+                <title>{APP_NAME} - Brand</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>

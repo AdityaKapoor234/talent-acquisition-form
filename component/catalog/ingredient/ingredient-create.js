@@ -11,7 +11,7 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
 
-export default class CategoryCreate extends Component {
+export default class IngredientCreate extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,6 +22,10 @@ export default class CategoryCreate extends Component {
             short_description: "",
             full_description: "",
             sort: "cat",
+            ingredient:props?.ingredient,
+            name:props?.ingredient?.name?props.ingredient?.name:"",
+            display:props?.ingredient?.display?props.ingredient?.display:"",
+            id:props?.ingredient?.id?props.ingredient?.id:"",
         };
     }
     handleChange = (event) => {
@@ -64,7 +68,7 @@ export default class CategoryCreate extends Component {
                                                 <label>
                                                     Name<span className="mandatory-star">*</span>
                                                 </label>
-                                                <input type="text" value={this.state.customer?.name} />
+                                                <input type="text" value={this.state.name} onChange={(event) => { this.setState({ name: event.target.value }) }}/>
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +80,7 @@ export default class CategoryCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={this.state.customer?.phone_number}
+                                                    value={this.state.display} onChange={(event) => { this.setState({ display: event.target.value }) }}
                                                 />
                                             </div>
                                         </div>
@@ -93,7 +97,7 @@ export default class CategoryCreate extends Component {
                                                 <label>
                                                     Name<span className="mandatory-star">*</span>
                                                 </label>
-                                                <input type="text" value={this.state.customer?.name} />
+                                                <input type="text" value={this.state.ingredient?.name} />
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +109,7 @@ export default class CategoryCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={this.state.customer?.phone_number}
+                                                    value={this.state.ingredient?.display}
                                                 />
                                             </div>
                                         </div>

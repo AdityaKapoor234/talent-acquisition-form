@@ -9,13 +9,14 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 
 const brand={
+    id: "1",
+    display: "0",
     name:"JYM Supplement Science",
-    display:"0",
-    id:"1"
+    
 };
 
 
-export default function CategoryViewDetails() {
+export default function BrandViewDetails() {
 
     const mode = "view";
 
@@ -28,7 +29,7 @@ export default function CategoryViewDetails() {
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Category</title>
+                <title>{APP_NAME} - Brand</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -63,7 +64,7 @@ export default function CategoryViewDetails() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <BrandCreateComponent customer={brand} mode={mode} />
+                            <BrandCreateComponent brand={brand} mode={mode} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

@@ -8,6 +8,11 @@ import IngredientCreateComponent from "../../../component/catalog/ingredient/ing
 import Router from "next/router";
 import Cookie from "js-cookie";
 
+const ingredient = {
+  id: "1",
+  display: "0",
+  name: "BCCA"
+};
 
 export default function IngredientEditDetails() {
 
@@ -22,7 +27,7 @@ export default function IngredientEditDetails() {
   return (
     <div>
       <Head>
-        <title>{APP_NAME} - Category</title>
+        <title>{APP_NAME} - Incredient</title>
         <meta name="description" content="Trusted Brands. Better Health." />
         <link rel="icon" href="/fitcart.ico" />
       </Head>
@@ -65,7 +70,7 @@ export default function IngredientEditDetails() {
           </div>
           <div className="row">
             <div className="col-m-12">
-                          <IngredientCreateComponent mode={mode}/>
+              <IngredientCreateComponent ingredient={ingredient} mode={mode}/>
             </div>
           </div>
         </DashboardLayoutComponent>

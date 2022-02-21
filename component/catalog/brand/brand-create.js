@@ -11,7 +11,7 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
 
-export default class IngredientCreate extends Component {
+export default class BrandCreate extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,16 +22,17 @@ export default class IngredientCreate extends Component {
             short_description: "",
             full_description: "",
             sort: "cat",
-            ingredient:props?.ingredient,
-            name:props?.ingredient?.name?props.ingredient?.name:"",
-            display:props?.ingredient?.display?props.ingredient?.display:"",
-            id:props?.ingredient?.id?props.ingredient?.id:"",
+            brand:props?.brand,
+            name:props?.brand?.name?props.brand?.name:"",
+            display: props?.brand?.display?props.brand?.display:"",
+            id:props?.brand?.id?props.brand?.id:"",
         };
     }
     handleChange = (event) => {
         this.setState({ sort: event.target.value });
     };
     
+
     render() {
         return (
             <div data-component="edit-category">
@@ -46,7 +47,7 @@ export default class IngredientCreate extends Component {
                                     this.setState({ tab: 1 });
                                 }}
                             >
-                                Ingredient Info
+                                Brand Info
                             </div>
                         </div>
                     </div>
@@ -62,7 +63,7 @@ export default class IngredientCreate extends Component {
                                                 <label>
                                                     Name<span className="mandatory-star">*</span>
                                                 </label>
-                                                <input type="text" value={this.state.name} onChange={(event) => { this.setState({ name: event.target.value }) }}/>
+                                                <input type="text" value={this.state.name} onChange={(event)=>{this.setState({name:event.target.value})}}/>
                                             </div>
                                         </div>
                                     </div>
@@ -74,7 +75,8 @@ export default class IngredientCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={this.state.display} onChange={(event) => { this.setState({ display: event.target.value }) }}
+                                                    value={this.state.display}
+                                                    onChange={(event) => { this.setState({ display: event.target.value }) }}
                                                 />
                                             </div>
                                         </div>
@@ -91,7 +93,7 @@ export default class IngredientCreate extends Component {
                                                 <label>
                                                     Name<span className="mandatory-star">*</span>
                                                 </label>
-                                                <input type="text" value={this.state.ingredient?.name} />
+                                                <input type="text" value={this.state.brand?.name} />
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +105,7 @@ export default class IngredientCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={this.state.ingredient?.display}
+                                                    value={this.state.brand?.display}
                                                 />
                                             </div>
                                         </div>

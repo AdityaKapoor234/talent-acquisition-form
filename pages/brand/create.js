@@ -2,21 +2,15 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { APP_NAME } from "../../../utils/constant";
-import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import IngredientCreateComponent from "../../../component/catalog/ingredient/ingredient-create";
+import { APP_NAME } from "../../utils/constant";
+import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
+import BrandCreateComponent from "../../component/catalog/brand/brand-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
 
-const ingredient={
-    id: "1",
-    display: "0",
-    name:"BCCA"   
-};
+export default function BrandCreate() {
 
-export default function IngredientViewDetails() {
-
-    const mode = "view";
+    const mode = "edit";
 
     useEffect(() => {
         const token = Cookie.get("access_token");
@@ -27,7 +21,7 @@ export default function IngredientViewDetails() {
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Ingredient</title>
+                <title>{APP_NAME} - Brand</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -37,23 +31,23 @@ export default function IngredientViewDetails() {
                     <div className="row border-box">
                         <div className="col-md-5">
                             <div className="hamburger">
-                                <span>Catalog / Ingredient/ </span>View Ingredient
+                                <span>Catalog / Brand / </span>Add A New Brand 
                             </div>
-                            <div className="page-name">Ingredient Details - BCCA</div>
+                            <div className="page-name">Add A New Brand </div>
                         </div>
                         <div className="col-md-7 btn-save">
                             <div
-                                className="Cancel-btn custom-btn"
+                                className="custom-btn "
                                 onClick={() => {
-                                    Router.push(`/ingredient`);
+                                    Router.push(`/brand`);
                                 }}
                             >
-                                <span>Delete </span>
+                                <span>Save </span>
                             </div>
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
-                                    Router.push(`/ingredient`);
+                                    Router.push(`/brand`);
                                 }}
                             >
                                 <span>Cancel </span>
@@ -62,7 +56,7 @@ export default function IngredientViewDetails() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <IngredientCreateComponent ingredient={ingredient} mode={mode} />
+                            <BrandCreateComponent  mode={mode} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

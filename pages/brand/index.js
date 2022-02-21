@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import IngredientList from "../../component/catalog/ingredient/ingredient-list";
+import BrandList from "../../component/catalog/brand/brand-list";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -13,68 +13,68 @@ import SearchIcon from "@mui/icons-material/Search";
 const customer = [
     {
         id: 1,
-        name: "BCCA",
+        name: "JYM Supplement Science",
+        display: "0",
+        active: false,
+    },
+    {
+        id: 2,
+        name: "Kinetica Sports",
+        display: "3",
+        active: true,
+    },
+    {
+        id: 3,
+        name: "Science in Sports",
+        display: "5",
+        active: true,
+    },
+    {
+        id: 1,
+        name: "Musashi Nutrition",
+        display: "16",
+        active: true,
+    },
+    {
+        id: 2,
+        name: "BodyScience",
+        display: "2",
+        active: false,
+    },
+    {
+        id: 3,
+        name: "Endurox",
+        display: "0",
+        active: false,
+    },
+    {
+        id: 1,
+        name: "Accelerade",
         display: "0",
         active: true,
     },
     {
         id: 2,
-        name: "Beta Aline",
+        name: "Endurox",
         display: "0",
-        active: true,
+        active: false,
     },
     {
         id: 3,
-        name: "Caffine",
+        name: "Accelerade",
         display: "0",
         active: true,
     },
     {
         id: 1,
-        name: "Carbohydrate",
+        name: "Endurox",
         display: "0",
-        active: true,
-    },
-    {
-        id: 2,
-        name: "Citrulline Malate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 3,
-        name: "Conjugated Linoleic Acid (CLA)",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 1,
-        name: "Conjugated Linoleic Acid(CLA)",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 2,
-        name: "Carbohydrate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 3,
-        name: "Carbohydrate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 1,
-        name: "Creatine",
-        display: "0",
-        active: true,
+        active: false,
     },
 
 ];
 
-export default function Ingredient() {
+export default function Brand() {
     useEffect(() => {
         const token = Cookie.get("access_token");
         if (token === undefined) {
@@ -84,7 +84,7 @@ export default function Ingredient() {
     return (
         <div page-component="category-page">
             <Head>
-                <title>{APP_NAME} - Ingredient</title>
+                <title>{APP_NAME} - Brand</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -94,9 +94,9 @@ export default function Ingredient() {
                     <div className="row border-box">
                         <div className="col-md-6">
                             <div className="hamburger">
-                                <span>Catalog / </span>Ingredient
+                                <span>Catalog / </span>Brand
                             </div>
-                            <div className="page-name">Ingredients</div>
+                            <div className="page-name">Brand</div>
                         </div>
                         <div className="col-md-4">
                             <div className="login-form ">
@@ -112,7 +112,7 @@ export default function Ingredient() {
                             <div
                                 className="custom-btn "
                                 onClick={() => {
-                                    Router.push(`/ingredient/create`);
+                                    Router.push(`/brand/create`);
                                 }}
                             >
                                 <span>Add New </span>
@@ -121,7 +121,7 @@ export default function Ingredient() {
                     </div>
                     <div className="row sticky-scroll scroll">
                         <div className="col-md-12 ">
-                            <IngredientList customer={customer} />
+                            <BrandList customer={customer} />
                         </div>
                     </div>
                     <div className="row">

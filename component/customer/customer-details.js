@@ -80,7 +80,7 @@ export default class CustomerDetails extends Component {
                     />
                   </div>
                   <div className="signup-check">
-                    <Checkbox
+                    <Checkbox                                                                             
                       size="small"
                       style={{ color: "#012169" }}
                       checked={this.state.active}

@@ -31,13 +31,7 @@ export default class IngredientCreate extends Component {
     handleChange = (event) => {
         this.setState({ sort: event.target.value });
     };
-    handleContent(value) {
-        console.log("value.js", value);
-    }
-    handleFullContent(value) {
-        console.log("value.js", value);
-    }
-
+    
     render() {
         return (
             <div data-component="edit-category">

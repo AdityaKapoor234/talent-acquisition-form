@@ -9,7 +9,7 @@ import Cookie from "js-cookie";
 
 export default function Dashboard() {
   useEffect(() => {
-    const token = Cookie.get("access_token");
+    const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }

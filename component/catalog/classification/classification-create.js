@@ -125,7 +125,7 @@ export default class ClassificationCreate extends Component {
                                                     <label>
                                                         Type<span className="mandatory-star">*</span>
                                                     </label>
-                                                    <input type="text" readonly="readonly" value={this.state.type} />
+                                                    <input type="text" readOnly={true} value={this.state.type} />
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +135,7 @@ export default class ClassificationCreate extends Component {
                                                     <label>
                                                         Name<span className="mandatory-star">*</span>
                                                     </label>
-                                                    <input type="text" readonly="readonly" value={this.state.name} />
+                                                    <input type="text" readOnly={true} value={this.state.name} />
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@ export default class ClassificationCreate extends Component {
                                                     <label>
                                                         Display Order<span className="mandatory-star">*</span>
                                                     </label>
-                                                    <input type="number" readonly="readonly" value={this.state.display} />
+                                                    <input type="number" readOnly={true} value={this.state.display} />
                                                 </div>
                                             </div>
                                         </div>

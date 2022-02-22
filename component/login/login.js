@@ -69,7 +69,7 @@ export default class Login extends Component {
                 if(response?.data?.httpStatusCode === 200){
                     let data = response.data.data
                     toast.success(response?.data?.message)
-                    Cookies.set("access_token", data?.access_token)
+                    Cookies.set("access_token_admin", data?.access_token)
                     Router.push('/dashboard')
                 }
             }).catch(error => {

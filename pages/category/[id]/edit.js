@@ -21,7 +21,7 @@ export default function CategoryEditDetails() {
   const mode = "edit";
 
   useEffect(() => {
-    const token = Cookie.get("access_token");
+    const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }

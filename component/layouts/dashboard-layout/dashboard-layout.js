@@ -42,7 +42,7 @@ export default function DashboardLayoutComponent({children}) {
         setCategary("")
     }
     const handleLogout=()=>{
-        Cookies.remove("access_token")
+        Cookies.remove("access_token_admin")
         Router.push("/")
     }
 
@@ -134,7 +134,7 @@ export default function DashboardLayoutComponent({children}) {
                                     {tabCustomer &&
                                         <ul>
                                             <li className={categary=== "customer" ? "sub_active":""} onClick={()=> handleCategary("/customer","customer")}>customer</li>
-                                            <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li>
+                                            {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
                                         </ul>
                                     }
                                     

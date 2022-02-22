@@ -107,7 +107,7 @@ export default class ProductCreate extends Component {
                                                     <label>
                                                         Product Type<span className="mandatory-star">*</span>
                                                     </label>
-                                                    <input type="text" readonly="readonly" value={this.state.type} onChange={(event) => { this.setState({ type: event.target.value }) }}/>
+                                                    <input type="text" readOnly={true} value={this.state.type} onChange={(event) => { this.setState({ type: event.target.value }) }}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@ export default class ProductCreate extends Component {
                                                     <label>
                                                         Name<span className="mandatory-star">*</span>
                                                     </label>
-                                                    <input type="text" readonly="readonly" value={this.state.name} />
+                                                    <input type="text" readOnly={true} value={this.state.name} />
                                                 </div>
                                             </div>
                                         </div>                             

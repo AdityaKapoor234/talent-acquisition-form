@@ -11,134 +11,134 @@ import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
 
 const customer = [
-    {
-        id: 1,
-        name: "BCCA",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 2,
-        name: "Beta Aline",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 3,
-        name: "Caffine",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 1,
-        name: "Carbohydrate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 2,
-        name: "Citrulline Malate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 3,
-        name: "Conjugated Linoleic Acid (CLA)",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 1,
-        name: "Conjugated Linoleic Acid(CLA)",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 2,
-        name: "Carbohydrate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 3,
-        name: "Carbohydrate",
-        display: "0",
-        active: true,
-    },
-    {
-        id: 1,
-        name: "Creatine",
-        display: "0",
-        active: true,
-    },
-
+  {
+    id: 1,
+    name: "BCCA",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 2,
+    name: "Beta Aline",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 3,
+    name: "Caffine",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 1,
+    name: "Carbohydrate",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 2,
+    name: "Citrulline Malate",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 3,
+    name: "Conjugated Linoleic Acid (CLA)",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 1,
+    name: "Conjugated Linoleic Acid(CLA)",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 2,
+    name: "Carbohydrate",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 3,
+    name: "Carbohydrate",
+    display: "0",
+    active: true,
+  },
+  {
+    id: 1,
+    name: "Creatine",
+    display: "0",
+    active: true,
+  },
 ];
 
 export default function Ingredient() {
-    useEffect(() => {
-        const token = Cookie.get("access_token");
-        if (token === undefined) {
-            Router.push("/");
-        }
-    }, []);
-    return (
-        <div page-component="category-page">
-            <Head>
-                <title>{APP_NAME} - Ingredient</title>
-                <meta name="description" content="Trusted Brands. Better Health." />
-                <link rel="icon" href="/fitcart.ico" />
-            </Head>
+  useEffect(() => {
+    const token = Cookie.get("access_token_admin");
+    if (token === undefined) {
+      Router.push("/");
+    }
+  }, []);
+  return (
+    <div page-component="category-page">
+      <Head>
+        <title>{APP_NAME} - Ingredient</title>
+        <meta name="description" content="Trusted Brands. Better Health." />
+        <link rel="icon" href="/fitcart.ico" />
+      </Head>
 
-            <main>
-                <DashboardLayoutComponent>
-                    <div className="row border-box">
-                        <div className="col-md-6">
-                            <div className="hamburger">
-                                <span>Catalog / </span>Ingredient
-                            </div>
-                            <div className="page-name">Ingredients</div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="login-form ">
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    className="search-box"
-                                />
-                                <SearchIcon className="search-icon" />
-                            </div>
-                        </div>
-                        <div className="col-md-2 btn-save">
-                            <div
-                                className="custom-btn "
-                                onClick={() => {
-                                    Router.push(`/ingredient/create`);
-                                }}
-                            >
-                                <span>Add New </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row sticky-scroll scroll">
-                        <div className="col-md-12 ">
-                            <IngredientList customer={customer} />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="pagination">
-                                <Pagination
-                                    count={10}
-                                    showFirstButton
-                                    showLastButton
-                                    size="small"
-                                    color="primary"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </DashboardLayoutComponent>
-            </main>
-        </div>
-    );
+      <main>
+        <DashboardLayoutComponent>
+          <div className="row border-box">
+            <div className="col-md-6">
+              <div className="hamburger">
+                <span>Catalog / </span>Ingredient
+              </div>
+              <div className="page-name">Ingredients</div>
+            </div>
+            <div className="col-md-4">
+              <div className="login-form ">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="search-box"
+                />
+                <SearchIcon className="search-icon" />
+              </div>
+            </div>
+            <div className="col-md-2 btn-save">
+              <div
+                className="custom-btn "
+                onClick={() => {
+                  Router.push(`/ingredient/create`);
+                }}
+              >
+                <span>Add New </span>
+              </div>
+            </div>
+          </div>
+          <div className="row sticky-scroll scroll">
+            <div className="col-md-12 ">
+              <IngredientList customer={customer} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="pagiantion-category">
+                <Pagination
+                  count={10}
+                  className="pagination"
+                  showFirstButton
+                  showLastButton
+                  size="small"
+                  color="primary"
+                />
+              </div>
+            </div>
+          </div>
+        </DashboardLayoutComponent>
+      </main>
+    </div>
+  );
 }

@@ -173,7 +173,7 @@ a {
   display: flex;
   text-align: end;
   align-items: flex-start;
-  justify-content: end;
+  justify-content: flex-end;
   .custom-btn {
     width: 20%;
     justify-content: center;
@@ -313,5 +313,58 @@ a {
   }
   input{
     display: none;
+  }
+}
+.error-message{
+  display: flex;
+  justify-content: center;
+  text-transform: capitalize;
+  color: $clr-dark-blue;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.pagiantion-category {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  .MuiPagination-root {
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      color: $clr-dark-blue;
+      li {
+        button:not(.Mui-selected) {
+          background-color: "transparent";
+          color: $clr-dark-blue;
+        }
+        .Mui-selected {
+          background-color: white;
+          color: $clr-dark-blue;
+          border-radius: 50%;
+          border: 1.5px solid $clr-dark-blue !important;
+        }
+        &:first-child {
+          flex-basis: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          > button::after {
+            margin-left: 10px;
+            content: "Previous";
+          }
+        }
+        &:last-child {
+          flex-basis: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          > button::before {
+            margin-right: 10px;
+            content: "Next";
+          }
+        }
+      }
+    }
   }
 }

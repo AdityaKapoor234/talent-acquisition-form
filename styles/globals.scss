@@ -141,6 +141,20 @@ a {
     top: 20px;
     color: $clr-dark-blue;
   }
+
+  textarea {
+    border: 1.5px solid $clr-gray200;
+    width: 100%;
+    padding: 10px;
+    color: $clr-label-name;
+  }
+  textarea::placeholder {
+    color: $clr-label-name;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
 }
 .signup-check {
   display: flex;
@@ -275,7 +289,7 @@ a {
       background-position: center !important;
       background-repeat: no-repeat !important;
       background-size: cover !important;
-      background-color: $clr-label-name !important;
+      // background-color: $clr-label-name !important;
       .image-icon {
         font-size: 3rem;
         margin-bottom: 1rem;

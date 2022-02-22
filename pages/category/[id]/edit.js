@@ -8,6 +8,13 @@ import CategoryCreateComponent from "../../../component/catalog/category/categor
 import Router from "next/router";
 import Cookie from "js-cookie";
 
+const customer = {
+  id: 1,
+  name: "Accessories",
+  top: false,
+  display: "9",
+  active: true,
+};
 
 export default function CategoryEditDetails() {
 
@@ -65,7 +72,7 @@ export default function CategoryEditDetails() {
           </div>
           <div className="row">
             <div className="col-m-12">
-                <CategoryCreateComponent mode={mode}/>
+                <CategoryCreateComponent mode={mode} customer={customer}/>
             </div>
           </div>
         </DashboardLayoutComponent>

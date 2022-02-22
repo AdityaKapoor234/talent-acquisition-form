@@ -12,282 +12,292 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
 
 export default class CategoryCreate extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false,
-      tab: 1,
-      customer: props?.customer,
-      mode: props?.mode,
-      short_description: "",
-      full_description: "",
-      sort: "cat",
-    };
-  }
-  handleChange = (event) => {
-    this.setState({ sort: event.target.value });
-  };
-  handleContent(value) {
-    console.log("value.js", value);
-  }
-  handleFullContent(value) {
-    console.log("value.js", value);
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			active: false,
+			active2: true,
+			tab: 1,
+			customer: props?.customer,
+			mode: props?.mode,
+			short_description: "hello",
+			full_description: "how are you",
+			sort: "cat",
+			icon: "/images/login.png",
+			
+			
+			name: props?.customer?.name ? props.customer?.name : "",
+			// top: props?.customer?.type ? props.customer?.top : "",
+			display: props?.customer?.display ? props.customer?.display : "0",
+		};
+	}
+	handleChange = (event) => {
+		this.setState({ sort: event.target.value });
+	};
+	handleContent(value) {
+		console.log("value.js", value);
+	}
+	handleFullContent(value) {
+		console.log("value.js", value);
+	}
 
-  render() {
-    return (
-      <div data-component="edit-category">
-        <div className="row ">
-          <div className="col-md-12">
-            <div className="tab">
-              <div
-                className={
-                  this.state.tab === 1 ? `sub-tab active-tab` : "sub-tab"
-                }
-                onClick={() => {
-                  this.setState({ tab: 1 });
-                }}
-              >
-                Category info
-              </div>
-            </div>
-          </div>
-        </div>
-        {this.state.tab === 1 && (
-          <>
-            {this.state.mode === "edit" && (
-              <div className="row sticky-scroll scroll">
-                <div className="col">
-                  <div className="row mt-4">
-                    <div className="col-md-4">
-                      <div className="login-form ">
-                        <label>
-                          Name<span className="mandatory-star">*</span>
-                        </label>
-                        <input type="text" value={this.state.customer?.name} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-md-12">
-                      <div className="editor">
-                        <label>Short Description</label>
-                        <ArticleEditor
-                          handleContent={this.handleContent.bind()}
-                        />
-                      </div>
-                      <div className="editor mt-2">
-                        <label>Full Description</label>
-                        <ArticleEditor
-                          handleContent={this.handleFullContent.bind()}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-md-4">
-                      <div className="sort">
-                        <label>Parent Category</label>
-                        <div className="sort-by-select-wrapper">
-                          <Select
-                            disableUnderline
-                            variant="standard"
-                            autoWidth={true}
-                            IconComponent={ExpandMoreIcon}
-                            name="sort"
-                            onChange={this.handleChange}
-                            className="sort-by-select"
-                            value={this.state.sort}
-                          >
-                            <MenuItem
-                              value={"cat"}
-                              disabled
-                              className="field_toggle_checked"
-                            >
-                              Select Category{" "}
-                            </MenuItem>
-                            <MenuItem value={"vitamin"}>Vitamin</MenuItem>
-                            <MenuItem value={"food"}>Food & Drinks</MenuItem>
-                            <MenuItem value={"protein"}>Protiens</MenuItem>
-                            <MenuItem value={"wellness"}>wellness</MenuItem>
-                          </Select>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <Photo
-                          mode={this.state.mode}
-                          label={"Icon"}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </div>
-                      <div className="mt-4">
-                        <Photo
-                          mode={this.state.mode}
-                          label={"Full Banner image "}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </div>
-                      <div className="mt-4">
-                        <Photo
-                          mode={this.state.mode}
-                          label={"Short Banner image "}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </div>
-                      <div className="signup-check mt-4">
-                        <Checkbox
-                          size="small"
-                          style={{ color: "#012169" }}
-                          checked={this.state.active}
-                          onChange={(e) => {
-                            this.setState({ active: e.target.checked });
-                          }}
-                        />
-                        <label>Show on Main Menu</label>
-                      </div>
-                      <div className="signup-check">
-                        <Checkbox
-                          size="small"
-                          style={{ color: "#012169" }}
-                          checked={this.state.active}
-                          onChange={(e) => {
-                            this.setState({ active: e.target.checked });
-                          }}
-                        />
-                        <label>Include in Top Menu </label>
-                      </div>
-                      <div className="login-form ">
-                        <label>
-                          Display Order<span className="mandatory-star">*</span>
-                        </label>
-                        <input
-                          type="number"
-                          value={this.state.customer?.phone_number}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {this.state.mode === "view" && (
-              <div className="row sticky-scroll scroll">
-                <div className="col">
-                  <div className="row mt-4">
-                    <div className="col-md-4">
-                      <div className="login-form ">
-                        <label>
-                          Name<span className="mandatory-star">*</span>
-                        </label>
-                        <input type="text" value={this.state.customer?.name} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-md-12">
-                      <div className="editor">
-                        <label>Short Description</label>
-                        <ArticleEditor
-                          handleContent={this.handleContent.bind()}
-                        />
-                      </div>
-                      <div className="editor mt-2">
-                        <label>Full Description</label>
-                        <ArticleEditor
-                          handleContent={this.handleFullContent.bind()}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-md-4">
-                      <div className="sort">
-                        <label>Parent Category</label>
-                        <div className="sort-by-select-wrapper">
-                          <Select
-                            disableUnderline
-                            variant="standard"
-                            autoWidth={true}
-                            IconComponent={ExpandMoreIcon}
-                            name="sort"
-                            onChange={this.handleChange}
-                            className="sort-by-select"
-                            value={this.state.sort}
-                          >
-                            <MenuItem
-                              value={"cat"}
-                              disabled
-                              className="field_toggle_checked"
-                            >
-                              Select Category{" "}
-                            </MenuItem>
-                            <MenuItem value={"vitamin"}>Vitamin</MenuItem>
-                            <MenuItem value={"food"}>Food & Drinks</MenuItem>
-                            <MenuItem value={"protein"}>Protiens</MenuItem>
-                            <MenuItem value={"wellness"}>wellness</MenuItem>
-                          </Select>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <Photo
-                          mode={this.state.mode}
-                          label={"Icon"}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </div>
-                      <div className="mt-4">
-                        <Photo
-                          mode={this.state.mode}
-                          label={"Full Banner image "}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </div>
-                      <div className="mt-4">
-                        <Photo
-                          mode={this.state.mode}
-                          label={"Short Banner image "}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </div>
-                      <div className="signup-check mt-4">
-                        <Checkbox
-                          size="small"
-                          style={{ color: "#012169" }}
-                          checked={this.state.active}
-                          onChange={(e) => {
-                            this.setState({ active: e.target.checked });
-                          }}
-                        />
-                        <label>Show on Main Menu</label>
-                      </div>
-                      <div className="signup-check">
-                        <Checkbox
-                          size="small"
-                          style={{ color: "#012169" }}
-                          checked={this.state.active}
-                          onChange={(e) => {
-                            this.setState({ active: e.target.checked });
-                          }}
-                        />
-                        <label>Include in Top Menu </label>
-                      </div>
-                      <div className="login-form ">
-                        <label>
-                          Display Order<span className="mandatory-star">*</span>
-                        </label>
-                        <input
-                          type="number"
-                          value={this.state.customer?.phone_number}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div data-component="edit-category">
+				<div className="row ">
+					<div className="col-md-12">
+						<div className="tab">
+							<div
+								className={
+									this.state.tab === 1 ? `sub-tab active-tab` : "sub-tab"
+								}
+								onClick={() => {
+									this.setState({ tab: 1 });
+								}}
+							>
+								Category info
+							</div>
+						</div>
+					</div>
+				</div>
+				{this.state.tab === 1 && (
+					<>
+						{this.state.mode === "edit" && (
+							<div className="row sticky-scroll scroll">
+								<div className="col">
+									<div className="row mt-4">
+										<div className="col-md-4">
+											<div className="login-form ">
+												<label>
+													Name<span className="mandatory-star">*</span>
+												</label>
+												<input type="text" value={this.state.name} onChange={(event)=>{this.setState({name:event.target.value})}} />
+											</div>
+										</div>
+									</div>
+									<div className="row mt-2">
+										<div className="col-md-12">
+											<div className="editor">
+												<label>Short Description</label>
+												<ArticleEditor
+													handleContent={this.handleContent.bind()}
+												/>
+											</div>
+											<div className="editor mt-2">
+												<label>Full Description</label>
+												<ArticleEditor
+													handleContent={this.handleFullContent.bind()}
+												/>
+											</div>
+										</div>
+									</div>
+									<div className="row mt-2">
+										<div className="col-md-4">
+											<div className="sort">
+												<label>Parent Category</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="sort"
+														onChange={this.handleChange}
+														className="sort-by-select"
+														value={this.state.sort}
+													>
+														<MenuItem
+															value={"cat"}
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Category{" "}
+														</MenuItem>
+														<MenuItem value={"vitamin"}>Vitamin</MenuItem>
+														<MenuItem value={"food"}>Food & Drinks</MenuItem>
+														<MenuItem value={"protein"}>Protiens</MenuItem>
+														<MenuItem value={"wellness"}>wellness</MenuItem>
+													</Select>
+												</div>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Icon"}
+													accept=".jpg,.jpeg,.png"
+												/>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Full Banner image "}
+													accept=".jpg,.jpeg,.png"
+												/>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Short Banner image "}
+													accept=".jpg,.jpeg,.png"
+												/>
+											</div>
+											<div className="signup-check mt-4">
+												<Checkbox
+													size="small"
+													style={{ color: "#012169" }}
+													checked={this.state.active}
+													onChange={(e) => {
+														this.setState({ active: e.target.checked });
+													}}
+												/>
+												<label>Show on Main Menu</label>
+											</div>
+											<div className="signup-check">
+												<Checkbox
+													size="small"
+													style={{ color: "#012169" }}
+													checked={this.state.active2}
+													onChange={(e) => {
+														this.setState({ active2: e.target.checked });
+													}}
+												/>
+												<label>Include in Top Menu </label>
+											</div>
+											<div className="login-form ">
+												<label>
+													Display Order<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="number"
+													value={this.state.display} onChange={(event)=>{this.setState({display:event.target.value})}}
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
+						{this.state.mode === "view" && (
+							<div className="row sticky-scroll scroll">
+								<div className="col">
+									<div className="row mt-4">
+										<div className="col-md-4">
+											<div className="login-form ">
+												<label>
+													Name<span className="mandatory-star">*</span>
+												</label>
+												<input type="text" readonly="readonly" value={this.state.name} />
+											</div>
+										</div>
+									</div>
+									<div className="row mt-2">
+										<div className="col-md-12">
+											<div className="login-form">
+												<label forHTML="sd">Short Description</label>
+												{/* <ArticleEditor
+													handleContent={this.handleContent.bind()}
+												/> */}<br/>
+												<textarea name="" id="" cols="100" rows="5" value={this.state.short_description} ></textarea>
+											</div>
+											<div className="login-form mt-2">
+												<label>Full Description</label>
+												{/* <ArticleEditor
+													handleContent={this.handleFullContent.bind()}
+												/> */}<br/>
+												<textarea name="" id="" cols="100" rows="5" value={this.state.full_description} ></textarea>
+											</div>
+										</div>
+									</div>
+									<div className="row mt-2">
+										<div className="col-md-4">
+											<div className="sort">
+												<label>Parent Category</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="sort"
+														onChange={this.handleChange}
+														className="sort-by-select"
+														value={this.state.sort}
+													>
+														<MenuItem
+															value={"cat"}
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Category{" "}
+														</MenuItem>
+														<MenuItem value={"vitamin"}>Vitamin</MenuItem>
+														<MenuItem value={"food"}>Food & Drinks</MenuItem>
+														<MenuItem value={"protein"}>Protiens</MenuItem>
+														<MenuItem value={"wellness"}>wellness</MenuItem>
+													</Select>
+												</div>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Icon"}
+													accept=".jpg,.jpeg,.png"
+												/>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Full Banner image "}
+													accept=".jpg,.jpeg,.png"
+												/>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Short Banner image "}
+													accept=".jpg,.jpeg,.png"
+												/>
+											</div>
+											<div className="signup-check mt-4">
+												<Checkbox
+													size="small"
+													style={{ color: "#012169" }}
+													checked={this.state.active}
+													// onChange={(e) => {
+													// 	this.setState({ active: e.target.checked });
+													// }}
+												/>
+												<label>Show on Main Menu</label>
+											</div>
+											<div className="signup-check">
+												<Checkbox
+													size="small"
+													style={{ color: "#012169" }}
+													checked={this.state.active2}
+													// onChange={(e) => {
+													// 	this.setState({ active2: e.target.checked });
+													// }}
+												/>
+												<label>Include in Top Menu </label>
+											</div>
+											<div className="login-form ">
+												<label>
+													Display Order<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="number"
+													readonly="readonly"
+													value={this.state.display}
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
+					</>
+				)}
+			</div>
+		);
+	}
 }

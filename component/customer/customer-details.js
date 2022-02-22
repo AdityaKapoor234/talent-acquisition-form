@@ -4,16 +4,37 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import Pagination from "@mui/material/Pagination";
-const order = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+// const order = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+
+
 export default class CustomerDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
+      active: props?.customer?.is_active ? props?.customer?.is_active : false,
       tab: 1,
       customer: props?.customer,
       mode: props?.mode,
     };
+  }
+
+  handleChange = (event) => {
+    this.setState({ active: event.target.checked });
+    this.props?.active(event.target.checked )
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      prevState.customer !== nextProps.customer ||
+      prevState.mode !== nextProps.mode
+    ) {
+      return {
+        customer: nextProps?.customer,
+        mode: nextProps?.mode,
+        active: nextProps?.customer?.is_active ? nextProps?.customer?.is_active : false,
+      };
+    }
+    return null;
   }
 
   render() {
@@ -60,33 +81,40 @@ export default class CustomerDetails extends Component {
             {this.state.mode === "edit" && (
               <div className="row mt-4">
                 <div className="col-md-4">
-                  <div className="login-form ">
+                  {/* <div className="login-form ">
                     <label>Customer Type</label>
-                    <input type="text" value={this.state.customer?.type} />
-                  </div>
+                    <input type="text" value={this.state.type} onChange={(e)=>{this.setState({type:e.target.value})}} />
+                  </div> */}
                   <div className="login-form ">
                     <label>Name</label>
-                    <input type="text" value={this.state.customer?.name} />
+                    <input
+                      type="text"
+                      value={this.state.customer?.name}
+                      readOnly={true}
+                    />
                   </div>
                   <div className="login-form ">
                     <label>Email</label>
-                    <input type="text" value={this.state.customer?.email} />
+                    <input
+                      type="text"
+                      value={this.state.customer?.email}
+                      readOnly={true}
+                    />
                   </div>
                   <div className="login-form ">
                     <label>Mobile</label>
                     <input
                       type="number"
                       value={this.state.customer?.phone_number}
+                      readOnly={true}
                     />
                   </div>
                   <div className="signup-check">
-                    <Checkbox                                                                             
+                    <Checkbox
                       size="small"
                       style={{ color: "#012169" }}
                       checked={this.state.active}
-                      onChange={(e) => {
-                        this.setState({ active: e.target.checked });
-                      }}
+                      onChange={this.handleChange}
                     />
                     <label>Active</label>
                   </div>
@@ -96,19 +124,19 @@ export default class CustomerDetails extends Component {
             {this.state.mode === "view" && (
               <div className="row mt-4">
                 <div className="col-md-4">
-                  <div className="login-form ">
+                  {/* <div className="login-form ">
                     <label>Customer Type</label>
                     <input
                       type="text"
-                      readonly="readonly"
-                      value={this.state.customer?.type}
+                      readOnly={true}
+                      value={this.state.type}
                     />
-                  </div>
+                  </div> */}
                   <div className="login-form ">
                     <label>Name</label>
                     <input
                       type="text"
-                      readonly="readonly"
+                      readOnly={true}
                       value={this.state.customer?.name}
                     />
                   </div>
@@ -116,7 +144,7 @@ export default class CustomerDetails extends Component {
                     <label>Email</label>
                     <input
                       type="text"
-                      readonly="readonly"
+                      readOnly={true}
                       value={this.state.customer?.email}
                     />
                   </div>
@@ -124,15 +152,16 @@ export default class CustomerDetails extends Component {
                     <label>Mobile</label>
                     <input
                       type="number"
-                      readonly="readonly"
+                      readOnly={true}
                       value={this.state.customer?.phone_number}
                     />
                   </div>
                   <div className="signup-check">
                     <Checkbox
                       size="small"
+                      disabled
                       style={{ color: "#012169" }}
-                      checked={this.state.customer?.active}
+                      checked={this.state.active}
                     />
                     <label>Active</label>
                   </div>
@@ -173,7 +202,8 @@ export default class CustomerDetails extends Component {
                 </div>
               </div>
               <div className="scroll-table scroll">
-                {order?.map((p) => {
+                <div className="error-message">No order Info</div>
+                {/* {order?.map((p) => {
                   return (
                     <div className="row">
                       <div className="col-md-12">
@@ -195,10 +225,10 @@ export default class CustomerDetails extends Component {
                       </div>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </div>
-            <div className="pagination">
+            {/* <div className="pagination">
               <Pagination
                 count={10}
                 showFirstButton
@@ -206,7 +236,7 @@ export default class CustomerDetails extends Component {
                 size="small"
                 color="primary"
               />
-            </div>
+            </div> */}
           </>
         )}
       </div>

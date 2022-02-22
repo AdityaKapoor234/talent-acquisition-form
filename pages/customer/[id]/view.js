@@ -9,42 +9,47 @@ import Pagination from "@mui/material/Pagination";
 import CustomerDetail from "../../../component/customer/customer-details";
 import Router from "next/router";
 import Cookie from "js-cookie";
+import CustomerApi from "../../../services/customer";
 
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  return {
+    props: {
+      id: id || null,
+    },
+  };
+}
 
-const customer = {
-  name: "Ritu",
-  phone_number: "8907654321",
-  email: "admin@fitcart.com",
-  active: true,
-  type: "General",
-  addressInfo: [
-    {
-      name: "Ritu Raj",
-      phone_number: "9087654321",
-      address: "SCO 53, 4th Floor, Main Market, Sector 29,Ghaziabad",
-    },
-    {
-      name: "Ritu Raj",
-      phone_number: "9087654321",
-      address: "Sector-5  Main Market, Nodia",
-    },
-    {
-      name: "Ritu Raj",
-      phone_number: "9087654321",
-      address: "SCO 53, 4th Floor, Main Market, New Delhi",
-    },
-  ],
-};
-export default function CustomerViewDetails() {
+export default function CustomerViewDetails({id}) {
 
   const mode = "view";
+
+  const [customer,setCustomer]=useState([]);
+
+  const customerDetail =(id)=>{
+    CustomerApi
+    .getCustomerDetails(id)
+    .then((response) => {
+      setCustomer(response.data.data.user)
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
   
   useEffect(() => {
     const token = Cookie.get("access_token");
     if (token === undefined) {
       Router.push("/");
     }
-  }, []);
+    customerDetail(id)
+  }, [id]);
   return (
     <div>
       <Head>
@@ -60,7 +65,7 @@ export default function CustomerViewDetails() {
               <div className="hamburger">
                 <span>customer / customer / </span>View customer{" "}
               </div>
-              <div className="page-name">Customer - Ritu</div>
+              <div className="page-name">Customer - {customer?.name}</div>
             </div>
             <div className="col-md-2 btn-save">
               <div

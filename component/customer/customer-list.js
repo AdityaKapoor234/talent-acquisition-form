@@ -13,6 +13,17 @@ export default class CustomerList extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      prevState.customer !== nextProps.customer
+    ) {
+      return {
+        customer: nextProps?.customer
+      };
+    }
+    return null;
+  }
+
   render() {
     return (
       <div data-component="CustomerComponent">
@@ -20,7 +31,7 @@ export default class CustomerList extends Component {
           <div className="col-md-12">
             <div className="tableRow">
               <div className="col-2">Name</div>
-              <div className="col text-center">Type</div>
+              {/* <div className="col text-center">Type</div> */}
               <div className="col-3 text-center">Email</div>
               <div className="col text-center">Mobile No.</div>
               <div className="col text-center">Reg. Date</div>
@@ -35,14 +46,14 @@ export default class CustomerList extends Component {
               <div className="col-md-12">
                 <div className="tableCell">
                   <div className="tableBody col-2">{p?.name}</div>
-                  <div className="col text-center">{p?.type}</div>
+                  {/* <div className="col text-center">{p?.type?p?.type:"General"}</div> */}
                   <div className="tableBody col-3 justify-content-center">
                     {p?.email}
                   </div>
                   <div className="col text-center">{p?.phone_number}</div>
-                  <div className="col text-center">{p?.date}</div>
+                  <div className="col text-center">{p?.created_at?p?.created_at?.split("T")[0]:""}</div>
                   <div className="col-1 text-center">
-                    {p?.active === true ? (
+                    {p?.is_active === true ? (
                       <CheckCircleOutlineOutlinedIcon className="check-icon" />
                     ) : (
                       <CancelOutlinedIcon className="cancel-icon" />

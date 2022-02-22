@@ -9,151 +9,35 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from '@mui/icons-material/Search';
+import CustomerApi from "../../services/customer";
 
-const customer = [
-  {
-    id: 1,
-    name: "Yogesh Sandhankoti",
-    type: "General",
-    email: "yogeshsandhankoti@fitcart.com",
-    phone_number: "88890765432",
-    date: "17/12/2021",
-    active: true,
-  },
-  {
-    id: 2,
-    name: "Rohit",
-    type: "General",
-    email: "yogeshRohiyt@gamil.com",
-    phone_number: "8098076532",
-    date: "01/2/2022",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Yogesh Sandhankoti",
-    type: "General",
-    email: "yogeshsandhankoti@fitcart.com",
-    phone_number: "88890765432",
-    date: "17/12/2021",
-    active: false,
-  },
-  {
-    id: 4,
-    name: "Ritu",
-    type: "General",
-    email: "ritu@fitcart.com",
-    phone_number: "78890765432",
-    date: "18/11/2021",
-    active: true,
-  },
-  {
-    id: 5,
-    name: "Yogesh ",
-    type: "General",
-    email: "yogesh@gmail.com",
-    phone_number: "88090765432",
-    date: "17/01/2022",
-    active: false,
-  },
-  {
-    id: 1,
-    name: "Yogesh Sandhankoti",
-    type: "General",
-    email: "yogeshsandhankoti@fitcart.com",
-    phone_number: "88890765432",
-    date: "17/12/2021",
-    active: true,
-  },
-  {
-    id: 2,
-    name: "Rohit",
-    type: "General",
-    email: "yogeshRohiyt@gamil.com",
-    phone_number: "8098076532",
-    date: "01/2/2022",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Yogesh Sandhankoti",
-    type: "General",
-    email: "yogeshsandhankoti@fitcart.com",
-    phone_number: "88890765432",
-    date: "17/12/2021",
-    active: false,
-  },
-  {
-    id: 4,
-    name: "Ritu",
-    type: "General",
-    email: "ritu@fitcart.com",
-    phone_number: "78890765432",
-    date: "18/11/2021",
-    active: true,
-  },
-  {
-    id: 5,
-    name: "Yogesh ",
-    type: "General",
-    email: "yogesh@gmail.com",
-    phone_number: "88090765432",
-    date: "17/01/2022",
-    active: false,
-  },
-  {
-    id: 1,
-    name: "Yogesh Sandhankoti",
-    type: "General",
-    email: "yogeshsandhankoti@fitcart.com",
-    phone_number: "88890765432",
-    date: "17/12/2021",
-    active: true,
-  },
-  {
-    id: 2,
-    name: "Rohit",
-    type: "General",
-    email: "yogeshRohiyt@gamil.com",
-    phone_number: "8098076532",
-    date: "01/2/2022",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Yogesh Sandhankoti",
-    type: "General",
-    email: "yogeshsandhankoti@fitcart.com",
-    phone_number: "88890765432",
-    date: "17/12/2021",
-    active: false,
-  },
-  {
-    id: 4,
-    name: "Ritu",
-    type: "General",
-    email: "ritu@fitcart.com",
-    phone_number: "78890765432",
-    date: "18/11/2021",
-    active: true,
-  },
-  {
-    id: 5,
-    name: "Yogesh ",
-    type: "General",
-    email: "yogesh@gmail.com",
-    phone_number: "88090765432",
-    date: "17/01/2022",
-    active: false,
-  },
-];
 
 export default function Customer() {
+
+  const [customer, setCustomer] = useState([]);
+
+  const customerList=()=>{
+    CustomerApi
+      .CustomerList(1,"")
+      .then((response) => {
+        setCustomer(response.data.data.list)
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
   useEffect(() => {
     const token = Cookie.get("access_token");
     if (token === undefined) {
       Router.push("/");
     }
+    customerList();
   }, []);
   return (
     <div>

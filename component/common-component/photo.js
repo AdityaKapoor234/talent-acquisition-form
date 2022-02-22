@@ -6,7 +6,6 @@ export default function photo({ label, accept, mode }) {
 
   const uploadFile = ({ target: { files } }) => {
     if (files?.length > 0) {
-      // console.log("ii",files)
       setImage("/images/login.png");
     }
   };

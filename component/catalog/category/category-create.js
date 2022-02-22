@@ -28,10 +28,8 @@ export default class CategoryCreate extends Component {
     this.setState({ sort: event.target.value });
   };
   handleContent(value) {
-    console.log("value.js", value);
   }
   handleFullContent(value) {
-    console.log("value.js", value);
   }
 
   render() {

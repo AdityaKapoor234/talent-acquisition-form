@@ -83,10 +83,9 @@ const classification = {
   active: true,
 };
 
-
 export default function Classification() {
   useEffect(() => {
-    const token = Cookie.get("access_token");
+    const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
@@ -136,9 +135,10 @@ export default function Classification() {
           </div>
           <div className="row">
             <div className="col-md-12">
-              <div className="pagination">
+              <div className="pagiantion-category">
                 <Pagination
                   count={10}
+                  className="pagination"
                   showFirstButton
                   showLastButton
                   size="small"

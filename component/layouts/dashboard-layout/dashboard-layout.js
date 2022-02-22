@@ -42,7 +42,7 @@ export default function DashboardLayoutComponent({children}) {
         setCategary("")
     }
     const handleLogout=()=>{
-        Cookies.remove("access_token")
+        Cookies.remove("access_token_admin")
         Router.push("/")
     }
 

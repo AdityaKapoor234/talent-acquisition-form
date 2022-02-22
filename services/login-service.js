@@ -15,7 +15,7 @@ export class loginAPI {
     }
 
     static adminLogin() {
-        const  token = cookie.get('access_token');
+        const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json', 

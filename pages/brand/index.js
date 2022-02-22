@@ -76,7 +76,7 @@ const customer = [
 
 export default function Brand() {
     useEffect(() => {
-        const token = Cookie.get("access_token");
+        const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
@@ -126,9 +126,10 @@ export default function Brand() {
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <div className="pagination">
+                            <div className="pagiantion-category">
                                 <Pagination
                                     count={10}
+                                    className="pagination"
                                     showFirstButton
                                     showLastButton
                                     size="small"

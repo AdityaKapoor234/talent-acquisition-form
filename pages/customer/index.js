@@ -8,19 +8,40 @@ import CustomerList from "../../component/customer/customer-list";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import CustomerApi from "../../services/customer";
-
+import { useRouter } from "next/router";
 
 export default function Customer() {
-
+  const pathArr = useRouter();
   const [customer, setCustomer] = useState([]);
+  const [wordEntered, setWordEntered] = useState(
+    pathArr.query?.q ? pathArr.query?.q : ""
+  );
 
-  const customerList=()=>{
-    CustomerApi
-      .CustomerList(1,"")
+  const handleKeyPress = (event) => {
+    let router_query_object = {};
+    if (wordEntered !== "") {
+      router_query_object["q"] = wordEntered;
+    }
+    if (event.key === "Enter") {
+      Router.push({
+        pathname: "/customer",
+        query: router_query_object,
+      });
+      customerList(1, wordEntered);
+    }
+  };
+
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+  };
+
+  const customerList = (page, search) => {
+    CustomerApi.CustomerList(page, search)
       .then((response) => {
-        setCustomer(response.data.data.list)
+        setCustomer(response.data.data.list);
       })
       .catch((error) => {
         toast.error(
@@ -31,13 +52,13 @@ export default function Customer() {
             : "Unable to process your request, please try after sometime"
         );
       });
-  }
+  };
   useEffect(() => {
-    const token = Cookie.get("access_token");
+    const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    customerList();
+    customerList(1, "");
   }, []);
   return (
     <div>
@@ -58,13 +79,16 @@ export default function Customer() {
             </div>
             <div className="col-md-4">
               <div className="login-form ">
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      className="search-box"
-                    />
-                    <SearchIcon className="search-icon"/>
-                  </div>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="search-box"
+                  value={wordEntered}
+                  onChange={handleFilter}
+                  onKeyPress={handleKeyPress}
+                />
+                <SearchIcon className="search-icon" />
+              </div>
             </div>
           </div>
           <div className="row sticky-scroll scroll">
@@ -74,9 +98,10 @@ export default function Customer() {
           </div>
           <div className="row">
             <div className="col-md-12">
-              <div className="pagination">
+              <div className="pagiantion-category">
                 <Pagination
                   count={10}
+                  className="pagination"
                   showFirstButton
                   showLastButton
                   size="small"

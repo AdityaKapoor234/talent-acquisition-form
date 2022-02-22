@@ -6,7 +6,7 @@ import cookie from "js-cookie";
 export class CustomerApi {
 
     static CustomerList(page,search) {
-        const  token = cookie.get('access_token');
+        const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json', 
@@ -17,7 +17,7 @@ export class CustomerApi {
     }
 
     static getCustomerDetails(id) {
-        const  token = cookie.get('access_token');
+        const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json', 
@@ -28,7 +28,7 @@ export class CustomerApi {
     }
 
     static CustomerDetails(id,data) {
-        const  token = cookie.get('access_token');
+        const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json', 

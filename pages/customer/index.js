@@ -18,6 +18,8 @@ export default function Customer() {
   const [wordEntered, setWordEntered] = useState(
     pathArr.query?.q ? pathArr.query?.q : ""
   );
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleKeyPress = (event) => {
     let router_query_object = {};
@@ -29,6 +31,7 @@ export default function Customer() {
         pathname: "/customer",
         query: router_query_object,
       });
+      setCurrentPage(1)
       customerList(1, wordEntered);
     }
   };
@@ -38,10 +41,16 @@ export default function Customer() {
     setWordEntered(searchWord);
   };
 
+  let onPageChange = function (e, page) {
+    setCurrentPage(page)
+    customerList(page,wordEntered)
+  };
+
   const customerList = (page, search) => {
     CustomerApi.CustomerList(page, search)
       .then((response) => {
         setCustomer(response.data.data.list);
+        setTotalPage(Math.ceil(response.data.data.total/response.data.data.page_size));
       })
       .catch((error) => {
         toast.error(
@@ -102,10 +111,9 @@ export default function Customer() {
                 <Pagination
                   count={10}
                   className="pagination"
-                  showFirstButton
-                  showLastButton
-                  size="small"
-                  color="primary"
+                  page={currentPage}
+                  count={totalPage}
+                  onChange={onPageChange}
                 />
               </div>
             </div>

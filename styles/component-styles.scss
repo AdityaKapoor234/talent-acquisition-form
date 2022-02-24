@@ -108,6 +108,92 @@
   }
 }
 
+[data-component="DashboardComponent"] {
+  .tableRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $clr-dark-blue;
+    background-color: $clr-gray200;
+    margin: 0rem 0rem;
+  }
+  .tableCell {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    margin: 0rem 0rem;
+    border: 1.5px solid $clr-gray200;
+    border-top: none;
+    color: $clr-dark-blue;
+    font-weight: 400;
+    .tableBody {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
+    }
+  }
+}
+
+[page-component="Dashboard"] {
+  .icon{
+    background-image: url("/images/banknotes.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    position:relative;
+    float: right;
+    top: 1.25rem;
+    background-color: $clr-dark-blue;
+    border-radius: 50%;
+  }
+  .icon2{
+    background-image: url("/images/people.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    position:relative;
+    float: right;
+    top: 1.25rem;
+    background-color: $clr-dark-blue;
+    border-radius: 50%;
+  }
+  .iconInfo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0.2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $clr-dark-blue;
+    margin: 0rem 0rem;
+  }
+  .iconPrice{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0.2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $clr-dark-orange;
+    margin: 0rem 0rem;
+  }
+}
+
+
 [data-component="edit-customer"] {
   .complete-address {
     padding: 1rem;

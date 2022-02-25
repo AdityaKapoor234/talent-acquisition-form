@@ -112,7 +112,7 @@ export default function Dashboard() {
 			<main>
 				<DashboardLayoutComponent>
 					<div page-component="Dashboard">
-						<div className="container-fluid">
+						<div className="container-fluid sticky-scroll scroll">
 							<div className="row">
 								<div className="col mx-3" style={{ backgroundColor: "#AAE3E2" }}>
 									<div className="icon"></div>

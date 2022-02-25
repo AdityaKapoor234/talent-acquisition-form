@@ -16,3 +16,8 @@ export const ADMIN_LOGIN = `http://65.1.17.188:5000/admin`;
 //Customer
 export const CUSTOMERLIST = `http://65.1.17.188:5000/customer?page={{page}}&q={{search}}`;
 export const GET_CUSTOMER = `http://65.1.17.188:5000/customer/{{id}}`;
+
+
+//INGREDIENTS
+export const INGREDIENTSLIST = 'http://65.1.17.188:5001/manage/ingredient?page={{page}}&q={{search}}'
+// export const GET_INGREDIENT = 'http://65.1.17.188:5001/manage/ingredient/{{id}}';

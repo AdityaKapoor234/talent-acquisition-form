@@ -16,9 +16,9 @@ export default class order extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="tableRow">
-                                <div className="col-1">Order</div>
+                                <div className="col">Order</div>
                                 <div className="col text-center">Customer Name</div>
-                                <div className="col-2 text-end">Grand Total</div>
+                                <div className="col text-center">Grand Total</div>
                             </div>
                         </div>
                     </div>
@@ -27,9 +27,9 @@ export default class order extends Component {
                             <div className="row" key={index}>
                                 <div className="col-md-12">
                                     <div className="tableCell">
-                                        <div className="tableBody col-1">{p?.order}</div>
+                                        <div className="tableBody col">{p?.order}</div>
                                         <div className="col text-center">{p?.custName}</div>
-                                        <div className="col-2 text-center">{p?.grandTotal}</div>
+                                        <div className="col text-center">{p?.grandTotal}</div>
                                     </div>
                                 </div>
                             </div>

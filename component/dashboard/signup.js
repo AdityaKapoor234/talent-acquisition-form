@@ -15,9 +15,9 @@ export default class signup extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="tableRow">
-                                <div className="col-2">Name</div>
+                                <div className="col">Name</div>
                                 <div className="col text-center">Email</div>
-                                <div className="col-3 text-end">Registration Date</div>
+                                <div className="col text-center">Registration Date</div>
                             </div>
                         </div>
                     </div>
@@ -26,9 +26,9 @@ export default class signup extends Component {
                             <div className="row" key={index}>
                                 <div className="col-md-12">
                                     <div className="tableCell">
-                                        <div className="tableBody col-2">{p?.name}</div>
+                                        <div className="tableBody col">{p?.name}</div>
                                         <div className="col text-center">{p?.email}</div>
-                                        <div className="col-3 text-center">{p?.regDate}</div>
+                                        <div className="col text-center">{p?.regDate}</div>
                                     </div>
                                 </div>
                             </div>

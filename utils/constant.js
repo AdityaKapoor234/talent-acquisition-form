@@ -21,3 +21,17 @@ export const GET_CUSTOMER = `http://65.1.17.188:5000/customer/{{id}}`;
 //INGREDIENTS
 export const INGREDIENTSLIST = 'http://65.1.17.188:5001/manage/ingredient?page={{page}}&q={{search}}'
 // export const GET_INGREDIENT = 'http://65.1.17.188:5001/manage/ingredient/{{id}}';
+
+//Brands
+export const BRANDSLIST = `http://65.1.17.188:5001/manage/brand?page={{page}}&q={{search}}`;
+export const GET_BRANDS_DETAILS = `http://65.1.17.188:5001/manage/brand/{{id}}`;
+export const GET_BRANDS_CREATE = `http://65.1.17.188:5001/manage/brand`;
+export const GET_BRANDS_EDIT = `http://65.1.17.188:5001/manage/brand/{{id}}`;
+export const GET_BRANDS_DELETE = `http://65.1.17.188:5001/manage/brand/{{id}}/delete`;
+
+//Flavor
+export const FLAVORLIST = `http://65.1.17.188:5001/manage/flavor?page={{page}}&q={{search}}`;
+export const GET_FLAVOR_DETAILS = `http://65.1.17.188:5001/manage/flavor/{{id}}`;
+export const GET_FLAVOR_CREATE = `http://65.1.17.188:5001/manage/flavor`;
+export const GET_FLAVOR_EDIT = `http://65.1.17.188:5001/manage/flavor/{{id}}`;
+export const GET_FLAVOR_DELETE = `http://65.1.17.188:5001/manage/flavor/{{id}}/delete`;

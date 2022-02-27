@@ -1,35 +1,35 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 
-export default class BrandCreate extends Component {
+export default class FlavorCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tab: 1,
       mode: props?.mode,
-      brand: props?.brand,
+      flavor: props?.flavor,
       input: {
-        name: props?.brand?.name ? props.brand?.name : "",
-        sort_order: props?.brand?.sort_order ? props.brand?.sort_order : "",
-        is_active: props?.brand?.is_active ? props?.brand?.is_active : false,
+        name: props?.flavor?.name ? props.flavor?.name : "",
+        sort_order: props?.flavor?.sort_order ? props.flavor?.sort_order : "",
+        is_active: props?.flavor?.is_active ? props?.flavor?.is_active : false,
       },
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      prevState.brand !== nextProps.brand ||
+      prevState.flavor !== nextProps.flavor ||
       prevState.mode !== nextProps.mode
     ) {
       return {
-        brand: nextProps?.brand,
+        flavor: nextProps?.flavor,
         mode: nextProps?.mode,
         input: {
-         is_active: nextProps?.brand?.is_active
-            ? nextProps?.brand?.is_active
+         is_active: nextProps?.flavor?.is_active
+            ? nextProps?.flavor?.is_active
             : false,
-          name: nextProps?.brand?.name ? nextProps.brand?.name : "",
-          sort_order: nextProps?.brand?.sort_order? nextProps.brand?.sort_order : "",
+          name: nextProps?.flavor?.name ? nextProps.flavor?.name : "",
+          sort_order: nextProps?.flavor?.sort_order? nextProps.flavor?.sort_order : "",
         },
       };
     }
@@ -62,7 +62,7 @@ export default class BrandCreate extends Component {
                   this.setState({ tab: 1 });
                 }}
               >
-                Brand Info
+                Flavor Info
               </div>
             </div>
           </div>

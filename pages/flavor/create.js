@@ -4,18 +4,18 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import BrandCreateComponent from "../../component/catalog/brand/brand-create";
+import FlavorCreateComponent from "../../component/catalog/flavor/flavor-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import BrandsApi from "../../services/brands";
+import FlavorApi from "../../services/flavor";
 
-export default class BrandCreate extends Component {
+export default class FlavorCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mode: "edit",
-      brand: {},
-      brandDetails: {
+      flavor: {},
+      flavorDetails: {
         sort_order: null,
         name: "",
         is_active: null,
@@ -25,21 +25,21 @@ export default class BrandCreate extends Component {
 
   validateData = () => {
     if (
-      this.state.brandDetails.name === "" &&
-      (this.state.brandDetails.sort_order === "" ||
-        this.state.brandDetails.sort_order === null)
+      this.state.flavorDetails.name === "" &&
+      (this.state.flavorDetails.sort_order === "" ||
+        this.state.flavorDetails.sort_order === null)
     ) {
       toast.error("Please enter Display Order ");
       toast.error("Please enter name");
       return false;
     }
-    if (this.state.brandDetails.name === "") {
+    if (this.state.flavorDetails.name === "") {
       toast.error("Please enter name");
       return false;
     }
     if (
-      this.state.brandDetails.sort_order === "" ||
-      this.state.brandDetails.sort_order === null
+      this.state.flavorDetails.sort_order === "" ||
+      this.state.flavorDetails.sort_order === null
     ) {
       toast.error("Please enter Display Order ");
       return false;
@@ -51,16 +51,16 @@ export default class BrandCreate extends Component {
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name: this.state.brandDetails.name,
-        sort_order: parseInt(this.state.brandDetails.sort_order),
-        is_active: this.state.brandDetails.is_active,
+        name: this.state.flavorDetails.name,
+        sort_order: parseInt(this.state.flavorDetails.sort_order),
+        is_active: this.state.flavorDetails.is_active,
       };
-      BrandsApi.BrandsCreate(data)
+      FlavorApi.FlavorCreate(data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
-            this.setState({ brand: response.data.data.Brand });
+            this.setState({ flavor: response.data.data.Flavor });
             toast.success(response.data.message);
-            Router.push(`/brand`);
+            Router.push(`/flavor`);
           }
         })
         .catch((error) => {
@@ -75,7 +75,7 @@ export default class BrandCreate extends Component {
     }
   };
   stateHandle = (value) => {
-    this.setState({ brandDetails: value });
+    this.setState({ flavorDetails: value });
   };
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
@@ -88,7 +88,7 @@ export default class BrandCreate extends Component {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Brand</title>
+          <title>{APP_NAME} - Flavor</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -98,9 +98,9 @@ export default class BrandCreate extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Catalog / Brand / </span>Add A New Brand
+                  <span>Catalog / Flavor / </span>Add A New Flavor
                 </div>
-                <div className="page-name">Add A New Brand </div>
+                <div className="page-name">Add A New Flavor </div>
               </div>
               <div className="col-md-7 btn-save">
                 <div
@@ -114,7 +114,7 @@ export default class BrandCreate extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    Router.push(`/brand`);
+                    Router.push(`/flavor`);
                   }}
                 >
                   <span>Cancel </span>
@@ -123,7 +123,7 @@ export default class BrandCreate extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-                <BrandCreateComponent
+                <FlavorCreateComponent
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                 />

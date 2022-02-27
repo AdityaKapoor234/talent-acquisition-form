@@ -25,7 +25,7 @@ export default function DashboardLayoutComponent({children}) {
 
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" ?true:false);
-    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "product" || pathArr === "flavour" ? true : false );
+    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "product" || pathArr === "flavor" ? true : false );
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ?true:false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
@@ -122,7 +122,7 @@ export default function DashboardLayoutComponent({children}) {
                                             <li className={categary=== "brand" ? "sub_active":""} onClick={()=> handleCategary("/brand","brand")}>brand</li>
                                             <li className={categary=== "product" ? "sub_active":""} onClick={()=> handleCategary("/product","product")}>product</li>
                                             <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li>
-                                            <li className={categary=== "flavour" ? "sub_active":""} onClick={()=> handleCategary("/flavour","flavour")}>flavour</li>
+                                            <li className={categary=== "flavor" ? "sub_active":""} onClick={()=> handleCategary("/flavor","flavor")}>flavor</li>
                                         </ul>
                                     }
                                 <div className={tabCustomer ?'menu-btn active':'menu-btn'} onClick={()=> setTabCustomer(!tabCustomer)}>

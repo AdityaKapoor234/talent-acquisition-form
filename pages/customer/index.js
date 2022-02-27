@@ -67,7 +67,7 @@ export default function Customer() {
     if (token === undefined) {
       Router.push("/");
     }
-    customerList(1, "");
+    customerList(currentPage, "");
   }, []);
   return (
     <div>
@@ -109,7 +109,6 @@ export default function Customer() {
             <div className="col-md-12">
               <div className="pagiantion-category">
                 <Pagination
-                  count={10}
                   className="pagination"
                   page={currentPage}
                   count={totalPage}

@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import BrandCreateComponent from "../../../component/catalog/brand/brand-create";
+import FlavorCreateComponent from "../../../component/catalog/flavor/flavor-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import BrandsApi from "../../../services/brands";
+import FlavorApi from "../../../services/flavor";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -18,15 +18,15 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function BrandViewDetails({ id }) {
+export default function FlavorViewDetails({ id }) {
   const mode = "view";
 
-  const [brand, setBrand] = useState([]);
+  const [flavor, setFlavor] = useState([]);
 
-  const brandsDetail = (id) => {
-    BrandsApi.getBrandsDetails(id)
+  const flavorsDetail = (id) => {
+    FlavorApi.getFlavorDetails(id)
       .then((response) => {
-        setBrand(response.data.data.brand);
+        setFlavor(response.data.data.flavor);
       })
       .catch((error) => {
         toast.error(
@@ -40,13 +40,13 @@ export default function BrandViewDetails({ id }) {
   };
 
   const Delete = (id) => {
-    let data={}
-    BrandsApi.BrandsDelete(id,data)
+    let data = {};
+    FlavorApi.FlavorDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-          setBrand(response.data.data.brand);
-          Router.push("/brand");
+          setFlavor(response.data.data.flavor);
           toast.success(response.data.message);
+          Router.push("/flavor");
         }
       })
       .catch((error) => {
@@ -65,12 +65,12 @@ export default function BrandViewDetails({ id }) {
     if (token === undefined) {
       Router.push("/");
     }
-    brandsDetail(id);
+    flavorsDetail(id);
   }, [id]);
   return (
     <div>
       <Head>
-        <title>{APP_NAME} - Brand</title>
+        <title>{APP_NAME} - Flavor</title>
         <meta name="description" content="Trusted Brands. Better Health." />
         <link rel="icon" href="/fitcart.ico" />
       </Head>
@@ -80,9 +80,9 @@ export default function BrandViewDetails({ id }) {
           <div className="row border-box">
             <div className="col-md-5">
               <div className="hamburger">
-                <span>Catalog / Brand/ </span>View Brand
+                <span>Catalog / Flavor/ </span>View Flavor
               </div>
-              <div className="page-name">Brand Details - {brand?.name}</div>
+              <div className="page-name">Flavor Details - {flavor?.name}</div>
             </div>
             <div className="col-md-7 btn-save">
               <div
@@ -96,7 +96,7 @@ export default function BrandViewDetails({ id }) {
               <div
                 className="Cancel-btn custom-btn"
                 onClick={() => {
-                  Router.push(`/brand`);
+                  Router.push(`/flavor`);
                 }}
               >
                 <span>Cancel </span>
@@ -105,7 +105,7 @@ export default function BrandViewDetails({ id }) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <BrandCreateComponent brand={brand} mode={mode} />
+              <FlavorCreateComponent flavor={flavor} mode={mode} />
             </div>
           </div>
         </DashboardLayoutComponent>

@@ -4,17 +4,17 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import BrandList from "../../component/catalog/brand/brand-list";
+import FlavorList from "../../component/catalog/flavor/flavor-list";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
-import BrandsApi from "../../services/brands";
+import FlavorApi from "../../services/flavor";
 import { useRouter } from "next/router";
 
-export default function Brand() {
+export default function Flavor() {
     const pathArr = useRouter();
-    const [brands, setBrands] = useState([]);
+    const [flavors, setFlavors] = useState([]);
     const [wordEntered, setWordEntered] = useState(
       pathArr.query?.q ? pathArr.query?.q : ""
     );
@@ -28,11 +28,11 @@ export default function Brand() {
         }
         if (event.key === "Enter") {
           Router.push({
-            pathname: "/brand",
+            pathname: "/flavor",
             query: router_query_object,
           });
           setCurrentPage(1)
-          brandList(1, wordEntered);
+          flavorList(1, wordEntered);
         }
       };
 
@@ -43,13 +43,13 @@ export default function Brand() {
     
       let onPageChange = function (e, page) {
         setCurrentPage(page)
-        brandList(page,wordEntered)
+        flavorList(page,wordEntered)
       };
     
-      const brandList = (page, search) => {
-        BrandsApi.BrandsList(page, search)
+      const flavorList = (page, search) => {
+        FlavorApi.FlavorList(page, search)
           .then((response) => {
-            setBrands(response.data.data.list);
+            setFlavors(response.data.data.list);
             setTotalPage(Math.ceil(response.data.data.total/response.data.data.page_size));
           })
           .catch((error) => {
@@ -68,12 +68,12 @@ export default function Brand() {
         if (token === undefined) {
             Router.push("/");
         }
-        brandList(currentPage, "");
+        flavorList(currentPage, "");
     }, []);
     return (
         <div page-component="category-page">
             <Head>
-                <title>{APP_NAME} - Brand</title>
+                <title>{APP_NAME} - Flavor</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -83,9 +83,9 @@ export default function Brand() {
                     <div className="row border-box">
                         <div className="col-md-6">
                             <div className="hamburger">
-                                <span>Catalog / </span>Brand
+                                <span>Catalog / </span>Flavor
                             </div>
-                            <div className="page-name">Brand</div>
+                            <div className="page-name">Flavor</div>
                         </div>
                         <div className="col-md-4">
                             <div className="login-form ">
@@ -104,7 +104,7 @@ export default function Brand() {
                             <div
                                 className="custom-btn "
                                 onClick={() => {
-                                    Router.push(`/brand/create`);
+                                    Router.push(`/flavor/create`);
                                 }}
                             >
                                 <span>Add New </span>
@@ -113,7 +113,7 @@ export default function Brand() {
                     </div>
                     <div className="row sticky-scroll scroll">
                         <div className="col-md-12 ">
-                            <BrandList brands={brands} />
+                            <FlavorList flavors={flavors} />
                         </div>
                     </div>
                     <div className="row">

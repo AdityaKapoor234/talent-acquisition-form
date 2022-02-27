@@ -9,9 +9,20 @@ export default class BrandList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            customer: props?.customer,
+            brands: props?.brands,
         };
     }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (
+          prevState.brands !== nextProps.brands
+        ) {
+          return {
+            brands: nextProps?.brands
+          };
+        }
+        return null;
+      }
 
     render() {
         return (
@@ -27,20 +38,20 @@ export default class BrandList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.customer?.map((p, index) => {
+                {this.state.brands?.map((p, index) => {
                     return (
                         <div className="row" key={index}>
                             <div className="col-md-12">
                                 <div className="tableCell">
                                     <div className="tableBody col-5">{p?.name}</div>
                                     <div className="col text-center">
-                                        {p?.active === true ? (
+                                        {p?.is_active === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
                                         ) : (
                                             <CancelOutlinedIcon className="cancel-icon" />
                                         )}
                                     </div>
-                                    <div className="col text-center">{p?.display}</div>
+                                    <div className="col text-center">{p?.sort_order}</div>
                                     <div className="col-1 text-center">
                                         <RemoveRedEyeIcon
                                             className="edit-icon"

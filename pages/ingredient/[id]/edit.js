@@ -232,7 +232,7 @@ export default class IngredientEditDetails extends Component {
             </Box>
             <DialogContent>
               <Typography style={{ color: "#7e8f99" }}>
-                Are you sure you want to delete this flavor?
+                Are you sure you want to delete this ingredient?
               </Typography>
             </DialogContent>
             <DialogActions style={{ marginBottom: "0.5rem" }}>

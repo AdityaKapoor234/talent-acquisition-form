@@ -8,6 +8,15 @@ import BrandCreateComponent from "../../../component/catalog/brand/brand-create"
 import Router from "next/router";
 import Cookie from "js-cookie";
 import BrandsApi from "../../../services/brands";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -22,6 +31,7 @@ export default function BrandViewDetails({ id }) {
   const mode = "view";
 
   const [brand, setBrand] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const brandsDetail = (id) => {
     BrandsApi.getBrandsDetails(id)
@@ -40,8 +50,8 @@ export default function BrandViewDetails({ id }) {
   };
 
   const Delete = (id) => {
-    let data={}
-    BrandsApi.BrandsDelete(id,data)
+    let data = {};
+    BrandsApi.BrandsDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           setBrand(response.data.data.brand);
@@ -88,7 +98,7 @@ export default function BrandViewDetails({ id }) {
               <div
                 className="Cancel-btn custom-btn"
                 onClick={() => {
-                  Delete(id);
+                  setOpen(true);
                 }}
               >
                 <span>Delete </span>
@@ -109,6 +119,50 @@ export default function BrandViewDetails({ id }) {
             </div>
           </div>
         </DashboardLayoutComponent>
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          maxWidth="sm"
+          fullWidth
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle style={{ color: "#012169" }}>
+            Confirm the action
+          </DialogTitle>
+          <Box position="absolute" top={0} right={0}>
+            <IconButton onClick={() => setOpen(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <DialogContent>
+            <Typography style={{ color: "#7e8f99" }}>
+              Are you sure you want to delete this brand?
+            </Typography>
+          </DialogContent>
+          <DialogActions style={{ marginBottom: "0.5rem" }}>
+            <Button
+              onClick={() => setOpen(false)}
+              style={{
+                color: "#012169",
+                borderRadius: "0px",
+                background: "white",
+              }}
+              color="primary"
+              variant="contained"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => Delete(id)}
+              style={{ background: "#f54a00", borderRadius: "0px" }}
+              color="secondary"
+              variant="contained"
+            >
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
       </main>
     </div>
   );

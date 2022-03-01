@@ -8,6 +8,15 @@ import BrandCreateComponent from "../../../component/catalog/brand/brand-create"
 import Router from "next/router";
 import Cookie from "js-cookie";
 import BrandsApi from "../../../services/brands";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -25,6 +34,7 @@ export default class BrandEditDetails extends Component {
       id: props?.id,
       mode: "edit",
       brand: {},
+      open: false,
       brandDetails: {
         sort_order: null,
         name: "",
@@ -32,7 +42,6 @@ export default class BrandEditDetails extends Component {
       },
     };
   }
-
   validateData = () => {
     if (
       this.state.brandDetails.name === "" &&
@@ -123,7 +132,7 @@ export default class BrandEditDetails extends Component {
     BrandsApi.BrandsDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-          this.setState({brand:response.data.data.brand});
+          this.setState({ brand: response.data.data.brand });
           Router.push("/brand");
           toast.success(response.data.message);
         }
@@ -179,7 +188,7 @@ export default class BrandEditDetails extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    this.Delete(this.state.id);
+                    this.setState({ open: true });
                   }}
                 >
                   <span>Delete </span>
@@ -204,6 +213,52 @@ export default class BrandEditDetails extends Component {
               </div>
             </div>
           </DashboardLayoutComponent>
+          <Dialog
+            open={this.state.open}
+            onClose={() => this.setState({ open: false })}
+            maxWidth="sm"
+            fullWidth
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle style={{ color: "#012169" }}>
+              Confirm the action
+            </DialogTitle>
+            <Box position="absolute" top={0} right={0}>
+              <IconButton onClick={() => this.setState({ open: false })}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <DialogContent>
+              <Typography style={{ color: "#7e8f99" }}>
+                Are you sure you want to delete this brand?
+              </Typography>
+            </DialogContent>
+            <DialogActions style={{ marginBottom: "0.5rem" }}>
+              <Button
+                onClick={() => {
+                  this.setState({ open: false });
+                }}
+                style={{
+                  color: "#012169",
+                  borderRadius: "0px",
+                  background: "white",
+                }}
+                color="primary"
+                variant="contained"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => this.Delete(this.state.id)}
+                style={{ background: "#f54a00", borderRadius: "0px" }}
+                color="secondary"
+                variant="contained"
+              >
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </main>
       </div>
     );

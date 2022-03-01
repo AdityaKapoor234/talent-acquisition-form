@@ -39,7 +39,7 @@ export default function CategoryEditDetails() {
           <div className="row border-box">
             <div className="col-md-5">
               <div className="hamburger">
-                <span>Category / Category / </span>Edit Category
+                <span>Catalog / Category / </span>Edit Category
               </div>
               <div className="page-name">Edit Category Details - Bottles/Shakers</div>
             </div>

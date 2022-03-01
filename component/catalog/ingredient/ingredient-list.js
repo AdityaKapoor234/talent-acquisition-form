@@ -46,7 +46,7 @@ export default class IngredientList extends Component {
                                 <div className="tableCell">
                                     <div className="tableBody col-5">{p?.name}</div>
                                     <div className="col text-center">
-                                        {p?.active === true ? (
+                                        {p?.is_active === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
                                         ) : (
                                             <CancelOutlinedIcon className="cancel-icon" />

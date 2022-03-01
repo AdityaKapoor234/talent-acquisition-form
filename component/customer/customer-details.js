@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import Pagination from "@mui/material/Pagination";
-// const order = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
-
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 export default class CustomerDetails extends Component {
   constructor(props) {
@@ -15,12 +18,28 @@ export default class CustomerDetails extends Component {
       tab: 1,
       customer: props?.customer,
       mode: props?.mode,
+      open: false,
     };
   }
-
-  handleChange = (event) => {
-    this.setState({ active: event.target.checked });
-    this.props?.active(event.target.checked )
+  handleClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+  handleCheckbox = () => {
+    if (this.state.active) {
+      this.setState({
+        active: false,
+        open: false,
+      });
+      this.props?.active(false);
+    } else {
+      this.setState({
+        active: true,
+        open: false,
+      });
+      this.props?.active(true);
+    }
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -31,7 +50,9 @@ export default class CustomerDetails extends Component {
       return {
         customer: nextProps?.customer,
         mode: nextProps?.mode,
-        active: nextProps?.customer?.is_active ? nextProps?.customer?.is_active : false,
+        active: nextProps?.customer?.is_active
+          ? nextProps?.customer?.is_active
+          : false,
       };
     }
     return null;
@@ -114,7 +135,9 @@ export default class CustomerDetails extends Component {
                       size="small"
                       style={{ color: "#012169" }}
                       checked={this.state.active}
-                      onChange={this.handleChange}
+                      onChange={() => {
+                        this.setState({ open: true });
+                      }}
                     />
                     <label>Active</label>
                   </div>
@@ -239,6 +262,54 @@ export default class CustomerDetails extends Component {
             </div> */}
           </>
         )}
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          maxWidth="sm"
+          fullWidth
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle style={{ color: "#012169" }}>
+            Confirm the action
+          </DialogTitle>
+          <Box position="absolute" top={0} right={0}>
+            <IconButton onClick={this.handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <DialogContent>
+            <Typography style={{ color: "#7e8f99" }}>
+              Are you sure you want to{" "}
+              {this.state.active
+                ? " deactivate this customer"
+                : "activate this customer"}
+              ?
+            </Typography>
+          </DialogContent>
+          <DialogActions style={{ marginBottom: "0.5rem" }}>
+            <Button
+              onClick={this.handleClose}
+              style={{
+                color: "#012169",
+                background: "white",
+                borderRadius: "0px",
+              }}
+              color="primary"
+              variant="contained"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={this.handleCheckbox}
+              style={{ background: "#f54a00", borderRadius: "0px" }}
+              color="secondary"
+              variant="contained"
+            >
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

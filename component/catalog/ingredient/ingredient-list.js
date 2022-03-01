@@ -6,11 +6,23 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Router from "next/router";
 
 export default class IngredientList extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            customer: props?.customer,
+            ingredient: props?.ingredient,
         };
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (
+            prevState.ingredient !== nextProps.ingredient
+        ) {
+            return {
+                ingredient: nextProps?.ingredient
+            };
+        }
+        return null;
     }
 
     render() {
@@ -27,7 +39,7 @@ export default class IngredientList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.customer?.map((p, index) => {
+                {this.state.ingredient?.map((p, index) => {
                     return (
                         <div className="row" key={index}>
                             <div className="col-md-12">
@@ -40,7 +52,7 @@ export default class IngredientList extends Component {
                                             <CancelOutlinedIcon className="cancel-icon" />
                                         )}
                                     </div>
-                                    <div className="col text-center">{p?.display}</div>
+                                    <div className="col text-center">{p?.sort_order}</div>
                                     <div className="col-1 text-center">
                                         <RemoveRedEyeIcon
                                             className="edit-icon"
@@ -51,7 +63,7 @@ export default class IngredientList extends Component {
                                     </div>
                                     <div className="col-1 text-end">
                                         <EditOutlinedIcon
-                                                           className="edit-icon"
+                                            className="edit-icon"
                                             onClick={() => {
                                                 Router.push(`/ingredient/${p?.id}/edit`);
                                             }}

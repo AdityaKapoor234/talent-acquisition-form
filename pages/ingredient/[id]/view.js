@@ -7,23 +7,68 @@ import DashboardLayoutComponent from "../../../component/layouts/dashboard-layou
 import IngredientCreateComponent from "../../../component/catalog/ingredient/ingredient-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
+import IngredientApi from "../../../services/ingredient";
 
-const ingredient={
-    id: "1",
-    display: "0",
-    name:"BCCA"   
-};
+export async function getServerSideProps(context) {
+    const { id } = context.query;
+    return {
+        props: {
+            id: id || null,
+        },
+    };
+}
 
-export default function IngredientViewDetails() {
+export default function IngredientViewDetails({ id }) {
 
     const mode = "view";
+
+    const [ingredient, setIngredient] = useState([]);
+
+    const ingredientDetail = (id) => {
+        IngredientApi.getIngredientDetails(id)
+            .then((response) => {
+                setIngredient(response.data.data.ingredient);
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    };
+
+    const Delete = (id) => {
+        let data = {}
+        IngredientApi.IngredientDelete(id, data)
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    setIngredient(response.data.data.ingredient);
+                    Router.push("/ingredient");
+                    toast.success(response.data.message);
+                }
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    };
 
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
-    }, []);
+        ingredientDetail(id);
+    }, [id]);
+
     return (
         <div>
             <Head>
@@ -39,13 +84,13 @@ export default function IngredientViewDetails() {
                             <div className="hamburger">
                                 <span>Catalog / Ingredient/ </span>View Ingredient
                             </div>
-                            <div className="page-name">Ingredient Details - BCCA</div>
+                            <div className="page-name">Ingredient Details - {ingredient?.name}</div>
                         </div>
                         <div className="col-md-7 btn-save">
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
-                                    Router.push(`/ingredient`);
+                                    Delete(id);
                                 }}
                             >
                                 <span>Delete </span>

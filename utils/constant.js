@@ -19,8 +19,11 @@ export const GET_CUSTOMER = `http://65.1.17.188:5000/customer/{{id}}`;
 
 
 //INGREDIENTS
-export const INGREDIENTSLIST = 'http://65.1.17.188:5001/manage/ingredient?page={{page}}&q={{search}}'
-// export const GET_INGREDIENT = 'http://65.1.17.188:5001/manage/ingredient/{{id}}';
+export const INGREDIENTLIST = `http://65.1.17.188:5001/manage/ingredient?page={{page}}&q={{search}}`;
+export const GET_INGREDIENT_DETAILS = `http://65.1.17.188:5001/manage/ingredient/{{id}}`;
+export const GET_INGREDIENT_CREATE = `http://65.1.17.188:5001/manage/ingredient`;
+export const GET_INGREDIENT_EDIT = `http://65.1.17.188:5001/manage/ingredient/{{id}}`;
+export const GET_INGREDIENT_DELETE = `http://65.1.17.188:5001/manage/ingredient/{{id}}/delete`;
 
 //Brands
 export const BRANDSLIST = `http://65.1.17.188:5001/manage/brand?page={{page}}&q={{search}}`;

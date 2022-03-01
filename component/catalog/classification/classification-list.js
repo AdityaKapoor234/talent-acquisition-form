@@ -22,8 +22,8 @@ export default class ClassificationList extends Component {
                             <div className="col-1">Type</div>
                             <div className="col text-center">Name</div>
                             <div className="col-1 text-center">Active</div>
-                            <div className="col-2 text-center">Display Order</div>
-                            <div className="col-1 text-end">View</div>
+                            <div className="col-3 text-center">Display Order</div>
+                            <div className="col-1 text-center">View</div>
                             <div className="col-1 text-end">Edit</div>
                         </div>
                     </div>
@@ -42,8 +42,8 @@ export default class ClassificationList extends Component {
                                             <CancelOutlinedIcon className="cancel-icon" />
                                         )}
                                     </div>
-                                    <div className="col-2 text-center">{p?.display}</div>
-                                    <div className="col-1 text-end">
+                                    <div className="col-3 text-center">{p?.display}</div>
+                                    <div className="col-1 text-center">
                                         <RemoveRedEyeIcon
                                             className="edit-icon"
                                             onClick={() => {

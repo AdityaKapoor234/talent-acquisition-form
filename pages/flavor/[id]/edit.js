@@ -8,6 +8,15 @@ import FlavorCreateComponent from "../../../component/catalog/flavor/flavor-crea
 import Router from "next/router";
 import Cookie from "js-cookie";
 import FlavorApi from "../../../services/flavor";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -25,6 +34,7 @@ export default class FlavorEditDetails extends Component {
       id: props?.id,
       mode: "edit",
       flavor: {},
+      open: false,
       flavorDetails: {
         sort_order: null,
         name: "",
@@ -179,7 +189,7 @@ export default class FlavorEditDetails extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    this.Delete(this.state.id);
+                    this.setState({ open: true });
                   }}
                 >
                   <span>Delete </span>
@@ -204,6 +214,52 @@ export default class FlavorEditDetails extends Component {
               </div>
             </div>
           </DashboardLayoutComponent>
+          <Dialog
+            open={this.state.open}
+            onClose={() => this.setState({ open: false })}
+            maxWidth="sm"
+            fullWidth
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle style={{ color: "#012169" }}>
+              Confirm the action
+            </DialogTitle>
+            <Box position="absolute" top={0} right={0}>
+              <IconButton onClick={() => this.setState({ open: false })}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <DialogContent>
+              <Typography style={{ color: "#7e8f99" }}>
+                Are you sure you want to delete this flavor?
+              </Typography>
+            </DialogContent>
+            <DialogActions style={{ marginBottom: "0.5rem" }}>
+              <Button
+                onClick={() => {
+                  this.setState({ open: false });
+                }}
+                style={{
+                  color: "#012169",
+                  background: "white",
+                  borderRadius: "0px",
+                }}
+                color="primary"
+                variant="contained"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => this.Delete(this.state.id)}
+                style={{ background: "#f54a00", borderRadius: "0px" }}
+                color="secondary"
+                variant="contained"
+              >
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </main>
       </div>
     );

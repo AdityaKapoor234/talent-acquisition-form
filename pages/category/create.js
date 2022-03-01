@@ -32,7 +32,7 @@ export default function CategoryCreate() {
           <div className="row border-box">
             <div className="col-md-5">
               <div className="hamburger">
-                <span>Category / Category / </span>Add New Category
+                <span>Catalog / Category / </span>Add New Category
               </div>
               <div className="page-name">Add New Category</div>
             </div>

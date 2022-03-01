@@ -40,7 +40,7 @@ export default function CategoryViewDetails() {
 					<div className="row border-box">
 						<div className="col-md-5">
 							<div className="hamburger">
-								<span>Category / Category / </span>View Category
+								<span>Catalog / Category / </span>View Category
 							</div>
 							<div className="page-name">Category Details - Bottles/Shakers</div>
 						</div>

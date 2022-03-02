@@ -6,11 +6,23 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Router from "next/router";
 
 export default class ProductList extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            customer: props?.customer,
+            product: props?.product,
         };
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (
+            prevState.product !== nextProps.product
+        ) {
+            return {
+                product: nextProps?.product
+            };
+        }
+        return null;
     }
 
     render() {
@@ -29,7 +41,7 @@ export default class ProductList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.customer?.map((p, index) => {
+                {this.state.product?.map((p, index) => {
                     return (
                         <div className="row" key={index}>
                             <div className="col-md-12">

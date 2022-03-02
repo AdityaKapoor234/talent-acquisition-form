@@ -48,7 +48,7 @@ export default class ProductList extends Component {
                                 <div className="tableCell">
                                     <div className="tableBody col-4">{p?.name}</div>
                                     <div className=" col text-center">{p?.productcode}</div>
-                                    <div className=" col text-center">{p?.stockquantity}</div>
+                                    <div className=" col text-center">{p?.stock}</div>
                                     <div className=" col text-center">{p?.producttype}</div>
                                     <div className="col-1 text-center">
                                         {p?.status === true ? (

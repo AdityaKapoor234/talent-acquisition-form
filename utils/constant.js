@@ -39,7 +39,7 @@ export const GET_BRANDS_EDIT = `http://65.1.17.188:5001/manage/brand/{{id}}`;
 export const GET_BRANDS_DELETE = `http://65.1.17.188:5001/manage/brand/{{id}}/delete`;
 
 //Product
-export const PRODUCTLIST = `http://127.0.0.1:5000/manage/product?page={{page}}&q={{search}}`;
+export const PRODUCTLIST = `http://65.1.17.188:5001/manage/product?page={{page}}&q={{search}}`;
 // export const GET_PRODUCT_DETAILS = ``;
 // export const GET_PRODUCT_CREATE = ``;
 // export const GET_PRODUCT_EDIT = ``;

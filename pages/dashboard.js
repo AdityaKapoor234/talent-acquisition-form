@@ -112,44 +112,46 @@ export default function Dashboard() {
 			<main>
 				<DashboardLayoutComponent>
 					<div page-component="Dashboard">
-						<div className="container-fluid sticky-scroll scroll">
-							<div className="row">
-								<div className="col mx-3" style={{ backgroundColor: "#AAE3E2" }}>
-									<div className="icon"></div>
-									<span className="iconInfo mt-3">0 Orders</span>
-									<span className="iconPrice">₹ 0.00</span>
-									<span className="iconInfo mb-3">Today</span>
+						<div className="container-fluid">
+							<div className="sticky-scroll scroll">
+								<div className="row">
+									<div className="col mx-3" style={{ backgroundColor: "#AAE3E2" }}>
+										<div className="icon"></div>
+										<span className="iconInfo mt-3">0 Orders</span>
+										<span className="iconPrice">₹ 0.00</span>
+										<span className="iconInfo mb-3">Today</span>
+									</div>
+									<div className="col mx-3" style={{ backgroundColor: "#FEC9FC" }}>
+										<div className="icon"></div>
+										<span className="iconInfo mt-3">02 Orders</span>
+										<span className="iconPrice">₹ 14970.00</span>
+										<span className="iconInfo mb-3">Last 7 Days</span>
+									</div>
+									<div className="col mx-3" style={{ backgroundColor: "#B0E9FC" }}>
+										<div className="icon"></div>
+										<span className="iconInfo mt-3">10 Orders</span>
+										<span className="iconPrice">₹ 33873.00</span>
+										<span className="iconInfo mb-3">Total</span>
+									</div>
+									<div className="col mx-3" style={{ backgroundColor: "#FFEADE" }}>
+										<div className="icon2"></div>
+										<span className="iconInfo mt-3">Customers</span>
+										<span className="iconPrice">45</span>
+										<span className="iconInfo mb-3"></span>
+									</div>
 								</div>
-								<div className="col mx-3" style={{ backgroundColor: "#FEC9FC" }}>
-									<div className="icon"></div>
-									<span className="iconInfo mt-3">02 Orders</span>
-									<span className="iconPrice">₹ 14970.00</span>
-									<span className="iconInfo mb-3">Last 7 Days</span>
+								<div className="row my-4">
+									<div className="col">
+										<OrderComponent orders={orders} />
+									</div>
+									<div className="col">
+										<SignUpComponent signups={signups} />
+									</div>
 								</div>
-								<div className="col mx-3" style={{ backgroundColor: "#B0E9FC" }}>
-									<div className="icon"></div>
-									<span className="iconInfo mt-3">10 Orders</span>
-									<span className="iconPrice">₹ 33873.00</span>
-									<span className="iconInfo mb-3">Total</span>
-								</div>
-								<div className="col mx-3" style={{ backgroundColor: "#FFEADE" }}>
-									<div className="icon2"></div>
-									<span className="iconInfo mt-3">Customers</span>
-									<span className="iconPrice">45</span>
-									<span className="iconInfo mb-3"></span>
-								</div>
-							</div>
-							<div className="row my-4">
-								<div className="col">
-									<OrderComponent orders={orders} />
-								</div>
-								<div className="col">
-									<SignUpComponent signups={signups} />
-								</div>
-							</div>
-							<div className="row my-4">
-								<div className="col-12">
-									<OrderStatusComponent orderStatus={orderStatus} />
+								<div className="row my-4">
+									<div className="col-12">
+										<OrderStatusComponent orderStatus={orderStatus} />
+									</div>
 								</div>
 							</div>
 						</div>

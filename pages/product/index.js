@@ -12,95 +12,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import ProductApi from "../../services/product";
 import { useRouter } from "next/router";
 
-
-// const customer = [
-// 	{
-// 		id: 1,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Regular Product",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 2,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Product with Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 3,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 1,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 2,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 3,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 1,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 2,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 3,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// 	{
-// 		id: 1,
-// 		name: "BSC Athlete Standard whey Protein - 900 gms,Vanilla",
-// 		productcode: "BSCASWPVA",
-// 		stockquantity: "100",
-// 		producttype: "Variant",
-// 		status: true,
-// 	},
-// ];
-// const product = {
-// 	id: 1,
-// 	name: "test",
-// 	type: "Regular Product",
-// };
-
 export default function Product() {
 
 	const pathArr = useRouter();
@@ -143,7 +54,6 @@ export default function Product() {
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 			})
 			.catch((error) => {
-				console.log(error)
 				toast.error(
 					error?.response &&
 						error?.response?.data &&

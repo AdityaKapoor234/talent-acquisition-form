@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CATEGORYLIST, GET_CATEGORY_DETAILS, GET_CATEGORY_CREATE, GET_CATEGORY_EDIT, GET_CATEGORY_DELETE} from "../utils/constant";
+import {CATEGORYLIST, GET_CATEGORY_DETAILS, GET_CATEGORY_CREATE, GET_CATEGORY_EDIT, GET_CATEGORY_DELETE,GET_BANNER_URL,GET_PARENT_CATEGORY} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -58,6 +58,27 @@ export class CategoryApi {
             }
         };
         return axios.post(`${GET_CATEGORY_DELETE}`.replace('{{id}}', id),data,httpOptions)
+    }
+
+    // static getBannerUrl(data) {
+    //     const  token = cookie.get('access_token_admin');
+    //     const httpOptions = {
+    //         headers: {
+    //             'Content-Type': 'application/json', 
+    //             'Authorization': `Bearer ${token}`          
+    //         }
+    //     };
+    //     return axios.put(`${GET_BANNER_URL}`,data,httpOptions)
+    // }
+    static getParentCategory() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_PARENT_CATEGORY}`,httpOptions)
     }
 
 }

@@ -27,6 +27,7 @@ export default function DashboardLayoutComponent({children}) {
     const [tabSale, setTabSale] = useState(pathArr === "order" ?true:false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "product" || pathArr === "flavor" ? true : false );
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ?true:false);
+    const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "ask-the-pros" ?true:false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email,setEmail] = useState("admin@fitcart.com");
@@ -139,7 +140,24 @@ export default function DashboardLayoutComponent({children}) {
                                         </ul>
                                     }
                                     
-                            </div>
+                                     
+                        <div className={ tabAskthePros?'menu-btn active':'menu-btn'} onClick={()=> setAskthePros(!tabAskthePros)}>
+                                    <span>
+                                        {tabAskthePros ? <GroupIcon className='outline-icon'/>:<GroupOutlinedIcon className='outline-icon'/>}
+                                        ask-the-pros
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon'/>
+                                </div>
+                                    {tabAskthePros &&
+                                        <ul>
+                                            <li className={categary=== "ask-the-pro" ? "sub_active":""} onClick={()=> handleCategary("/ask-the-pros","ask-the-pros")}>ask-the-pros</li>
+                                            {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
+                                        </ul>
+                                    }
+                                    </div>
+                                    
+                                    
+                            
                         </div>
                         <div className='main-componemt'>
                             {children}

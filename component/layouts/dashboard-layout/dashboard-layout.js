@@ -126,6 +126,18 @@ export default function DashboardLayoutComponent({children}) {
                                             <li className={categary=== "flavor" ? "sub_active":""} onClick={()=> handleCategary("/flavor","flavor")}>flavor</li>
                                         </ul>
                                     }
+                                    <div className={ tabAskthePros?'menu-btn active':'menu-btn'} onClick={()=> setAskthePros(!tabAskthePros)}>
+                                    <span>
+                                        {tabAskthePros ? <GroupIcon className='outline-icon'/>:<GroupOutlinedIcon className='outline-icon'/>}
+                                        ask the pros
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon'/>
+                                </div>
+                                    {tabAskthePros &&
+                                        <ul>
+                                            <li className={categary=== "ask-the-pros" ? "sub_active":""} onClick={()=> handleCategary("/ask-the-pros","ask-the-pros")}>ask the pros</li>
+                                        </ul>
+                                    }
                                 <div className={tabCustomer ?'menu-btn active':'menu-btn'} onClick={()=> setTabCustomer(!tabCustomer)}>
                                     <span>
                                         {tabCustomer ? <GroupIcon className='outline-icon'/>:<GroupOutlinedIcon className='outline-icon'/>}
@@ -140,20 +152,6 @@ export default function DashboardLayoutComponent({children}) {
                                         </ul>
                                     }
                                     
-                                     
-                        <div className={ tabAskthePros?'menu-btn active':'menu-btn'} onClick={()=> setAskthePros(!tabAskthePros)}>
-                                    <span>
-                                        {tabAskthePros ? <GroupIcon className='outline-icon'/>:<GroupOutlinedIcon className='outline-icon'/>}
-                                        ask-the-pros
-                                    </span>
-                                    <ArrowDropDownIcon className='drop-icon'/>
-                                </div>
-                                    {tabAskthePros &&
-                                        <ul>
-                                            <li className={categary=== "ask-the-pro" ? "sub_active":""} onClick={()=> handleCategary("/ask-the-pros","ask-the-pros")}>ask-the-pros</li>
-                                            {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
-                                        </ul>
-                                    }
                                     </div>
                                     
                                     

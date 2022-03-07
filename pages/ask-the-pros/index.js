@@ -9,12 +9,12 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
-import CustomerApi from "../../services/customer";
+import AskTheProsApi from "../../services/ask-the-pros";
 import { useRouter } from "next/router";
 
-export default function Askthepros() {
+export default function AskThePros() {
   const pathArr = useRouter();
-  const [customer, setCustomer] = useState([]);
+  const [askThePros, setAskThePros] = useState([]);
   const [wordEntered, setWordEntered] = useState(
     pathArr.query?.q ? pathArr.query?.q : ""
   );
@@ -28,11 +28,11 @@ export default function Askthepros() {
     }
     if (event.key === "Enter") {
       Router.push({
-        pathname: "/customer",
+        pathname: "/ask-the-pros",
         query: router_query_object,
       });
-      setCurrentPage(1)
-      customerList(1, wordEntered);
+      setCurrentPage(1);
+      AskTheProsList(1, wordEntered);
     }
   };
 
@@ -42,15 +42,17 @@ export default function Askthepros() {
   };
 
   let onPageChange = function (e, page) {
-    setCurrentPage(page)
-    customerList(page,wordEntered)
+    setCurrentPage(page);
+    AskTheProsList(page, wordEntered);
   };
 
-  const customerList = (page, search) => {
-    CustomerApi.CustomerList(page, search)
+  const AskTheProsList = (page, search) => {
+    AskTheProsApi.AskThePropsList(page, search)
       .then((response) => {
-        setCustomer(response.data.data.list);
-        setTotalPage(Math.ceil(response.data.data.total/response.data.data.page_size));
+        setAskThePros(response.data.data.list);
+        setTotalPage(
+          Math.ceil(response.data.data.total / response.data.data.page_size)
+        );
       })
       .catch((error) => {
         toast.error(
@@ -62,17 +64,19 @@ export default function Askthepros() {
         );
       });
   };
+
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    customerList(currentPage, "");
+    AskTheProsList(currentPage, "");
   }, []);
+
   return (
-    <div>
+    <div page-component="category-page">
       <Head>
-        <title>{APP_NAME} - Ask-the-pros</title>
+        <title>{APP_NAME} - Ask The Pros</title>
         <meta name="description" content="Trusted Brands. Better Health." />
         <link rel="icon" href="/fitcart.ico" />
       </Head>
@@ -80,11 +84,11 @@ export default function Askthepros() {
       <main>
         <DashboardLayoutComponent>
           <div className="row border-box">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <div className="hamburger">
-                <span>Ask-the-pros / </span>ask-the-pros
+                <span>Ask The Pros / </span>Ask The Pros
               </div>
-              <div className="page-name">Ask-the-pros</div>
+              <div className="page-name">Ask The Pros</div>
             </div>
             <div className="col-md-4">
               <div className="login-form ">
@@ -99,10 +103,20 @@ export default function Askthepros() {
                 <SearchIcon className="search-icon" />
               </div>
             </div>
+            <div className="col-md-2 btn-save">
+              <div
+                className="custom-btn "
+                onClick={() => {
+                  Router.push(`/ask-the-pros/create`);
+                }}
+              >
+                <span>Add New </span>
+              </div>
+            </div>
           </div>
           <div className="row sticky-scroll scroll">
             <div className="col-md-12 ">
-              <AsktheprosList customer={customer} />
+              <AsktheprosList askThePros={askThePros} />
             </div>
           </div>
           <div className="row">

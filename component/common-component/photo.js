@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function photo({ label, accept, mode, img,name,setUrl,value}) {
+export default function photo({ label, accept, mode, img,name,setUrl,value,urlName}) {
   const [image, setImage] = useState(img ? img : "");
   const [isLoader, setIsLoader] = useState(false);
 
@@ -15,7 +15,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value}) {
       const formData = new FormData();
       formData.append("media", files[0]);
       uploadfile(
-        "http://65.1.17.188:5001/manage/category/photo/banner",
+        `http://65.1.17.188:5001/manage/category/photo/${urlName}`,
         formData,
         name
       );
@@ -53,7 +53,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value}) {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <div className="label">{label}</div>
+      <div className="label">{label}<span className="mandatory-star">*</span></div>
       <div className="photo-box">
         <div className="photo-image" style={{ background: `url(${image})` }}>
           {image === "" && mode === "edit" ? (

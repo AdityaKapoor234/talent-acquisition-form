@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import { toast } from "react-toastify";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
@@ -10,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
+import CategoryApi from "../../../services/category";
 
 export default class CategoryCreate extends Component {
   constructor(props) {
@@ -18,21 +20,22 @@ export default class CategoryCreate extends Component {
       tab: 1,
       category: props?.category,
       mode: props?.mode,
-	  img_sm:"file-input-sm",
-	  img_lg:"file-input-lg",
-	  img_icon:"file-input-icon",
+      img_sm: "file-input-sm",
+      img_lg: "file-input-lg",
+      img_icon: "file-input-icon",
+      parentCategory:[],
       input: {
         banner_img: null,
         description: "",
         full_banner_img: "",
         full_banner_img_sm: "",
         id: null,
-        is_active: null,
+        is_active: false,
         name: "",
-        parent_id: null,
+        parent_id: "select",
         short_description: null,
-        show_in_main_menu: null,
-        show_in_top_menu: null,
+        show_in_main_menu: false,
+        show_in_top_menu: false,
         sort_order: null,
       },
     };
@@ -54,7 +57,7 @@ export default class CategoryCreate extends Component {
           id: nextProps?.category?.id,
           is_active: nextProps?.category?.is_active,
           name: nextProps?.category?.name,
-          parent_id: nextProps?.category?.parent_id,
+          parent_id: nextProps?.category?.parent_id !== null ?nextProps?.category?.parent_id:"select",
           short_description: nextProps?.category?.short_description,
           show_in_main_menu: nextProps?.category?.show_in_main_menu,
           show_in_top_menu: nextProps?.category?.show_in_top_menu,
@@ -82,6 +85,27 @@ export default class CategoryCreate extends Component {
     this.setState({ input });
     this.props?.handle(input);
   };
+  getCategory=()=>{
+    CategoryApi.getParentCategory()
+        .then((response) => {
+          if (response.data.httpStatusCode === 200) {
+            this.setState({ parentCategory: response.data.data.list });
+          }
+        })
+        .catch((error) => {
+          console.log("test",error)
+          toast.error(
+            error?.response &&
+              error?.response?.data &&
+              error?.response?.data?.message
+              ? error.response.data.message
+              : "Unable to process your request, please try after sometime"
+          );
+        });
+  }
+  componentDidMount(){
+    this.getCategory()
+  }
 
   render() {
     return (
@@ -125,7 +149,7 @@ export default class CategoryCreate extends Component {
                   <div className="row mt-2">
                     <div className="col-md-12">
                       <div className="login-form">
-                        <label>Short Description</label>
+                        <label>Short Description<span className="mandatory-star">*</span></label>
                         <br />
                         <textarea
                           name="short_description"
@@ -136,7 +160,7 @@ export default class CategoryCreate extends Component {
                         ></textarea>
                       </div>
                       <div className="login-form mt-2">
-                        <label>Full Description</label>
+                        <label>Full Description<span className="mandatory-star">*</span></label>
                         <br />
                         <textarea
                           name="description"
@@ -151,29 +175,28 @@ export default class CategoryCreate extends Component {
                   <div className="row mt-2">
                     <div className="col-md-4">
                       <div className="sort">
-                        <label>Parent Category</label>
+                        <label>Parent Category<span className="mandatory-star">*</span></label>
                         <div className="sort-by-select-wrapper">
                           <Select
                             disableUnderline
                             variant="standard"
                             autoWidth={true}
                             IconComponent={ExpandMoreIcon}
-                            name="sort"
+                            name="parent_id"
                             onChange={this.handleChange}
                             className="sort-by-select"
-                            value={this.state.sort}
+                            value={this.state.input?.parent_id}
                           >
                             <MenuItem
-                              value={"cat"}
+                              value={"select"}
                               disabled
                               className="field_toggle_checked"
                             >
                               Select Category{" "}
                             </MenuItem>
-                            <MenuItem value={"vitamin"}>Vitamin</MenuItem>
-                            <MenuItem value={"food"}>Food & Drinks</MenuItem>
-                            <MenuItem value={"protein"}>Protiens</MenuItem>
-                            <MenuItem value={"wellness"}>wellness</MenuItem>
+                            {this.state.parentCategory?.map(value =>{return (
+                              <MenuItem value={value?.id}>{value?.name}</MenuItem>
+                            )})}
                           </Select>
                         </div>
                       </div>
@@ -185,7 +208,8 @@ export default class CategoryCreate extends Component {
                           name="banner_img"
                           img={this.state.input.banner_img}
                           setUrl={this.handlePhotoUrl.bind(this)}
-						  value={this.state.img_icon}
+                          value={this.state.img_icon}
+                          urlName="icon"
                         />
                       </div>
                       <div className="mt-4">
@@ -196,7 +220,8 @@ export default class CategoryCreate extends Component {
                           name="full_banner_img"
                           img={this.state.input.full_banner_img}
                           setUrl={this.handlePhotoUrl.bind(this)}
-						  value={this.state.img_lg}
+                          value={this.state.img_lg}
+                          urlName="full_banner"
                         />
                       </div>
                       <div className="mt-4">
@@ -207,7 +232,8 @@ export default class CategoryCreate extends Component {
                           name="full_banner_img_sm"
                           img={this.state.input.full_banner_img_sm}
                           setUrl={this.handlePhotoUrl.bind(this)}
-						  value={this.state.img_sm}
+                          value={this.state.img_sm}
+                          urlName="banner"
                         />
                       </div>
                       <div className="signup-check mt-4">
@@ -276,7 +302,7 @@ export default class CategoryCreate extends Component {
                   <div className="row mt-2">
                     <div className="col-md-12">
                       <div className="login-form">
-                        <label>Short Description</label>
+                        <label>Short Description<span className="mandatory-star">*</span></label>
                         <br />
                         <textarea
                           name="short_description"
@@ -286,7 +312,7 @@ export default class CategoryCreate extends Component {
                         ></textarea>
                       </div>
                       <div className="login-form mt-2">
-                        <label>Full Description</label>
+                        <label>Full Description<span className="mandatory-star">*</span></label>
                         <br />
                         <textarea
                           name="description"
@@ -300,29 +326,28 @@ export default class CategoryCreate extends Component {
                   <div className="row mt-2">
                     <div className="col-md-4">
                       <div className="sort">
-                        <label>Parent Category</label>
+                        <label>Parent Category<span className="mandatory-star">*</span></label>
                         <div className="sort-by-select-wrapper">
                           <Select
                             disableUnderline
                             variant="standard"
                             autoWidth={true}
                             IconComponent={ExpandMoreIcon}
-                            name="sort"
+                            name="parent_id"
                             onChange={this.handleChange}
                             className="sort-by-select"
-                            value={this.state.sort}
+                            value={this.state.input?.parent_id}
                           >
                             <MenuItem
-                              value={"cat"}
+                              value={"select"}
                               disabled
                               className="field_toggle_checked"
                             >
                               Select Category{" "}
                             </MenuItem>
-                            <MenuItem value={"vitamin"}>Vitamin</MenuItem>
-                            <MenuItem value={"food"}>Food & Drinks</MenuItem>
-                            <MenuItem value={"protein"}>Protiens</MenuItem>
-                            <MenuItem value={"wellness"}>wellness</MenuItem>
+                            {this.state.parentCategory?.map(value =>{return (
+                              <MenuItem value={value?.id}>{value?.name}</MenuItem>
+                            )})}
                           </Select>
                         </div>
                       </div>

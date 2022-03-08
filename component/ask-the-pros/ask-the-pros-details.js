@@ -12,7 +12,8 @@ export default class AsktheprosDetails extends Component {
       tab: 1,
       askThePros: props?.askThePros,
       mode: props?.mode,
-      expertise: [],
+      expert:[],
+      expertise:[],
       img_icon: "file-input",
       input: {
         name: "",
@@ -27,18 +28,22 @@ export default class AsktheprosDetails extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
       prevState.askThePros !== nextProps.askThePros ||
-      prevState.mode !== nextProps.mode
+      // prevState.mode !== nextProps.mode ||
+      prevState.expertise !== nextProps?.expertise||
+      prevState.expert !== nextProps?.expert
     ) {
       return {
         askThePros: nextProps?.askThePros,
         mode: nextProps?.mode,
+        expertise: nextProps?.expertise,
+        expert:nextProps?.expert,
         input: {
           name: nextProps?.askThePros?.name,
           email: nextProps?.askThePros?.email,
           avatar_url: nextProps?.askThePros?.avatar_url,
           is_active: nextProps?.askThePros?.is_active,
           experience: nextProps?.askThePros?.experience,
-          expertises: nextProps?.askThePros?.expertises,
+          expertises: nextProps?.expert,
         },
       };
     }
@@ -62,25 +67,42 @@ export default class AsktheprosDetails extends Component {
     this.setState({ input });
     this.props?.handle(input);
   };
-  getExpertiseList = () => {
-    AskTheProsApi.getExpertise()
-      .then((response) => {
-        if (response.data.httpStatusCode === 200) {
-          this.setState({ expertise: response.data.data });
+  selectTypes = (list, expertise) => {
+    let model = list?.map(p=>p?.id)
+    let tempcategoryList = expertise;
+    for (let i in tempcategoryList) {
+      if (model !== undefined) {
+        if (model?.length > 1) {
+          if (model.indexOf(tempcategoryList[i].id) >= 0)
+            tempcategoryList[i].selected = true;
+          else {
+            tempcategoryList[i].selected = false;
+          }
+        } else {
+          if (model?.indexOf(tempcategoryList[i].id) >= 0)
+            tempcategoryList[i].selected = true;
+          else {
+            tempcategoryList[i].selected = false;
+          }
         }
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
+      }
+      else{
+        tempcategoryList[i].selected = false;
+      }
+    }
+    return tempcategoryList;
   };
+
+ 
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.expert !== prevProps?.expert) {
+  //     this.setState({
+  //       expertise : this.selectTypes(this.props.expert, this.props?.expertise)
+  //     })
+  //   }
+  // }
   componentDidMount() {
-    this.getExpertiseList();
+    
   }
   render() {
     return (
@@ -158,7 +180,7 @@ export default class AsktheprosDetails extends Component {
                         <label>Active</label>
                       </div>
                     </div>
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                       <label className="expertise">Expertises<span className="mandatory-star">*</span></label>
                       <div className="signup-check">
                         <div className="d-flex flex-wrap">
@@ -188,7 +210,7 @@ export default class AsktheprosDetails extends Component {
                           })}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -239,10 +261,11 @@ export default class AsktheprosDetails extends Component {
                         <label>Active</label>
                       </div>
                     </div>
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                       <label className="expertise">Expertises<span className="mandatory-star">*</span></label>
                       <div className="signup-check">
                         <div className="d-flex flex-wrap">
+                          {console.log(this.state.expertise,"test")}
                           {this.state.expertise?.map((value) => {
                             return (
                               <FormGroup>
@@ -252,9 +275,9 @@ export default class AsktheprosDetails extends Component {
                                       style={{ color: "#012169" }}
                                       size="small"
                                       className="check"
-                                      value={value.id}
-                                      onChange={this.handleChange.bind(this)}
-                                      checked={value.selected}
+                                      // value={value.id}
+                                      // onChange={this.handleChange.bind(this)}
+                                      checked={value?.selected}
                                       name={value?.name}
                                     />
                                   }
@@ -269,7 +292,7 @@ export default class AsktheprosDetails extends Component {
                           })}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

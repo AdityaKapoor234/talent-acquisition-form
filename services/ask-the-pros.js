@@ -5,7 +5,7 @@ import cookie from "js-cookie";
 
 export class AskTheProsApi {
 
-    static AskThePropsList(page,search) {
+    static AskTheProsList(page,search) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -16,7 +16,7 @@ export class AskTheProsApi {
         return axios.get(`${ASKTHEPROSLIST}`.replace('{{page}}', page).replace('{{search}}', search),httpOptions)
     }
 
-    static getAskThePropsDetails(id) {
+    static getAskTheProsDetails(id) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -27,7 +27,7 @@ export class AskTheProsApi {
         return axios.get(`${GET_ASKTHEPROS_DETAILS}`.replace('{{id}}', id),httpOptions)
     }
 
-    static AskThePropsEdit(id,data) {
+    static AskTheProsEdit(id,data) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -38,7 +38,7 @@ export class AskTheProsApi {
         return axios.post(`${GET_ASKTHEPROS_EDIT}`.replace('{{id}}', id),data,httpOptions)
     }
 
-    static AskThePropsCreate(data) {
+    static AskTheProsCreate(data) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -49,7 +49,7 @@ export class AskTheProsApi {
         return axios.post(`${GET_ASKTHEPROS_CREATE}`,data,httpOptions)
     }
 
-    static AskThePropsDelete(id,data) {
+    static AskTheProsDelete(id,data) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {

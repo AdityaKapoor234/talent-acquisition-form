@@ -25,29 +25,70 @@ export default class AskTheProsCreate extends Component {
       id: props?.id,
       mode: "edit",
       asktheProps: {},
+      expertise: [],
       open: false,
-      askThePropsDetails: {
-        
+      askTheProsDetails: {
+        name: "",
+        email: "",
+        avatar_url: null,
+        is_active: false,
+        experience: "",
+        expertises: [],
       },
     };
   }
+
+  ValidateEmail = (mail) => {
+    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      mail
+    );
+  };
+
   validateData = () => {
     if (
-      this.state.askThePropsDetails?.sort_order === "" ||
-      this.state.askThePropsDetails?.sort_order === null
+      this.state.askTheProsDetails?.name === "" ||
+      this.state.askTheProsDetails?.name === null
     ) {
-      toast.error("Please enter Display Order ");
+      toast.error("Please enter the name");
       return false;
     }
-
+    if (this.state.askTheProsDetails?.email === ""||
+    this.state.askTheProsDetails?.email === null) {
+      toast.error("Please enter email address");
+      return false;
+    }
+    if (!this.ValidateEmail(this.state.askTheProsDetails?.email)) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+    if (
+      this.state.askTheProsDetails?.avatar_url === "" ||
+      this.state.askTheProsDetails?.avatar_url === null
+    ) {
+      toast.error("Please upload avatar");
+      return false;
+    }
+    if (
+      this.state.askTheProsDetails?.experience === "" ||
+      this.state.askTheProsDetails?.experience === null
+    ) {
+      toast.error("Please enter experience");
+      return false;
+    }
+    
     return true;
   };
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        
+        name:this.state.askTheProsDetails?.name,
+        email:this.state.askTheProsDetails?.email,
+        avatar_url: this.state.askTheProsDetails?.avatar_url,
+        is_active: this.state.askTheProsDetails?.is_active,
+        experience:this.state.askTheProsDetails?.experience,
+        expertises:[1,4],
       };
-      AskTheProsApi.AskThePropsCreate(data)
+      AskTheProsApi.AskTheProsCreate(data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
             this.setState({ asktheProps: response.data.data });
@@ -69,11 +110,29 @@ export default class AskTheProsCreate extends Component {
   stateHandle = (value) => {
     this.setState({ askTheProsDetails: value });
   };
+  getExpertiseList = () => {
+    AskTheProsApi.getExpertise()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ expertise: response.data.data });
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
+    this.getExpertiseList();
     this.setState({ id: this.props?.id });
   }
   render() {
@@ -118,6 +177,7 @@ export default class AskTheProsCreate extends Component {
                 <AskTheProsCreateComponent
                   askThePros={this.state.asktheProps}
                   mode={this.state.mode}
+                  expertise={this.state.expertise}
                   handle={this.stateHandle.bind(this)}
                 />
               </div>

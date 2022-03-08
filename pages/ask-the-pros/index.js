@@ -47,7 +47,7 @@ export default function AskThePros() {
   };
 
   const AskTheProsList = (page, search) => {
-    AskTheProsApi.AskThePropsList(page, search)
+    AskTheProsApi.AskTheProsList(page, search)
       .then((response) => {
         setAskThePros(response.data.data.list);
         setTotalPage(

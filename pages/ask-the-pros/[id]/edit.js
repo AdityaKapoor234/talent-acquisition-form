@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import CategoryCreateComponent from "../../../component/catalog/category/category-create";
+import AskTheProsCreateComponent from "../../../component/ask-the-pros/ask-the-pros-details";
+import AskTheProsApi from "../../../services/ask-the-pros";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import CategoryApi from "../../../services/category";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -27,86 +27,81 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default class CategoryEditDetails extends Component {
+export default class AskTheProsEditDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props?.id,
       mode: "edit",
-      category: {},
+      asktheProps: {},
+      expertise: [],
       open: false,
-      categoryDetails: {
-        banner_img: null,
-        description: "",
-        full_banner_img: null,
-        full_banner_img_sm: null,
-        id: null,
-        is_active: null,
-        name: '',
-        parent_id:null,
-        short_description:'',
-        show_in_main_menu: null,
-        show_in_top_menu: null,
-        sort_order: null,
+      askTheProsDetails: {
+        name: "",
+        email: "",
+        avatar_url: null,
+        is_active: false,
+        experience: "",
+        expertises: [1],
       },
     };
   }
+  ValidateEmail = (mail) => {
+    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      mail
+    );
+  };
+
   validateData = () => {
-    if (this.state.categoryDetails?.banner_img === "" || this.state.categoryDetails?.banner_img === null) {
-      toast.error("Please upload icon");
-      return false;
-    }
-    if (this.state.categoryDetails?.full_banner_img === "" || this.state.categoryDetails?.full_banner_img === null) {
-      toast.error("Please upload full banner image");
-      return false;
-    }
-    if (this.state.categoryDetails?.full_banner_img_sm === "" || this.state.categoryDetails?.full_banner_img_sm === null) {
-      toast.error("Please upload short banner image");
-      return false;
-    }
-    if (this.state.categoryDetails?.name === "" || this.state.categoryDetails?.name === null) {
+    if (
+      this.state.askTheProsDetails?.name === "" ||
+      this.state.askTheProsDetails?.name === null
+    ) {
       toast.error("Please enter the name");
       return false;
     }
-    if (this.state.categoryDetails?.short_description === "" ||this.state.categoryDetails?.short_description === null) {
-      toast.error("Please enter the short description");
+    if (this.state.askTheProsDetails?.email === ""||
+    this.state.askTheProsDetails?.email === null) {
+      toast.error("Please enter email address");
       return false;
     }
-    if (this.state.categoryDetails?.description === "" ||this.state.categoryDetails?.description=== null) {
-      toast.error("Please enter the full description");
+    if (!this.ValidateEmail(this.state.askTheProsDetails?.email)) {
+      toast.error("Please enter a valid email address");
       return false;
     }
     if (
-      this.state.categoryDetails?.sort_order === "" ||
-      this.state.categoryDetails?.sort_order === null
+      this.state.askTheProsDetails?.avatar_url === "" ||
+      this.state.askTheProsDetails?.avatar_url === null
     ) {
-      toast.error("Please enter Display Order ");
+      toast.error("Please upload avatar");
       return false;
     }
-
+    if (
+      this.state.askTheProsDetails?.experience === "" ||
+      this.state.askTheProsDetails?.experience === null
+    ) {
+      toast.error("Please enter experience");
+      return false;
+    }
+    
     return true;
   };
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        banner_img: this.state.categoryDetails?.banner_img,
-        description: this.state.categoryDetails?.description,
-        full_banner_img: this.state.categoryDetails?.full_banner_img,
-        full_banner_img_sm: this.state.categoryDetails?.full_banner_img_sm,
-        is_active: this.state.categoryDetails?.is_active,
-        name: this.state.categoryDetails?.name,
-        parent_id:this.state.categoryDetails?.parent_id,
-        short_description:this.state.categoryDetails?.short_description,
-        show_in_main_menu: this.state.categoryDetails?.show_in_main_menu,
-        show_in_top_menu: this.state.categoryDetails?.show_in_top_menu,
-        sort_order: this.state.categoryDetails?.sort_order,
+        name:this.state.askTheProsDetails?.name,
+        email:this.state.askTheProsDetails?.email,
+        avatar_url: this.state.askTheProsDetails?.avatar_url,
+        is_active: this.state.askTheProsDetails?.is_active,
+        experience:this.state.askTheProsDetails?.experience,
+        expertises:[1,3],
       };
-      CategoryApi.CategoryEdit(this.props.id, data)
+      AskTheProsApi.AskTheProsEdit(this.props.id, data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
-            this.setState({ category: response.data.data.category });
+            this.setState({ asktheProps: response.data.data });
             toast.success(response.data.message);
-            Router.push(`/category`);
+            Router.push(`/ask-the-pros`);
           }
         })
         .catch((error) => {
@@ -121,29 +116,23 @@ export default class CategoryEditDetails extends Component {
     }
   };
   stateHandle = (value) => {
-    this.setState({ categoryDetails: value });
+    this.setState({ askTheProsDetails: value });
   };
-  getCategoryDetails = (id) => {
-    CategoryApi.getCategoryDetails(id)
+  getAskTheProsDetails = (id) => {
+    AskTheProsApi.getAskTheProsDetails(id)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
-            banner_img: response.data.data.category?.banner_img,
-            description: response.data.data.category?.description,
-            full_banner_img: response.data.data.category?.full_banner_img,
-            full_banner_img_sm: response.data.data.category?.full_banner_img_sm,
-            id: response.data.data.category?.id,
-            is_active: response.data.data.category?.is_active,
-            name: response.data.data.category?.name,
-            parent_id: response.data.data.category?.parent_id,
-            short_description: response.data.data.category?.short_description,
-            show_in_main_menu: response.data.data.category?.show_in_main_menu,
-            show_in_top_menu: response.data.data.category?.show_in_top_menu,
-            sort_order: response.data.data.category?.sort_order,
+            name:response.data.data.expert?.name,
+            email:response.data.data.expert?.email,
+            avatar_url: response.data.data.expert?.avatar_url,
+            is_active: response.data.data.expert?.is_active,
+            experience:response.data.data.expert?.experience,
+            expertises:response.data.data.expert?.expertises,
           };
           this.setState({
-            categoryDetails: details,
-            category: response.data.data.category,
+            askTheProsDetails: details,
+            asktheProps: response.data.data.expert,
           });
         }
       })
@@ -159,12 +148,29 @@ export default class CategoryEditDetails extends Component {
   };
   Delete = (id) => {
     let data = {};
-    CategoryApi.CategoryDelete(id, data)
+    AskTheProsApi.AskTheProsDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-          this.setState({ category: response.data.data.category });
-          Router.push("/category");
+          this.setState({ asktheProps: response.data.data.expert });
+          Router.push("/ask-the-pros");
           toast.success(response.data.message);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+  getExpertiseList = () => {
+    AskTheProsApi.getExpertise()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ expertise: response.data.data });
         }
       })
       .catch((error) => {
@@ -183,14 +189,15 @@ export default class CategoryEditDetails extends Component {
     if (token === undefined) {
       Router.push("/");
     }
-    this.getCategoryDetails(this.props.id);
+    this.getExpertiseList();
+    this. getAskTheProsDetails(this.props.id);
     this.setState({ id: this.props?.id });
   }
   render() {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Category</title>
+          <title>{APP_NAME} - Ask The Pros</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -200,10 +207,10 @@ export default class CategoryEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Catalog / Category / </span>Edit Category
+                <span>Ask The Pros / Ask The Pros /  </span>Edit Ask The Pros 
                 </div>
                 <div className="page-name">
-                  Edit Category Details - Bottles/Shakers
+                Edit Ask The Pros  - {this.state.asktheProps?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">
@@ -226,7 +233,7 @@ export default class CategoryEditDetails extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    Router.push(`/category`);
+                    Router.push(`/ask-the-pros`);
                   }}
                 >
                   <span>Cancel </span>
@@ -235,9 +242,10 @@ export default class CategoryEditDetails extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-                <CategoryCreateComponent
-                  category={this.state.category}
+              <AskTheProsCreateComponent
+                  askThePros={this.state.asktheProps}
                   mode={this.state.mode}
+                  expertise={this.state.expertise}
                   handle={this.stateHandle.bind(this)}
                 />
               </div>
@@ -261,7 +269,7 @@ export default class CategoryEditDetails extends Component {
             </Box>
             <DialogContent>
               <Typography style={{ color: "#7e8f99" }}>
-                Are you sure you want to delete this category?
+                Are you sure you want to delete this pro?
               </Typography>
             </DialogContent>
             <DialogActions style={{ marginBottom: "0.5rem" }}>

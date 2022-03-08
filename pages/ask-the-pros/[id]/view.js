@@ -18,7 +18,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-
 export async function getServerSideProps(context) {
   const { id } = context.query;
   return {
@@ -32,11 +31,12 @@ export default function AskTheProsViewDetails({ id }) {
   const mode = "view";
   const [askThePros, setAskThePros] = useState([]);
   const [open, setOpen] = useState(false);
+  const [expertise, setExpertise] = useState([]);
 
   const AskTheProsDetail = (id) => {
-    AskTheProsApi.getAskThePropsDetails(id)
+    AskTheProsApi.getAskTheProsDetails(id)
       .then((response) => {
-        setAskThePros(response.data.data?.expert);
+        setAskThePros(response.data.data);
       })
       .catch((error) => {
         toast.error(
@@ -50,12 +50,29 @@ export default function AskTheProsViewDetails({ id }) {
   };
   const Delete = (id) => {
     let data = {};
-    AskTheProsApi.AskThePropsDelete(id, data)
+    AskTheProsApi.AskTheProsDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           setAskThePros(response.data.data?.expert);
           toast.success(response.data.message);
           Router.push("/ask-the-pros");
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+  const getExpertiseList = () => {
+    AskTheProsApi.getExpertise()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setExpertise(response.data.data);
         }
       })
       .catch((error) => {
@@ -74,6 +91,7 @@ export default function AskTheProsViewDetails({ id }) {
     if (token === undefined) {
       Router.push("/");
     }
+    getExpertiseList();
     AskTheProsDetail(id);
   }, [id]);
   return (
@@ -89,18 +107,18 @@ export default function AskTheProsViewDetails({ id }) {
           <div className="row border-box">
             <div className="col-md-5">
               <div className="hamburger">
-                <span>Ask The Pros / Ask The Pros /  </span>View Ask The Pros 
+                <span>Ask The Pros / Ask The Pros / </span>View Ask The Pros
               </div>
               <div className="page-name">
-              Ask The Pros Details - {askThePros?.name}
+                Ask The Pros Details - {askThePros?.name}
               </div>
             </div>
             <div className="col-md-7 btn-save">
               <div
                 className="Cancel-btn custom-btn"
                 onClick={() => {
-					setOpen(true);
-				  }}
+                  setOpen(true);
+                }}
               >
                 <span>Delete </span>
               </div>
@@ -116,7 +134,12 @@ export default function AskTheProsViewDetails({ id }) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <AskTheProsCreateComponent mode={mode} askThePros={askThePros} />
+              <AskTheProsCreateComponent
+                mode={mode}
+                askThePros={askThePros?.expert}
+                expert={askThePros?.expertise}
+                expertise={expertise}
+              />
             </div>
           </div>
         </DashboardLayoutComponent>

@@ -93,7 +93,6 @@ export default class CategoryCreate extends Component {
           }
         })
         .catch((error) => {
-          console.log("test",error)
           toast.error(
             error?.response &&
               error?.response?.data &&

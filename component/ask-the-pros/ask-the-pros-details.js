@@ -12,7 +12,7 @@ export default class AsktheprosDetails extends Component {
       tab: 1,
       askThePros: props?.askThePros,
       mode: props?.mode,
-      expertise: [],
+      expertise: props?.expertise,
       img_icon: "file-input",
       input: {
         name: "",
@@ -27,11 +27,13 @@ export default class AsktheprosDetails extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
       prevState.askThePros !== nextProps.askThePros ||
-      prevState.mode !== nextProps.mode
+      prevState.mode !== nextProps.mode ||
+      prevState.expertise !== nextProps?.expertise
     ) {
       return {
         askThePros: nextProps?.askThePros,
         mode: nextProps?.mode,
+        expertise: nextProps?.expertise,
         input: {
           name: nextProps?.askThePros?.name,
           email: nextProps?.askThePros?.email,
@@ -62,25 +64,9 @@ export default class AsktheprosDetails extends Component {
     this.setState({ input });
     this.props?.handle(input);
   };
-  getExpertiseList = () => {
-    AskTheProsApi.getExpertise()
-      .then((response) => {
-        if (response.data.httpStatusCode === 200) {
-          this.setState({ expertise: response.data.data });
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  };
+ 
   componentDidMount() {
-    this.getExpertiseList();
+    
   }
   render() {
     return (

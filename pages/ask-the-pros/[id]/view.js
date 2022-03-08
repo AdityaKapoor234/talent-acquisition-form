@@ -36,7 +36,7 @@ export default function AskTheProsViewDetails({ id }) {
   const AskTheProsDetail = (id) => {
     AskTheProsApi.getAskTheProsDetails(id)
       .then((response) => {
-        setAskThePros(response.data.data?.expert);
+        setAskThePros(response.data.data);
       })
       .catch((error) => {
         toast.error(
@@ -136,7 +136,8 @@ export default function AskTheProsViewDetails({ id }) {
             <div className="col-m-12">
               <AskTheProsCreateComponent
                 mode={mode}
-                askThePros={askThePros}
+                askThePros={askThePros?.expert}
+                expert={askThePros?.expertise}
                 expertise={expertise}
               />
             </div>

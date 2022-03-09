@@ -19,10 +19,12 @@ export const GET_CUSTOMER = `http://65.1.17.188:5000/customer/{{id}}`;
 
 //Category
 export const CATEGORYLIST = `http://65.1.17.188:5001/manage/category?page={{page}}&q={{search}}`;
-// export const GET_CATEGORY_DETAILS = ``;
-// export const GET_CATEGORY_CREATE = ``;
-// export const GET_CATEGORY_EDIT = ``;
-// export const GET_CATEGORY_DELETE = ``;
+export const GET_CATEGORY_DETAILS = `http://65.1.17.188:5001/manage/category/{{id}}`;
+export const GET_CATEGORY_CREATE = `http://65.1.17.188:5001/manage/category`;
+export const GET_CATEGORY_EDIT = `http://65.1.17.188:5001/manage/category/{{id}}`;
+export const GET_CATEGORY_DELETE = `http://65.1.17.188:5001/manage/category/{{id}}/delete`;
+export const GET_BANNER_URL =`http://65.1.17.188:5001/manage/category/photo/banner`;
+export const GET_PARENT_CATEGORY =`http://65.1.17.188:5001/category`;
 
 //INGREDIENTS
 export const INGREDIENTLIST = `http://65.1.17.188:5001/manage/ingredient?page={{page}}&q={{search}}`;
@@ -40,10 +42,6 @@ export const GET_BRANDS_DELETE = `http://65.1.17.188:5001/manage/brand/{{id}}/de
 
 //Product
 export const PRODUCTLIST = `http://65.1.17.188:5001/manage/product?page={{page}}&q={{search}}`;
-// export const GET_PRODUCT_DETAILS = ``;
-// export const GET_PRODUCT_CREATE = ``;
-// export const GET_PRODUCT_EDIT = ``;
-// export const GET_PRODUCT_DELETE = ``;
 
 //Flavor
 export const FLAVORLIST = `http://65.1.17.188:5001/manage/flavor?page={{page}}&q={{search}}`;
@@ -51,3 +49,11 @@ export const GET_FLAVOR_DETAILS = `http://65.1.17.188:5001/manage/flavor/{{id}}`
 export const GET_FLAVOR_CREATE = `http://65.1.17.188:5001/manage/flavor`;
 export const GET_FLAVOR_EDIT = `http://65.1.17.188:5001/manage/flavor/{{id}}`;
 export const GET_FLAVOR_DELETE = `http://65.1.17.188:5001/manage/flavor/{{id}}/delete`;
+
+//ASK THE PROS
+export const ASKTHEPROSLIST = `http://65.1.17.188:5000/manage/expert?page={{page}}&q={{search}}`;
+export const GET_ASKTHEPROS_DETAILS = `http://65.1.17.188:5000/manage/expert/{{id}}`;
+export const GET_ASKTHEPROS_CREATE = `http://65.1.17.188:5000/manage/expert`;
+export const GET_ASKTHEPROS_EDIT = `http://65.1.17.188:5000/manage/expert/{{id}}`;
+export const GET_ASKTHEPROS_DELETE = `http://65.1.17.188:5000/manage/expert/{{id}}/delete`;
+export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;

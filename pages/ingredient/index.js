@@ -53,7 +53,7 @@ export default function Ingredient() {
 				setIngredient(response.data.data.list);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 			})
-			.catch((error) => { console.log(error)
+			.catch((error) => {
 				toast.error(
 					error?.response &&
 						error?.response?.data &&

@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import CategoryCreateComponent from "../../../component/catalog/category/category-create";
+import AskTheProsCreateComponent from "../../../component/ask-the-pros/ask-the-pros-details";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import CategoryApi from "../../../services/category";
+import AskTheProsApi from "../../../services/ask-the-pros";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -18,13 +18,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-const customer = {
-  id: 1,
-  name: "Accessories",
-  top: false,
-  display: "9",
-  active: true,
-};
 export async function getServerSideProps(context) {
   const { id } = context.query;
   return {
@@ -34,15 +27,16 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function CategoryViewDetails({ id }) {
+export default function AskTheProsViewDetails({ id }) {
   const mode = "view";
-  const [category, setCategory] = useState([]);
+  const [askThePros, setAskThePros] = useState([]);
   const [open, setOpen] = useState(false);
+  const [expertise, setExpertise] = useState([]);
 
-  const categoryDetail = (id) => {
-    CategoryApi.getCategoryDetails(id)
+  const AskTheProsDetail = (id) => {
+    AskTheProsApi.getAskTheProsDetails(id)
       .then((response) => {
-        setCategory(response.data.data.category);
+        setAskThePros(response.data.data);
       })
       .catch((error) => {
         toast.error(
@@ -56,12 +50,29 @@ export default function CategoryViewDetails({ id }) {
   };
   const Delete = (id) => {
     let data = {};
-    CategoryApi.CategoryDelete(id, data)
+    AskTheProsApi.AskTheProsDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-			setCategory(response.data.data.category);
+          setAskThePros(response.data.data?.expert);
           toast.success(response.data.message);
-          Router.push("/category");
+          Router.push("/ask-the-pros");
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+  const getExpertiseList = () => {
+    AskTheProsApi.getExpertise()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setExpertise(response.data.data);
         }
       })
       .catch((error) => {
@@ -80,12 +91,13 @@ export default function CategoryViewDetails({ id }) {
     if (token === undefined) {
       Router.push("/");
     }
-    categoryDetail(id);
+    getExpertiseList();
+    AskTheProsDetail(id);
   }, [id]);
   return (
     <div>
       <Head>
-        <title>{APP_NAME} - Category</title>
+        <title>{APP_NAME} - Ask The Pros</title>
         <meta name="description" content="Trusted Brands. Better Health." />
         <link rel="icon" href="/fitcart.ico" />
       </Head>
@@ -95,25 +107,25 @@ export default function CategoryViewDetails({ id }) {
           <div className="row border-box">
             <div className="col-md-5">
               <div className="hamburger">
-                <span>Catalog / Category / </span>View Category
+                <span>Ask The Pros / Ask The Pros / </span>View Ask The Pros
               </div>
               <div className="page-name">
-                Category Details - {category?.name}
+                Ask The Pros Details - {askThePros?.name}
               </div>
             </div>
             <div className="col-md-7 btn-save">
               <div
                 className="Cancel-btn custom-btn"
                 onClick={() => {
-					setOpen(true);
-				  }}
+                  setOpen(true);
+                }}
               >
                 <span>Delete </span>
               </div>
               <div
                 className="Cancel-btn custom-btn"
                 onClick={() => {
-                  Router.push(`/category`);
+                  Router.push(`/ask-the-pros`);
                 }}
               >
                 <span>Cancel </span>
@@ -122,7 +134,12 @@ export default function CategoryViewDetails({ id }) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <CategoryCreateComponent mode={mode} category={category} />
+              <AskTheProsCreateComponent
+                mode={mode}
+                askThePros={askThePros?.expert}
+                expert={askThePros?.expertise}
+                expertise={expertise}
+              />
             </div>
           </div>
         </DashboardLayoutComponent>
@@ -144,7 +161,7 @@ export default function CategoryViewDetails({ id }) {
           </Box>
           <DialogContent>
             <Typography style={{ color: "#7e8f99" }}>
-              Are you sure you want to delete this category?
+              Are you sure you want to delete this pro?
             </Typography>
           </DialogContent>
           <DialogActions style={{ marginBottom: "0.5rem" }}>

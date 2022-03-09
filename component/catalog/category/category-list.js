@@ -47,14 +47,14 @@ export default class CategoryList extends Component {
 								<div className="tableCell">
 									<div className="tableBody col-5">{p?.name}</div>
 									<div className="col text-center">
-										{p?.active === true ? (
+										{p?.is_active === true ? (
 											<CheckCircleOutlineOutlinedIcon className="check-icon" />
 										) : (
 											<CancelOutlinedIcon className="cancel-icon" />
 										)}
 									</div>
 									<div className="col text-center">
-										{p?.top === true ? (
+										{p?.show_in_top_menu === true ? (
 											<CheckCircleOutlineOutlinedIcon className="check-icon" />
 										) : (
 											<CancelOutlinedIcon className="cancel-icon" />

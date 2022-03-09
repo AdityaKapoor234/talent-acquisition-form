@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import ProductCreateComponent from "../../../component/catalog/product/product-create";
+import ProductEditComponent from "../../../component/catalog/product/product-edit.component";
 import Router from "next/router";
 import Cookie from "js-cookie";
 
@@ -15,7 +15,7 @@ const product = {
 };
 
 
-export default function ProductEditDetails() {
+export default function ProductEditCompo() {
 
     const mode = "edit";
 
@@ -43,14 +43,14 @@ export default function ProductEditDetails() {
                             <div className="page-name">Edit Product Details-Test</div>
                         </div>
                         <div className="col-md-8 btn-save">
-                            <div
-                                className="custom-btn "
-                                onClick={() => {
-                                    Router.push(`/product`);
-                                }}
-                            >
-                                <span>Save </span>
-                            </div>
+                            {/*<div*/}
+                                {/*className="custom-btn "*/}
+                                {/*onClick={() => {*/}
+                                    {/*Router.push(`/product`);*/}
+                                {/*}}*/}
+                            {/*>*/}
+                                {/*<span>Save </span>*/}
+                            {/*</div>*/}
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
@@ -71,7 +71,7 @@ export default function ProductEditDetails() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <ProductCreateComponent mode={mode} product={product} />
+                            <ProductEditComponent mode={mode} product={product} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

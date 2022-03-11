@@ -110,7 +110,7 @@ export default function AskTheProsViewDetails({ id }) {
                 <span>Ask The Pros / Ask The Pros / </span>View Ask The Pros
               </div>
               <div className="page-name">
-                Ask The Pros Details - {askThePros?.name}
+                Ask The Pros Details - {askThePros?.expert?.name}
               </div>
             </div>
             <div className="col-md-7 btn-save">

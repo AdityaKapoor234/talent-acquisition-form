@@ -13,7 +13,7 @@ export default class AsktheprosDetails extends Component {
       askThePros: props?.askThePros,
       mode: props?.mode,
       expert:[],
-      expertise:[],
+      expertise:this.selectTypes(this.props.expert, this.props?.expertise),
       img_icon: "file-input",
       input: {
         name: "",
@@ -28,7 +28,7 @@ export default class AsktheprosDetails extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
       prevState.askThePros !== nextProps.askThePros ||
-      // prevState.mode !== nextProps.mode ||
+      prevState.mode !== nextProps.mode ||
       prevState.expertise !== nextProps?.expertise||
       prevState.expert !== nextProps?.expert
     ) {
@@ -94,13 +94,13 @@ export default class AsktheprosDetails extends Component {
   };
 
  
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.expert !== prevProps?.expert) {
-  //     this.setState({
-  //       expertise : this.selectTypes(this.props.expert, this.props?.expertise)
-  //     })
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (this.props.expert !== prevProps?.expert) {
+      this.setState({
+        expertise : this.selectTypes(this.props.expert, this.props?.expertise)
+      })
+    }
+  }
   componentDidMount() {
     
   }
@@ -173,7 +173,7 @@ export default class AsktheprosDetails extends Component {
                         <Checkbox
                           size="small"
                           style={{ color: "#012169" }}
-                          checked={this.state.input.is_active}
+                          checked={this.state.input.is_active?this.state.input.is_active:false}
                           name="is_active"
                           onChange={this.handleCheck.bind(this)}
                         />
@@ -195,7 +195,7 @@ export default class AsktheprosDetails extends Component {
                                       className="check"
                                       value={value.id}
                                       onChange={this.handleChange.bind(this)}
-                                      checked={value.selected}
+                                      checked={value?.selected?value?.selected:false}
                                       name={value?.name}
                                     />
                                   }
@@ -256,16 +256,15 @@ export default class AsktheprosDetails extends Component {
                         <Checkbox
                           size="small"
                           style={{ color: "#012169" }}
-                          checked={this.state.input.is_active}
+                          checked={this.state.input.is_active?this.state.input.is_active:false}
                         />
                         <label>Active</label>
                       </div>
                     </div>
-                    {/* <div className="col-md-12">
+                    <div className="col-md-12">
                       <label className="expertise">Expertises<span className="mandatory-star">*</span></label>
                       <div className="signup-check">
                         <div className="d-flex flex-wrap">
-                          {console.log(this.state.expertise,"test")}
                           {this.state.expertise?.map((value) => {
                             return (
                               <FormGroup>
@@ -277,7 +276,7 @@ export default class AsktheprosDetails extends Component {
                                       className="check"
                                       // value={value.id}
                                       // onChange={this.handleChange.bind(this)}
-                                      checked={value?.selected}
+                                      checked={value?.selected?value?.selected:false}
                                       name={value?.name}
                                     />
                                   }
@@ -292,7 +291,7 @@ export default class AsktheprosDetails extends Component {
                           })}
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

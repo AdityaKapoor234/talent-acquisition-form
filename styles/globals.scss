@@ -79,9 +79,9 @@ a {
 }
 
 .sticky-scroll {
-  height: 100vh;
+  min-height: 100vh;
   overflow-y: scroll;
-  padding-bottom: 150px;
+  padding-bottom: 50px;
 }
 .edit-icon {
   color: $clr-dark-blue;

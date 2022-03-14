@@ -60,3 +60,6 @@ export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;
 
 //DASHBOARD
 export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/stats`;
+
+//ORDERS
+export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q=&sort={{latest}}`;

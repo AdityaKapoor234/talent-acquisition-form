@@ -36,6 +36,7 @@ export default class AskTheProsEditDetails extends Component {
       asktheProps: {},
       expertise: [],
       open: false,
+      expert:[],
       askTheProsDetails: {
         name: "",
         email: "",
@@ -94,7 +95,7 @@ export default class AskTheProsEditDetails extends Component {
         avatar_url: this.state.askTheProsDetails?.avatar_url,
         is_active: this.state.askTheProsDetails?.is_active,
         experience:this.state.askTheProsDetails?.experience,
-        expertises:[1,3],
+        expertises:this.state.askTheProsDetails?.expertises,
       };
       AskTheProsApi.AskTheProsEdit(this.props.id, data)
         .then((response) => {
@@ -133,6 +134,7 @@ export default class AskTheProsEditDetails extends Component {
           this.setState({
             askTheProsDetails: details,
             asktheProps: response.data.data.expert,
+            expert:response.data.data.expertise
           });
         }
       })
@@ -247,6 +249,7 @@ export default class AskTheProsEditDetails extends Component {
                   mode={this.state.mode}
                   expertise={this.state.expertise}
                   handle={this.stateHandle.bind(this)}
+                  expert={this.state.expert}
                 />
               </div>
             </div>

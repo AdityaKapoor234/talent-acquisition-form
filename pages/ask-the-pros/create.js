@@ -86,7 +86,7 @@ export default class AskTheProsCreate extends Component {
         avatar_url: this.state.askTheProsDetails?.avatar_url,
         is_active: this.state.askTheProsDetails?.is_active,
         experience:this.state.askTheProsDetails?.experience,
-        expertises:[1,4],
+        expertises:this.state.askTheProsDetails?.expertises,
       };
       AskTheProsApi.AskTheProsCreate(data)
         .then((response) => {

@@ -93,6 +93,22 @@ export default class AsktheprosDetails extends Component {
     return tempcategoryList;
   };
 
+  handleChangeExpert = (event) => {
+    let List = this.state.expertise;
+    for (let i in List) {
+      if (List[i].id === parseInt(event.target.value)) {
+        List[i].selected = event.target.checked;
+        break;
+      }
+    }
+    this.setState({ expertise: List });
+    const expertList = List?.filter(p=>p?.selected=== true)?.map(val=>val?.id)
+    let input = this.state.input;
+    input["expertises"] = expertList ;
+    this.setState({ input });
+    this.props?.handle(input);
+  };
+
  
   componentDidUpdate(prevProps) {
     if (this.props.expert !== prevProps?.expert) {
@@ -180,7 +196,7 @@ export default class AsktheprosDetails extends Component {
                         <label>Active</label>
                       </div>
                     </div>
-                    {/* <div className="col-md-12">
+                    <div className="col-md-12">
                       <label className="expertise">Expertises<span className="mandatory-star">*</span></label>
                       <div className="signup-check">
                         <div className="d-flex flex-wrap">
@@ -194,7 +210,7 @@ export default class AsktheprosDetails extends Component {
                                       size="small"
                                       className="check"
                                       value={value.id}
-                                      onChange={this.handleChange.bind(this)}
+                                      onChange={this.handleChangeExpert.bind(this)}
                                       checked={value?.selected?value?.selected:false}
                                       name={value?.name}
                                     />
@@ -210,7 +226,7 @@ export default class AsktheprosDetails extends Component {
                           })}
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

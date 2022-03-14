@@ -24,6 +24,28 @@ export default class CustomerList extends Component {
     return null;
   }
 
+  convertDateStringToDate = (dateStr) => {
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    let date = new Date(dateStr);
+    let str =
+      date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+    return str;
+  };
+
   render() {
     return (
       <div data-component="CustomerComponent">
@@ -40,18 +62,19 @@ export default class CustomerList extends Component {
             </div>
           </div>
         </div>
-        {this.state.customer?.map((p, index) => {
+        {this.state.customer && this.state.customer.length === 0 ? <div className="not-found">No Data Found</div> :
+          this.state.customer?.map((p, index) => {
           return (
             <div className="row" key={index}>
               <div className="col-md-12">
                 <div className="tableCell">
-                  <div className="tableBody col-2">{p?.name}</div>
+                  <div className="tableBody col-2 elip-text" title={p?.name}>{p?.name}</div>
                   {/* <div className="col text-center">{p?.type?p?.type:"General"}</div> */}
-                  <div className="tableBody col-3 justify-content-center">
+                  <div className="tableBody col-3 justify-content-center elip-text" title={p?.email}>
                     {p?.email}
                   </div>
-                  <div className="col text-center">{p?.phone_number}</div>
-                  <div className="col text-center">{p?.created_at?p?.created_at?.split("T")[0]:""}</div>
+                  <div className="col text-center elip-text" title={p?.phone_number}>{p?.phone_number}</div>
+                  <div className="col text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                   <div className="col-1 text-center">
                     {p?.is_active === true ? (
                       <CheckCircleOutlineOutlinedIcon className="check-icon" />

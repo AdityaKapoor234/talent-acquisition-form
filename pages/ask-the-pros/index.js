@@ -26,14 +26,14 @@ export default function AskThePros() {
     if (wordEntered !== "") {
       router_query_object["q"] = wordEntered;
     }
-    if (event.key === "Enter") {
+    // if (event.key === "Enter") {
       Router.push({
         pathname: "/ask-the-pros",
         query: router_query_object,
       });
       setCurrentPage(1);
       AskTheProsList(1, wordEntered);
-    }
+    // }
   };
 
   const handleFilter = (event) => {
@@ -98,9 +98,9 @@ export default function AskThePros() {
                   className="search-box"
                   value={wordEntered}
                   onChange={handleFilter}
-                  onKeyPress={handleKeyPress}
+                  // onKeyPress={handleKeyPress}
                 />
-                <SearchIcon className="search-icon" />
+                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
               </div>
             </div>
             <div className="col-md-2 btn-save">

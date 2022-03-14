@@ -26,14 +26,14 @@ export default function Customer() {
     if (wordEntered !== "") {
       router_query_object["q"] = wordEntered;
     }
-    if (event.key === "Enter") {
+    // if (event.key === "Enter") {
       Router.push({
         pathname: "/customer",
         query: router_query_object,
       });
       setCurrentPage(1)
       customerList(1, wordEntered);
-    }
+    // }
   };
 
   const handleFilter = (event) => {
@@ -94,9 +94,9 @@ export default function Customer() {
                   className="search-box"
                   value={wordEntered}
                   onChange={handleFilter}
-                  onKeyPress={handleKeyPress}
+                  // onKeyPress={handleKeyPress}
                 />
-                <SearchIcon className="search-icon" />
+                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
               </div>
             </div>
           </div>

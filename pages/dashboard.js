@@ -68,6 +68,7 @@ export default function Dashboard() {
 
 
 	const [customer, setCustomer] = useState([]);
+	const [customerNo, setCustomerNo] = useState([]);
 	const [orderStats, setOrderStats] = useState([]);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -76,6 +77,7 @@ export default function Dashboard() {
 		CustomerApi.CustomerList(page, search)
 			.then((response) => {
 				setCustomer(response.data.data.list);
+				setCustomerNo(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 			})
 			.catch((error) => {
@@ -155,7 +157,7 @@ export default function Dashboard() {
 										<div className="col mx-3" style={{ backgroundColor: "#FFEADE" }}>
 											<div className="icon2"></div>
 											<span className="iconInfo mt-3">Customers</span>
-											<span className="iconPrice">45</span>
+											<span className="iconPrice">{customerNo.total}{console.log(customerNo)}</span>
 											<span className="iconInfo mb-3"></span>
 										</div>
 									</Link>

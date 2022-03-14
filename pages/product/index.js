@@ -27,14 +27,14 @@ export default function Product() {
 		if (wordEntered !== "") {
 			router_query_object["q"] = wordEntered;
 		}
-		if (event.key === "Enter") {
+		// if (event.key === "Enter") {
 			Router.push({
 				pathname: "/product",
 				query: router_query_object,
 			});
 			setCurrentPage(1)
 			productList(1, wordEntered);
-		}
+		// }
 	};
 
 	const handleFilter = (event) => {
@@ -97,9 +97,9 @@ export default function Product() {
 									className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
-                                    onKeyPress={handleKeyPress}
+                                    // onKeyPress={handleKeyPress}
 								/>
-								<SearchIcon className="search-icon" />
+								<SearchIcon className="search-icon" onClick={handleKeyPress}/>
 							</div>
 						</div>
 						<div className="col-md-2 btn-save">

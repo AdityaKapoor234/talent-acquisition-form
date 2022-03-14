@@ -26,14 +26,14 @@ export default function Flavor() {
         if (wordEntered !== "") {
           router_query_object["q"] = wordEntered;
         }
-        if (event.key === "Enter") {
+        // if (event.key === "Enter") {
           Router.push({
             pathname: "/flavor",
             query: router_query_object,
           });
           setCurrentPage(1)
           flavorList(1, wordEntered);
-        }
+        // }
       };
 
       const handleFilter = (event) => {
@@ -95,9 +95,9 @@ export default function Flavor() {
                                     className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
-                                    onKeyPress={handleKeyPress}
+                                    // onKeyPress={handleKeyPress}
                                 />
-                                <SearchIcon className="search-icon" />
+                                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
                             </div>
                         </div>
                         <div className="col-md-2 btn-save">

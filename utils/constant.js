@@ -57,3 +57,6 @@ export const GET_ASKTHEPROS_CREATE = `http://65.1.17.188:5000/manage/expert`;
 export const GET_ASKTHEPROS_EDIT = `http://65.1.17.188:5000/manage/expert/{{id}}`;
 export const GET_ASKTHEPROS_DELETE = `http://65.1.17.188:5000/manage/expert/{{id}}/delete`;
 export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;
+
+//DASHBOARD
+export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/stats`;

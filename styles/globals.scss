@@ -74,6 +74,13 @@ a {
   color: $clr-dark-blue;
   padding-bottom: 0.5rem;
 }
+.page-name-link {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $clr-light-orange;
+  padding-bottom: 0.5rem;
+}
 .border-box {
   border-bottom: 1.5px solid $clr-dark-blue;
 }

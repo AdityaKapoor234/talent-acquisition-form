@@ -33,9 +33,9 @@ export default class order extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="tableRow">
-                                <div className="col">Order</div>
-                                <div className="col text-center">Customer Name</div>
-                                <div className="col text-center">Grand Total</div>
+                                <div className="col-4 elip-text">Order</div>
+                                <div className="col-4 text-center elip-text">Customer Name</div>
+                                <div className="col-4 text-center elip-text">Grand Total</div>
                             </div>
                         </div>
                     </div>
@@ -46,9 +46,9 @@ export default class order extends Component {
                                 <div className="row" key={index}>
                                     <div className="col-md-12">
                                         <div className="tableCell">
-                                            <div className="tableBody elip rowHeight col" title={p?.order}>{p?.order}</div>
-                                            <div className="col elip text-center" title={p?.custName}>{p?.custName}</div>
-                                            <div className="col elip text-center" title={p?.grandTotal}>{p?.grandTotal}</div>
+                                            <div className="tableBody elip rowHeight col-4 elip-text" title={p?.order}>{p?.order}</div>
+                                            <div className="col-4 elip text-center elip-text" title={p?.custName}>{p?.custName}</div>
+                                            <div className="col-4 elip text-center elip-text" title={p?.grandTotal}>{p?.grandTotal}</div>
                                         </div>
                                     </div>
                                 </div>

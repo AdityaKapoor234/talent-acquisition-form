@@ -81,6 +81,19 @@ a {
   color: $clr-light-orange;
   padding-bottom: 0.5rem;
 }
+.elip-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.not-found {
+  color: $clr-dark-blue;
+  font-size: 1rem;
+  text-align: center;
+  padding: 2rem 0rem;
+  font-weight: 500;
+}
+
 .border-box {
   border-bottom: 1.5px solid $clr-dark-blue;
 }

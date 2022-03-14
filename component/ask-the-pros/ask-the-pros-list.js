@@ -37,44 +37,45 @@ export default class AsktheprosList extends Component {
             </div>
           </div>
         </div>
-        {this.state.askThePros?.map((p, index) => {
-          return (
-            <div className="row" key={index}>
-              <div className="col-md-12">
-                <div className="tableCell">
-                  <div className="tableBody col-2">{p?.name}</div>
-                  <div className="tableBody col-3 justify-content-center">
-                    {p?.email}
-                  </div>
-                  <div className="col text-center">{p?.experience}</div>
-                  <div className="col text-center">
-                    {p?.is_active === true ? (
-                      <CheckCircleOutlineOutlinedIcon className="check-icon" />
-                    ) : (
-                      <CancelOutlinedIcon className="cancel-icon" />
-                    )}
-                  </div>
-                  <div className="col-1 text-center">
-                    <RemoveRedEyeIcon
-                      className="view-icon"
-                      onClick={() => {
-                        Router.push(`/ask-the-pros/${p?.id}/view`);
-                      }}
-                    />
-                  </div>
-                  <div className="col-1 text-end">
-                    <EditOutlinedIcon
-                      className="edit-icon"
-                      onClick={() => {
-                        Router.push(`/ask-the-pros/${p?.id}/edit`);
-                      }}
-                    />
+        {this.state.askThePros && this.state.askThePros.length === 0 ? <div className="not-found">No Data Found</div> :
+          this.state.askThePros?.map((p, index) => {
+            return (
+              <div className="row" key={index}>
+                <div className="col-md-12">
+                  <div className="tableCell">
+                    <div className="tableBody col-2 elip-text" title={p?.name}>{p?.name}</div>
+                    <div className="tableBody col-3 justify-content-center elip-text" title={p?.email}>
+                      {p?.email}
+                    </div>
+                    <div className="col text-center elip-text" title={p?.experience}>{p?.experience}</div>
+                    <div className="col text-center">
+                      {p?.is_active === true ? (
+                        <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                      ) : (
+                        <CancelOutlinedIcon className="cancel-icon" />
+                      )}
+                    </div>
+                    <div className="col-1 text-center">
+                      <RemoveRedEyeIcon
+                        className="view-icon"
+                        onClick={() => {
+                          Router.push(`/ask-the-pros/${p?.id}/view`);
+                        }}
+                      />
+                    </div>
+                    <div className="col-1 text-end">
+                      <EditOutlinedIcon
+                        className="edit-icon"
+                        onClick={() => {
+                          Router.push(`/ask-the-pros/${p?.id}/edit`);
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     );
   }

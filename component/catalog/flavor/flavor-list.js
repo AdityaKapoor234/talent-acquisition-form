@@ -38,12 +38,13 @@ export default class FlavorList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.flavors?.map((p, index) => {
+                {this.state.flavors && this.state.flavors.length === 0 ? <div className="not-found">No Data Found</div> :
+                    this.state.flavors?.map((p, index) => {
                     return (
                         <div className="row" key={index}>
                             <div className="col-md-12">
                                 <div className="tableCell">
-                                    <div className="tableBody col-5">{p?.name}</div>
+                                    <div className="tableBody col-5 elip-text" title={p?.name}>{p?.name}</div>
                                     <div className="col text-center">
                                         {p?.is_active === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
@@ -51,7 +52,7 @@ export default class FlavorList extends Component {
                                             <CancelOutlinedIcon className="cancel-icon" />
                                         )}
                                     </div>
-                                    <div className="col text-center">{p?.sort_order}</div>
+                                    <div className="col text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
                                     <div className="col-1 text-center">
                                         <RemoveRedEyeIcon
                                             className="edit-icon"

@@ -68,9 +68,9 @@ export default class signup extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="tableRow">
-                                <div className="col">Name</div>
-                                <div className="col text-center">Email</div>
-                                <div className="col text-center">Registration Date</div>
+                                <div className="col-4 elip-text">Name</div>
+                                <div className="col-4 text-center elip-text">Email</div>
+                                <div className="col-4 text-center elip-text">Registration Date</div>
                             </div>
                         </div>
                     </div>
@@ -83,9 +83,9 @@ export default class signup extends Component {
                             <div className="row" key={index}>
                                 <div className="col-md-12">
                                     <div className="tableCell">
-                                        <div className="tableBody elip col" title={p?.name}>{p?.name}</div>
-                                        <div className="col elip text-center" title={p?.email}>{p?.email}</div>
-                                        <div className="col elip text-center" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
+                                        <div className="tableBody elip col-4 elip-text" title={p?.name}>{p?.name}</div>
+                                        <div className="col-4 elip text-center elip-text" title={p?.email}>{p?.email}</div>
+                                        <div className="col-4 elip text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
 
                                         <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
 

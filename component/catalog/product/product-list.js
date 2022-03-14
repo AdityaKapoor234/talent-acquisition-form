@@ -40,14 +40,15 @@ export default class ProductList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.product?.map((p, index) => {
+                {this.state.product && this.state.product.length === 0 ? <div className="not-found">No Data Found</div> :
+                    this.state.product?.map((p, index) => {
                     return (
                         <div className="row" key={index}>
                             <div className="col-md-12">
                                 <div className="tableCell">
-                                    <div className="tableBody col">{p?.name}</div>
-                                    <div className=" col-2 text-center">{p?.sku}</div>
-                                    <div className=" col-2 text-center">{p?.stock}</div>
+                                    <div className="tableBody col elip-text" title={p?.name}>{p?.name}</div>
+                                    <div className=" col-2 text-center elip-text" title={p?.sku}>{p?.sku}</div>
+                                    <div className=" col-2 text-center elip-text" title={p?.stock}>{p?.stock}</div>
                                     <div className="col-1 text-center">
                                         {p?.status === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />

@@ -56,8 +56,8 @@ export default function Dashboard() {
 
 			});
 	};
-	function orderList(page, latest) {
-		OrderApi.OrderList(page, latest)
+	function orderList(page, search, latest) {
+		OrderApi.OrderList(page, search, latest)
 			.then((response) => {
 				setOrder(response.data.data.list);
 			})
@@ -79,7 +79,7 @@ export default function Dashboard() {
 		}
 		customerList(currentPage, "");
 		dashboardStats();
-		orderList(currentPage, "latest");
+		orderList(currentPage, "", "latest");
 	}, []);
 
 	return (

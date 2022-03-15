@@ -62,4 +62,5 @@ export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;
 export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/stats`;
 
 //ORDERS
-export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q=&sort={{latest}}`;
+export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
+export const GET_ORDER_DETAILS = `http://65.1.17.188:5002/manage/order/{{id}}`;

@@ -64,7 +64,8 @@ export class CategoryApi {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
-                'Content-Type': 'application/json',           
+                'Content-Type': 'application/json',     
+                'Authorization': `Bearer ${token}`      
             }
         };
         return axios.get(`${GET_PARENT_CATEGORY}`,httpOptions)

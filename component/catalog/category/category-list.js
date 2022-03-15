@@ -14,16 +14,16 @@ export default class CategoryList extends Component {
         };
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (
-            prevState.category !== nextProps.category
-        ) {
-            return {
-                category: nextProps?.category
-            };
-        }
-        return null;
-    }
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (
+			prevState.category !== nextProps.category
+		) {
+			return {
+				category: nextProps?.category
+			};
+		}
+		return null;
+	}
 
     render() {
         return (

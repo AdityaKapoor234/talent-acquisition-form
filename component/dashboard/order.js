@@ -26,11 +26,12 @@ export default class order extends Component {
 
 
 
+
     empRows() {
-        console.log(this.state.rows, "rows")
+        console.log(this.state.rows,"rows")
         console.log(this.state.remainingRows, "rem Rows")
         for (let i = this.state.rows; i < 10; i++) {
-            console.log(i, "i")
+            console.log(i,"i")
             this.state.remainingRows[i] = i
         }
 
@@ -72,7 +73,7 @@ export default class order extends Component {
                                             <div className="col-4 elip text-center elip-text" title={p?.total}>{p?.total}</div>
 
                                             <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
-
+                                            
                                         </div>
                                     </div>
                                 </div>

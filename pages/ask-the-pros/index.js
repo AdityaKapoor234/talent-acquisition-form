@@ -52,6 +52,13 @@ export default function AskThePros() {
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/ask-the-pros",
+				query: "",
+			});
+			AskTheProsList(1, "");
+		}
   };
 
   let onPageChange = function (e, page) {

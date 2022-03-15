@@ -52,6 +52,13 @@ export default function Customer() {
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/customer",
+				query: "",
+			});
+			customerList(1, "");
+		}
   };
 
   let onPageChange = function (e, page) {

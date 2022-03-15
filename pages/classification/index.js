@@ -114,7 +114,7 @@ export default function Classification() {
                   placeholder="Search..."
                   className="search-box"
                 />
-                <SearchIcon className="search-icon" />
+                <SearchIcon className="search-icon point-but" />
               </div>
             </div>
             <div className="col-md-2 btn-save">

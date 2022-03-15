@@ -26,14 +26,27 @@ export default function Customer() {
     if (wordEntered !== "") {
       router_query_object["q"] = wordEntered;
     }
-    // if (event.key === "Enter") {
+    if (event.key === "Enter") {
       Router.push({
         pathname: "/customer",
         query: router_query_object,
       });
       setCurrentPage(1)
       customerList(1, wordEntered);
-    // }
+    }
+  };
+
+  const handleClickPress = (event) => {
+    let router_query_object = {};
+    if (wordEntered !== "") {
+      router_query_object["q"] = wordEntered;
+    }
+    Router.push({
+      pathname: "/customer",
+      query: router_query_object,
+    });
+    setCurrentPage(1)
+    customerList(1, wordEntered);
   };
 
   const handleFilter = (event) => {
@@ -50,14 +63,14 @@ export default function Customer() {
 
   let onPageChange = function (e, page) {
     setCurrentPage(page)
-    customerList(page,wordEntered)
+    customerList(page, wordEntered)
   };
 
   const customerList = (page, search) => {
     CustomerApi.CustomerList(page, search)
       .then((response) => {
         setCustomer(response.data.data.list);
-        setTotalPage(Math.ceil(response.data.data.total/response.data.data.page_size));
+        setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
       })
       .catch((error) => {
         toast.error(
@@ -101,9 +114,9 @@ export default function Customer() {
                   className="search-box"
                   value={wordEntered}
                   onChange={handleFilter}
-                  // onKeyPress={handleKeyPress}
+                  onKeyPress={handleKeyPress}
                 />
-                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
+                <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
               </div>
             </div>
           </div>

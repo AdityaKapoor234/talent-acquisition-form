@@ -26,14 +26,27 @@ export default function Brand() {
         if (wordEntered !== "") {
           router_query_object["q"] = wordEntered;
         }
-        // if (event.key === "Enter") {
+        if (event.key === "Enter") {
           Router.push({
             pathname: "/brand",
             query: router_query_object,
           });
           setCurrentPage(1)
           brandList(1, wordEntered);
-        // }
+        }
+      };
+
+      const handleClickPress = (event) => {
+        let router_query_object = {};
+        if (wordEntered !== "") {
+          router_query_object["q"] = wordEntered;
+        }
+          Router.push({
+            pathname: "/brand",
+            query: router_query_object,
+          });
+          setCurrentPage(1)
+          brandList(1, wordEntered);
       };
 
       const handleFilter = (event) => {
@@ -102,9 +115,9 @@ export default function Brand() {
                                     className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
-                                    // onKeyPress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                 />
-                                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
+                                <SearchIcon className="search-icon point-but" onClick={handleClickPress}/>
                             </div>
                         </div>
                         <div className="col-md-2 btn-save">

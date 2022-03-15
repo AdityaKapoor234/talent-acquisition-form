@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 export default function Order() {
     const pathArr = useRouter();
     const [order, setOrder] = useState([]);
+    const [orderPage, setOrderPage] = useState([]);
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
     );
@@ -26,14 +27,27 @@ export default function Order() {
         if (wordEntered !== "") {
             router_query_object["q"] = wordEntered;
         }
-        // if (event.key === "Enter") {
+        if (event.key === "Enter") {
             Router.push({
                 pathname: "/order",
                 query: router_query_object,
             });
             setCurrentPage(1)
             orderList(1, wordEntered);
-        // }
+        }
+    };
+
+    const handleClickPress = (event) => {
+        let router_query_object = {};
+        if (wordEntered !== "") {
+            router_query_object["q"] = wordEntered;
+        }
+        Router.push({
+            pathname: "/order",
+            query: router_query_object,
+        });
+        setCurrentPage(1)
+        orderList(1, wordEntered);
     };
 
     const handleFilter = (event) => {
@@ -50,13 +64,14 @@ export default function Order() {
 
     let onPageChange = function (e, page) {
         setCurrentPage(page)
-        orderList(page, wordEntered)
+        orderList(page, wordEntered, "latest")
     };
 
-    function orderList(page, latest) {
-        OrderApi.OrderList(page, latest)
+    function orderList(page, search, latest) {
+        OrderApi.OrderList(page, search, latest)
             .then((response) => {
                 setOrder(response.data.data.list);
+                setOrderPage(response.data.data);
                 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
             })
             .catch((error) => {
@@ -76,7 +91,7 @@ export default function Order() {
         if (token === undefined) {
             Router.push("/");
         }
-        orderList(currentPage, "latest");
+        orderList(currentPage, "", "latest");
     }, []);
     return (
         <div>
@@ -103,9 +118,9 @@ export default function Order() {
                                     className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
-                                    // onKeyPress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                 />
-                                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
+                                <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
                             </div>
                         </div>
                     </div>
@@ -121,7 +136,7 @@ export default function Order() {
                                 <Pagination
                                     className="pagination"
                                     page={currentPage}
-                                    count={totalPage}
+                                    count={orderPage?.pages}
                                     onChange={onPageChange}
                                 />
                             </div>

@@ -27,14 +27,27 @@ export default function Product() {
 		if (wordEntered !== "") {
 			router_query_object["q"] = wordEntered;
 		}
-		// if (event.key === "Enter") {
+		if (event.key === "Enter") {
 			Router.push({
 				pathname: "/product",
 				query: router_query_object,
 			});
 			setCurrentPage(1)
 			productList(1, wordEntered);
-		// }
+		}
+	};
+
+	const handleClickPress = (event) => {
+		let router_query_object = {};
+		if (wordEntered !== "") {
+			router_query_object["q"] = wordEntered;
+		}
+		Router.push({
+			pathname: "/product",
+			query: router_query_object,
+		});
+		setCurrentPage(1)
+		productList(1, wordEntered);
 	};
 
 	const handleFilter = (event) => {
@@ -102,11 +115,11 @@ export default function Product() {
 									type="text"
 									placeholder="Search..."
 									className="search-box"
-                                    value={wordEntered}
-                                    onChange={handleFilter}
-                                    // onKeyPress={handleKeyPress}
+									value={wordEntered}
+									onChange={handleFilter}
+									onKeyPress={handleKeyPress}
 								/>
-								<SearchIcon className="search-icon" onClick={handleKeyPress}/>
+								<SearchIcon className="search-icon point-but" onClick={handleClickPress} />
 							</div>
 						</div>
 						<div className="col-md-2 btn-save">
@@ -130,9 +143,9 @@ export default function Product() {
 							<div className="pagiantion-category">
 								<Pagination
 									className="pagination"
-                                    page={currentPage}
-                                    count={totalPage}
-                                    onChange={onPageChange}
+									page={currentPage}
+									count={totalPage}
+									onChange={onPageChange}
 								/>
 							</div>
 						</div>

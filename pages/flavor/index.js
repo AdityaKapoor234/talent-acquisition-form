@@ -16,7 +16,7 @@ export default function Flavor() {
     const pathArr = useRouter();
     const [flavors, setFlavors] = useState([]);
     const [wordEntered, setWordEntered] = useState(
-      pathArr.query?.q ? pathArr.query?.q : ""
+        pathArr.query?.q ? pathArr.query?.q : ""
     );
     const [totalPage, setTotalPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,19 +24,32 @@ export default function Flavor() {
     const handleKeyPress = (event) => {
         let router_query_object = {};
         if (wordEntered !== "") {
-          router_query_object["q"] = wordEntered;
+            router_query_object["q"] = wordEntered;
         }
-        // if (event.key === "Enter") {
-          Router.push({
+        if (event.key === "Enter") {
+            Router.push({
+                pathname: "/flavor",
+                query: router_query_object,
+            });
+            setCurrentPage(1)
+            flavorList(1, wordEntered);
+        }
+    };
+
+    const handleClickPress = (event) => {
+        let router_query_object = {};
+        if (wordEntered !== "") {
+            router_query_object["q"] = wordEntered;
+        }
+        Router.push({
             pathname: "/flavor",
             query: router_query_object,
-          });
-          setCurrentPage(1)
-          flavorList(1, wordEntered);
-        // }
-      };
+        });
+        setCurrentPage(1)
+        flavorList(1, wordEntered);
+    };
 
-      const handleFilter = (event) => {
+    const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
 		if (event.target.value === "") {
@@ -50,25 +63,25 @@ export default function Flavor() {
     
       let onPageChange = function (e, page) {
         setCurrentPage(page)
-        flavorList(page,wordEntered)
-      };
-    
-      const flavorList = (page, search) => {
+        flavorList(page, wordEntered)
+    };
+
+    const flavorList = (page, search) => {
         FlavorApi.FlavorList(page, search)
-          .then((response) => {
-            setFlavors(response.data.data.list);
-            setTotalPage(Math.ceil(response.data.data.total/response.data.data.page_size));
-          })
-          .catch((error) => {
-            toast.error(
-              error?.response &&
-                error?.response?.data &&
-                error?.response?.data?.message
-                ? error.response.data.message
-                : "Unable to process your request, please try after sometime"
-            );
-          });
-      };
+            .then((response) => {
+                setFlavors(response.data.data.list);
+                setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    };
 
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
@@ -102,9 +115,9 @@ export default function Flavor() {
                                     className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
-                                    // onKeyPress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                 />
-                                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
+                                <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
                             </div>
                         </div>
                         <div className="col-md-2 btn-save">

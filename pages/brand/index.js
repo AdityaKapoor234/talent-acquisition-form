@@ -39,6 +39,13 @@ export default function Brand() {
       const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/brand",
+				query: "",
+			});
+			brandList(1, "");
+		}
       };
     
       let onPageChange = function (e, page) {

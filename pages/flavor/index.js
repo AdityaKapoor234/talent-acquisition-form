@@ -39,6 +39,13 @@ export default function Flavor() {
       const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/flavor",
+				query: "",
+			});
+			flavorList(1, "");
+		}
       };
     
       let onPageChange = function (e, page) {

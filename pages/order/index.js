@@ -39,6 +39,13 @@ export default function Order() {
     const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/order",
+				query: "",
+			});
+			orderList(1, "");
+		}
     };
 
     let onPageChange = function (e, page) {

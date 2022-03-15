@@ -40,6 +40,13 @@ export default function Product() {
 	const handleFilter = (event) => {
 		const searchWord = event.target.value;
 		setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/product",
+				query: "",
+			});
+			productList(1, "");
+		}
 	};
 
 	let onPageChange = function (e, page) {

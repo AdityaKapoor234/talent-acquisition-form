@@ -24,7 +24,7 @@ export const GET_CATEGORY_CREATE = `http://65.1.17.188:5001/manage/category`;
 export const GET_CATEGORY_EDIT = `http://65.1.17.188:5001/manage/category/{{id}}`;
 export const GET_CATEGORY_DELETE = `http://65.1.17.188:5001/manage/category/{{id}}/delete`;
 export const GET_BANNER_URL =`http://65.1.17.188:5001/manage/category/photo/banner`;
-export const GET_PARENT_CATEGORY =`http://65.1.17.188:5001/category`;
+export const GET_PARENT_CATEGORY =`http://65.1.17.188:5001/manage/category/parent-category`;
 
 //INGREDIENTS
 export const INGREDIENTLIST = `http://65.1.17.188:5001/manage/ingredient?page={{page}}&q={{search}}`;

@@ -25,7 +25,7 @@ export default class CategoryCreate extends Component {
       img_icon: "file-input-icon",
       parentCategory:[],
       input: {
-        banner_img: null,
+        banner_img: 'https://fitcart-qa.s3.ap-south-1.amazonaws.com/static/category_icon.png',
         description: "",
         full_banner_img: "",
         full_banner_img_sm: "",
@@ -148,7 +148,7 @@ export default class CategoryCreate extends Component {
                   <div className="row mt-2">
                     <div className="col-md-12">
                       <div className="login-form">
-                        <label>Short Description<span className="mandatory-star">*</span></label>
+                        <label>Short Description</label>
                         <br />
                         <textarea
                           name="short_description"
@@ -187,11 +187,17 @@ export default class CategoryCreate extends Component {
                             value={this.state.input?.parent_id}
                           >
                             <MenuItem
-                              value={"select"}
+                              value="select"
                               disabled
                               className="field_toggle_checked"
                             >
                               Select Category{" "}
+                            </MenuItem>
+                            <MenuItem
+                              value="0"
+                              className="field_toggle_checked"
+                            >
+                              Root Category{" "}
                             </MenuItem>
                             {this.state.parentCategory?.map(value =>{return (
                               <MenuItem value={value?.id}>{value?.name}</MenuItem>
@@ -301,7 +307,7 @@ export default class CategoryCreate extends Component {
                   <div className="row mt-2">
                     <div className="col-md-12">
                       <div className="login-form">
-                        <label>Short Description<span className="mandatory-star">*</span></label>
+                        <label>Short Description</label>
                         <br />
                         <textarea
                           name="short_description"
@@ -343,6 +349,12 @@ export default class CategoryCreate extends Component {
                               className="field_toggle_checked"
                             >
                               Select Category{" "}
+                            </MenuItem>
+                            <MenuItem
+                              value="0"
+                              className="field_toggle_checked"
+                            >
+                              Root Category{" "}
                             </MenuItem>
                             {this.state.parentCategory?.map(value =>{return (
                               <MenuItem value={value?.id}>{value?.name}</MenuItem>

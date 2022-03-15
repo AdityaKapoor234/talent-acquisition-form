@@ -3,11 +3,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "build:qa": "cp env/.env.qa .env && next build",
     "build:prod": "cp env/.env.production .env && next build",
-    "start": "next start -p $PORT",
-    "lint": "next lint"
+    "start": "next start -p $PORT"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",

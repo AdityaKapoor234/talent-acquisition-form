@@ -14,6 +14,7 @@ build_dev:
     - docker build --build-arg ENV=qa -t registry.gitlab.com/fitcart/frontend-apps/admin:dev .
   tags:
     - build_dev
+  when: manual
   except: ['master', 'qa']
 
 build_qa:
@@ -38,12 +39,11 @@ deploy_qa:
   script:
     - cd /home/ubuntu/fitcart-deploy/qa
     - echo "ygg-_byxzqgxjcHZsB__" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
-    - docker-compose pull frontend_website
+    - docker-compose pull frontend_admin
     - docker-compose up -d
     - docker system prune --force
   tags:
     - deploy_qa
-  when: manual
   only:
     - qa
 
@@ -69,7 +69,7 @@ deploy_prod:
   script:
     - cd /home/ubuntu/fitcart-deploy/prod
     - echo "ygg-_byxzqgxjcHZsB__" | docker login -u ubuntu_ci_cd --password-stdin registry.gitlab.com
-    - docker-compose pull frontend_website
+    - docker-compose pull frontend_admin
     - docker-compose up -d
     - docker system prune --force
   tags:

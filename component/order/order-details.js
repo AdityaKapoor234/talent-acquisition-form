@@ -141,7 +141,7 @@ export default class OrderDetails extends Component {
 													{this.state.order?.billing_address?.flat_no}&nbsp;
 													{this.state.order?.billing_address?.locality}&nbsp;
 													{this.state.order?.billing_address?.landmark}&nbsp;
-													{this.state.order?.billing_address?.state}<br/>
+													{this.state.order?.billing_address?.state}<br />
 													{this.state.order?.billing_address?.city}&nbsp;
 													{this.state.order?.billing_address?.pin_code}
 												</span>
@@ -160,7 +160,7 @@ export default class OrderDetails extends Component {
 													{this.state.order?.shipping_address?.flat_no}&nbsp;
 													{this.state.order?.shipping_address?.locality}&nbsp;
 													{this.state.order?.shipping_address?.landmark}&nbsp;
-													{this.state.order?.shipping_address?.state}<br/>
+													{this.state.order?.shipping_address?.state}<br />
 													{this.state.order?.shipping_address?.city}&nbsp;
 													{this.state.order?.shipping_address?.pin_code}
 												</span>
@@ -211,7 +211,7 @@ export default class OrderDetails extends Component {
 																		}
 																		className="orderImg"
 																		alt=""></div> */}
-																		<img src={p?.image} className="orderImg" alt="" />
+																	<img src={p?.image} className="orderImg" alt="" />
 																</div>
 																<div className="col-9">
 																	<span className="orderLine">
@@ -249,6 +249,42 @@ export default class OrderDetails extends Component {
 												</>
 											)
 										})}
+
+									<div className="div-box row mb-2">
+										<div className="col-11 textRight">
+											<span className="orderInfo">Sub Total</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">abc</span>
+										</div>
+										<div className="col-11 textRight">
+											<span className="orderInfo">Shipping Charges</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">abc</span>
+										</div>
+										<div className="col-11 textRight">
+											<span className="orderInfo">Tax</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">abc</span>
+										</div>
+										<div className="col-11 textRight">
+											<span className="orderInfo">Round Off</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">abc</span>
+										</div>
+										<div className="col-11 textRight">
+											<span className="orderInfo">Grand Total</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">{this.state.order?.total_price}</span>
+										</div>
+
+
+									</div>
+
 
 
 								</div>

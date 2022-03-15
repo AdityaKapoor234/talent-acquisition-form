@@ -50,13 +50,13 @@ export default class CategoryCreate extends Component {
       toast.error("Please enter the name");
       return false;
     }
-    if (
-      this.state.categoryDetails?.banner_img === "" ||
-      this.state.categoryDetails?.banner_img === null
-    ) {
-      toast.error("Please upload icon");
-      return false;
-    }
+    // if (
+    //   this.state.categoryDetails?.banner_img === "" ||
+    //   this.state.categoryDetails?.banner_img === null
+    // ) {
+    //   toast.error("Please upload icon");
+    //   return false;
+    // }
     if (
       this.state.categoryDetails?.full_banner_img === "" ||
       this.state.categoryDetails?.full_banner_img === null
@@ -98,7 +98,7 @@ export default class CategoryCreate extends Component {
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        banner_img: this.state.categoryDetails?.banner_img,
+        banner_img: '/images/category_icon.png',
         description: this.state.categoryDetails?.description,
         full_banner_img: this.state.categoryDetails?.full_banner_img,
         full_banner_img_sm: this.state.categoryDetails?.full_banner_img_sm,

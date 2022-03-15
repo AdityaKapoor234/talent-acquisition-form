@@ -58,9 +58,34 @@ export default class OrderDetails extends Component {
 		return null;
 	}
 
+	convertDateStringToDate = (dateStr) => {
+		let months = [
+			"Jan",
+			"Feb",
+			"Mar",
+			"Apr",
+			"May",
+			"Jun",
+			"Jul",
+			"Aug",
+			"Sep",
+			"Oct",
+			"Nov",
+			"Dec",
+		];
+
+		let date = new Date(dateStr);
+		let str =
+			date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+		return str;
+	};
+
+
+
+
 	render() {
 		return (
-			<div data-component="edit-customer">
+			<div data-component="view-order">
 				<div className="row">
 					<div className="col-md-12">
 						<div className="tab">
@@ -72,194 +97,163 @@ export default class OrderDetails extends Component {
 									this.setState({ tab: 1 });
 								}}
 							>
-								General info
-							</div>
-							<div
-								className={
-									this.state.tab === 2 ? `sub-tab active-tab` : "sub-tab"
-								}
-								onClick={() => {
-									this.setState({ tab: 2 });
-								}}
-							>
-								Address Info
-							</div>
-							<div
-								className={
-									this.state.tab === 3 ? `sub-tab active-tab` : "sub-tab"
-								}
-								onClick={() => {
-									this.setState({ tab: 3 });
-								}}
-							>
-								order Info
+								Order info
 							</div>
 						</div>
 					</div>
 				</div>
 				{this.state.tab === 1 && (
 					<>
-						{/* {this.state.mode === "edit" && (
-							<div className="row mt-4">
-								<div className="col-md-4"> */}
-									{/* <div className="login-form ">
-                    <label>Order Type</label>
-                    <input type="text" value={this.state.type} onChange={(e)=>{this.setState({type:e.target.value})}} />
-                  </div> */}
-									{/* <div className="login-form ">
-										<label>Name</label>
-										<input
-											type="text"
-											value={this.state.order?.name}
-											readOnly={true}
-										/>
-									</div>
-									<div className="login-form ">
-										<label>Email</label>
-										<input
-											type="text"
-											value={this.state.order?.email}
-											readOnly={true}
-										/>
-									</div>
-									<div className="login-form ">
-										<label>Mobile</label>
-										<input
-											type="number"
-											value={this.state.order?.phone_number}
-											readOnly={true}
-										/>
-									</div>
-									<div className="signup-check">
-										<Checkbox
-											size="small"
-											style={{ color: "#012169" }}
-											checked={this.state.active}
-											onChange={() => {
-												this.setState({ open: true });
-											}}
-										/>
-										<label>Active</label>
-									</div>
-								</div>
-							</div>
-						)} */}
 						{this.state.mode === "view" && (
 							<div className="row mt-4">
-								<div className="col-md-4">
-									{/* <div className="login-form ">
-                    <label>Order Type</label>
-                    <input
-                      type="text"
-                      readOnly={true}
-                      value={this.state.type}
-                    />
-                  </div> */}
-									<div className="login-form ">
-										<label>Name</label>
-										<input
-											type="text"
-											readOnly={true}
-											value={this.state.order?.name}
-										/>
+								<div className="col">
+									{/* <div className="container"> */}
+									<div className="div-box row">
+										<div className="col-3">
+											<span className="orderLine">
+												<span className="orderInfo">Order No.&nbsp;</span>
+												<span className="orderInfoVal">{this.state.order?.order?.order_no}</span>
+											</span>
+											<span className="orderLine">
+												<span className="orderInfo">Order Date&nbsp;</span>
+												<span className="orderInfoVal">{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
+											</span>
+											<span className="orderLine">
+												<span className="orderInfo">Name&nbsp;</span>
+												<span className="orderInfoVal">{this.state.order?.billing_address?.recipient_name}</span>
+											</span>
+											<span className="orderLine">
+												<span className="orderInfo">Contact No.&nbsp;</span>
+												<span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
+											</span>
+											<span className="orderLine">
+												<span className="orderInfo">Email&nbsp;</span>
+												<span className="orderInfoVal"></span>
+											</span>
+
+										</div>
+										<div className="col-3">
+											<span className="orderLine">
+												<span className="orderInfo">Billing Address</span>
+											</span>
+											<span className="orderLine2">
+												<span className="orderInfoVal">
+													{this.state.order?.billing_address?.flat_no}&nbsp;
+													{this.state.order?.billing_address?.locality}&nbsp;
+													{this.state.order?.billing_address?.landmark}&nbsp;
+													{this.state.order?.billing_address?.state}<br/>
+													{this.state.order?.billing_address?.city}&nbsp;
+													{this.state.order?.billing_address?.pin_code}
+												</span>
+											</span>
+											<span className="orderLine mt-3">
+												<span className="orderInfoVal">{this.state.order?.billing_address?.recipient_phone_number}</span>
+											</span>
+
+										</div>
+										<div className="col-3">
+											<span className="orderLine">
+												<span className="orderInfo">Delivery Address</span>
+											</span>
+											<span className="orderLine2">
+												<span className="orderInfoVal2">
+													{this.state.order?.shipping_address?.flat_no}&nbsp;
+													{this.state.order?.shipping_address?.locality}&nbsp;
+													{this.state.order?.shipping_address?.landmark}&nbsp;
+													{this.state.order?.shipping_address?.state}<br/>
+													{this.state.order?.shipping_address?.city}&nbsp;
+													{this.state.order?.shipping_address?.pin_code}
+												</span>
+											</span>
+											<span className="orderLine mt-3">
+												<span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
+											</span>
+
+										</div>
+										<div className="col-3">
+											<span className="orderLine">
+												<span className="orderInfo">Status&nbsp;</span>
+												<span className="orderInfoValHigh">{this.state.order?.order?.status}</span>
+											</span>
+
+										</div>
 									</div>
-									<div className="login-form ">
-										<label>Email</label>
-										<input
-											type="text"
-											readOnly={true}
-											value={this.state.order?.email}
-										/>
+
+
+									<div data-component="CustomerComponent">
+										<div className="tableRow row py-3">
+											<div className="col-6">Product</div>
+											<div className="col-2 text-center">Quantity</div>
+											<div className="col-2 text-center">Price</div>
+											<div className="col-2 text-center">Amount</div>
+										</div>
 									</div>
-									<div className="login-form ">
-										<label>Mobile</label>
-										<input
-											type="number"
-											readOnly={true}
-											value={this.state.order?.phone_number}
-										/>
-									</div>
-									<div className="signup-check">
-										<Checkbox
-											size="small"
-											disabled
-											style={{ color: "#012169" }}
-											checked={this.state.active}
-										/>
-										<label>Active</label>
-									</div>
+
+
+									{
+										this.state.order?.products?.map((p, index) => {
+											return (
+												<>
+													<div className="div-box row mb-2" key={index}>
+														<div className="col-6">
+															<div className="row">
+																<div className="col-3">
+																	{/* <div
+																		style={
+																			{
+																				backgroundImage: `url(${p?.image})`,
+																				backgroundSize: "cover",
+																				borderRadius: "0px",
+																				backgroundPosition: "center",
+																				// height: "7rem",
+																				// width: "6rem",
+																			}
+																		}
+																		className="orderImg"
+																		alt=""></div> */}
+																		<img src={p?.image} className="orderImg" alt="" />
+																</div>
+																<div className="col-9">
+																	<span className="orderLine">
+																		<span className="orderInfo">{p?.name}</span>
+																	</span>
+																	<span className="orderLine mt-4">
+																		<span className="orderInfoValQuant">{p?.quantity} Kg</span>
+																	</span>
+																</div>
+															</div>
+														</div>
+														<div className="col-2">
+															<span className="orderLine justify-content-center d-flex">
+																<span className="orderInfoVal">Order Qty: {p?.quantity}</span>
+															</span>
+															<span className="orderLine justify-content-center d-flex">
+																<span className="orderInfoVal">Shipped Qty: {p?.quantity}</span>
+															</span>
+
+														</div>
+														<div className="col-2 justify-content-center d-flex">
+															<span className="orderLine">
+																<span className="orderInfoVal">₹ {p?.unit_price}</span>
+															</span>
+
+														</div>
+														<div className="col-2  justify-content-center d-flex">
+															<span className="orderLine">
+																<span className="orderInfoVal">₹ {this.state.order?.total_price}</span>
+															</span>
+
+														</div>
+
+													</div>
+												</>
+											)
+										})}
+
+
 								</div>
 							</div>
 						)}
-					</>
-				)}
-				{this.state.tab === 2 && (
-					<div className="row mt-4">
-						{this.state.order?.addressInfo?.map((p) => {
-							return (
-								<div className="col-3">
-									<div className="complete-address">
-										<div className="name">{p?.name}</div>
-										<div className="address">{p?.address}</div>
-										<div className="number">{p?.phone_number}</div>
-									</div>
-								</div>
-							);
-						})}
-					</div>
-				)}
-				{this.state.tab === 3 && (
-					<>
-						<div data-component="CustomerComponent">
-							<div className="row">
-								<div className="col-md-12">
-									<div className="tableRow">
-										<div className="col">Order#</div>
-										<div className="col text-center">Date</div>
-										<div className="col text-center">Status</div>
-										<div className="col-3 text-center">Shipment Method</div>
-										<div className="col text-center">Total</div>
-										<div className="col-1 text-center">Active</div>
-										<div className="col-1 text-end">View</div>
-									</div>
-								</div>
-							</div>
-							<div className="scroll-table scroll">
-								<div className="error-message">No order Info</div>
-								{/* {order?.map((p) => {
-                  return (
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="tableCell">
-                          <div className="tableBody col">1011</div>
-                          <div className="col text-center">28/01/2022</div>
-                          <div className="tableBody col justify-content-center">
-                            Shipped
-                          </div>
-                          <div className="col-3 text-center">COD</div>
-                          <div className="col text-center">₹1000.00</div>
-                          <div className="col-1 text-center">
-                            <CheckCircleOutlineOutlinedIcon className="check-icon" />
-                          </div>
-                          <div className="col-1 text-end">
-                            <RemoveRedEyeIcon className="view-icon" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })} */}
-							</div>
-						</div>
-						{/* <div className="pagination">
-              <Pagination
-                count={10}
-                showFirstButton
-                showLastButton
-                size="small"
-                color="primary"
-              />
-            </div> */}
 					</>
 				)}
 				<Dialog

@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 export default function Order() {
     const pathArr = useRouter();
     const [order, setOrder] = useState([]);
+    const [orderPage, setOrderPage] = useState([]);
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
     );
@@ -56,13 +57,14 @@ export default function Order() {
 
     let onPageChange = function (e, page) {
         setCurrentPage(page)
-        orderList(page, wordEntered)
+        orderList(page, wordEntered, "latest")
     };
 
-    function orderList(page, latest) {
-        OrderApi.OrderList(page, latest)
+    function orderList(page, search, latest) {
+        OrderApi.OrderList(page, search, latest)
             .then((response) => {
                 setOrder(response.data.data.list);
+                setOrderPage(response.data.data);
                 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
             })
             .catch((error) => {
@@ -82,7 +84,7 @@ export default function Order() {
         if (token === undefined) {
             Router.push("/");
         }
-        orderList(currentPage, "latest");
+        orderList(currentPage, "", "latest");
     }, []);
     return (
         <div>
@@ -127,7 +129,7 @@ export default function Order() {
                                 <Pagination
                                     className="pagination"
                                     page={currentPage}
-                                    count={totalPage}
+                                    count={orderPage?.pages}
                                     onChange={onPageChange}
                                 />
                             </div>

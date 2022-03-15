@@ -290,3 +290,54 @@
     }
   }
 }
+
+[data-component="view-order"] {
+  .div-box{
+    border: 2px;
+    border-style: solid;
+    border-color: $clr-gray200;
+    padding: 0.5rem;
+    margin: 0rem 0rem;
+  }
+  .orderImg{
+    height: 7rem;
+    width: 6rem;
+    border: 2px;
+    border-style: solid;
+    border-color: $clr-gray200;
+  }
+  .orderLine{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .orderLine2{
+    word-wrap: break-word;
+    // overflow-wrap: break-word;
+    line-break: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .orderInfo{
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .orderInfoVal{
+    color: black;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .orderInfoValHigh{
+    color: $clr-dark-orange;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .orderInfoValQuant{
+    color: $clr-dark-blue;
+    font-weight: 400;
+    font-size: 14px; 
+  }
+}

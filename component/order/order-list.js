@@ -9,7 +9,7 @@ export default class OrderList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            order: props?.order,
+            order: props?.order ?props?.order: [],
         };
     }
 
@@ -18,7 +18,7 @@ export default class OrderList extends Component {
             prevState.order !== nextProps.order
         ) {
             return {
-                order: nextProps?.order
+                order: nextProps?.order  ?nextProps?.order: []
             };
         }
         return null;
@@ -63,7 +63,8 @@ export default class OrderList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.order && this.state.order.length === 0 ? <div className="not-found">No Data Found</div> :
+                {console.log(this.state.order.length,"length")}
+                {this.state.order && this.state.order?.length === 0 ? <div className="not-found">No Data Found</div> :
                 this.state.order?.map((p, index) => {
                     return (
                         <div className="row" key={index}>
@@ -78,7 +79,7 @@ export default class OrderList extends Component {
                                         <RemoveRedEyeIcon
                                             className="view-icon"
                                             onClick={() => {
-                                                Router.push(`/order/${p?.id}/view`);
+                                                Router.push(`/order/${p?.order_number}/view`);
                                             }}
                                         />
                                     </div>

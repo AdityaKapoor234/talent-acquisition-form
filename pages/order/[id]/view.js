@@ -26,30 +26,30 @@ export default function OrderViewDetails({ id }) {
 
     const [order, setOrder] = useState([]);
 
-    // const orderDetail = (id) => {
-    //     OrderApi
-    //         .getOrderDetails(id)
-    //         .then((response) => {
-    //             setOrder(response.data.data.user)
-    //         })
-    //         .catch((error) => {
-    //             toast.error(
-    //                 error?.response &&
-    //                     error?.response?.data &&
-    //                     error?.response?.data?.message
-    //                     ? error.response.data.message
-    //                     : "Unable to process your request, please try after sometime"
-    //             );
-    //         });
-    // }
+    const orderDetail = (id) => {
+        OrderApi
+            .getOrderDetails(id)
+            .then((response) => {
+                setOrder(response.data.data)
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
 
-    // useEffect(() => {
-    //     const token = Cookie.get("access_token_admin");
-    //     if (token === undefined) {
-    //         Router.push("/");
-    //     }
-    //     orderDetail(id)
-    // }, [id]);
+    useEffect(() => {
+        const token = Cookie.get("access_token_admin");
+        if (token === undefined) {
+            Router.push("/");
+        }
+        orderDetail(id)
+    }, [id]);
     return (
         <div>
             <Head>
@@ -63,7 +63,7 @@ export default function OrderViewDetails({ id }) {
                     <div className="row border-box">
                         <div className="col-md-10">
                             <div className="hamburger">
-                                <span>order / order / </span>View order{" "}
+                                <span>sales / order / </span>View order{" "}
                             </div>
                             <div className="page-name">Order - {order?.name}</div>
                         </div>

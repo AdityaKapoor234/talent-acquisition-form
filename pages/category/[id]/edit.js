@@ -36,7 +36,7 @@ export default class CategoryEditDetails extends Component {
       category: {},
       open: false,
       categoryDetails: {
-        banner_img: null,
+        banner_img: 'https://fitcart-qa.s3.ap-south-1.amazonaws.com/static/category_icon.png',
         description: "",
         full_banner_img: null,
         full_banner_img_sm: null,
@@ -68,10 +68,10 @@ export default class CategoryEditDetails extends Component {
       toast.error("Please enter the name");
       return false;
     }
-    if (this.state.categoryDetails?.short_description === "" ||this.state.categoryDetails?.short_description === null) {
-      toast.error("Please enter the short description");
-      return false;
-    }
+    // if (this.state.categoryDetails?.short_description === "" ||this.state.categoryDetails?.short_description === null) {
+    //   toast.error("Please enter the short description");
+    //   return false;
+    // }
     if (this.state.categoryDetails?.description === "" ||this.state.categoryDetails?.description=== null) {
       toast.error("Please enter the full description");
       return false;
@@ -89,7 +89,7 @@ export default class CategoryEditDetails extends Component {
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        banner_img: '/images/category_icon.png',
+        banner_img: this.state.categoryDetails?.banner_img,
         description: this.state.categoryDetails?.description,
         full_banner_img: this.state.categoryDetails?.full_banner_img,
         full_banner_img_sm: this.state.categoryDetails?.full_banner_img_sm,
@@ -203,7 +203,7 @@ export default class CategoryEditDetails extends Component {
                   <span>Catalog / Category / </span>Edit Category
                 </div>
                 <div className="page-name">
-                  Edit Category Details - Bottles/Shakers
+                  Edit Category Details - {this.state.categoryDetails?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">

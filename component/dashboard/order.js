@@ -37,16 +37,15 @@ export default class order extends Component {
 
     }
 
-
     render() {
         return (
             <>
                 <div className="row mb-2">
                     <div className="col page-name">New Orders</div>
                     <div className="col d-flex justify-content-end align-self-end">
-                        {/* <Link href=""> */}
-                        <span className='page-name-link'>View All</span>
-                        {/* </Link> */}
+                        <Link href="/order">
+                            <span className='page-name-link'>View All</span>
+                        </Link>
                     </div>
                 </div>
                 <div data-component="DashboardComponent">
@@ -100,7 +99,6 @@ export default class order extends Component {
                             )
                         })
                     }
-
 
                 </div>
 

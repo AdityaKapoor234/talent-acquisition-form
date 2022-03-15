@@ -86,6 +86,9 @@ a {
   white-space: nowrap;
   overflow: hidden;
 }
+.point-but{
+  cursor: pointer;
+}
 .not-found {
   color: $clr-dark-blue;
   font-size: 1rem;

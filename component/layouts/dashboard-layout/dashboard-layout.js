@@ -105,7 +105,7 @@ export default function DashboardLayoutComponent({children}) {
                                 </div>
                                     {tabSale  &&
                                         <ul>
-                                            <li className={categary=== "order" ? "sub_active":""} onClick={()=> handleCategary("#","order")}>order</li>
+                                            <li className={categary=== "order" ? "sub_active":""} onClick={()=> handleCategary("/order","order")}>order</li>
                                         </ul>
                                     }
                                 <div className={tabCatalog  ?'menu-btn active':'menu-btn'} onClick={()=> setTabCatalog(!tabCatalog)}>

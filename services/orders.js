@@ -2,7 +2,6 @@ import axios from "axios";
 import { ORDERSLIST } from "../utils/constant";
 import cookie from "js-cookie";
 
-
 export class OrderApi {
 
     static OrderList(page, latest) {

@@ -14,9 +14,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Cookie from "js-cookie";
 
-
 export default function Dashboard() {
-
 
 	const [customer, setCustomer] = useState([]);
 	const [customerNo, setCustomerNo] = useState([]);
@@ -98,32 +96,38 @@ export default function Dashboard() {
 						<div className="container-fluid">
 							<div className="sticky-scroll scroll">
 								<div className="row">
-									<div className="col mx-3" style={{ backgroundColor: "#AAE3E2" }}>
-										<div className="icon"></div>
-										<span className="iconInfo mt-3">
-											{orderStats.today} Orders
-										</span>
-										<span className="iconPrice">₹ 0.00</span>
-										<span className="iconInfo mb-3">Today</span>
-									</div>
-									<div className="col mx-3" style={{ backgroundColor: "#FEC9FC" }}>
-										<div className="icon"></div>
-										<span className="iconInfo mt-3">
-											{orderStats.last_seven_days} Orders
-										</span>
-										<span className="iconPrice">₹ 14970.00</span>
-										<span className="iconInfo mb-3">Last 7 Days</span>
-									</div>
-									<div className="col mx-3" style={{ backgroundColor: "#B0E9FC" }}>
-										<div className="icon"></div>
-										<span className="iconInfo mt-3">
-											{orderStats.total} Orders
-										</span>
-										<span className="iconPrice">₹ 33873.00</span>
-										<span className="iconInfo mb-3">Total</span>
-									</div>
+									<Link href="/order">
+										<div className="col point-but mx-3" style={{ backgroundColor: "#AAE3E2" }}>
+											<div className="icon"></div>
+											<span className="iconInfo mt-3">
+												{orderStats.today} Orders
+											</span>
+											<span className="iconPrice">₹ 0.00</span>
+											<span className="iconInfo mb-3">Today</span>
+										</div>
+									</Link>
+									<Link href="/order">
+										<div className="col point-but mx-3" style={{ backgroundColor: "#FEC9FC" }}>
+											<div className="icon"></div>
+											<span className="iconInfo mt-3">
+												{orderStats.last_seven_days} Orders
+											</span>
+											<span className="iconPrice">₹ 14970.00</span>
+											<span className="iconInfo mb-3">Last 7 Days</span>
+										</div>
+									</Link>
+									<Link href="/order">
+										<div className="col point-but mx-3" style={{ backgroundColor: "#B0E9FC" }}>
+											<div className="icon"></div>
+											<span className="iconInfo mt-3">
+												{orderStats.total} Orders
+											</span>
+											<span className="iconPrice">₹ 33873.00</span>
+											<span className="iconInfo mb-3">Total</span>
+										</div>
+									</Link>
 									<Link href="/customer">
-										<div className="col mx-3" style={{ backgroundColor: "#FFEADE" }}>
+										<div className="col point-but mx-3" style={{ backgroundColor: "#FFEADE" }}>
 											<div className="icon2"></div>
 											<span className="iconInfo mt-3">Customers</span>
 											<span className="iconPrice">{customerNo.total}</span>

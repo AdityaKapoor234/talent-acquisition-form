@@ -27,14 +27,27 @@ export default function Order() {
         if (wordEntered !== "") {
             router_query_object["q"] = wordEntered;
         }
-        // if (event.key === "Enter") {
+        if (event.key === "Enter") {
             Router.push({
                 pathname: "/order",
                 query: router_query_object,
             });
             setCurrentPage(1)
-            orderList(1, wordEntered, "latest");
-        // }
+            orderList(1, wordEntered);
+        }
+    };
+
+    const handleClickPress = (event) => {
+        let router_query_object = {};
+        if (wordEntered !== "") {
+            router_query_object["q"] = wordEntered;
+        }
+        Router.push({
+            pathname: "/order",
+            query: router_query_object,
+        });
+        setCurrentPage(1)
+        orderList(1, wordEntered);
     };
 
     const handleFilter = (event) => {
@@ -98,9 +111,9 @@ export default function Order() {
                                     className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
-                                    // onKeyPress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                 />
-                                <SearchIcon className="search-icon" onClick={handleKeyPress}/>
+                                <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
                             </div>
                         </div>
                     </div>

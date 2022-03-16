@@ -112,23 +112,23 @@ export default class OrderDetails extends Component {
 										<div className="col-3">
 											<span className="orderLine">
 												<span className="orderInfo">Order No.&nbsp;</span>
-												<span className="orderInfoVal">{this.state.order?.order?.order_no}</span>
+												<span className="orderInfoVal elip-text" title={this.state.order?.order?.order_no}>{this.state.order?.order?.order_no}</span>
 											</span>
 											<span className="orderLine">
 												<span className="orderInfo">Order Date&nbsp;</span>
-												<span className="orderInfoVal">{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
+												<span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
 											</span>
 											<span className="orderLine">
 												<span className="orderInfo">Name&nbsp;</span>
-												<span className="orderInfoVal">{this.state.order?.billing_address?.recipient_name}</span>
+												<span className="orderInfoVal elip-text" title={this.state.order?.billing_address?.recipient_name}>{this.state.order?.billing_address?.recipient_name}</span>
 											</span>
 											<span className="orderLine">
 												<span className="orderInfo">Contact No.&nbsp;</span>
-												<span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
+												<span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
 											</span>
 											<span className="orderLine">
 												<span className="orderInfo">Email&nbsp;</span>
-												<span className="orderInfoVal"></span>
+												<span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
 											</span>
 
 										</div>
@@ -173,7 +173,7 @@ export default class OrderDetails extends Component {
 										<div className="col-3">
 											<span className="orderLine">
 												<span className="orderInfo">Status&nbsp;</span>
-												<span className="orderInfoValHigh">{this.state.order?.order?.status}</span>
+												<span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
 											</span>
 
 										</div>
@@ -215,10 +215,10 @@ export default class OrderDetails extends Component {
 																</div>
 																<div className="col-9">
 																	<span className="orderLine">
-																		<span className="orderInfo">{p?.name}</span>
+																		<span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
 																	</span>
 																	<span className="orderLine mt-4">
-																		<span className="orderInfoValQuant">{p?.quantity} Kg</span>
+																		<span className="orderInfoValQuant elip-text">{p?.quantity} Kg</span>
 																	</span>
 																</div>
 															</div>
@@ -257,7 +257,7 @@ export default class OrderDetails extends Component {
 													<span className="orderInfo">Sub Total</span>
 												</div>
 												<div className="col-1">
-													<span className="orderInfoVal">₹ {this.state.order?.total_price}</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
 												</div>
 											</div>
 											<div className="row">
@@ -265,7 +265,7 @@ export default class OrderDetails extends Component {
 													<span className="orderInfo">Shipping Charges</span>
 												</div>
 												<div className="col-1">
-													<span className="orderInfoVal">₹ 0.00</span>
+													<span className="orderInfoVal elip-text" title="0.00">₹ 0.00</span>
 												</div>
 											</div>
 											{/* <div className="col-11 textRight">
@@ -285,7 +285,7 @@ export default class OrderDetails extends Component {
 													<span className="orderInfo">Grand Total</span>
 												</div>
 												<div className="col-1">
-													<span className="orderInfoVal">₹ {this.state.order?.total_price}</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
 												</div>
 											</div>
 										</div>

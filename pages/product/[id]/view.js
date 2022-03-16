@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import ProductCreateComponent from "../../../component/catalog/product/product-create";
+import ProductCreateComponent from "../../../component/catalog/product/product-view.component";
 import Router from "next/router";
 import Cookie from "js-cookie";
 

@@ -35,7 +35,8 @@ export default class ProductList extends Component {
                             <div className="col-2 text-center">Product Code</div>
                             <div className="col-2 text-center">Stock Quantity</div>
                             <div className="col-1 text-center">Status</div>
-                            <div className="col-1 text-end">Action</div>
+                            <div className="col-1 text-end">View</div>
+                            <div className="col-1 text-end">Edit</div>
                         
                         </div>
                     </div>
@@ -63,6 +64,8 @@ export default class ProductList extends Component {
                                                 Router.push(`/product/${p?.id}/view`);
                                             }}
                                         />
+                                    </div>
+                                    <div className="col-1 text-end">
                                         <EditOutlinedIcon
                                             className="edit-icon"
                                             onClick={() => {

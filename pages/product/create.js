@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import ProductCreateComponent from "../../component/catalog/product/product-create";
+import ProductCreateComponent from "../../component/catalog/product/product-create.component";
 import Router from "next/router";
 import Cookie from "js-cookie";
 
@@ -36,14 +36,6 @@ export default function ProductCreate() {
                             <div className="page-name">Add  A New Product</div>
                         </div>
                         <div className="col-md-8 btn-save">
-                            <div
-                                className="custom-btn "
-                                onClick={() => {
-                                    Router.push(`/product`);
-                                }}
-                            >
-                                <span>Save </span>
-                            </div>
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

@@ -33,7 +33,7 @@ export default function Order() {
                 query: router_query_object,
             });
             setCurrentPage(1)
-            orderList(1, wordEntered);
+            orderList(1, wordEntered, "latest");
         }
     };
 
@@ -47,7 +47,7 @@ export default function Order() {
             query: router_query_object,
         });
         setCurrentPage(1)
-        orderList(1, wordEntered);
+        orderList(1, wordEntered, "latest");
     };
 
     const handleFilter = (event) => {
@@ -58,7 +58,7 @@ export default function Order() {
 				pathname: "/order",
 				query: "",
 			});
-			orderList(1, "");
+			orderList(1, "", "latest");
 		}
     };
 

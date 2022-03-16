@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 export default function Order() {
     const pathArr = useRouter();
     const [order, setOrder] = useState([]);
+    const [totalOrders, setTotalOrder] = useState([]);
     const [orderPage, setOrderPage] = useState([]);
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
@@ -71,6 +72,7 @@ export default function Order() {
         OrderApi.OrderList(page, search, latest)
             .then((response) => {
                 setOrder(response.data.data.list);
+                setTotalOrder(response.data.data);
                 setOrderPage(response.data.data);
                 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
             })
@@ -130,7 +132,7 @@ export default function Order() {
                             <OrderList order={order} />
                         </div>
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-md-12">
                             <div className="pagiantion-category">
                                 <Pagination
@@ -141,7 +143,25 @@ export default function Order() {
                                 />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+                    <div className="row">
+						<div className="col-md-12 justify-content-between d-flex position-relative">
+							<div className="pagiantion-category">
+								<div>
+									<Pagination
+										className="pagination pagi"
+										page={currentPage}
+										count={totalPage}
+										onChange={onPageChange}
+									/>
+								</div>
+								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+									Total Orders: {totalOrders.total}
+								</div>
+							</div>
+						</div>
+					</div>
+
                 </DashboardLayoutComponent>
             </main>
         </div>

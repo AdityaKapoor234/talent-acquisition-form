@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 export default function Flavor() {
     const pathArr = useRouter();
     const [flavors, setFlavors] = useState([]);
+    const [totalFlavors, setTotalFlavors] = useState([]);
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
     );
@@ -70,6 +71,7 @@ export default function Flavor() {
         FlavorApi.FlavorList(page, search)
             .then((response) => {
                 setFlavors(response.data.data.list);
+                setTotalFlavors(response.data.data);
                 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
             })
             .catch((error) => {
@@ -136,7 +138,7 @@ export default function Flavor() {
                             <FlavorList flavors={flavors} />
                         </div>
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-md-12">
                             <div className="pagiantion-category">
                                 <Pagination
@@ -147,7 +149,25 @@ export default function Flavor() {
                                 />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+                    <div className="row">
+						<div className="col-md-12 justify-content-between d-flex position-relative">
+							<div className="pagiantion-category">
+								<div>
+									<Pagination
+										className="pagination pagi"
+										page={currentPage}
+										count={totalPage}
+										onChange={onPageChange}
+									/>
+								</div>
+								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+									Total Flavors: {totalFlavors.total}
+								</div>
+							</div>
+						</div>
+					</div>
+
                 </DashboardLayoutComponent>
             </main>
         </div>

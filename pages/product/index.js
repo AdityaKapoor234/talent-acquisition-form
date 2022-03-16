@@ -16,6 +16,7 @@ export default function Product() {
 
 	const pathArr = useRouter();
 	const [product, setProduct] = useState([]);
+	const [totalProducts, setTotalProduct] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
 	);
@@ -71,6 +72,7 @@ export default function Product() {
 		ProductApi.ProductList(page, search)
 			.then((response) => {
 				setProduct(response.data.data.list);
+				setTotalProduct(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 			})
 			.catch((error) => {
@@ -138,7 +140,7 @@ export default function Product() {
 							<ProductList product={product} />
 						</div>
 					</div>
-					<div className="row">
+					{/* <div className="row">
 						<div className="col-md-12">
 							<div className="pagiantion-category">
 								<Pagination
@@ -149,7 +151,25 @@ export default function Product() {
 								/>
 							</div>
 						</div>
+					</div> */}
+					<div className="row">
+						<div className="col-md-12 justify-content-between d-flex position-relative">
+							<div className="pagiantion-category">
+								<div>
+									<Pagination
+										className="pagination pagi"
+										page={currentPage}
+										count={totalPage}
+										onChange={onPageChange}
+									/>
+								</div>
+								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+									Total Products: {totalProducts.total}
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</DashboardLayoutComponent>
 			</main>
 		</div>

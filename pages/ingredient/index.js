@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 export default function Ingredient() {
 	const pathArr = useRouter();
 	const [ingredient, setIngredient] = useState([]);
+	const [totalIngredients, setTotalIngredient] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
 	);
@@ -73,6 +74,7 @@ export default function Ingredient() {
 		IngredientApi.IngredientList(page, search)
 			.then((response) => {
 				setIngredient(response.data.data.list);
+				setTotalIngredient(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 			})
 			.catch((error) => {
@@ -144,7 +146,7 @@ export default function Ingredient() {
 							<IngredientList ingredient={ingredient} />
 						</div>
 					</div>
-					<div className="row">
+					{/* <div className="row">
 						<div className="col-md-12">
 							<div className="pagiantion-category">
 								<Pagination
@@ -155,7 +157,25 @@ export default function Ingredient() {
 								/>
 							</div>
 						</div>
+					</div> */}
+					<div className="row">
+						<div className="col-md-12 justify-content-between d-flex position-relative">
+							<div className="pagiantion-category">
+								<div>
+									<Pagination
+										className="pagination pagi"
+										page={currentPage}
+										count={totalPage}
+										onChange={onPageChange}
+									/>
+								</div>
+								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+									Total Ingredients: {totalIngredients.total}
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</DashboardLayoutComponent>
 			</main>
 		</div>

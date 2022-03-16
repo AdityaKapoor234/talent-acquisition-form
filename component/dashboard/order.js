@@ -70,7 +70,7 @@ export default class order extends Component {
                                         <div className="tableCell">
                                             <div className="tableBody elip rowHeight col-4 elip-text" title={p?.order_number}>{p?.order_number}</div>
                                             <div className="col-4 elip text-center elip-text" title={p?.customer}>{p?.customer}</div>
-                                            <div className="col-4 elip text-center elip-text" title={p?.total}>{p?.total}</div>
+                                            <div className="col-4 elip text-center elip-text" title={p?.total}>₹ {p?.total}</div>
 
                                             <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
                                             

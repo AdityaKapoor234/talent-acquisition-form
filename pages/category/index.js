@@ -17,6 +17,7 @@ export default function Category() {
 
 	const pathArr = useRouter();
 	const [category, setCategory] = useState([]);
+	const [totalCategories, setTotalCategory] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
 	);
@@ -44,12 +45,12 @@ export default function Category() {
 			router_query_object["q"] = wordEntered;
 		}
 		// if (event.key === "Enter") {
-			Router.push({
-				pathname: "/category",
-				query: router_query_object,
-			});
-			setCurrentPage(1)
-			categoryList(1, wordEntered);
+		Router.push({
+			pathname: "/category",
+			query: router_query_object,
+		});
+		setCurrentPage(1)
+		categoryList(1, wordEntered);
 		// }
 	};
 
@@ -74,6 +75,7 @@ export default function Category() {
 		CategoryApi.CategoryList(page, search)
 			.then((response) => {
 				setCategory(response.data.data.list);
+				setTotalCategory(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 			})
 			.catch((error) => {
@@ -119,12 +121,12 @@ export default function Category() {
 									type="text"
 									placeholder="Search..."
 									className="search-box"
-                                    value={wordEntered}
-                                    onChange={handleFilter}
-                                    onKeyPress={handleKeyPress}
+									value={wordEntered}
+									onChange={handleFilter}
+									onKeyPress={handleKeyPress}
 								/>
 								<span onClick={handleClickPress}>
-								<SearchIcon className="search-icon point-but" />
+									<SearchIcon className="search-icon point-but" />
 								</span>
 							</div>
 						</div>
@@ -144,15 +146,32 @@ export default function Category() {
 							<CategoryList category={category} />
 						</div>
 					</div>
-					<div className="row">
+					{/* <div className="row">
 						<div className="col-md-12">
 							<div className="pagiantion-category">
 								<Pagination
 									className="pagination"
-                                    page={currentPage}
-                                    count={totalPage}
-                                    onChange={onPageChange}
+									page={currentPage}
+									count={totalPage}
+									onChange={onPageChange}
 								/>
+							</div>
+						</div>
+					</div> */}
+					<div className="row">
+						<div className="col-md-12 justify-content-between d-flex position-relative">
+							<div className="pagiantion-category">
+								<div>
+									<Pagination
+										className="pagination pagi"
+										page={currentPage}
+										count={totalPage}
+										onChange={onPageChange}
+									/>
+								</div>
+								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+									Total Categories: {totalCategories.total}
+								</div>
 							</div>
 						</div>
 					</div>

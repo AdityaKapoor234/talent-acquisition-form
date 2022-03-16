@@ -240,7 +240,7 @@ export default class OrderDetails extends Component {
 														</div>
 														<div className="col-2  justify-content-center d-flex">
 															<span className="orderLine">
-																<span className="orderInfoVal">₹ {this.state.order?.total_price}</span>
+																<span className="orderInfoVal">₹ {parseFloat(p?.quantity) * parseFloat(p?.unit_price)}</span>
 															</span>
 
 														</div>
@@ -251,19 +251,24 @@ export default class OrderDetails extends Component {
 										})}
 
 									<div className="div-box row mb-2">
-										<div className="col-11 textRight">
-											<span className="orderInfo">Sub Total</span>
-										</div>
-										<div className="col-1">
-											<span className="orderInfoVal">abc</span>
-										</div>
-										<div className="col-11 textRight">
-											<span className="orderInfo">Shipping Charges</span>
-										</div>
-										<div className="col-1">
-											<span className="orderInfoVal">abc</span>
-										</div>
-										<div className="col-11 textRight">
+										<div className="col-12">
+											<div className="row">
+												<div className="col-11 textRight">
+													<span className="orderInfo">Sub Total</span>
+												</div>
+												<div className="col-1">
+													<span className="orderInfoVal">₹ {this.state.order?.total_price}</span>
+												</div>
+											</div>
+											<div className="row">
+												<div className="col-11 textRight">
+													<span className="orderInfo">Shipping Charges</span>
+												</div>
+												<div className="col-1">
+													<span className="orderInfoVal">₹ 0.00</span>
+												</div>
+											</div>
+											{/* <div className="col-11 textRight">
 											<span className="orderInfo">Tax</span>
 										</div>
 										<div className="col-1">
@@ -274,15 +279,16 @@ export default class OrderDetails extends Component {
 										</div>
 										<div className="col-1">
 											<span className="orderInfoVal">abc</span>
+										</div> */}
+											<div className="row">
+												<div className="col-11 textRight">
+													<span className="orderInfo">Grand Total</span>
+												</div>
+												<div className="col-1">
+													<span className="orderInfoVal">₹ {this.state.order?.total_price}</span>
+												</div>
+											</div>
 										</div>
-										<div className="col-11 textRight">
-											<span className="orderInfo">Grand Total</span>
-										</div>
-										<div className="col-1">
-											<span className="orderInfoVal">{this.state.order?.total_price}</span>
-										</div>
-
-
 									</div>
 
 
@@ -291,7 +297,8 @@ export default class OrderDetails extends Component {
 							</div>
 						)}
 					</>
-				)}
+				)
+				}
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}
@@ -340,7 +347,7 @@ export default class OrderDetails extends Component {
 						</Button>
 					</DialogActions>
 				</Dialog>
-			</div>
+			</div >
 		);
 	}
 }

@@ -309,7 +309,7 @@
   .orderLine{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }

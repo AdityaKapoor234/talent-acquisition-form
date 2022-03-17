@@ -101,6 +101,12 @@ a {
   color: $clr-dark-blue;
   font-weight: 500;
 }
+.loader-cart{
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 25rem;
+}
 
 
 .border-box {
@@ -243,7 +249,7 @@ a {
   .editor-class {
     padding: 1rem;
     border: 1px solid $clr-gray200;
-    min-height: 10rem;
+    height: 10rem;
   }
   .toolbar-class {
     border: 1px solid $clr-gray200;

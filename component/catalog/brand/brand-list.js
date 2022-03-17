@@ -38,7 +38,8 @@ export default class BrandList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.brands && this.state.brands.length === 0 ? <div className="not-found">No Data Found</div> :
+                {
+                // this.state.brands && this.state.brands.length === 0 ? <div className="not-found">No Data Found</div> :
                     this.state.brands?.map((p, index) => {
                     return (
                         <div className="row" key={index}>

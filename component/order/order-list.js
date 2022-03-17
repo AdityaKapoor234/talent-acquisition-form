@@ -9,7 +9,7 @@ export default class OrderList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            order: props?.order ?props?.order: [],
+            order: props?.order ? props?.order : [],
         };
     }
 
@@ -18,7 +18,7 @@ export default class OrderList extends Component {
             prevState.order !== nextProps.order
         ) {
             return {
-                order: nextProps?.order  ?nextProps?.order: []
+                order: nextProps?.order ? nextProps?.order : []
             };
         }
         return null;
@@ -63,31 +63,31 @@ export default class OrderList extends Component {
                         </div>
                     </div>
                 </div>
-                {console.log(this.state.order.length,"length")}
-                {this.state.order && this.state.order?.length === 0 ? <div className="not-found">No Data Found</div> :
-                this.state.order?.map((p, index) => {
-                    return (
-                        <div className="row" key={index}>
-                            <div className="col-md-12">
-                                <div className="tableCell">
-                                    <div className="tableBody col-1 elip-text" title={p?.order_number}>{p?.order_number}</div>
-                                    <div className="tableBody col-4 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
-                                    <div className="col-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
-                                    <div className="col-2 text-center elip-text" title={p?.status}>{p?.status}</div>
-                                    <div className="col-2 text-center elip-text" title={p?.total}>₹ {p?.total}</div>
-                                    <div className="col-1 text-end elip-text">
-                                        <RemoveRedEyeIcon
-                                            className="view-icon"
-                                            onClick={() => {
-                                                Router.push(`/order/${p?.order_number}/view`);
-                                            }}
-                                        />
+                {
+                    // this.state.order && this.state.order?.length === 0 ? <div className="not-found">No Data Found</div> :
+                    this.state.order?.map((p, index) => {
+                        return (
+                            <div className="row" key={index}>
+                                <div className="col-md-12">
+                                    <div className="tableCell">
+                                        <div className="tableBody col-1 elip-text" title={p?.order_number}>{p?.order_number}</div>
+                                        <div className="tableBody col-4 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
+                                        <div className="col-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
+                                        <div className="col-2 text-center elip-text" title={p?.status}>{p?.status}</div>
+                                        <div className="col-2 text-center elip-text" title={p?.total}>₹ {p?.total}</div>
+                                        <div className="col-1 text-end elip-text">
+                                            <RemoveRedEyeIcon
+                                                className="view-icon"
+                                                onClick={() => {
+                                                    Router.push(`/order/${p?.order_number}/view`);
+                                                }}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })
+                        );
+                    })
                 }
             </div>
         );

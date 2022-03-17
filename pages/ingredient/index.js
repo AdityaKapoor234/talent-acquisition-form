@@ -9,6 +9,8 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import IngredientApi from "../../services/ingredient";
 import { useRouter } from "next/router";
 
@@ -22,6 +24,7 @@ export default function Ingredient() {
 	);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [isLoader, setIsLoader] = useState(true);
 
 	const handleKeyPress = (event) => {
 		let router_query_object = {};
@@ -44,12 +47,12 @@ export default function Ingredient() {
 			router_query_object["q"] = wordEntered;
 		}
 		// if (event.key === "Enter") {
-			Router.push({
-				pathname: "/ingredient",
-				query: router_query_object,
-			});
-			setCurrentPage(1)
-			ingredientList(1, wordEntered);
+		Router.push({
+			pathname: "/ingredient",
+			query: router_query_object,
+		});
+		setCurrentPage(1)
+		ingredientList(1, wordEntered);
 		// }
 	};
 
@@ -71,13 +74,16 @@ export default function Ingredient() {
 	};
 
 	const ingredientList = (page, search) => {
+		setIsLoader(true);
 		IngredientApi.IngredientList(page, search)
 			.then((response) => {
 				setIngredient(response.data.data.list);
 				setTotalIngredient(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				setIsLoader(false);
 			})
 			.catch((error) => {
+				setIsLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -123,11 +129,11 @@ export default function Ingredient() {
 									type="text"
 									placeholder="Search..."
 									className="search-box"
-                                    value={wordEntered}
-                                    onChange={handleFilter}
-                                    onKeyPress={handleKeyPress}
+									value={wordEntered}
+									onChange={handleFilter}
+									onKeyPress={handleKeyPress}
 								/>
-								<SearchIcon className="search-icon point-but" onClick={handleClickPress}/>
+								<SearchIcon className="search-icon point-but" onClick={handleClickPress} />
 							</div>
 						</div>
 						<div className="col-md-2 btn-save">
@@ -143,7 +149,25 @@ export default function Ingredient() {
 					</div>
 					<div className="row sticky-scroll scroll">
 						<div className="col-md-12 ">
-							<IngredientList ingredient={ingredient} />
+							{
+								isLoader ? (
+									<div className="row justify-content-center">
+										<div className="col-md-12 loader-cart">
+											<Box sx={{ display: "flex" }}>
+												<CircularProgress
+													style={{ color: "#F54A00" }}
+												/>
+											</Box>
+										</div>
+									</div>
+								) : (
+									ingredient && ingredient.length === 0 ? <div className="not-found">No Data Found</div> :
+										<IngredientList ingredient={ingredient} />
+								)
+							}
+
+
+
 						</div>
 					</div>
 					{/* <div className="row">

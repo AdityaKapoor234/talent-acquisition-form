@@ -39,7 +39,8 @@ export default class IngredientList extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.ingredient && this.state.ingredient.length === 0 ? <div className="not-found">No Data Found</div> :
+                {
+                // this.state.ingredient && this.state.ingredient.length === 0 ? <div className="not-found">No Data Found</div> :
                     this.state.ingredient?.map((p, index) => {
                         return (
                             <div className="row" key={index}>

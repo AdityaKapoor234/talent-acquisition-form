@@ -59,7 +59,8 @@ export default class QueryList extends Component {
 						</div>
 					</div>
 				</div>
-				{this.state.query && this.state.query.length === 0 ? <div className="not-found">No Data Found</div> :
+				{
+				// this.state.query && this.state.query.length === 0 ? <div className="not-found">No Data Found</div> :
 					this.state.query?.map((p, index) => {
 						return (
 							<div className="row" key={index}>

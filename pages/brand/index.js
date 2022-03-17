@@ -9,6 +9,8 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import BrandsApi from "../../services/brands";
 import { useRouter } from "next/router";
 
@@ -21,6 +23,7 @@ export default function Brand() {
   );
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoader, setIsLoader] = useState(true);
 
   const handleKeyPress = (event) => {
     let router_query_object = {};
@@ -68,13 +71,16 @@ export default function Brand() {
   };
 
   const brandList = (page, search) => {
+    setIsLoader(true);
     BrandsApi.BrandsList(page, search)
       .then((response) => {
         setBrands(response.data.data.list);
         setTotalBrands(response.data.data);
         setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+        setIsLoader(false);
       })
       .catch((error) => {
+        setIsLoader(false);
         toast.error(
           error?.response &&
             error?.response?.data &&
@@ -135,7 +141,25 @@ export default function Brand() {
           </div>
           <div className="row sticky-scroll scroll">
             <div className="col-md-12 ">
-              <BrandList brands={brands} />
+              {
+                isLoader ? (
+                  <div className="row justify-content-center">
+                    <div className="col-md-12 loader-cart">
+                      <Box sx={{ display: "flex" }}>
+                        <CircularProgress
+                          style={{ color: "#F54A00" }}
+                        />
+                      </Box>
+                    </div>
+                  </div>
+                ) : (
+                  brands && brands.length === 0 ? <div className="not-found">No Data Found</div> :
+                    <BrandList brands={brands} />
+                )
+              }
+
+
+
             </div>
           </div>
           {/* <div className="row">

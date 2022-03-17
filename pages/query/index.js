@@ -9,6 +9,8 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import QueryApi from "../../services/query";
 import { useRouter } from "next/router";
 
@@ -21,6 +23,7 @@ export default function Query() {
     // );
     const [totalPage, setTotalPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [isLoader, setIsLoader] = useState(true);
 
     // const handleKeyPress = (event) => {
     //     let router_query_object = {};
@@ -68,6 +71,7 @@ export default function Query() {
     };
 
     const QueryList = (page, latest) => {
+        setIsLoader(true);
         QueryApi.QueryList(page, latest)
             .then((response) => {
                 setQuery(response.data.data.list);
@@ -75,8 +79,10 @@ export default function Query() {
                 setTotalPage(
                     Math.ceil(response.data.data.total / response.data.data.per_page)
                 );
+                setIsLoader(false);
             })
             .catch((error) => {
+                setIsLoader(false);
                 toast.error(
                     error?.response &&
                         error?.response?.data &&
@@ -125,7 +131,25 @@ export default function Query() {
                     </div>
                     <div className="row sticky-scroll scroll">
                         <div className="col-md-12 ">
-                            <QueryListComponent query={query} />
+                        {
+                                isLoader ? (
+                                    <div className="row justify-content-center">
+                                        <div className="col-md-12 loader-cart">
+                                            <Box sx={{ display: "flex" }}>
+                                                <CircularProgress
+                                                    style={{ color: "#F54A00" }}
+                                                />
+                                            </Box>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    query && query.length === 0 ? <div className="not-found">No Data Found</div> :
+                                        <QueryListComponent query={query} />
+                                )
+                            }
+
+
+                            
                         </div>
                     </div>
                     {/* <div className="row">

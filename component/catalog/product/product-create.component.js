@@ -59,7 +59,7 @@ const editor_tabs = [
     }
 ]
 
-export default class ProductEditComponent extends Component {
+export default class ProductCreateComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {

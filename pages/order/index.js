@@ -78,7 +78,7 @@ export default function Order() {
                 setOrder(response.data.data.list);
                 setTotalOrder(response.data.data);
                 setOrderPage(response.data.data);
-                setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+                setTotalPage(Math.ceil(response.data.data.total / response.data.data.per_page));
                 setIsLoader(false);
             })
             .catch((error) => {

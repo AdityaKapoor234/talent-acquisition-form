@@ -108,7 +108,7 @@ export default class ProductEditComponent extends Component {
                     )}
                     {this.state.tab === 'content' && (
                         <>
-                            <ProductContentComponent product_id={this.state.product.id}/>
+                            <ProductContentComponent product_id={this.state.product.id} mode={this.state.mode}/>
                         </>
                     )}
                     {this.state.tab === 'inventories' && (

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import InfoCategory from "./sub-components/info-tab-component/info-category.component";
 
 export default class ProductInfoComponent extends Component {
     constructor(props) {
@@ -146,6 +147,7 @@ export default class ProductInfoComponent extends Component {
                             <div className='section-heading'>Category</div>
                             <div className='mt-2'>
                                 <mark className='font-sm'><small>TODO: One to many category selector</small></mark>
+                                < InfoCategory/>
                             </div>
                         </div>
                         <div>

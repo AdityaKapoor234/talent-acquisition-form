@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import ArticleEditor from "../../../common-component/text-editer";
 
 export default class ProductContentComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            mode:props?.mode
+        };
     }
 
     handleChange = (event) => {
@@ -19,12 +22,58 @@ export default class ProductContentComponent extends Component {
         console.log('continue');
     }
 
+    handleFullContent(value) {
+        console.log("value.js", value);
+      }
+
     render() {
         return (
             <div data-component="product-content-edit" className='product-tabbed-editor'>
 
                 <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Content</ProductTabEditorHeader>
+                
+                {this.state.mode === "edit" &&
+                <div className="row ">
+                    <div className="col-md-12">
+                        <div className="fc-form-group editor">
+                            <label>Product Label<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                        <div className="fc-form-group editor">
+                            <label>Short Description<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                        <div className="fc-form-group editor">
+                            <label>Full Description<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                        <div className="fc-form-group editor">
+                            <label>Direction of Use<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                        <div className="fc-form-group editor">
+                            <label>Other Ingredient<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                        <div className="fc-form-group editor">
+                            <label>Does Not Contain<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                        <div className="fc-form-group editor">
+                            <label>Warning<span className="mandatory-star">*</span></label>
+                            <br/>
+                            <ArticleEditor handleContent={this.handleFullContent.bind()} />
+                        </div>
+                    </div>
+                </div>}
 
+                {this.state.mode === "view" &&
                 <div className="row ">
                     <div className="col-md-12">
                         <div className="fc-form-group">
@@ -98,7 +147,7 @@ export default class ProductContentComponent extends Component {
                             />
                         </div>
                     </div>
-                </div>
+                </div>}
             </div>
         );
     }

@@ -64,3 +64,6 @@ export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/s
 //ORDERS
 export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
 export const GET_ORDER_DETAILS = `http://65.1.17.188:5002/manage/order/{{id}}`;
+
+//QUERY
+export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;

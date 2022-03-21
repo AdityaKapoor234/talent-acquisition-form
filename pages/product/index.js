@@ -9,6 +9,8 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import ProductApi from "../../services/product";
 import { useRouter } from "next/router";
 
@@ -22,6 +24,7 @@ export default function Product() {
 	);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [isLoader, setIsLoader] = useState(true);
 
 	const handleKeyPress = (event) => {
 		let router_query_object = {};
@@ -69,13 +72,16 @@ export default function Product() {
 	};
 
 	const productList = (page, search) => {
+		setIsLoader(true);
 		ProductApi.ProductList(page, search)
 			.then((response) => {
 				setProduct(response.data.data.list);
 				setTotalProduct(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				setIsLoader(false);
 			})
 			.catch((error) => {
+				setIsLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -137,7 +143,25 @@ export default function Product() {
 					</div>
 					<div className="row sticky-scroll scroll">
 						<div className="col-md-12 ">
-							<ProductList product={product} />
+						{
+                                isLoader ? (
+                                    <div className="row justify-content-center">
+                                        <div className="col-md-12 loader-cart">
+                                            <Box sx={{ display: "flex" }}>
+                                                <CircularProgress
+                                                    style={{ color: "#F54A00" }}
+                                                />
+                                            </Box>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    product && product.length === 0 ? <div className="not-found">No Data Found</div> :
+										<ProductList product={product} />
+                                )
+                            }
+
+
+							
 						</div>
 					</div>
 					{/* <div className="row">

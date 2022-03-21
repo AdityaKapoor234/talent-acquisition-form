@@ -9,6 +9,8 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import CategoryApi from "../../services/category";
 import { useRouter } from "next/router";
 
@@ -23,6 +25,7 @@ export default function Category() {
 	);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [isLoader, setIsLoader] = useState(true);
 
 	const handleKeyPress = (event) => {
 		let router_query_object = {};
@@ -72,13 +75,16 @@ export default function Category() {
 	};
 
 	const categoryList = (page, search) => {
+		setIsLoader(true);
 		CategoryApi.CategoryList(page, search)
 			.then((response) => {
 				setCategory(response.data.data.list);
 				setTotalCategory(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				setIsLoader(false);
 			})
 			.catch((error) => {
+				setIsLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -143,7 +149,25 @@ export default function Category() {
 					</div>
 					<div className="row sticky-scroll scroll">
 						<div className="col-md-12 ">
-							<CategoryList category={category} />
+						{
+                                isLoader ? (
+                                    <div className="row justify-content-center">
+                                        <div className="col-md-12 loader-cart">
+                                            <Box sx={{ display: "flex" }}>
+                                                <CircularProgress
+                                                    style={{ color: "#F54A00" }}
+                                                />
+                                            </Box>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    category && category.length === 0 ? <div className="not-found">No Data Found</div> :
+										<CategoryList category={category} />
+                                )
+                            }
+
+
+							
 						</div>
 					</div>
 					{/* <div className="row">

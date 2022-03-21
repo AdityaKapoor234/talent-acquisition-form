@@ -27,7 +27,7 @@ export default function DashboardLayoutComponent({children}) {
     const [tabSale, setTabSale] = useState(pathArr === "order" ?true:false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "product" || pathArr === "flavor" ? true : false );
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ?true:false);
-    const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "ask-the-pros" ?true:false);
+    const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ?true:false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email,setEmail] = useState("admin@fitcart.com");
@@ -136,6 +136,7 @@ export default function DashboardLayoutComponent({children}) {
                                     {tabAskthePros &&
                                         <ul>
                                             <li className={categary=== "ask-the-pros" ? "sub_active":""} onClick={()=> handleCategary("/ask-the-pros","ask-the-pros")}>ask the pros</li>
+                                            <li className={categary=== "query" ? "sub_active":""} onClick={()=> handleCategary("/query","query")}>query</li>
                                         </ul>
                                     }
                                 <div className={tabCustomer ?'menu-btn active':'menu-btn'} onClick={()=> setTabCustomer(!tabCustomer)}>

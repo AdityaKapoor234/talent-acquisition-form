@@ -9,6 +9,8 @@ import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import AskTheProsApi from "../../services/ask-the-pros";
 import { useRouter } from "next/router";
 
@@ -21,6 +23,7 @@ export default function AskThePros() {
   );
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoader, setIsLoader] = useState(true);
 
   const handleKeyPress = (event) => {
     let router_query_object = {};
@@ -53,13 +56,13 @@ export default function AskThePros() {
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
-		if (event.target.value === "") {
-			Router.push({
-				pathname: "/ask-the-pros",
-				query: "",
-			});
-			AskTheProsList(1, "");
-		}
+    if (event.target.value === "") {
+      Router.push({
+        pathname: "/ask-the-pros",
+        query: "",
+      });
+      AskTheProsList(1, "");
+    }
   };
 
   let onPageChange = function (e, page) {
@@ -68,6 +71,7 @@ export default function AskThePros() {
   };
 
   const AskTheProsList = (page, search) => {
+    setIsLoader(true);
     AskTheProsApi.AskTheProsList(page, search)
       .then((response) => {
         setAskThePros(response.data.data.list);
@@ -75,8 +79,10 @@ export default function AskThePros() {
         setTotalPage(
           Math.ceil(response.data.data.total / response.data.data.page_size)
         );
+        setIsLoader(false);
       })
       .catch((error) => {
+        setIsLoader(false);
         toast.error(
           error?.response &&
             error?.response?.data &&
@@ -138,7 +144,25 @@ export default function AskThePros() {
           </div>
           <div className="row sticky-scroll scroll">
             <div className="col-md-12 ">
-              <AsktheprosList askThePros={askThePros} />
+              {
+                isLoader ? (
+                  <div className="row justify-content-center">
+                    <div className="col-md-12 loader-cart">
+                      <Box sx={{ display: "flex" }}>
+                        <CircularProgress
+                          style={{ color: "#F54A00" }}
+                        />
+                      </Box>
+                    </div>
+                  </div>
+                ) : (
+                  askThePros && askThePros.length === 0 ? <div className="not-found">No Data Found</div> :
+                    <AsktheprosList askThePros={askThePros} />
+                )
+              }
+
+
+
             </div>
           </div>
           {/* <div className="row">
@@ -164,7 +188,7 @@ export default function AskThePros() {
                     onChange={onPageChange}
                   />
                 </div>
-                <div className="position-absolute totalCount" style={{right:23, bottom:5}}>
+                <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
                   Total Professionals: {totalAskThePros.total}
                 </div>
               </div>

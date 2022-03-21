@@ -128,7 +128,6 @@ export default function Order() {
                     </div>
                     <div className="row sticky-scroll scroll">
                         <div className="col-md-12 ">
-                            {console.log(order)}
                             <OrderList order={order} />
                         </div>
                     </div>

@@ -67,3 +67,4 @@ export const GET_ORDER_DETAILS = `http://65.1.17.188:5002/manage/order/{{id}}`;
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;
+export const GET_QUERY = `http://65.1.17.188:5000/manage/queries/{{id}}`;

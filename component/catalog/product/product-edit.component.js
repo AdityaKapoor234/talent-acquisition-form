@@ -67,6 +67,7 @@ export default class ProductEditComponent extends Component {
             active: false,
             tab: 'info',
             mode: props?.mode,
+            id:props?.id,
             product: props?.product ? props.product : {},
             name: props?.product?.name ? props.product?.name : "",
             type: props?.product?.type ? props.product?.type : "",
@@ -138,7 +139,7 @@ export default class ProductEditComponent extends Component {
                     )}
                     {this.state.tab === 'supplements' && (
                         <>
-                            <ProductSupplementsComponent product_id={this.state.product.id}/>
+                            <ProductSupplementsComponent id={this.state.id}/>
                         </>
                     )}
                 </div>

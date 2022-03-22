@@ -1,148 +1,117 @@
 import React, { Component } from "react";
-import ProductInfoComponent from "./tabbed-components/product-info.component";
-import ProductContentComponent from "./tabbed-components/product-content.component";
-import ProductInventoryComponent from "./tabbed-components/product-inventory.component";
-import ProductPriceComponent from "./tabbed-components/product-price.component";
-import ProductPhotoComponent from "./tabbed-components/product-photo.component";
-import ProductSEOComponent from "./tabbed-components/product-seo.component";
-import ProductCustomComponent from "./tabbed-components/product-custom.component";
-import ProductSupplementsComponent from "./tabbed-components/product-supplements.component";
+import Checkbox from "@mui/material/Checkbox";
 
-const editor_tabs = [
-    {
-        'id': 1,
-        'show': true,
-        'label': 'Info',
-        'key': 'info'
-    },
-    {
-        'id': 4,
-        'show': true,
-        'label': 'Content',
-        'key': 'content'
-    },
-    {
-        'id': 42,
-        'show': true,
-        'label': 'Supplements',
-        'key': 'supplements'
-    },
-    {
-        'id': 41,
-        'show': true,
-        'label': 'Inventories',
-        'key': 'inventories'
-    },
-    {
-        'id': 42,
-        'show': true,
-        'label': 'Prices',
-        'key': 'prices'
-    },
-    {
-        'id': 5,
-        'show': true,
-        'label': 'Photos',
-        'key': 'photos'
-    },
-    {
-        'id': 6,
-        'show': true,
-        'label': 'SEO',
-        'key': 'seo'
-    },
-    {
-        'id': 7,
-        'show': false,
-        'label': 'Custom Fields',
-        'key': 'custom'
-    }
-]
-
-export default class ProductCreateComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tabs: editor_tabs,
-            active: false,
-            tab: 'info',
-            mode: props?.mode,
-            product: props?.product ? props.product : {},
-            name: props?.product?.name ? props.product?.name : "",
-            type: props?.product?.type ? props.product?.type : "",
-        };
-    }
-    handleChange = (event) => {
-        this.setState({ type: event.target.value });
+export default class BrandCreate extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 1,
+      mode: props?.mode,
+      product: props?.product,
+      input: {
+        name: props?.product?.name ? props.product?.name : "",
+        is_active: props?.product?.is_active ? props?.product?.is_active : false,
+      },
     };
+  }
 
-    render() {
-        return (
-            <div data-component="edit-category">
-                <div className="row ">
-                    <div className="col-md-12">
-                        <div className="tab">
-                            {
-                                this.state.tabs.map((t)=>{
-                                    return t.show && <div
-                                        key={t.key}
-                                        className={
-                                            this.state.tab === t.key ? `sub-tab active-tab` : "sub-tab"
-                                        }
-                                        onClick={() => {
-                                            this.setState({ tab: t.key });
-                                        }}
-                                    >
-                                            {t.label}
-                                    </div>
-                                })
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    {this.state.tab === 'info' && (
-                        <>
-                            <ProductInfoComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                    {this.state.tab === 'content' && (
-                        <>
-                            <ProductContentComponent product_id={this.state.product.id} mode={this.state.mode}/>
-                        </>
-                    )}
-                    {this.state.tab === 'inventories' && (
-                        <>
-                            <ProductInventoryComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                    {this.state.tab === 'prices' && (
-                        <>
-                            <ProductPriceComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                    {this.state.tab === 'photos' && (
-                        <>
-                            <ProductPhotoComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                    {this.state.tab === 'seo' && (
-                        <>
-                            <ProductSEOComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                    {this.state.tab === 'custom' && (
-                        <>
-                            <ProductCustomComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                    {this.state.tab === 'supplements' && (
-                        <>
-                            <ProductSupplementsComponent product_id={this.state.product.id}/>
-                        </>
-                    )}
-                </div>
-            </div>
-        );
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      prevState.product !== nextProps.product ||
+      prevState.mode !== nextProps.mode
+    ) {
+      return {
+        product: nextProps?.product,
+        mode: nextProps?.mode,
+        input: {
+         is_active: nextProps?.product?.is_active
+            ? nextProps?.product?.is_active
+            : false,
+          name: nextProps?.product?.name ? nextProps.product?.name : "",
+        },
+      };
     }
+    return null;
+  }
+  handleChange = (event) => {
+    let input = this.state.input;
+    input[event.target.name] = event.target.value;
+    this.setState({ input });
+    this.props?.handle(input);
+  };
+  handleCheck = (event) => {
+    let input = this.state.input;
+    input[event.target.name] = event.target.checked;
+    this.setState({ input });
+    this.props?.handle(input);
+  };
+
+  render() {
+    return (
+      <div data-component="edit-category">
+        <div className="row ">
+          <div className="col-md-12">
+            <div className="tab">
+              <div
+                className={
+                  this.state.tab === 1 ? `sub-tab active-tab` : "sub-tab"
+                }
+                onClick={() => {
+                  this.setState({ tab: 1 });
+                }}
+              >
+                product Info
+              </div>
+            </div>
+          </div>
+        </div>
+        {this.state.tab === 1 && (
+          <>
+            {this.state.mode === "edit" && (
+              <div className="row sticky-scroll scroll">
+                <div className="col">
+                  <div className="row mt-4">
+                    <div className="col-md-4">
+                    <div className="login-form ">
+                        <label>
+                          SKU<span className="mandatory-star">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={this.state.input.name}
+                          onChange={this.handleChange.bind(this)}
+                        />
+                      </div>
+                      <div className="login-form ">
+                        <label>
+                          Name<span className="mandatory-star">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={this.state.input.name}
+                          onChange={this.handleChange.bind(this)}
+                        />
+                      </div>
+                      <div className="signup-check">
+                        <Checkbox
+                          size="small"
+                          style={{ color: "#012169" }}
+                          checked={this.state.input.is_active}
+                          name="is_active"
+                          onChange={this.handleCheck.bind(this)}
+                        />
+                        <label>Active</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    );
+  }
 }

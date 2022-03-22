@@ -1,22 +1,30 @@
 import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import SupplementApi from "../../../../services/supplement";
+import { toast } from "react-toastify";
 
 export default class ProductSupplementsComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            supplements: []
+            supplements: [],
+            ingredient:[],
+            select:"",
+            id:props?.id,
+            errors:{},
         };
     }
 
     addNewIngredient(){
         let supplements = this.state.supplements;
         supplements.push({
-            'ingredient': {},
-            'amount_per_serving': '',
-            'daily_value': '',
-            'sort_order': supplements.length + 2,
-            'serving_unit': '',
+            "id": 0,
+            "ingredient_id": '',
+            "amount_per_serving": null,
+            "daily_value": null,
+            "sort_order": null,
+            "serving_unit": "",
+            "remove_id": false
         })
         this.setState({
             supplements
@@ -24,23 +32,146 @@ export default class ProductSupplementsComponent extends Component {
     }
 
     removeIngredient(i){
-        console.log(this.state.supplements)
         let supplements = this.state.supplements;
-        supplements.splice(i,1)
+        let objIndex = supplements.findIndex((obj => obj.id === parseInt(i)));
+        supplements[objIndex]["remove_id"] = true
         this.setState({supplements})
+        this.EditSupplement(this.state.id)
     }
 
     handleChange = (event) => {
-        this.setState({ type: event.target.value });
+        let supplements = this.state.supplements;
+        let objIndex = supplements.findIndex((obj => obj.id === parseInt(event.target.id)));
+        if(event.target.name === "serving_unit"){
+            supplements[objIndex][event.target.name] = (event.target.value)
+        }else if (event.target.name === "serving_unit"){
+            supplements[objIndex][event.target.name] = parseFloat(event.target.value)
+        }
+        else{
+            supplements[objIndex][event.target.name] = parseInt(event.target.value)
+        }
+        this.setState({supplements});
     };
 
+    handleSelect=(event)=> {
+        let supplements = this.state.supplements;
+        let objIndex = supplements.findIndex((obj => obj.id === parseInt(event.target.id)));
+        supplements[objIndex]["ingredient_id"] = parseInt(event.target.value)
+        this.setState({supplements});
+      }
 
-    onSave() {
-        console.log('bar');
+    validation(){
+        let input = this.state.supplements;
+        let errors = {};
+        let isValid = true;
+            if (this.state.supplements?.filter((value)=>{return value.amount_per_serving ===null}).length >0) {
+                isValid = false;
+                errors["amount_per_serving"] = "Please enter";
+            }
+            if (this.state.supplements?.filter((value)=>{return value.ingredient_id ===''}).length >0) {
+                isValid = false;
+                errors["ingredient_id"] = "Please enter";
+            }
+            if (this.state.supplements?.filter((value)=>{return value.daily_value ===null}).length >0) {
+                isValid = false;
+                errors["daily_value"] = "Please enter";
+            }
+            if (this.state.supplements?.filter((value)=>{return value.sort_order ===null}).length >0) {
+                isValid = false;
+                errors["sort_order"] = "Please enter";
+            }
+            if (this.state.supplements?.filter((value)=>{return value.serving_unit ===''}).length >0) {
+                isValid = false;
+                errors["serving_unit"] = "Please enter";
+            }
+        this.setState({
+            errors: errors
+        });
+
+        return isValid;
     }
 
-    onSaveAndContinue() {
-        console.log('continue');
+    onSave=()=> {
+        if(this.validation()){
+            this.EditSupplement(this.state.id)
+        }
+    }
+
+    onSaveAndContinue=()=> {
+        if(this.validation()){
+            this.EditSupplement(this.state.id)
+        }
+    }
+
+    EditSupplement = (id)=>{
+        let data={
+            "data": this.state.supplements
+        }
+        SupplementApi.AddSupplement(id,data)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+            let list =  response.data.data?.data
+            list.forEach(function(field) {
+                field.remove_id = false
+                })
+          this.setState({supplements: list});
+            toast.success("Update supplement successfully")
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+    }
+
+    getIngredeint=()=>{
+        SupplementApi.IngredientList()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ingredient: response.data.data?.list });
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+    }
+
+    getSupplementData=(id)=>{
+        SupplementApi.getSupplement(id)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+            let list =  response.data.data?.data
+            list.forEach(function(field) {
+                field.remove_id = false
+                })
+          this.setState({supplements: list});
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+    }
+
+    componentDidMount(){
+        this.getIngredeint()
+        this.getSupplementData(this.state.id)
     }
 
     render() {
@@ -56,24 +187,34 @@ export default class ProductSupplementsComponent extends Component {
                             this.state.supplements.map((s, i)=>{
                                 return <div key={i} className='row mt-2'>
                                     <div className='col-md-2'>
-                                        <select className='form-control' name="" id="">
-                                            <option value="">Select Ingredient</option>
+                                        <select className='form-control' id={s?.id} value={s.ingredient_id} onChange={this.handleSelect}>
+                                            <option value="" disabled>Select Ingredient</option>
+                                            {this.state.ingredient?.map(val=>{
+                                                return(
+                                                    <option value={val?.id}>{val?.name}</option>
+                                                )
+                                            })}
                                         </select>
+                                        <small className="form-text text-danger" >{this.state.errors["ingredient_id"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="text" placeholder='Per serving' className='form-control' value={s.amount_per_serving} />
+                                        <input type="number" placeholder='Per serving' id={s?.id} className='form-control' name='amount_per_serving' onChange={this.handleChange} value={s.amount_per_serving} />
+                                        <small className="form-text text-danger" >{this.state.errors["amount_per_serving"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="text" placeholder='Daily value'  className='form-control' value={s.daily_value} />
+                                        <input type="number" placeholder='Daily value' id={s?.id} name='daily_value'  className='form-control' onChange={this.handleChange} value={s.daily_value} />
+                                        <small className="form-text text-danger" >{this.state.errors["daily_value"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="text" placeholder='Sort Order'  className='form-control' value={s.sort_order} />
+                                        <input type="number" placeholder='Sort Order' id={s?.id} name='sort_order'  className='form-control' onChange={this.handleChange} value={s.sort_order} />
+                                        <small className="form-text text-danger" >{this.state.errors["sort_order"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="text" placeholder='Serving Unit'  className='form-control' value={s.serving_unit} />
+                                        <input type="text" placeholder='Serving Unit' id={s?.id} name='serving_unit'  className='form-control' onChange={this.handleChange} value={s.serving_unit} />
+                                        <small className="form-text text-danger" >{this.state.errors["serving_unit"]}</small>
                                     </div>
                                     <div className='col-md-2 d-grid'>
-                                        <button className='btn btn-danger btn-sm' onClick={this.removeIngredient.bind(this, i)}>Remove</button>
+                                        <button className='btn btn-danger btn-sm' onClick={this.removeIngredient.bind(this, s?.id)}>Remove</button>
                                     </div>
                                 </div>
                             })

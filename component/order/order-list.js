@@ -54,8 +54,8 @@ export default class OrderList extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tableRow">
-                            <div className="col-1">Order#</div>
-                            <div className="col-4 text-center">Customer</div>
+                            <div className="col-2">Order#</div>
+                            <div className="col-3 text-center">Customer</div>
                             <div className="col-2 text-center">Date</div>
                             <div className="col-2 text-center">Status</div>
                             <div className="col-2 text-center">Total</div>
@@ -70,8 +70,8 @@ export default class OrderList extends Component {
                             <div className="row" key={index}>
                                 <div className="col-md-12">
                                     <div className="tableCell">
-                                        <div className="tableBody col-1 elip-text" title={p?.order_number}>{p?.order_number}</div>
-                                        <div className="tableBody col-4 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
+                                        <div className="tableBody col-2 elip-text" title={p?.order_number}>{p?.order_number}</div>
+                                        <div className="tableBody col-3 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
                                         <div className="col-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                                         <div className="col-2 text-center elip-text" title={p?.status}>{p?.status}</div>
                                         <div className="col-2 text-center elip-text" title={p?.total}>₹ {p?.total}</div>

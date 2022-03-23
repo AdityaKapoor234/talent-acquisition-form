@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 export default class BrandCreate extends Component {
   constructor(props) {
@@ -10,7 +12,9 @@ export default class BrandCreate extends Component {
       product: props?.product,
       input: {
         name: props?.product?.name ? props.product?.name : "",
-        is_active: props?.product?.is_active ? props?.product?.is_active : false,
+        is_active: props?.product?.is_active
+          ? props?.product?.is_active
+          : false,
       },
     };
   }
@@ -24,7 +28,7 @@ export default class BrandCreate extends Component {
         product: nextProps?.product,
         mode: nextProps?.mode,
         input: {
-         is_active: nextProps?.product?.is_active
+          is_active: nextProps?.product?.is_active
             ? nextProps?.product?.is_active
             : false,
           name: nextProps?.product?.name ? nextProps.product?.name : "",
@@ -44,6 +48,9 @@ export default class BrandCreate extends Component {
     input[event.target.name] = event.target.checked;
     this.setState({ input });
     this.props?.handle(input);
+  };
+  handleChange1 = (event) => {
+    this.setState({ type: event.target.value });
   };
 
   render() {
@@ -72,7 +79,7 @@ export default class BrandCreate extends Component {
                 <div className="col">
                   <div className="row mt-4">
                     <div className="col-md-4">
-                    <div className="login-form ">
+                      <div className="login-form ">
                         <label>
                           SKU<span className="mandatory-star">*</span>
                         </label>
@@ -94,7 +101,35 @@ export default class BrandCreate extends Component {
                           onChange={this.handleChange.bind(this)}
                         />
                       </div>
-                      <div className="signup-check">
+
+                      <div className="sort fc-select-form-group">
+                        <label>
+                          Status<span className="mandatory-star">*</span>
+                        </label>
+                        <div className="sort-by-select-wrapper">
+                          <Select
+                            disableUnderline
+                            variant="standard"
+                            autoWidth={true}
+                            name="parent_id"
+                            onChange={this.handleChange1}
+                            className="sort-by-select w-100"
+                            value="published"
+                          >
+                            <MenuItem
+                              value={"select"}
+                              disabled
+                              className="field_toggle_checked"
+                            >
+                              Select Status{" "}
+                            </MenuItem>
+                            <MenuItem value="draft">Draft</MenuItem>
+                            <MenuItem value="published">Publised</MenuItem>
+                            <MenuItem value="archived">Archived</MenuItem>
+                          </Select>
+                        </div>
+                      </div>
+                      {/* <div className="signup-check">
                         <Checkbox
                           size="small"
                           style={{ color: "#012169" }}
@@ -103,7 +138,7 @@ export default class BrandCreate extends Component {
                           onChange={this.handleCheck.bind(this)}
                         />
                         <label>Active</label>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

@@ -434,3 +434,9 @@ a {
   display: block;
   margin-top: 0.25rem;
 }
+.cat-check{
+  color: $clr-dark-blue;
+  .margin-check{
+    margin: 0.5rem 0rem 1rem 1rem;
+  }
+}

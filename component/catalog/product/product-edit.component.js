@@ -129,7 +129,7 @@ export default class ProductEditComponent extends Component {
                     )}
                     {this.state.tab === 'seo' && (
                         <>
-                            <ProductSEOComponent product_id={this.state.product.id}/>
+                            <ProductSEOComponent id={this.state.id}/>
                         </>
                     )}
                     {this.state.tab === 'custom' && (

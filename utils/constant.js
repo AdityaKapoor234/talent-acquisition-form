@@ -73,4 +73,10 @@ export const ADD_SUPPLEMENT = `http://65.1.17.188:5001/manage/product/{{id}}/sup
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;
 
 //SEO
-export const SEO = `http://65.1.17.188:5001/manage/product/{{id}}/seo`
+export const SEO = `http://65.1.17.188:5001/manage/product/{{id}}/seo`;
+
+//PRODUCT-INFO
+export const GET_CATEGORY_INFO = `http://65.1.17.188:5001/manage/category/all`;
+export const GET_BRAND_INFO = `http://65.1.17.188:5001/manage/brand/all`;
+export const GET_FLAVOR_INFO = `http://65.1.17.188:5001/manage/flavor/all`;
+export const GET_CERTIFICATION =`http://65.1.17.188:5001/certification/`;

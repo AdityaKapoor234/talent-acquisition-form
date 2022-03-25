@@ -30,9 +30,9 @@ export default class FlavorList extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tableRow">
-                            <div className="col-5">Name</div>
+                            <div className="col-5 pe-1">Name</div>
                             <div className="col text-center">Active</div>
-                            <div className="col text-center">Display Order</div>
+                            <div className="col text-center px-2">Display Order</div>
                             <div className="col-1 text-center">View</div>
                             <div className="col-1 text-end">Edit</div>
                         </div>
@@ -45,7 +45,7 @@ export default class FlavorList extends Component {
                         <div className="row" key={index}>
                             <div className="col-md-12">
                                 <div className="tableCell">
-                                    <div className="tableBody col-5 elip-text" title={p?.name}>{p?.name}</div>
+                                    <div className="tableBody pe-1 col-5 elip-text" title={p?.name}>{p?.name}</div>
                                     <div className="col text-center">
                                         {p?.is_active === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
@@ -53,7 +53,7 @@ export default class FlavorList extends Component {
                                             <CancelOutlinedIcon className="cancel-icon" />
                                         )}
                                     </div>
-                                    <div className="col text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
+                                    <div className="col px-2 text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
                                     <div className="col-1 text-center">
                                         <RemoveRedEyeIcon
                                             className="edit-icon"

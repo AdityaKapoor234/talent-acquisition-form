@@ -33,8 +33,8 @@ export default function QueryViewDetails({ id }) {
 	const [open, setOpen] = useState(false);
 	const [expertise, setExpertise] = useState([]);
 
-	const QueryList = (page, latest) => {
-        QueryApi.QueryList(page, latest)
+	const getQueryDetails = (id) => {
+        QueryApi.getQueryDetails(id)
             .then((response) => {
                 setQuery(response.data.data.list);
             })
@@ -54,13 +54,13 @@ export default function QueryViewDetails({ id }) {
         if (token === undefined) {
             Router.push("/");
         }
-        QueryList(1, "latest");
-    }, []);
+        getQueryDetails(id);
+    }, [id]);
 
 	// const QueryDetail = (id) => {
 	// 	QueryApi.getQueryDetails(id)
 	// 		.then((response) => {
-	// 			setQuery(response.data.data);
+	// 			setQuery(response.data.data.list);
 	// 		})
 	// 		.catch((error) => {
 	// 			toast.error(
@@ -115,7 +115,7 @@ export default function QueryViewDetails({ id }) {
 	// 	if (token === undefined) {
 	// 		Router.push("/");
 	// 	}
-	// 	getExpertiseList();
+		// getExpertiseList();
 	// 	QueryDetail(id);
 	// }, [id]);
 

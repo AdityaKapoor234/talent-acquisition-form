@@ -28,9 +28,9 @@ export default class AsktheprosList extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col-2">Name</div>
-              <div className="col-3 text-center">Email</div>
-              <div className="col text-center">experience</div>
+              <div className="col-2 pe-1">Name</div>
+              <div className="col-3 px-2 text-center">Email</div>
+              <div className="col px-2 text-center">experience</div>
               <div className="col text-center">Active</div>
               <div className="col-1 text-center">view</div>
               <div className="col-1 text-end">Edit</div>
@@ -44,11 +44,11 @@ export default class AsktheprosList extends Component {
               <div className="row" key={index}>
                 <div className="col-md-12">
                   <div className="tableCell">
-                    <div className="tableBody col-2 elip-text" title={p?.name}>{p?.name}</div>
-                    <div className="tableBody col-3 justify-content-center elip-text" title={p?.email}>
+                    <div className="tableBody pe-1 col-2 elip-text" title={p?.name}>{p?.name}</div>
+                    <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.email}>
                       {p?.email}
                     </div>
-                    <div className="col text-center elip-text" title={p?.experience}>{p?.experience}</div>
+                    <div className="col text-center px-2 elip-text" title={p?.experience}>{p?.experience}</div>
                     <div className="col text-center">
                       {p?.is_active === true ? (
                         <CheckCircleOutlineOutlinedIcon className="check-icon" />

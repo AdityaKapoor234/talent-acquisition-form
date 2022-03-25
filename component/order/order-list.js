@@ -54,11 +54,11 @@ export default class OrderList extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tableRow">
-                            <div className="col-2">Order#</div>
-                            <div className="col-3 text-center">Customer</div>
-                            <div className="col-2 text-center">Date</div>
-                            <div className="col-2 text-center">Status</div>
-                            <div className="col-2 text-center">Total</div>
+                            <div className="col-2 pe-1">Order#</div>
+                            <div className="col-3 px-2 text-center">Customer</div>
+                            <div className="col-2 px-2 text-center">Date</div>
+                            <div className="col-2 px-2 text-center">Status</div>
+                            <div className="col-2 px-2 text-center">Total</div>
                             <div className="col-1 text-end">View</div>
                         </div>
                     </div>
@@ -70,11 +70,11 @@ export default class OrderList extends Component {
                             <div className="row" key={index}>
                                 <div className="col-md-12">
                                     <div className="tableCell">
-                                        <div className="tableBody col-2 elip-text" title={p?.order_number}>{p?.order_number}</div>
-                                        <div className="tableBody col-3 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
-                                        <div className="col-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
-                                        <div className="col-2 text-center elip-text" title={p?.status}>{p?.status}</div>
-                                        <div className="col-2 text-center elip-text" title={p?.total}>₹ {p?.total}</div>
+                                        <div className="tableBody pe-1 col-2 elip-text" title={p?.order_number}>{p?.order_number}</div>
+                                        <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
+                                        <div className="col-2 px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
+                                        <div className="col-2 px-2 text-center elip-text" title={p?.status}>{p?.status}</div>
+                                        <div className="col-2 px-2 text-center elip-text" title={p?.total}>₹ {p?.total}</div>
                                         <div className="col-1 text-end elip-text">
                                             <RemoveRedEyeIcon
                                                 className="view-icon"

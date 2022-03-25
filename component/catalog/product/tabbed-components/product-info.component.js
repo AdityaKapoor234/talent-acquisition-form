@@ -146,7 +146,7 @@ export default class ProductInfoComponent extends Component {
                         <div>
                             <div className='section-heading'>Category</div>
                             <div className='mt-2'>
-                                <mark className='font-sm'><small>TODO: One to many category selector</small></mark>
+                                {/* <mark className='font-sm'><small>TODO: One to many category selector</small></mark> */}
                                 < InfoCategory/>
                             </div>
                         </div>

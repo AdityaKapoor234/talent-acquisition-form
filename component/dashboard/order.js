@@ -28,10 +28,7 @@ export default class order extends Component {
 
 
     empRows() {
-        console.log(this.state.rows,"rows")
-        console.log(this.state.remainingRows, "rem Rows")
         for (let i = this.state.rows; i < 10; i++) {
-            console.log(i,"i")
             this.state.remainingRows[i] = i
         }
 

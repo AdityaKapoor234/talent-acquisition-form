@@ -8,23 +8,27 @@ import ProductEditComponent from "../../../component/catalog/product/product-edi
 import Router from "next/router";
 import Cookie from "js-cookie";
 
-const product = {
-    id: 1,
-    name: "test",
-    type: "Regular Product",
-};
+export async function getServerSideProps(context) {
+    const { id } = context.query;
+    return {
+      props: {
+        id: id || null,
+      },
+    };
+  }
 
-
-export default function ProductEditCompo() {
+export default function ProductEditCompo(id) {
 
     const mode = "edit";
+    const [productId, setProductId] = useState(id?.id)
 
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
-    }, []);
+        setProductId(id?.id)
+    }, [id]);
     return (
         <div>
             <Head>
@@ -71,7 +75,7 @@ export default function ProductEditCompo() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <ProductEditComponent mode={mode} product={product} />
+                            <ProductEditComponent mode={mode} id={productId} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

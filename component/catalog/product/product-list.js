@@ -31,9 +31,9 @@ export default class ProductList extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tableRow">
-                            <div className="col">Name</div>
-                            <div className="col-2 text-center">Product Code</div>
-                            <div className="col-2 text-center">Stock Quantity</div>
+                            <div className="col pe-1">Name</div>
+                            <div className="col-2 px-2 text-center">Product Code</div>
+                            <div className="col-2 px-2 text-center">Stock Quantity</div>
                             <div className="col-1 text-center">Status</div>
                             <div className="col-1 text-end">View</div>
                             <div className="col-1 text-end">Edit</div>
@@ -48,9 +48,9 @@ export default class ProductList extends Component {
                         <div className="row" key={index}>
                             <div className="col-md-12">
                                 <div className="tableCell">
-                                    <div className="tableBody col elip-text" title={p?.name}>{p?.name}</div>
-                                    <div className=" col-2 text-center elip-text" title={p?.sku}>{p?.sku}</div>
-                                    <div className=" col-2 text-center elip-text" title={p?.stock}>{p?.stock}</div>
+                                    <div className="tableBody pe-1 col elip-text" title={p?.name}>{p?.name}</div>
+                                    <div className=" col-2 px-2 text-center elip-text" title={p?.sku}>{p?.sku}</div>
+                                    <div className=" col-2 px-2 text-center elip-text" title={p?.stock}>{p?.stock}</div>
                                     <div className="col-1 text-center">
                                         {p?.status === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />

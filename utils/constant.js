@@ -71,6 +71,7 @@ export const ADD_SUPPLEMENT = `http://65.1.17.188:5001/manage/product/{{id}}/sup
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;
+export const GET_QUERY = `http://65.1.17.188:5000/manage/queries/{{id}}`;
 
 //SEO
 export const SEO = `http://65.1.17.188:5001/manage/product/{{id}}/seo`;

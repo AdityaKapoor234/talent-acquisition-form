@@ -19,10 +19,10 @@ export default class ClassificationList extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tableRow">
-                            <div className="col-1">Type</div>
-                            <div className="col text-center">Name</div>
+                            <div className="col-1 pe-1">Type</div>
+                            <div className="col px-2 text-center">Name</div>
                             <div className="col-1 text-center">Active</div>
-                            <div className="col-3 text-center">Display Order</div>
+                            <div className="col-3 px-2 text-center">Display Order</div>
                             <div className="col-1 text-center">View</div>
                             <div className="col-1 text-end">Edit</div>
                         </div>
@@ -33,8 +33,8 @@ export default class ClassificationList extends Component {
                         <div className="row" key={index}>
                             <div className="col-md-12">
                                 <div className="tableCell">
-                                    <div className="tableBody col-1 elip-text" title={p?.type}>{p?.type}</div>
-                                    <div className=" col text-center elip-text" title={p?.name}>{p?.name}</div>
+                                    <div className="tableBody pe-1 col-1 elip-text" title={p?.type}>{p?.type}</div>
+                                    <div className=" col px-2 text-center elip-text" title={p?.name}>{p?.name}</div>
                                     <div className="col-1 text-center">
                                         {p?.active === true ? (
                                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
@@ -42,7 +42,7 @@ export default class ClassificationList extends Component {
                                             <CancelOutlinedIcon className="cancel-icon" />
                                         )}
                                     </div>
-                                    <div className="col-3 text-center elip-text" title={p?.display}>{p?.display}</div>
+                                    <div className="col-3 px-2 text-center elip-text" title={p?.display}>{p?.display}</div>
                                     <div className="col-1 text-center">
                                         <RemoveRedEyeIcon
                                             className="edit-icon"

@@ -51,10 +51,10 @@ export default class QueryList extends Component {
 				<div className="row">
 					<div className="col-md-12">
 						<div className="tableRow">
-							<div className="col-1">Date</div>
-							<div className="col-5 text-center">Subject</div>
-							<div className="col-3 text-center">Body</div>
-							<div className="col-2 text-center">Sent To</div>
+							<div className="col-1 pe-1">Date</div>
+							<div className="col-5 px-2 text-center">Subject</div>
+							<div className="col-3 px-2 text-center">Body</div>
+							<div className="col-2 px-2 text-center">Sent To</div>
 							<div className="col-1 text-center">View</div>
 						</div>
 					</div>
@@ -66,13 +66,13 @@ export default class QueryList extends Component {
 							<div className="row" key={index}>
 								<div className="col-md-12">
 									<div className="tableCell">
-										<div className="tableBody col-1 elip-text" title={this.convertDateStringToDate(p?.submitted_at)}>{this.convertDateStringToDate(p?.submitted_at)}</div>
-										<div className="col-5 text-center elip-text" title={p?.subject}>{p?.subject}</div>
-										<div className="col-3 text-center elip-text" title={p?.body}>
+										<div className="tableBody pe-1 col-1 elip-text" title={this.convertDateStringToDate(p?.submitted_at)}>{this.convertDateStringToDate(p?.submitted_at)}</div>
+										<div className="col-5 px-2 text-center elip-text" title={p?.subject}>{p?.subject}</div>
+										<div className="col-3 px-2 text-center elip-text" title={p?.body}>
 											{/* {p?.expert?.expertises?.map((p) => p?.name)?.join(" , ")} */}
 											{p?.body}
 										</div>
-										<div className="col-2 text-center" title={p?.expert?.name}>
+										<div className="col-2 px-2 text-center elip-text" title={p?.expert?.name}>
 											<span 
 											className="point-but"
 											onClick={() => {

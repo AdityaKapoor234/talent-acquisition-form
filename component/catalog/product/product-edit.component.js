@@ -104,7 +104,7 @@ export default class ProductEditComponent extends Component {
                 <div>
                     {this.state.tab === 'info' && (
                         <>
-                            <ProductInfoComponent product_id={this.state.product.id}/>
+                            <ProductInfoComponent id={this.state.id}/>
                         </>
                     )}
                     {this.state.tab === 'content' && (

@@ -3,25 +3,98 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ProductInfoApi from "../../../../../../services/product-info";
+import { toast } from "react-toastify";
+import { appendOwnerState } from "@mui/material";
 
 
-export default function InfoCategoryComponent() {
+export default function InfoCategoryComponent(props) {
   const [category, setCategory] = useState([]);
 
   const handleChangeAll = (event) => {
-    
+    let list = category
+    let subList = [];
+    let objIndex = list.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+    list[objIndex]["select_all"] = event?.target?.checked;
+    for(let i in list){
+      if (list[i].select_all && (list[i].id === parseInt(event?.target?.value))){
+        let sub = list[i]?.sub
+        for(let j in sub){
+            sub[j].select = event?.target?.checked;
+        }
+      }else if((list[i].id === parseInt(event?.target?.value)) && list[i].select_all === false){
+        let sub = list[i]?.sub
+        for(let j in sub){
+            sub[j].select = event?.target?.checked;
+        }
+      }
+    }
+    setCategory([...list])
+    let data = list?.filter(val=>val?.select_all === true)?.map(p=>p?.id)
+    for(let j in list){
+      let sub = list[j]?.sub
+      for(let i in sub){
+        if (sub[i].select){
+          subList.push(sub[i].id)
+        }
+      }
+    }
+    let sub = [...data,...subList]
+    props?.handle([...new Set(sub)])
   };
 
   const handleChange = (event) => {
-    // let cat = category;
-
+    let list = category
+    let model= []
+    let subList = [];
+    for(let i in list){
+      let sub = list[i]?.sub
+      let objIndex = sub?.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+      if(sub[objIndex]){
+        sub[objIndex]["select"] = event?.target?.checked;
+      }
+      let count = 0
+      for(let j in sub){
+        if (sub[j].select === true){
+          count = count+1
+        }
+      }
+      if(count === sub?.length){
+        list[i]["select_all"] = true;
+      }else{
+        list[i]["select_all"] = false;
+      }
+    }
+    setCategory([...list])
+    let data = list?.filter(val=>val?.select_all === true)?.map(p=>p?.id)
+    for(let j in list){
+      let sub = list[j]?.sub
+      for(let i in sub){
+        if (sub[i].select){
+          subList.push(sub[i].id)
+        }
+      }
+    }
+    
+    let sub = [...data,...subList]
+    props?.handle([...new Set(sub)])
   };
 
-  const getCategoryDetails =()=>{
+  const getCategoryDetails =(model)=>{
     ProductInfoApi.getCategory()
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
               let list =  response.data.data?.categories
+              for(let i in list){
+                if (model?.indexOf(list[i].id) >= 0){
+                  list[i].select_all = true;
+                }
+                let sub = list[i]?.sub
+                for(let j in sub){
+                  if (model?.indexOf(sub[j].id) >= 0){
+                    sub[j].select = true;
+                  }
+                }
+              }
               setCategory(list);
           }
         })
@@ -37,8 +110,8 @@ export default function InfoCategoryComponent() {
   }
 
   useEffect(() => {
-    getCategoryDetails()
-  }, [])
+    getCategoryDetails(props?.details)
+  }, [props?.details])
   
 
 
@@ -53,8 +126,9 @@ export default function InfoCategoryComponent() {
                   <Checkbox
                     style={{ color: "#012169" }}
                     size="small"
-                    // checked={val?.select_all}
-                    // onChange={handleChangeAll}
+                    checked={val?.select_all}
+                    value={val?.id}
+                    onChange={handleChangeAll}
                   />
                 }
                 label={val?.name}
@@ -70,8 +144,9 @@ export default function InfoCategoryComponent() {
                           <Checkbox
                             style={{ color: "#012169" }}
                             size="small"
-                            // checked={p?.select}
-                            // onChange={handleChange}
+                            checked={p?.select}
+                            value={p?.id}
+                            onChange={handleChange}
                           />
                         }
                         label={p?.name}

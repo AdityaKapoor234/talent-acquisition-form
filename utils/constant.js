@@ -81,3 +81,4 @@ export const GET_CATEGORY_INFO = `http://65.1.17.188:5001/manage/category/all`;
 export const GET_BRAND_INFO = `http://65.1.17.188:5001/manage/brand/all`;
 export const GET_FLAVOR_INFO = `http://65.1.17.188:5001/manage/flavor/all`;
 export const GET_CERTIFICATION =`http://65.1.17.188:5001/certification/`;
+export const GET_INFO =`http://65.1.17.188:5001/manage/product/{{id}}/detail`;

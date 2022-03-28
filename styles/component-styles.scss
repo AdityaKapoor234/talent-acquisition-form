@@ -349,3 +349,20 @@
     text-align: right;
   }
 }
+[data-component="product-info-edit"]{
+  .certification{
+    .bck-img{
+      height: 12rem;
+      width: 12rem !important;
+      background-repeat: no-repeat !important;
+      background-position:center !important;
+      background-size: cover !important;
+      margin-bottom: 2rem;
+      border:2px solid $clr-gray200;
+      filter: grayscale(100%);
+    }
+    .active{
+      filter: grayscale(0%);
+    }
+  }
+}

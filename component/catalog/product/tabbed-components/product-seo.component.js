@@ -10,7 +10,8 @@ export default class ProductSEOComponent extends Component {
         this.state = {
             id:props?.id,
             seo:{},
-            errors:{}
+            errors:{},
+            mode:props?.mode
         };
     }
     handleChange = (event) => {
@@ -126,6 +127,7 @@ export default class ProductSEOComponent extends Component {
                                     <input
                                         type="text"
                                         name="url_key"
+                                        readOnly={this.state.mode === "view"?true:false}
                                         value={this.state.seo?.url_key}
                                         onChange={this.handleChange.bind(this)}
                                     />
@@ -138,6 +140,7 @@ export default class ProductSEOComponent extends Component {
                                         name="meta_title"
                                         value={this.state.seo?.meta_title}
                                         cols="100"
+                                        readOnly={this.state.mode === "view"?true:false}
                                         rows="5"
                                         onChange={this.handleChange.bind(this)}
                                     />
@@ -150,6 +153,7 @@ export default class ProductSEOComponent extends Component {
                                         name="meta_keywords"
                                         value={this.state.seo?.meta_keywords}
                                         cols="100"
+                                        readOnly={this.state.mode === "view"?true:false}
                                         rows="5"
                                         onChange={this.handleChange.bind(this)}
                                     />
@@ -162,6 +166,7 @@ export default class ProductSEOComponent extends Component {
                                         name="meta_description"
                                         value={this.state.seo?.meta_description}
                                         cols="100"
+                                        readOnly={this.state.mode === "view"?true:false}
                                         rows="5"
                                         onChange={this.handleChange.bind(this)}
                                     />

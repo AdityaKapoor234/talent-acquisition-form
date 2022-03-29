@@ -9,6 +9,7 @@ import { appendOwnerState } from "@mui/material";
 
 export default function InfoCategoryComponent(props) {
   const [category, setCategory] = useState([]);
+  const [mode, setMode] = useState(props?.mode);
 
   const handleChangeAll = (event) => {
     let list = category
@@ -111,6 +112,7 @@ export default function InfoCategoryComponent(props) {
 
   useEffect(() => {
     getCategoryDetails(props?.details)
+    setMode(props?.mode)
   }, [props?.details])
   
 
@@ -126,6 +128,7 @@ export default function InfoCategoryComponent(props) {
                   <Checkbox
                     style={{ color: "#012169" }}
                     size="small"
+                    disabled={mode === "view"?true:false}
                     checked={val?.select_all}
                     value={val?.id}
                     onChange={handleChangeAll}
@@ -144,6 +147,7 @@ export default function InfoCategoryComponent(props) {
                           <Checkbox
                             style={{ color: "#012169" }}
                             size="small"
+                            disabled={mode === "view"?true:false}
                             checked={p?.select}
                             value={p?.id}
                             onChange={handleChange}

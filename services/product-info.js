@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CATEGORY_INFO,GET_BRAND_INFO,GET_FLAVOR_INFO,GET_CERTIFICATION,GET_INFO } from "../utils/constant";
+import { GET_CATEGORY_INFO,GET_BRAND_INFO,GET_FLAVOR_INFO,GET_CERTIFICATION,GET_INFO,GET_COUNTRY} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -69,6 +69,17 @@ export class productInfoApi {
             }
         };
         return axios.post(`${GET_INFO}`.replace('{{id}}', id),data,httpOptions)
+    }
+
+    static country(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${GET_COUNTRY}`,httpOptions)
     }
 
 }

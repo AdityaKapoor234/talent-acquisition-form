@@ -107,7 +107,7 @@ export default class ProductEditComponent extends Component {
                 <div>
                     {this.state.tab === 'info' && (
                         <>
-                            <ProductInfoComponent id={this.state.id} tab={this.setTab.bind(this)}/>
+                            <ProductInfoComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'content' && (
@@ -117,32 +117,32 @@ export default class ProductEditComponent extends Component {
                     )}
                     {this.state.tab === 'inventories' && (
                         <>
-                            <ProductInventoryComponent product_id={this.state.product.id} tab={this.setTab.bind(this)}/>
+                            <ProductInventoryComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'prices' && (
                         <>
-                            <ProductPriceComponent product_id={this.state.product.id} tab={this.setTab.bind(this)}/>
+                            <ProductPriceComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'photos' && (
                         <>
-                            <ProductPhotoComponent id={this.state.id} tab={this.setTab.bind(this)}/>
+                            <ProductPhotoComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'seo' && (
                         <>
-                            <ProductSEOComponent id={this.state.id}/>
+                            <ProductSEOComponent id={this.state.id} mode={this.state.mode}/>
                         </>
                     )}
                     {this.state.tab === 'custom' && (
                         <>
-                            <ProductCustomComponent product_id={this.state.product.id}/>
+                            <ProductCustomComponent  id={this.state.id} mode={this.state.mode}/>
                         </>
                     )}
                     {this.state.tab === 'supplements' && (
                         <>
-                            <ProductSupplementsComponent id={this.state.id} tab={this.setTab.bind(this)}/>
+                            <ProductSupplementsComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                 </div>

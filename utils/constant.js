@@ -83,4 +83,5 @@ export const GET_FLAVOR_INFO = `http://65.1.17.188:5001/manage/flavor/all`;
 export const GET_CERTIFICATION =`http://65.1.17.188:5001/certification/`;
 export const GET_INFO =`http://65.1.17.188:5001/manage/product/{{id}}/detail`;
 export const CREATE_PRODUCT = `http://65.1.17.188:5001/manage/product`;
-export const GET_PHOTO =`http://65.1.17.188:5001/manage/product/{{id}}/images`
+export const GET_PHOTO =`http://65.1.17.188:5001/manage/product/{{id}}/images`;
+export const GET_COUNTRY =`http://65.1.17.188:5001/manage/country`;

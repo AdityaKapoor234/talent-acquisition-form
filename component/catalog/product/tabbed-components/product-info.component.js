@@ -38,9 +38,11 @@ export default class ProductInfoComponent extends Component {
                 "status":""
             },
             id:props?.id,
+            mode:props?.mode,
             errors:{},
             brand:[],
-            flavor:[]
+            flavor:[],
+            country:[]
         };
     }
 
@@ -259,10 +261,24 @@ export default class ProductInfoComponent extends Component {
         });
     }
 
+    getCountry = ()=>{
+        ProductInfoApi.country()
+        .then((response) => {
+          if (response.data.httpStatusCode === 200) {
+            this.setState({
+                country:response.data.data?.list
+            })
+          }
+        })
+        .catch((error) => {
+        });
+    }
+
     componentDidMount(){
         this.getInfo(this.state.id)
         this. getBrands()
         this.getFlavors()
+        this.getCountry()
     }
 
     render() {
@@ -279,6 +295,7 @@ export default class ProductInfoComponent extends Component {
                                         <input
                                             type="text"
                                             name="sku"
+                                            readOnly={this.state.mode === "view"?true:false}
                                             value={this.state.infoDetails?.sku}
                                             onChange={this.handleChange.bind(this)}
                                         />
@@ -291,6 +308,7 @@ export default class ProductInfoComponent extends Component {
                                         <input
                                             type="text"
                                             name="name"
+                                            readOnly={this.state.mode === "view"?true:false}
                                             value={this.state.infoDetails?.name}
                                             onChange={this.handleChange.bind(this)}
                                         />
@@ -306,6 +324,7 @@ export default class ProductInfoComponent extends Component {
                                         <div className="sort-by-select-wrapper">
                                             <Select
                                                 disableUnderline
+                                                disabled={this.state.mode === "view"?true:false}
                                                 variant="standard"
                                                 autoWidth={true}
                                                 name="status"
@@ -336,6 +355,7 @@ export default class ProductInfoComponent extends Component {
                                         <div className="sort-by-select-wrapper">
                                             <Select
                                                 disableUnderline
+                                                disabled={this.state.mode === "view"?true:false}
                                                 variant="standard"
                                                 autoWidth={true}
                                                 name="brand_id"
@@ -365,6 +385,7 @@ export default class ProductInfoComponent extends Component {
                                         <div className="sort-by-select-wrapper">
                                             <Select
                                                 disableUnderline
+                                                disabled={this.state.mode === "view"?true:false}
                                                 variant="standard"
                                                 autoWidth={true}
                                                 name="flavour_id"
@@ -395,7 +416,7 @@ export default class ProductInfoComponent extends Component {
                             <div className='section-heading'>Category</div>
                             <div className='mt-2'>
                                 {/* <mark className='font-sm'><small>TODO: One to many category selector</small></mark> */}
-                                < InfoCategory details={this.state.infoDetails?.categories} handle={this.categoryHandle.bind(this)}/>
+                                < InfoCategory mode={this.state.mode} details={this.state.infoDetails?.categories} handle={this.categoryHandle.bind(this)}/>
                             </div>
                         </div>
                         <div>
@@ -408,7 +429,7 @@ export default class ProductInfoComponent extends Component {
                             <div className='section-heading'>Certifications</div>
                             <div className='mt-2'>
                                 {/* <mark className='font-sm'><small>TODO: Certification selector</small></mark> */}
-                                <InfoCertification handle={this.stateHandle.bind(this)} details={this.state.infoDetails?.certifications}/>
+                                <InfoCertification mode={this.state.mode} handle={this.stateHandle.bind(this)} details={this.state.infoDetails?.certifications}/>
                             </div>
                         </div>
                         <div>
@@ -422,6 +443,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="number"
                                                 name="weight"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.weight}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -434,6 +456,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="text"
                                                 name="weight_unit"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.weight_unit}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -448,6 +471,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="number"
                                                 name="serving_size"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.serving_size}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -460,6 +484,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="text"
                                                 name="serving_size_unit"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.serving_size_unit}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -472,6 +497,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="number"
                                                 name="serving_count"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.serving_count}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -492,6 +518,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="text"
                                                 name="product_form"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.product_form}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -504,6 +531,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="text"
                                                 name="gender"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.gender}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -516,6 +544,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="text"
                                                 name="specialty_diet"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.specialty_diet}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -528,6 +557,7 @@ export default class ProductInfoComponent extends Component {
                                             <input
                                                 type="text"
                                                 name="recommended_age"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.recommended_age}
                                                 onChange={this.handleChange.bind(this)}
                                             />
@@ -539,13 +569,14 @@ export default class ProductInfoComponent extends Component {
                                             <label>Is Vegan<span className="mandatory-star">*</span></label>
                                             <RadioGroup
                                                 row
+                                                disabled={this.state.mode === "view"?true:false}
                                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                                 name="controlled-radio-buttons-group"
                                                 value={this.state.infoDetails?.is_vegetarian}
                                                 onChange={this.handleRadio}
                                             >
-                                                <FormControlLabel value={true} control={<Radio size={"small"} style={{color:"#012169"}} />} label="Yes" />
-                                                <FormControlLabel value={false} control={<Radio size={"small"} style={{color:"#012169"}} />} label="No" />
+                                                <FormControlLabel value={true} control={<Radio  disabled={this.state.mode === "view"?true:false} size={"small"} style={{color:"#012169"}} />} label="Yes" />
+                                                <FormControlLabel value={false} control={<Radio  disabled={this.state.mode === "view"?true:false} size={"small"} style={{color:"#012169"}} />} label="No" />
                                             </RadioGroup>
                                             <small className="form-text text-danger" >{this.state.errors["is_vegetarian"]}</small>
                                         </div>
@@ -553,12 +584,24 @@ export default class ProductInfoComponent extends Component {
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
                                             <label>Country of Origin<span className="mandatory-star">*</span></label>
-                                            <input
+                                            <select className='form-control' 
+                                                disabled={this.state.mode === "view"?true:false}  
+                                                value={this.state.infoDetails?.origin_country_id} 
+                                                onChange={this.handleChange.bind(this)}>
+                                            <option value="" disabled>Select country</option>
+                                            {this.state.country?.map(val=>{
+                                                return(
+                                                    <option value={val?.id}>{val?.name}</option>
+                                                )
+                                            })}
+                                        </select>
+                                            {/* <input
                                                 type="text"
+                                                readOnly={this.state.mode === "view"?true:false}
                                                 name="origin_country_id"
                                                 value={this.state.infoDetails?.origin_country_id}
                                                 onChange={this.handleChange.bind(this)}
-                                            />
+                                            /> */}
                                              <small className="form-text text-danger" >{this.state.errors["origin_country_id"]}</small>
                                         </div>
                                     </div>

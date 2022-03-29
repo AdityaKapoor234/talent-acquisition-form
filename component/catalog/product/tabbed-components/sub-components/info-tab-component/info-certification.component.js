@@ -8,6 +8,7 @@ import { Details } from "@mui/icons-material";
 
 export default function InfoCertificationComponent(props) {
   const [certification, setCertification] = useState([]);
+  const [mode, setMode] = useState(props?.mode);
 
   const handleChange = (event,id) => {
     let list = certification
@@ -46,6 +47,7 @@ export default function InfoCertificationComponent(props) {
 
   useEffect(() => {
     getCertifictionDetails(props?.details);
+    setMode(props?.mode)
   }, [props?.details]);
 
   return (
@@ -53,7 +55,7 @@ export default function InfoCertificationComponent(props) {
       <div className="row">
         {certification?.map((val) => {
           return (
-            <div className="col-md-3">
+            <div className="col-md-2">
               <div
                 className={val?.selected?`bck-img active`:`bck-img`}                
                 style={{ background: `url(${val?.path})` }}
@@ -61,6 +63,7 @@ export default function InfoCertificationComponent(props) {
                 <Checkbox
                     style={{ color: "#012169" }}
                     size="small"
+                    disabled={mode === "view"?true:false}
                     checked={val?.selected}
                     value={val?.id}
                     onChange={handleChange}

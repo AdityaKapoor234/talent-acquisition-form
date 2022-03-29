@@ -11,6 +11,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Router from "next/router";
 
 export default class ProductInfoComponent extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class ProductInfoComponent extends Component {
                 "certifications": [],
                 "flavour_id": 0,
                 "gender": "",
-                "is_vegan": true,
+                "is_vegetarian": null,
                 "name": "",
                 "origin_country_id": null,
                 "product_form": "",
@@ -64,7 +65,7 @@ export default class ProductInfoComponent extends Component {
 
     handleRadio = (event) => {
         let input = this.state.infoDetails;
-        input["is_vegan"]= event.target.value;
+        input["is_vegetarian"]= event.target.value;
         this.setState({ infoDetails: input });
       };
 
@@ -84,11 +85,11 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["status"] = "Please select status";
             }
-            if (input["brand_id"] !== 0) {
+            if (input["brand_id"] === 0) {
                 isValid = false;
                 errors["brand_id"] = "Please select brand";
             }
-            if (input["flavour_id"] !== 0) {
+            if (input["flavour_id"] === 0) {
                 isValid = false;
                 errors["flavour_id"] = "Please select flavour";
             }
@@ -128,9 +129,9 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["recommended_age"] = "Please enter recommended age";
             }
-            if (input["is_vegan"] !== null) {
+            if (input["is_vegetarian"] === null) {
                 isValid = false;
-                errors["is_vegan"] = "Please select vegan";
+                errors["is_vegetarian"] = "Please select vegan";
             }
             if (!input["origin_country_id"]) {
                 isValid = false;
@@ -145,29 +146,46 @@ export default class ProductInfoComponent extends Component {
         return isValid;
     }
 
+    validate=()=>{
+        if ( this.state.infoDetails?.categories?.length === 0) {
+            toast.error("Please select atleast one Category ");
+            return false;
+        }
+        if ( this.state.infoDetails?.certifications?.length === 0) {
+            toast.error("Please select atleast one Certification ");
+            return false;
+        }
+          return true;
+    }
 
     onSave=()=> {
-        if(this.validation()){
-            this.updateInfo(this.state.id)
+        if(this.validation() && this.validate()){
+            this.updateInfo(this.state.id,"save")
         }
     }
 
     onSaveAndContinue=()=> {
-        if(this.validation()){
-            this.updateInfo(this.state.id)
+        if(this.validation() && this.validate()){
+            this.updateInfo(this.state.id,"continue")
         }
     }
 
-    updateInfo = (id)=>{
+    updateInfo = (id,button)=>{
         let data={
             "data": this.state.infoDetails
         }
         ProductInfoApi. UpdateInfo(id,data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
+            toast.success("Update successfully")
             this.setState({
                 infoDetails:response.data.data
             })
+            if(button === "continue"){
+                this.props?.tab("content")
+            }else if(button === "save"){
+                Router.push("/product")
+            }
           }
         })
         .catch((error) => {
@@ -305,6 +323,7 @@ export default class ProductInfoComponent extends Component {
                                                 <MenuItem value='draft'>Draft</MenuItem>
                                                 <MenuItem value='published'>Publised</MenuItem>
                                                 <MenuItem value='archived'>Archived</MenuItem>
+                                                <MenuItem value="out_of_stock">Out of Stock</MenuItem>
                                             </Select>
                                             <small className="form-text text-danger" >{this.state.errors["status"]}</small>
                                         </div>
@@ -313,7 +332,6 @@ export default class ProductInfoComponent extends Component {
                                 <div className="col-md-4">
 
                                     <div className="sort fc-select-form-group">
-                                        {console.log("vv",this.state.infoDetails?.brand_id)}
                                         <label>Brand<span className="mandatory-star">*</span></label>
                                         <div className="sort-by-select-wrapper">
                                             <Select
@@ -523,13 +541,13 @@ export default class ProductInfoComponent extends Component {
                                                 row
                                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                                 name="controlled-radio-buttons-group"
-                                                value={this.state.infoDetails?.is_vegan}
+                                                value={this.state.infoDetails?.is_vegetarian}
                                                 onChange={this.handleRadio}
                                             >
                                                 <FormControlLabel value={true} control={<Radio size={"small"} style={{color:"#012169"}} />} label="Yes" />
                                                 <FormControlLabel value={false} control={<Radio size={"small"} style={{color:"#012169"}} />} label="No" />
                                             </RadioGroup>
-                                            <small className="form-text text-danger" >{this.state.errors["is_vegan"]}</small>
+                                            <small className="form-text text-danger" >{this.state.errors["is_vegetarian"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">

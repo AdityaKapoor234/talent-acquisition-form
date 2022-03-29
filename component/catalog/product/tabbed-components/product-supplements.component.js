@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
 import SupplementApi from "../../../../services/supplement";
 import { toast } from "react-toastify";
+import Router from "next/router";
 
 export default class ProductSupplementsComponent extends Component {
     constructor(props) {
@@ -91,19 +92,27 @@ export default class ProductSupplementsComponent extends Component {
         return isValid;
     }
 
+    validate=()=>{
+        if ( this.state.supplements?.length === 0) {
+            toast.error("Please Add atleast one supplements ");
+            return false;
+        }
+          return true;
+    }
+
     onSave=()=> {
-        if(this.validation()){
-            this.EditSupplement(this.state.id)
+        if(this.validation() && this.validate()){
+            this.EditSupplement(this.state.id,"save")
         }
     }
 
     onSaveAndContinue=()=> {
-        if(this.validation()){
-            this.EditSupplement(this.state.id)
+        if(this.validation()  && this.validate()){
+            this.EditSupplement(this.state.id,"continue")
         }
     }
 
-    EditSupplement = (id)=>{
+    EditSupplement = (id,button)=>{
         let data={
             "data": this.state.supplements
         }
@@ -116,6 +125,11 @@ export default class ProductSupplementsComponent extends Component {
                 })
           this.setState({supplements: list});
             toast.success("Update supplement successfully")
+            if(button === "continue"){
+                this.props?.tab("inventories")
+            }else if(button === "save"){
+                Router.push("/product")
+            }
         }
       })
       .catch((error) => {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import Router from "next/router";
 
 export default class ProductInventoryComponent extends Component {
     constructor(props) {
@@ -13,12 +14,12 @@ export default class ProductInventoryComponent extends Component {
     };
 
 
-    onSave() {
-        console.log('bar');
+    onSave =()=> {
+        Router.push("/product")
     }
 
-    onSaveAndContinue() {
-        console.log('continue');
+    onSaveAndContinue=()=> {
+        this.props?.tab("prices")
     }
 
     render() {

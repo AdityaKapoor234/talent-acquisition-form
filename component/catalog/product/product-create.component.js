@@ -49,7 +49,6 @@ export default class BrandCreate extends Component {
     return (
       <div data-component="edit-category">
         <div className="row ">
-        {console.log("test",this.props)}
           <div className="col-md-12">
             <div className="tab">
               <div
@@ -121,6 +120,7 @@ export default class BrandCreate extends Component {
                             <MenuItem value="draft">Draft</MenuItem>
                             <MenuItem value="published">Publised</MenuItem>
                             <MenuItem value="archived">Archived</MenuItem>
+                            <MenuItem value="out_of_stock">Out of Stock</MenuItem>
                           </Select>
                           <small className="form-text text-danger" >{this.state.errors["status"]}</small>
                         </div>

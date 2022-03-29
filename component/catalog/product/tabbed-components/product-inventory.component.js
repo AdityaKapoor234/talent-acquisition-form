@@ -6,7 +6,7 @@ export default class ProductInventoryComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            mode:props?.mode
         };
     }
     handleChange = (event) => {
@@ -25,7 +25,7 @@ export default class ProductInventoryComponent extends Component {
     render() {
         return (
             <div data-component="product-inventory-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Inventories</ProductTabEditorHeader>
+                <ProductTabEditorHeader onSave={this.onSave} mode={this.state.mode} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Inventories</ProductTabEditorHeader>
                 <div className="row ">
                     <div className="col-md-12 pt-4">
                         <mark className='font-sm'><small>TODO: Product inventory editor is under development</small></mark>

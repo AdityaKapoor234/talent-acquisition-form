@@ -115,7 +115,7 @@ export default class ProductSEOComponent extends Component {
         return (
 
             <div data-component="product-seo-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave} showSaveContinueButton={false}>
+                <ProductTabEditorHeader onSave={this.onSave} mode={this.state.mode} showSaveContinueButton={false}>
                     Search Engine Optimisation
                 </ProductTabEditorHeader>
                 <div className="row ">

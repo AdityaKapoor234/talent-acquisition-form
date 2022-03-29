@@ -31,7 +31,7 @@ export default class ProductContentComponent extends Component {
         return (
             <div data-component="product-content-edit" className='product-tabbed-editor'>
 
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Content</ProductTabEditorHeader>
+                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true} mode={this.state.mode}>Content</ProductTabEditorHeader>
                 
                 {this.state.mode === "edit" &&
                 <div className="row ">

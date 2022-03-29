@@ -19,15 +19,19 @@ export default class ProductSupplementsComponent extends Component {
 
     addNewIngredient(){
         let supplements = this.state.supplements;
-        supplements.push({
-            "id": 0,
-            "ingredient_id": '',
-            "amount_per_serving": null,
-            "daily_value": null,
-            "sort_order": null,
-            "serving_unit": "",
-            "remove_id": false
-        })
+        if( supplements.filter((value)=>{return value.id === 0}).length >0){
+            toast.error("Add one by one")
+        }else{
+            supplements.push({
+                "id": 0,
+                "ingredient_id": '',
+                "amount_per_serving": null,
+                "daily_value": null,
+                "sort_order": null,
+                "serving_unit": "",
+                "remove_id": false
+            })
+        }
         this.setState({
             supplements
         })
@@ -113,6 +117,12 @@ export default class ProductSupplementsComponent extends Component {
         }
     }
 
+    AddIngredient = ()=>{
+        if(this.validation()  && this.validate()){
+            this.EditSupplement(this.state.id,"none")
+        }
+    }
+
     EditSupplement = (id,button)=>{
         let data={
             "data": this.state.supplements
@@ -125,10 +135,11 @@ export default class ProductSupplementsComponent extends Component {
                 field.remove_id = false
                 })
           this.setState({supplements: list});
-            toast.success("Update supplement successfully")
             if(button === "continue"){
+                toast.success("Update supplement successfully")
                 this.props?.tab("inventories")
             }else if(button === "save"){
+                toast.success("Update supplement successfully")
                 Router.push("/product")
             }
         }
@@ -192,7 +203,7 @@ export default class ProductSupplementsComponent extends Component {
     render() {
         return (
             <div data-component="product-supplement-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Supplements</ProductTabEditorHeader>
+                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true} mode={this.state.mode}>Supplements</ProductTabEditorHeader>
                 <div className="row ">
                     <div className="col-md-12">
                         {
@@ -228,9 +239,16 @@ export default class ProductSupplementsComponent extends Component {
                                         <input type="text" readOnly={this.state.mode === "view"?true:false} placeholder='Serving Unit' id={s?.id} name='serving_unit'  className='form-control' onChange={this.handleChange} value={s.serving_unit} />
                                         <small className="form-text text-danger" >{this.state.errors["serving_unit"]}</small>
                                     </div>
+                                    {s?.id === 0 ? <>
+                                    <div className='col-md-1 d-grid'>
+                                        <button disabled={this.state.mode === "view"?true:false} className='btn btn-success btn-sm' onClick={this.AddIngredient.bind(this, s?.id)}>Add</button>
+                                    </div>
+                                    <div className='col-md-1 d-grid'>
+                                        <button disabled={this.state.mode === "view"?true:false} className='btn btn-danger btn-sm' onClick={this.removeIngredient.bind(this, s?.id)}>Remove</button>
+                                    </div></>:
                                     <div className='col-md-2 d-grid'>
                                         <button disabled={this.state.mode === "view"?true:false} className='btn btn-danger btn-sm' onClick={this.removeIngredient.bind(this, s?.id)}>Remove</button>
-                                    </div>
+                                    </div>}
                                 </div>
                             })
                         }

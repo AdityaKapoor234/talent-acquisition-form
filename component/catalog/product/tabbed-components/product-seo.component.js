@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
 import SeoApi from "../../../../services/seo";
 import { toast } from "react-toastify";
+import Router from "next/router";
 
 export default class ProductSEOComponent extends Component {
     constructor(props) {
@@ -60,6 +61,7 @@ export default class ProductSEOComponent extends Component {
                 let list =  response.data.data
                 this.setState({seo: list});
                 toast.success("Update successfully")
+                Router.push("/product")
           }
         })
         .catch((error) => {
@@ -79,11 +81,11 @@ export default class ProductSEOComponent extends Component {
         }
     }
 
-    onSaveAndContinue=()=> {
-        if(this.validation()){
-            this.EditSeo(this.state.id)
-        }
-    }
+    // onSaveAndContinue=()=> {
+    //     if(this.validation()){
+    //         this.EditSeo(this.state.id)
+    //     }
+    // }
 
     getSeoDetails=(id)=>{
         SeoApi.getSeo(id)
@@ -112,7 +114,7 @@ export default class ProductSEOComponent extends Component {
         return (
 
             <div data-component="product-seo-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>
+                <ProductTabEditorHeader onSave={this.onSave} showSaveContinueButton={false}>
                     Search Engine Optimisation
                 </ProductTabEditorHeader>
                 <div className="row ">

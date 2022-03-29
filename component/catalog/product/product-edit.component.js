@@ -76,6 +76,9 @@ export default class ProductEditComponent extends Component {
     handleChange = (event) => {
         this.setState({ type: event.target.value });
     };
+    setTab = (value)=>{
+        this.setState({tab:value})
+    }
 
     render() {
         return (
@@ -104,27 +107,27 @@ export default class ProductEditComponent extends Component {
                 <div>
                     {this.state.tab === 'info' && (
                         <>
-                            <ProductInfoComponent id={this.state.id}/>
+                            <ProductInfoComponent id={this.state.id} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'content' && (
                         <>
-                            <ProductContentComponent product_id={this.state.product.id} mode={this.state.mode}/>
+                            <ProductContentComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'inventories' && (
                         <>
-                            <ProductInventoryComponent product_id={this.state.product.id}/>
+                            <ProductInventoryComponent product_id={this.state.product.id} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'prices' && (
                         <>
-                            <ProductPriceComponent product_id={this.state.product.id}/>
+                            <ProductPriceComponent product_id={this.state.product.id} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'photos' && (
                         <>
-                            <ProductPhotoComponent product_id={this.state.product.id}/>
+                            <ProductPhotoComponent id={this.state.id} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'seo' && (
@@ -139,7 +142,7 @@ export default class ProductEditComponent extends Component {
                     )}
                     {this.state.tab === 'supplements' && (
                         <>
-                            <ProductSupplementsComponent id={this.state.id}/>
+                            <ProductSupplementsComponent id={this.state.id} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                 </div>

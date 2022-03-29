@@ -275,7 +275,6 @@ export default class QueryDetails extends Component {
 								</div>
 							</div>
 						)} */}
-						{console.log(this.state.queries)}
 						{this.state.mode === "view" && (
 							<div className="row sticky-scroll scroll">
 								<div className="col">

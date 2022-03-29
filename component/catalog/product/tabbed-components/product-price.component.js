@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import Router from "next/router";
 
 
 export default class ProductPriceComponent extends Component {
@@ -13,14 +14,12 @@ export default class ProductPriceComponent extends Component {
         this.setState({ type: event.target.value });
     };
 
-
-
-    onSave() {
-        console.log('bar');
+    onSave=()=> {
+        Router.push("/product")
     }
 
-    onSaveAndContinue() {
-        console.log('continue');
+    onSaveAndContinue=()=> {
+        this.props?.tab("photos")
     }
     render() {
         return (

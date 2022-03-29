@@ -57,7 +57,6 @@ export default class ProductCreate extends Component {
             "name":this.state.productDetails?.name,
             "status":this.state.productDetails?.status
           };
-          console.log("data",data)
           ProductApi.createProduct(data)
             .then((response) => {
               if (response.data.httpStatusCode === 200) {

@@ -13,6 +13,7 @@ export default class ProductSupplementsComponent extends Component {
             select:"",
             id:props?.id,
             errors:{},
+            mode:props?.mode,
         };
     }
 
@@ -201,7 +202,7 @@ export default class ProductSupplementsComponent extends Component {
                             this.state.supplements.map((s, i)=>{
                                 return <div key={i} className='row mt-2'>
                                     <div className='col-md-2'>
-                                        <select className='form-control' id={s?.id} value={s.ingredient_id} onChange={this.handleSelect}>
+                                        <select className='form-control' disabled={this.state.mode === "view"?true:false}  readOnly={this.state.mode === "view"?true:false} id={s?.id} value={s.ingredient_id} onChange={this.handleSelect}>
                                             <option value="" disabled>Select Ingredient</option>
                                             {this.state.ingredient?.map(val=>{
                                                 return(
@@ -212,30 +213,31 @@ export default class ProductSupplementsComponent extends Component {
                                         <small className="form-text text-danger" >{this.state.errors["ingredient_id"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="number" placeholder='Per serving' id={s?.id} className='form-control' name='amount_per_serving' onChange={this.handleChange} value={s.amount_per_serving} />
+                                        <input type="number"  readOnly={this.state.mode === "view"?true:false} placeholder='Per serving' id={s?.id} className='form-control' name='amount_per_serving' onChange={this.handleChange} value={s.amount_per_serving} />
                                         <small className="form-text text-danger" >{this.state.errors["amount_per_serving"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="number" placeholder='Daily value' id={s?.id} name='daily_value'  className='form-control' onChange={this.handleChange} value={s.daily_value} />
+                                        <input type="number"  readOnly={this.state.mode === "view"?true:false} placeholder='Daily value' id={s?.id} name='daily_value'  className='form-control' onChange={this.handleChange} value={s.daily_value} />
                                         <small className="form-text text-danger" >{this.state.errors["daily_value"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="number" placeholder='Sort Order' id={s?.id} name='sort_order'  className='form-control' onChange={this.handleChange} value={s.sort_order} />
+                                        <input type="number"  readOnly={this.state.mode === "view"?true:false} placeholder='Sort Order' id={s?.id} name='sort_order'  className='form-control' onChange={this.handleChange} value={s.sort_order} />
                                         <small className="form-text text-danger" >{this.state.errors["sort_order"]}</small>
                                     </div>
                                     <div className='col-md-2'>
-                                        <input type="text" placeholder='Serving Unit' id={s?.id} name='serving_unit'  className='form-control' onChange={this.handleChange} value={s.serving_unit} />
+                                        <input type="text" readOnly={this.state.mode === "view"?true:false} placeholder='Serving Unit' id={s?.id} name='serving_unit'  className='form-control' onChange={this.handleChange} value={s.serving_unit} />
                                         <small className="form-text text-danger" >{this.state.errors["serving_unit"]}</small>
                                     </div>
                                     <div className='col-md-2 d-grid'>
-                                        <button className='btn btn-danger btn-sm' onClick={this.removeIngredient.bind(this, s?.id)}>Remove</button>
+                                        <button disabled={this.state.mode === "view"?true:false} className='btn btn-danger btn-sm' onClick={this.removeIngredient.bind(this, s?.id)}>Remove</button>
                                     </div>
                                 </div>
                             })
                         }
+                        {this.state.mode === "edit" &&
                         <div className='mt-5'>
                             <button className='btn btn-primary' onClick={this.addNewIngredient.bind(this)}>Add New Ingredient</button>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

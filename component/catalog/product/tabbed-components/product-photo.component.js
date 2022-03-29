@@ -14,6 +14,7 @@ export default class ProductPhotoComponent extends Component {
         super(props);
         this.state = {
             id:props?.id,
+            mode:props?.mode,
             photos: [],
             isLoader:false,
             url:""
@@ -146,10 +147,12 @@ export default class ProductPhotoComponent extends Component {
                                 </div>
                             })
                         }
-                        <div  className='photo-upload-box photo-uplaod'>
-                            <input id="img" type="file" accept={".png,.jpg,.jpeg"}  onChange={this.uploadFile} style={{display:"none"}} />
-                            <label for="img" className="file" >Choose File</label>
-                        </div>
+                        {this.state.mode ==="edit" &&
+                            <div  className='photo-upload-box photo-uplaod'>
+                                <input id="img" type="file" accept={".png,.jpg,.jpeg"}  onChange={this.uploadFile} style={{display:"none"}} />
+                                <label for="img" className="file" >Choose File</label>
+                            </div>
+                        }
                         </div>
                     </div>
                 </div>

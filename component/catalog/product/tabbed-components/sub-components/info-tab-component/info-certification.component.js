@@ -15,7 +15,6 @@ export default function InfoCertificationComponent(props) {
     list[objIndex]["selected"] = event?.target?.checked;
     setCertification([...list])
     let data = list?.filter(val=>val?.selected === true)?.map(p=>p?.id)
-    console.log("data",data)
     props?.handle(data)
   };
 

@@ -10,11 +10,11 @@ export default class BrandCreate extends Component {
       tab: 1,
       mode: props?.mode,
       product: props?.product,
+      errors:props?.errors,
       input: {
         name: props?.product?.name ? props.product?.name : "",
-        is_active: props?.product?.is_active
-          ? props?.product?.is_active
-          : false,
+        sku: props?.product?.sku ? props.product?.sku : "",
+        status: props?.product?.status ? props.product?.status : "",
       },
     };
   }
@@ -22,16 +22,17 @@ export default class BrandCreate extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
       prevState.product !== nextProps.product ||
-      prevState.mode !== nextProps.mode
+      prevState.mode !== nextProps.mode ||
+      prevState.errors !== nextProps.errors
     ) {
       return {
         product: nextProps?.product,
         mode: nextProps?.mode,
+        errors:nextProps?.errors,
         input: {
-          is_active: nextProps?.product?.is_active
-            ? nextProps?.product?.is_active
-            : false,
           name: nextProps?.product?.name ? nextProps.product?.name : "",
+          sku: nextProps?.product?.sku ? nextProps.product?.sku : "",
+          status: nextProps?.product?.status ? nextProps.product?.status : "",
         },
       };
     }
@@ -42,15 +43,6 @@ export default class BrandCreate extends Component {
     input[event.target.name] = event.target.value;
     this.setState({ input });
     this.props?.handle(input);
-  };
-  handleCheck = (event) => {
-    let input = this.state.input;
-    input[event.target.name] = event.target.checked;
-    this.setState({ input });
-    this.props?.handle(input);
-  };
-  handleChange1 = (event) => {
-    this.setState({ type: event.target.value });
   };
 
   render() {
@@ -85,10 +77,11 @@ export default class BrandCreate extends Component {
                         </label>
                         <input
                           type="text"
-                          name="name"
-                          value={this.state.input.name}
+                          name="sku"
+                          value={this.state.input.sku}
                           onChange={this.handleChange.bind(this)}
                         />
+                        <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
                       </div>
                       <div className="login-form ">
                         <label>
@@ -100,6 +93,7 @@ export default class BrandCreate extends Component {
                           value={this.state.input.name}
                           onChange={this.handleChange.bind(this)}
                         />
+                        <small className="form-text text-danger" >{this.state.errors["name"]}</small>
                       </div>
 
                       <div className="sort fc-select-form-group">
@@ -111,13 +105,13 @@ export default class BrandCreate extends Component {
                             disableUnderline
                             variant="standard"
                             autoWidth={true}
-                            name="parent_id"
-                            onChange={this.handleChange1}
+                            name="status"
+                            onChange={this.handleChange}
                             className="sort-by-select w-100"
-                            value="published"
+                            value={this.state.input.status}
                           >
                             <MenuItem
-                              value={"select"}
+                              value={""}
                               disabled
                               className="field_toggle_checked"
                             >
@@ -126,19 +120,11 @@ export default class BrandCreate extends Component {
                             <MenuItem value="draft">Draft</MenuItem>
                             <MenuItem value="published">Publised</MenuItem>
                             <MenuItem value="archived">Archived</MenuItem>
+                            <MenuItem value="out_of_stock">Out of Stock</MenuItem>
                           </Select>
+                          <small className="form-text text-danger" >{this.state.errors["status"]}</small>
                         </div>
                       </div>
-                      {/* <div className="signup-check">
-                        <Checkbox
-                          size="small"
-                          style={{ color: "#012169" }}
-                          checked={this.state.input.is_active}
-                          name="is_active"
-                          onChange={this.handleCheck.bind(this)}
-                        />
-                        <label>Active</label>
-                      </div> */}
                     </div>
                   </div>
                 </div>

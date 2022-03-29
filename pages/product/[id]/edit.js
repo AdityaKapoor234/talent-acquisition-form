@@ -44,25 +44,9 @@ export default function ProductEditCompo(id) {
                             <div className="hamburger">
                                 <span>Catalog / Product / </span>Edit Product
                             </div>
-                            <div className="page-name">Edit Product Details-Test</div>
+                            <div className="page-name">Edit Product Details</div>
                         </div>
                         <div className="col-md-8 btn-save">
-                            {/*<div*/}
-                                {/*className="custom-btn "*/}
-                                {/*onClick={() => {*/}
-                                    {/*Router.push(`/product`);*/}
-                                {/*}}*/}
-                            {/*>*/}
-                                {/*<span>Save </span>*/}
-                            {/*</div>*/}
-                            <div
-                                className="Cancel-btn custom-btn"
-                                onClick={() => {
-                                    Router.push(`/product`);
-                                }}
-                            >
-                                <span>Delete </span>
-                            </div>
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

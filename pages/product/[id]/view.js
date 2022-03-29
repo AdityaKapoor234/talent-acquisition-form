@@ -8,15 +8,19 @@ import ProductCreateComponent from "../../../component/catalog/product/product-v
 import Router from "next/router";
 import Cookie from "js-cookie";
 
-const product = {
-    id: 1,
-    name: "test",
-    type: "Regular Product",
-};
+export async function getServerSideProps(context) {
+    const { id } = context.query;
+    return {
+      props: {
+        id: id || null,
+      },
+    };
+  }
 
-export default function ProductViewDetails() {
+export default function ProductViewDetails(id) {
 
     const mode = "view";
+    const [productId, setProductId] = useState(id?.id)
 
 
     useEffect(() => {
@@ -24,7 +28,7 @@ export default function ProductViewDetails() {
         if (token === undefined) {
             Router.push("/");
         }
-    }, []);
+    }, [id]);
     return (
         <div>
             <Head>
@@ -43,14 +47,14 @@ export default function ProductViewDetails() {
                             <div className="page-name">Product Details</div>
                         </div>
                         <div className="col-md-7 btn-save">
-                            <div
+                            {/* <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
                                     Router.push(`/product`);
                                 }}
                             >
                                 <span>Delete </span>
-                            </div>
+                            </div> */}
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
@@ -63,7 +67,7 @@ export default function ProductViewDetails() {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <ProductCreateComponent mode={mode} product={product} />
+                            <ProductCreateComponent mode={mode} id={productId}  />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

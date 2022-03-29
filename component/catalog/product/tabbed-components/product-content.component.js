@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
 import ArticleEditor from "../../../common-component/text-editer";
+import Router from "next/router";
 
 export default class ProductContentComponent extends Component {
     constructor(props) {
@@ -14,12 +15,12 @@ export default class ProductContentComponent extends Component {
         this.setState({type: event.target.value});
     };
 
-    onSave() {
-        console.log('bar');
+    onSave=()=> {
+        Router.push("/product")
     }
 
-    onSaveAndContinue() {
-        console.log('continue');
+    onSaveAndContinue=()=> {
+        this.props?.tab("supplements")
     }
 
     handleFullContent(value) {

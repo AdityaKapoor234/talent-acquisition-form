@@ -11,6 +11,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Router from "next/router";
 
 export default class ProductInfoComponent extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class ProductInfoComponent extends Component {
                 "certifications": [],
                 "flavour_id": 0,
                 "gender": "",
-                "is_vegan": true,
+                "is_vegetarian": null,
                 "name": "",
                 "origin_country_id": null,
                 "product_form": "",
@@ -64,7 +65,7 @@ export default class ProductInfoComponent extends Component {
 
     handleRadio = (event) => {
         let input = this.state.infoDetails;
-        input["is_vegan"]= event.target.value;
+        input["is_vegetarian"]= event.target.value;
         this.setState({ infoDetails: input });
       };
 
@@ -76,22 +77,67 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["sku"] = "Please enter sku";
             }
-            if (!input["sku"]) {
+            if (!input["name"]) {
                 isValid = false;
-                errors["sku"] = "Please enter sku";
+                errors["name"] = "Please enter name";
             }
-            if (!input["sku"]) {
+            if (!input["status"]) {
                 isValid = false;
-                errors["sku"] = "Please enter sku";
+                errors["status"] = "Please select status";
             }
-            if (!input["sku"]) {
+            if (input["brand_id"] === 0) {
                 isValid = false;
-                errors["sku"] = "Please enter sku";
+                errors["brand_id"] = "Please select brand";
             }
-            if (!input["sku"]) {
+            if (input["flavour_id"] === 0) {
                 isValid = false;
-                errors["sku"] = "Please enter sku";
+                errors["flavour_id"] = "Please select flavour";
             }
+            if (!input["weight"]) {
+                isValid = false;
+                errors["weight"] = "Please enter weight";
+            }
+            if (!input["weight_unit"]) {
+                isValid = false;
+                errors["weight_unit"] = "Please enter weight unit";
+            }
+            if (!input["serving_size"]) {
+                isValid = false;
+                errors["serving_size"] = "Please enter serving size";
+            }
+            if (!input["serving_size_unit"]) {
+                isValid = false;
+                errors["serving_size_unit"] = "Please enter serving size unit";
+            }
+            if (!input["serving_count"]) {
+                isValid = false;
+                errors["serving_count"] = "Please enter serving count";
+            }
+            if (!input["product_form"]) {
+                isValid = false;
+                errors["product_form"] = "Please enter form";
+            }
+            if (!input["gender"]) {
+                isValid = false;
+                errors["gender"] = "Please enter gender";
+            }
+            if (!input["specialty_diet"]) {
+                isValid = false;
+                errors["specialty_diet"] = "Please enter specialty diet";
+            }
+            if (!input["recommended_age"]) {
+                isValid = false;
+                errors["recommended_age"] = "Please enter recommended age";
+            }
+            if (input["is_vegetarian"] === null) {
+                isValid = false;
+                errors["is_vegetarian"] = "Please select vegan";
+            }
+            if (!input["origin_country_id"]) {
+                isValid = false;
+                errors["origin_country_id"] = "Please enter country of origin";
+            }
+            
             
         this.setState({
             errors: errors
@@ -100,29 +146,46 @@ export default class ProductInfoComponent extends Component {
         return isValid;
     }
 
+    validate=()=>{
+        if ( this.state.infoDetails?.categories?.length === 0) {
+            toast.error("Please select atleast one Category ");
+            return false;
+        }
+        if ( this.state.infoDetails?.certifications?.length === 0) {
+            toast.error("Please select atleast one Certification ");
+            return false;
+        }
+          return true;
+    }
 
     onSave=()=> {
-        if(this.validation()){
-            this.updateInfo(this.state.id)
+        if(this.validation() && this.validate()){
+            this.updateInfo(this.state.id,"save")
         }
     }
 
     onSaveAndContinue=()=> {
-        if(this.validation()){
-            this.updateInfo(this.state.id)
+        if(this.validation() && this.validate()){
+            this.updateInfo(this.state.id,"continue")
         }
     }
 
-    updateInfo = (id)=>{
+    updateInfo = (id,button)=>{
         let data={
             "data": this.state.infoDetails
         }
         ProductInfoApi. UpdateInfo(id,data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
+            toast.success("Update successfully")
             this.setState({
                 infoDetails:response.data.data
             })
+            if(button === "continue"){
+                this.props?.tab("content")
+            }else if(button === "save"){
+                Router.push("/product")
+            }
           }
         })
         .catch((error) => {
@@ -231,7 +294,7 @@ export default class ProductInfoComponent extends Component {
                                             value={this.state.infoDetails?.name}
                                             onChange={this.handleChange.bind(this)}
                                         />
-                                         <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                         <small className="form-text text-danger" >{this.state.errors["name"]}</small>
                                     </div>
                                 </div>
                             </div>
@@ -260,15 +323,15 @@ export default class ProductInfoComponent extends Component {
                                                 <MenuItem value='draft'>Draft</MenuItem>
                                                 <MenuItem value='published'>Publised</MenuItem>
                                                 <MenuItem value='archived'>Archived</MenuItem>
+                                                <MenuItem value="out_of_stock">Out of Stock</MenuItem>
                                             </Select>
-                                            <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                            <small className="form-text text-danger" >{this.state.errors["status"]}</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-4">
 
                                     <div className="sort fc-select-form-group">
-                                        {console.log("vv",this.state.infoDetails?.brand_id)}
                                         <label>Brand<span className="mandatory-star">*</span></label>
                                         <div className="sort-by-select-wrapper">
                                             <Select
@@ -292,7 +355,7 @@ export default class ProductInfoComponent extends Component {
                                                 )})}
                                             </Select>
                                         </div>
-                                        <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                        <small className="form-text text-danger" >{this.state.errors["brand_id"]}</small>
                                     </div>
                                 </div>
                                 <div className="col-md-4">
@@ -321,7 +384,7 @@ export default class ProductInfoComponent extends Component {
                                                 )})}
                                             </Select>
                                         </div>
-                                        <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                        <small className="form-text text-danger" >{this.state.errors["flavour_id"]}</small>
                                     </div>
                                 </div>
 
@@ -362,7 +425,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.weight}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["weight"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -374,7 +437,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.weight_unit}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["weight_unit"]}</small>
                                         </div>
                                     </div>
                                 </div>
@@ -388,7 +451,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.serving_size}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["serving_size"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -400,7 +463,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.serving_size_unit}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["serving_size_unit"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -412,7 +475,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.serving_count}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["serving_count"]}</small>
                                         </div>
                                     </div>
                                 </div>
@@ -432,7 +495,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.product_form}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["product_form"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -444,7 +507,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.gender}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["gender"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -456,7 +519,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.specialty_diet}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["specialty_diet"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -468,7 +531,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.recommended_age}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["recommended_age"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -478,13 +541,13 @@ export default class ProductInfoComponent extends Component {
                                                 row
                                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                                 name="controlled-radio-buttons-group"
-                                                value={this.state.infoDetails?.is_vegan}
+                                                value={this.state.infoDetails?.is_vegetarian}
                                                 onChange={this.handleRadio}
                                             >
                                                 <FormControlLabel value={true} control={<Radio size={"small"} style={{color:"#012169"}} />} label="Yes" />
                                                 <FormControlLabel value={false} control={<Radio size={"small"} style={{color:"#012169"}} />} label="No" />
                                             </RadioGroup>
-                                            <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                            <small className="form-text text-danger" >{this.state.errors["is_vegetarian"]}</small>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -496,7 +559,7 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.origin_country_id}
                                                 onChange={this.handleChange.bind(this)}
                                             />
-                                             <small className="form-text text-danger" >{this.state.errors["sku"]}</small>
+                                             <small className="form-text text-danger" >{this.state.errors["origin_country_id"]}</small>
                                         </div>
                                     </div>
                                 </div>

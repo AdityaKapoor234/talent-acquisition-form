@@ -25,7 +25,7 @@ export default class ProductInfoComponent extends Component {
                 "gender": "",
                 "is_vegetarian": null,
                 "name": "",
-                "origin_country_id": null,
+                "origin_country_id": "select",
                 "product_form": "",
                 "recommended_age": "",
                 "serving_count": null,
@@ -35,7 +35,7 @@ export default class ProductInfoComponent extends Component {
                 "specialty_diet": "",
                 "weight": null,
                 "weight_unit": "",
-                "status":""
+                "status":"select"
             },
             id:props?.id,
             mode:props?.mode,
@@ -71,6 +71,10 @@ export default class ProductInfoComponent extends Component {
         this.setState({ infoDetails: input });
       };
 
+      stringValPatternValidation = stringVal => {
+        return /\s/g.test(stringVal);
+      };
+
       validation(){
         let input = this.state.infoDetails;
         let errors = {};
@@ -79,11 +83,23 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["sku"] = "Please enter sku";
             }
+            if (this.stringValPatternValidation(input["sku"])) {
+                isValid = false;
+                errors["sku"] = "Please enter sku without space";
+            }
+            if(input["sku"].replace(/\s/g, "").length <=0){
+                isValid = false;
+                errors["sku"] = "Please enter sku";
+            }
             if (!input["name"]) {
                 isValid = false;
                 errors["name"] = "Please enter name";
             }
-            if (!input["status"]) {
+            if(input["name"].replace(/\s/g, "").length <=0){
+                isValid = false;
+                errors["name"] = "Please enter name";
+            }
+            if (input["status"] === "select") {
                 isValid = false;
                 errors["status"] = "Please select status";
             }
@@ -103,11 +119,19 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["weight_unit"] = "Please enter weight unit";
             }
+            if(input["weight_unit"].replace(/\s/g, "").length <=0){
+                isValid = false;
+                errors["weight_unit"] = "Please enter weight unit";
+            }
             if (!input["serving_size"]) {
                 isValid = false;
                 errors["serving_size"] = "Please enter serving size";
             }
             if (!input["serving_size_unit"]) {
+                isValid = false;
+                errors["serving_size_unit"] = "Please enter serving size unit";
+            }
+            if(input["serving_size_unit"].replace(/\s/g, "").length <=0){
                 isValid = false;
                 errors["serving_size_unit"] = "Please enter serving size unit";
             }
@@ -119,7 +143,15 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["product_form"] = "Please enter form";
             }
+            if(input["product_form"].replace(/\s/g, "").length <=0){
+                isValid = false;
+                errors["product_form"] = "Please enter product form";
+            }
             if (!input["gender"]) {
+                isValid = false;
+                errors["gender"] = "Please enter gender";
+            }
+            if(input["gender"].replace(/\s/g, "").length <=0){
                 isValid = false;
                 errors["gender"] = "Please enter gender";
             }
@@ -127,15 +159,23 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["specialty_diet"] = "Please enter specialty diet";
             }
+            if(input["specialty_diet"].replace(/\s/g, "").length <=0){
+                isValid = false;
+                errors["specialty_diet"] = "Please enter specialty diet";
+            }
             if (!input["recommended_age"]) {
+                isValid = false;
+                errors["recommended_age"] = "Please enter recommended age";
+            }
+            if(input["recommended_age"].replace(/\s/g, "").length <=0){
                 isValid = false;
                 errors["recommended_age"] = "Please enter recommended age";
             }
             if (input["is_vegetarian"] === null) {
                 isValid = false;
-                errors["is_vegetarian"] = "Please select vegan";
+                errors["is_vegetarian"] = "Please select vegetarian";
             }
-            if (!input["origin_country_id"]) {
+            if (input["origin_country_id"] === "select") {
                 isValid = false;
                 errors["origin_country_id"] = "Please enter country of origin";
             }
@@ -284,7 +324,7 @@ export default class ProductInfoComponent extends Component {
     render() {
         return (
             <div data-component="product-info-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Product Info</ProductTabEditorHeader>
+                <ProductTabEditorHeader mode={this.state.mode} onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Product Info</ProductTabEditorHeader>
                 <div className="row ">
                     <div className="col-md-12">
                         <div>
@@ -368,7 +408,7 @@ export default class ProductInfoComponent extends Component {
                                                     disabled
                                                     className="field_toggle_checked"
                                                 >
-                                                    Select Status{" "}
+                                                    Select Brand{" "}
                                                 </MenuItem>
                                                 {this.state.brand?.map(val=>{return(
                                                     <MenuItem value={val?.id}>{val?.name}</MenuItem>
@@ -398,7 +438,7 @@ export default class ProductInfoComponent extends Component {
                                                     disabled
                                                     className="field_toggle_checked"
                                                 >
-                                                    Select Status{" "}
+                                                    Select Flavor{" "}
                                                 </MenuItem>
                                                 {this.state.flavor?.map(val=>{return(
                                                     <MenuItem value={val?.id}>{val?.name}</MenuItem>
@@ -566,7 +606,7 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Is Vegan<span className="mandatory-star">*</span></label>
+                                            <label>Is Vegetarian<span className="mandatory-star">*</span></label>
                                             <RadioGroup
                                                 row
                                                 disabled={this.state.mode === "view"?true:false}
@@ -587,8 +627,9 @@ export default class ProductInfoComponent extends Component {
                                             <select className='form-control' 
                                                 disabled={this.state.mode === "view"?true:false}  
                                                 value={this.state.infoDetails?.origin_country_id} 
+                                                name="origin_country_id"
                                                 onChange={this.handleChange.bind(this)}>
-                                            <option value="" disabled>Select country</option>
+                                            <option value={"select"} disabled>Select country</option>
                                             {this.state.country?.map(val=>{
                                                 return(
                                                     <option value={val?.id}>{val?.name}</option>

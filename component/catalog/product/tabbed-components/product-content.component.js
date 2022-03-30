@@ -14,16 +14,6 @@ export default class ProductContentComponent extends Component {
             id: props?.id,
             errors:{},
             open: false,
-            // content: {
-            //     description: "",
-            //     direction_of_use: "",
-            //     does_not_contain: "",
-            //     other_ingredients: "",
-            //     product_label: "",
-            //     short_description: "",
-            //     warning: "",
-            // },
-
         };
     }
 
@@ -49,12 +39,9 @@ export default class ProductContentComponent extends Component {
 
     handleFullContent = (value, name, event) => {
         let content = this.state.content;
-        console.log(name, "name");
         content[name] = value;
         this.setState({ content });
-        // this.stateHandle(content);
 
-        console.log("value.js", value);
     }
 
     handleLabel = (value) => {
@@ -62,7 +49,6 @@ export default class ProductContentComponent extends Component {
         content["product_label"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
     handleShortDescription = (value) => {
@@ -70,7 +56,6 @@ export default class ProductContentComponent extends Component {
         content["short_description"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
     handleFullDescription = (value) => {
@@ -78,7 +63,6 @@ export default class ProductContentComponent extends Component {
         content["description"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
     handleDirection = (value) => {
@@ -86,7 +70,6 @@ export default class ProductContentComponent extends Component {
         content["direction_of_use"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
     handleOtherIngredient = (value) => {
@@ -94,7 +77,6 @@ export default class ProductContentComponent extends Component {
         content["other_ingredients"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
     handleDoesNotContain = (value) => {
@@ -102,7 +84,6 @@ export default class ProductContentComponent extends Component {
         content["does_not_contain"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
     handleWarning = (value) => {
@@ -110,16 +91,11 @@ export default class ProductContentComponent extends Component {
         content["warning"] = value;
         this.setState({ content });
 
-        console.log("value.js", value);
     }
 
 
     handleChange = (event) => {
         this.setState({ type: event.target.value });
-        // let input = this.state.content;
-        // input[event.target.name] = event.target.value;
-        // this.setState({ input });
-        // this.props?.handle(input);
 
     };
 
@@ -164,16 +140,8 @@ export default class ProductContentComponent extends Component {
 
     };
 
-    // handleChange = (event) => {
-    //     let input = this.state.content;
-    //     input[event.target.name] = event.target.value;
-    //     this.setState({ input });
-    //     this.props?.handle(input);
-    // };
-
 
     onSave = () => {
-        console.log(this.validateData())
         if (this.validateData()) {
             let data = {
                 "data": {
@@ -204,11 +172,9 @@ export default class ProductContentComponent extends Component {
                     );
                 });
         }
-        // Router.push("/product")
     }
 
     onSaveAndContinue = () => {
-        console.log(this.validateData())
         if (this.validateData()) {
             let data = {
                 "data": {
@@ -226,13 +192,10 @@ export default class ProductContentComponent extends Component {
                     if (response.data.httpStatusCode === 200) {
                         this.setState({ content: response.data.data });
                         toast.success(response.data.message);
-                        // this.props?.setState({tab: "supplements"})
-                        console.log(this.props, "props")
                         this.props?.tab("supplements")
                     }
                 })
                 .catch((error) => {
-                    console.log(error, "error")
                     toast.error(
                         error?.response &&
                             error?.response?.data &&
@@ -242,20 +205,14 @@ export default class ProductContentComponent extends Component {
                     );
                 });
         }
-        // this.props?.tab("supplements")
     }
 
     render() {
         return (
             <div data-component="product-content-edit" className='product-tabbed-editor'>
-                {console.log(this.state.content)}
-                {console.log(this.state.id, "id")}
-                {console.log(this.state.content)}
-                {/* {console.log(this.state.mode, "mode")} */}
-                {/* {console.log(this.state.content?.product_label, "label")} */}
 
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Content</ProductTabEditorHeader>
-
+                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true} mode={this.state.mode}>Content</ProductTabEditorHeader>
+                
                 {this.state.mode === "edit" &&
                     <div className="row ">
                         <div className="col-md-12">
@@ -266,7 +223,6 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.product_label}
                                     mode={this.state.mode}
                                     handleContent={this.handleLabel.bind(this)}
-                                    // handleChange={this.handleChange.bind()}
 
                                     name="product_label"
                                 />

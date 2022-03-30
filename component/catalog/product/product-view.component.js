@@ -63,10 +63,12 @@ export default class ProductViewComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: props?.id,
             tabs: editor_tabs,
             active: false,
             tab: 'info',
             mode: props?.mode,
+            content: props?.content ? props.content : {},
             product: props?.product ? props.product : {},
             name: props?.product?.name ? props.product?.name : "",
             type: props?.product?.type ? props.product?.type : "",
@@ -75,6 +77,25 @@ export default class ProductViewComponent extends Component {
     handleChange = (event) => {
         this.setState({ type: event.target.value });
     };
+    setTab = (value)=>{
+        this.setState({tab:value})
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (
+            prevState.content !== nextProps.content ||
+            prevState.mode !== nextProps.mode
+        ) {
+            return {
+                content: nextProps?.content,
+                mode: nextProps?.mode,
+                active: nextProps?.content?.is_active
+                    ? nextProps?.content?.is_active
+                    : false,
+            };
+        }
+        return null;
+    }
 
     render() {
         return (
@@ -83,7 +104,7 @@ export default class ProductViewComponent extends Component {
                     <div className="col-md-12">
                         <div className="tab">
                             {
-                                this.state.tabs.map((t)=>{
+                                this.state.tabs.map((t) => {
                                     return t.show && <div
                                         key={t.key}
                                         className={
@@ -93,7 +114,7 @@ export default class ProductViewComponent extends Component {
                                             this.setState({ tab: t.key });
                                         }}
                                     >
-                                            {t.label}
+                                        {t.label}
                                     </div>
                                 })
                             }
@@ -103,42 +124,42 @@ export default class ProductViewComponent extends Component {
                 <div>
                     {this.state.tab === 'info' && (
                         <>
-                            <ProductInfoComponent product_id={this.state.product.id}/>
+                            <ProductInfoComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                     {this.state.tab === 'content' && (
                         <>
-                            <ProductContentComponent product_id={this.state.product.id} mode={this.state.mode}/>
+                            <ProductContentComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} content={this.state.content}/>
                         </>
                     )}
                     {this.state.tab === 'inventories' && (
                         <>
-                            <ProductInventoryComponent product_id={this.state.product.id}/>
+                            <ProductInventoryComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                     {this.state.tab === 'prices' && (
                         <>
-                            <ProductPriceComponent product_id={this.state.product.id}/>
+                            <ProductPriceComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                     {this.state.tab === 'photos' && (
                         <>
-                            <ProductPhotoComponent product_id={this.state.product.id}/>
+                            <ProductPhotoComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                     {this.state.tab === 'seo' && (
                         <>
-                            <ProductSEOComponent product_id={this.state.product.id}/>
+                            <ProductSEOComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                     {this.state.tab === 'custom' && (
                         <>
-                            <ProductCustomComponent product_id={this.state.product.id}/>
+                            <ProductCustomComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                     {this.state.tab === 'supplements' && (
                         <>
-                            <ProductSupplementsComponent product_id={this.state.product.id}/>
+                            <ProductSupplementsComponent product_id={this.state.product.id} id={this.state.id} mode={this.state.mode} tab={this.setTab} />
                         </>
                     )}
                 </div>

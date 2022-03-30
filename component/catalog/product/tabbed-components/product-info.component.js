@@ -67,7 +67,7 @@ export default class ProductInfoComponent extends Component {
 
     handleRadio = (event) => {
         let input = this.state.infoDetails;
-        input["is_vegetarian"]= event.target.value;
+        input["is_vegetarian"]= (event.target.value === "true"?true:false);
         this.setState({ infoDetails: input });
       };
 

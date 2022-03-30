@@ -145,7 +145,7 @@ export default class ClassificationCreate extends Component {
                                                     <label>
                                                         Display Order<span className="mandatory-star">*</span>
                                                     </label>
-                                                    <input type="number" readOnly={true} value={this.state.display} />
+                                                    <input type="number" min="0" readOnly={true} value={this.state.display} />
                                                 </div>
                                             </div>
                                         </div>

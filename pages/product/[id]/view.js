@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import ProductEditComponent from "../../../component/catalog/product/product-edit.component";
-import ProductCreateComponent from "../../../component/catalog/product/product-view.component";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ProductApi from "../../../services/product";
@@ -24,7 +23,7 @@ export async function getServerSideProps(context) {
 export default function ProductViewDetails({id}) {
 
     const mode = "view";
-    const [productId, setProductId] = useState(id?.id);
+    const [productId, setProductId] = useState(id);
     const [content, setContent] = useState([]);
     const [isLoader, setIsLoader] = useState(true);
 
@@ -55,6 +54,7 @@ export default function ProductViewDetails({id}) {
             Router.push("/");
         }
         contentList(id);
+        setProductId(id);
     }, [id]);
     return (
         <div>
@@ -106,13 +106,9 @@ export default function ProductViewDetails({id}) {
                                         </div>
                                     </div>
                                 ) : (
-                                    // product && product.length === 0 ? <div className="not-found">No Data Found</div> :
-                                    <ProductCreateComponent mode={mode} content={content} />
+                                    <ProductEditComponent id={productId} mode={mode} content={content} />
                                 )
                             }
-
-
-                            {/* <ProductEditComponent mode={mode} id={productId} /> */}
                         </div>
                     </div>
                 </DashboardLayoutComponent>

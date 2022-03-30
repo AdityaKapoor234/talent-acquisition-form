@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import ProductEditComponent from "../../../component/catalog/product/product-edit.component";
-import ProductCreateComponent from "../../../component/catalog/product/product-view.component";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ProductApi from "../../../services/product";
@@ -24,7 +23,7 @@ export async function getServerSideProps(context) {
 export default function ProductEditCompo({ id }) {
 
     const mode = "edit";
-    const [productId, setProductId] = useState(id?.id)
+    const [productId, setProductId] = useState(id)
     const [content, setContent] = useState([]);
     const [isLoader, setIsLoader] = useState(true);
 
@@ -54,7 +53,7 @@ export default function ProductEditCompo({ id }) {
         if (token === undefined) {
             Router.push("/");
         }
-        setProductId(id?.id)
+        setProductId(id)
         contentList(id);
     }, [id]);
     return (
@@ -99,11 +98,9 @@ export default function ProductEditCompo({ id }) {
                                         </div>
                                     </div>
                                 ) : (
-                                    // product && product.length === 0 ? <div className="not-found">No Data Found</div> :
-                                    <ProductEditComponent mode={mode} content={content} id={id} />
+                                    <ProductEditComponent mode={mode} content={content} id={productId} />
                                 )
                             }
-                            {/* <ProductEditComponent mode={mode} id={productId} /> */}
                         </div>
                     </div>
                 </DashboardLayoutComponent>

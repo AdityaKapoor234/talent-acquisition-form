@@ -67,7 +67,7 @@ export default class ProductInfoComponent extends Component {
 
     handleRadio = (event) => {
         let input = this.state.infoDetails;
-        input["is_vegetarian"]= event.target.value;
+        input["is_vegetarian"]= (event.target.value === "true"?true:false);
         this.setState({ infoDetails: input });
       };
 
@@ -482,6 +482,7 @@ export default class ProductInfoComponent extends Component {
                                             <label>Weight<span className="mandatory-star">*</span></label>
                                             <input
                                                 type="number"
+                                                min="0"
                                                 name="weight"
                                                 readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.weight}
@@ -510,6 +511,7 @@ export default class ProductInfoComponent extends Component {
                                             <label>Serving Size<span className="mandatory-star">*</span></label>
                                             <input
                                                 type="number"
+                                                min="0"
                                                 name="serving_size"
                                                 readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.serving_size}
@@ -536,6 +538,7 @@ export default class ProductInfoComponent extends Component {
                                             <label>Serving Count<span className="mandatory-star">*</span></label>
                                             <input
                                                 type="number"
+                                                min="0"
                                                 name="serving_count"
                                                 readOnly={this.state.mode === "view"?true:false}
                                                 value={this.state.infoDetails?.serving_count}

@@ -63,6 +63,7 @@ export default class ProductEditComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            content: props?.content ? props.content : {},
             tabs: editor_tabs,
             active: false,
             tab: 'info',
@@ -112,7 +113,7 @@ export default class ProductEditComponent extends Component {
                     )}
                     {this.state.tab === 'content' && (
                         <>
-                            <ProductContentComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
+                            <ProductContentComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)} content={this.state.content}/>
                         </>
                     )}
                     {this.state.tab === 'inventories' && (

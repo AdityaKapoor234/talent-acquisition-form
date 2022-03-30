@@ -21,7 +21,7 @@ export default class ProductInfoComponent extends Component {
                 "brand_id": 0,
                 "categories": [],
                 "certifications": [],
-                "flavour_id": 0,
+                "flavor_id": 0,
                 "gender": "",
                 "is_vegetarian": null,
                 "name": "",
@@ -107,9 +107,9 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["brand_id"] = "Please select brand";
             }
-            if (input["flavour_id"] === 0) {
+            if (input["flavor_id"] === 0) {
                 isValid = false;
-                errors["flavour_id"] = "Please select flavour";
+                errors["flavor_id"] = "Please select flavor";
             }
             if (!input["weight"]) {
                 isValid = false;
@@ -428,10 +428,10 @@ export default class ProductInfoComponent extends Component {
                                                 disabled={this.state.mode === "view"?true:false}
                                                 variant="standard"
                                                 autoWidth={true}
-                                                name="flavour_id"
+                                                name="flavor_id"
                                                 onChange={this.handleChange}
                                                 className="sort-by-select w-100"
-                                                value={this.state.infoDetails?.flavour_id}
+                                                value={this.state.infoDetails?.flavor_id}
                                             >
                                                 <MenuItem
                                                     value={0}
@@ -445,7 +445,7 @@ export default class ProductInfoComponent extends Component {
                                                 )})}
                                             </Select>
                                         </div>
-                                        <small className="form-text text-danger" >{this.state.errors["flavour_id"]}</small>
+                                        <small className="form-text text-danger" >{this.state.errors["flavor_id"]}</small>
                                     </div>
                                 </div>
 

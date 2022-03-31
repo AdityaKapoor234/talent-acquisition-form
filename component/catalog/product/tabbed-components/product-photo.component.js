@@ -8,12 +8,16 @@ import Photo from "../../../common-component/photo";
 import IconButton from "@mui/material/IconButton";
 import {PhotoCamera} from "@mui/icons-material";
 import Router from "next/router";
+import Checkbox from "@mui/material/Checkbox";
+import DeleteIcon from '@mui/icons-material/Delete';
+import InfoIcon from '@mui/icons-material/Info';
 
 export default class ProductPhotoComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             id:props?.id,
+            mode:props?.mode,
             photos: [],
             isLoader:false,
             url:""
@@ -63,7 +67,10 @@ export default class ProductPhotoComponent extends Component {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
             let list =  response.data.data?.data
-            this.setState({photo: list});
+            list.forEach(function(field) {
+                field.removed = false
+                })
+            this.setState({photos: list});
             toast.success("Update Photos successfully")
             if(button === "continue"){
                 this.props?.tab("seo")
@@ -88,6 +95,10 @@ export default class ProductPhotoComponent extends Component {
             toast.error("Please uplaod a Photo ");
             return false;
           }
+        if(this.state.photos.filter((value)=>{return value.is_primary === true}).length !== 1){
+            toast.error("please select one Image for Thumbnail ");
+            return false;
+        }
           return true;
     }
 
@@ -101,6 +112,21 @@ export default class ProductPhotoComponent extends Component {
         if(this.validation()){
             this.updatePhoto(this.state.id,"continue")
         }
+    }
+
+    handleCheck = (event) => {
+        let list =  this.state.photos
+        let objIndex = list.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+        list[objIndex]["is_primary"] = event?.target?.checked;
+        this.setState({photos:list})
+      };
+    
+    delete=(i)=>{
+        let photos = this.state.photos;
+        let objIndex = photos.findIndex((obj => obj.id === parseInt(i)));
+        photos[objIndex]["removed"] = true
+        this.setState({photos})
+        this.updatePhoto(this.state.id,"none")
     }
 
     getPhoto=(id)=>{
@@ -135,21 +161,38 @@ export default class ProductPhotoComponent extends Component {
         return (
             <div data-component="product-photo-edit" className='product-tabbed-editor'>
                 <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue}
-                                        showSaveContinueButton={true}>Photos</ProductTabEditorHeader>
+                                    mode={this.state.mode} showSaveContinueButton={true}>Photos</ProductTabEditorHeader>
                 <div className="row ">
                     <div className="col-md-12">
+                    <div className="notes"><InfoIcon className="info-icon"/> select one Image for Thumbnail</div>
                         <div className='photo-upload-list d-flex flex-wrap'>
                         {
                             this.state.photos.map((p, i) => {
                                 return <div key={i}  className='photo-upload-box'>
-                                    <div className='preview-img' style={{backgroundImage : 'url(' + p.path + ')'}}></div>
+                                    <div className='preview-img' style={{backgroundImage : 'url(' + p.path + ')'}}>
+                                        <div className="d-flex checkbox">
+                                            <Checkbox
+                                                size="small"
+                                                style={{ color: "#012169" }}
+                                                disabled={this.state?.mode === "view"?true:false}
+                                                checked={p?.is_primary === true?true:false}
+                                                name="is_primary"
+                                                value={p?.id}
+                                                onChange={this.handleCheck.bind(this)}
+                                            />
+                                            {this.state?.mode === "view"?< DeleteIcon className="delete-icon" />
+                                            :< DeleteIcon className="delete-icon" onClick={()=>{this.delete(p?.id)}}/>}
+                                        </div>
+                                    </div>
                                 </div>
                             })
                         }
-                        <div  className='photo-upload-box photo-uplaod'>
-                            <input id="img" type="file" accept={".png,.jpg,.jpeg"}  onChange={this.uploadFile} style={{display:"none"}} />
-                            <label for="img" className="file" >Choose File</label>
-                        </div>
+                        {this.state.mode ==="edit" &&
+                            <div  className='photo-upload-box photo-uplaod'>
+                                <input id="img" type="file" accept={".png,.jpg,.jpeg"}  onChange={this.uploadFile} style={{display:"none"}} />
+                                <label for="img" className="file" >Choose File</label>
+                            </div>
+                        }
                         </div>
                     </div>
                 </div>

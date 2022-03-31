@@ -5,29 +5,56 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import ProductEditComponent from "../../../component/catalog/product/product-edit.component";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import ProductApi from "../../../services/product";
 import Router from "next/router";
 import Cookie from "js-cookie";
 
 export async function getServerSideProps(context) {
     const { id } = context.query;
     return {
-      props: {
-        id: id || null,
-      },
+        props: {
+            id: id || null,
+        },
     };
-  }
+}
 
-export default function ProductEditCompo(id) {
+export default function ProductEditCompo({ id }) {
 
     const mode = "edit";
-    const [productId, setProductId] = useState(id?.id)
+    const [productId, setProductId] = useState(id)
+    const [content, setContent] = useState([]);
+    const [isLoader, setIsLoader] = useState(true);
+
+
+    const contentList = (id) => {
+        setIsLoader(true);
+        ProductApi.ContentList(id)
+            .then((response) => {
+                setContent(response.data.data);
+                setIsLoader(false);
+            })
+            .catch((error) => {
+                setIsLoader(false);
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    };
+
 
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
-        setProductId(id?.id)
+        setProductId(id)
+        contentList(id);
     }, [id]);
     return (
         <div>
@@ -59,7 +86,21 @@ export default function ProductEditCompo(id) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <ProductEditComponent mode={mode} id={productId} />
+                            {
+                                isLoader ? (
+                                    <div className="row justify-content-center">
+                                        <div className="col-md-12 loader-cart">
+                                            <Box sx={{ display: "flex" }}>
+                                                <CircularProgress
+                                                    style={{ color: "#F54A00" }}
+                                                />
+                                            </Box>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <ProductEditComponent mode={mode} content={content} id={productId} />
+                                )
+                            }
                         </div>
                     </div>
                 </DashboardLayoutComponent>

@@ -25,6 +25,9 @@ export default class ProductCreate extends Component {
         errors:{},
       };
     }
+    stringValPatternValidation = stringVal => {
+        return /\s/g.test(stringVal);
+      };
 
     validation(){
         let input = this.state.productDetails;
@@ -34,7 +37,19 @@ export default class ProductCreate extends Component {
                 isValid = false;
                 errors["sku"] = "Please enter sku";
             }
+            if (this.stringValPatternValidation(input["sku"])) {
+                isValid = false;
+                errors["sku"] = "Please enter sku without space";
+            }
+            if(input["sku"].replace(/\s/g, "").length <=0){
+                isValid = false;
+                errors["sku"] = "Please enter sku";
+            }
             if (!input["name"]) {
+                isValid = false;
+                errors["name"] = "Please enter name";
+            }
+            if(input["name"].replace(/\s/g, "").length <=0){
                 isValid = false;
                 errors["name"] = "Please enter name";
             }

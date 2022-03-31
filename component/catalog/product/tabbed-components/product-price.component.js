@@ -7,7 +7,7 @@ export default class ProductPriceComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            mode:props?.mode
         };
     }
     handleChange = (event) => {
@@ -24,7 +24,7 @@ export default class ProductPriceComponent extends Component {
     render() {
         return (
             <div data-component="product-price-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Prices</ProductTabEditorHeader>
+                <ProductTabEditorHeader onSave={this.onSave} mode={this.state.mode} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Prices</ProductTabEditorHeader>
                 <div className="row ">
                     <div className="col-md-12 pt-4">
                         <mark className='font-sm'><small>TODO: Product price editor is under development</small></mark>

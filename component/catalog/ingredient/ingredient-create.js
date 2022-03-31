@@ -134,6 +134,7 @@ export default class IngredientCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
+                                                    min="0"
                                                     name="sort_order"
                                                     value={this.state.input.sort_order}
                                                     onChange={this.handleChange.bind(this)}
@@ -179,6 +180,7 @@ export default class IngredientCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
+                                                    min="0"
                                                     readOnly={true}
                                                     value={this.state.input?.sort_order}
                                                 />

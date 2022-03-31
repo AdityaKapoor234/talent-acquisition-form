@@ -22,14 +22,12 @@ export default class OrderDetails extends Component {
 			tab: 1,
 			order: props?.order,
 			mode: props?.mode,
+			error: props?.error,
 			open: false,
 		};
 	}
 	handleChange = (event) => {
-		let input = this.state.input;
-		input[event.target.name] = event.target.value;
-		this.setState({ input });
-		this.props?.handle(input);
+		this.props?.handle(event.target.value);
 	};
 	handleClose = () => {
 		this.setState({
@@ -55,11 +53,13 @@ export default class OrderDetails extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (
 			prevState.order !== nextProps.order ||
-			prevState.mode !== nextProps.mode
+			prevState.mode !== nextProps.mode ||
+			prevState.error !== nextProps.error
 		) {
 			return {
 				order: nextProps?.order,
 				mode: nextProps?.mode,
+				error: nextProps?.error,
 				active: nextProps?.order?.is_active
 					? nextProps?.order?.is_active
 					: false,
@@ -182,42 +182,38 @@ export default class OrderDetails extends Component {
 											</div>
 											<div className="col-3">
 												<span className="orderLine">
-													<span className="orderInfo">Status&nbsp;</span>
-													<Select
-														disableUnderline
-														variant="standard"
-														autoWidth={true}
-														IconComponent={ExpandMoreIcon}
-														name="parent_id"
-														onChange={this.handleChange}
-														className="sort-by-select"
-														value={this.state.order?.order?.id}
-													>
-														<MenuItem
-															value="select"
-															disabled
-															className="field_toggle_checked"
-														>
-															Select Status{" "}
-														</MenuItem>
-														<MenuItem
-															value="0"
-															className="field_toggle_checked"
-														>
-															Order Status{" "}
-														</MenuItem>
-														{this.state.parentCategory?.map(value => {
-															return (
-																<MenuItem value={value?.id}>{value?.name}</MenuItem>
-															)
-														})}
-													</Select>
-
-													<span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
+													<span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
+													<div data-component="edit-category">
+														<div className="sort">
+															<div className="sort-by-select-wrapper">
+																<Select
+																	disableUnderline
+																	variant="standard"
+																	autoWidth={true}
+																	IconComponent={ExpandMoreIcon}
+																	name="orderstatus"
+																	onChange={this.handleChange}
+																	className="sort-by-select w-100"
+																	// value={this.state.order?.order?.status}
+																>
+																	<MenuItem
+																		value={"0"}
+																		disabled
+																		className="field_toggle_checked"
+																	>
+																		Select Status{" "}
+																	</MenuItem>
+																	<MenuItem value={"placed"}>Placed</MenuItem>
+																	<MenuItem value={"not placed"}>Not Placed</MenuItem>
+																</Select>
+															</div>
+														</div>
+													</div>
+													{/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
 													{/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
 
 												</span>
-
+												<small className="form-text text-danger" >{this.state.error}</small>
 											</div>
 										</div>
 

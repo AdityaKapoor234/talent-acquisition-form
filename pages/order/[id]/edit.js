@@ -26,32 +26,51 @@ export default function OrderEditDetails({ id }) {
 
     const [order, setOrder] = useState([]);
     const [active, setActive] = useState(false);
+    const [orderStatus, setOrderStatus] = useState("");
+    const [error, setError] = useState("");
 
     const activeHandle = (value) => {
         setActive(value)
     }
+    const statusHandle = (value) => {
+        setOrderStatus(value);
+    };
+
+    const validation = () => {
+        let isValid = true;
+        if (orderStatus == "") {
+            isValid = false;
+            setError("Please select status");
+        }
+
+        return isValid;
+    }
+
 
     const saveDetails = (id) => {
-        let data = {
-            "is_active": active
+        if (validation()) {
+
+            let data = {
+                "status": orderStatus
+            }
+            OrderApi
+                .AddOrder(id, data)
+                .then((response) => {
+                    if (response.data.httpStatusCode === 200) {
+                        toast.success(response.data.message)
+                        Router.push(`/order`);
+                    }
+                })
+                .catch((error) => {
+                    toast.error(
+                        error?.response &&
+                            error?.response?.data &&
+                            error?.response?.data?.message
+                            ? error.response.data.message
+                            : "Unable to process your request, please try after sometime"
+                    );
+                });
         }
-        OrderApi
-            .OrderDetails(id, data)
-            .then((response) => {
-                if (response.data.httpStatusCode === 200) {
-                    toast.success(response.data.message)
-                    Router.push(`/order`);
-                }
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime"
-                );
-            });
     }
 
     const orderDetail = (id) => {
@@ -116,7 +135,7 @@ export default function OrderEditDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <OrderDetails order={order} mode={mode} active={activeHandle} />
+                            <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)}/>
                         </div>
                     </div>
                 </DashboardLayoutComponent>

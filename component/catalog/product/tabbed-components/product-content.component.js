@@ -103,31 +103,31 @@ export default class ProductContentComponent extends Component {
         let content = this.state.content;
         let errors = {};
         let isValid = true;
-        if (!content["description"] || content["description"] ==="<p></p>\n") {
+        if (!content["description"] || content["description"] ==="<p></p>\n" || content["description"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["description"] = "Please enter Full Description";
         }
-        if (!content["direction_of_use"] || content["direction_of_use"] ==="<p></p>\n") {
+        if (!content["direction_of_use"] || content["direction_of_use"] ==="<p></p>\n" || content["direction_of_use"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["direction_of_use"] = "Please enter Direction of Use";
         }
-        if (!content["does_not_contain"] || content["does_not_contain"] ==="<p></p>\n") {
+        if (!content["does_not_contain"] || content["does_not_contain"] ==="<p></p>\n" || content["does_not_contain"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["does_not_contain"] = "Please enter Does Not Contain Field";
         }
-        if (!content["other_ingredients"] || content["other_ingredients"] ==="<p></p>\n") {
+        if (!content["other_ingredients"] || content["other_ingredients"] ==="<p></p>\n" || content["other_ingredients"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["other_ingredients"] = "Please enter Other Ingredients";
         }
-        if (!content["product_label"] || content["product_label"] ==="<p></p>\n") {
+        if (!content["product_label"] || content["product_label"] ==="<p></p>\n" || content["product_label"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["product_label"] = "Please enter Product Label";
         }
-        if (!content["short_description"] || content["short_description"] ==="<p></p>\n") {
+        if (!content["short_description"] || content["short_description"] ==="<p></p>\n" || content["short_description"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["short_description"] = "Please enter Short Description";
         }
-        if (!content["warning"] || content["warning"] ==="<p></p>\n") {
+        if (!content["warning"] || content["warning"] ==="<p></p>\n" || content["warning"].replace(/\s/g, "").length <=0) {
             isValid = false;
             errors["warning"] = "Please enter Warning";
         }

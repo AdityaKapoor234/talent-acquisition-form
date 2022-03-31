@@ -33,7 +33,7 @@ export default class BrandCreate extends Component {
       toast.error("Please enter name");
       return false;
     }
-    if (this.state.brandDetails.name === "") {
+    if (this.state.brandDetails.name === "" || this.state.brandDetails.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter name");
       return false;
     }

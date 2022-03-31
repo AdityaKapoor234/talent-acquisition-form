@@ -53,7 +53,7 @@ export default class FlavorEditDetails extends Component {
       toast.error("Please enter name");
       return false;
     }
-    if (this.state.flavorDetails.name === "") {
+    if (this.state.flavorDetails.name === "" || this.state.flavorDetails?.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter name");
       return false;
     }

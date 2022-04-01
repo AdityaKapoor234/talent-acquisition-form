@@ -26,11 +26,7 @@ export default class ProductSEOComponent extends Component {
         let input = this.state.seo;
         let errors = {};
         let isValid = true;
-            if (!input["url_key"]) {
-                isValid = false;
-                errors["url_key"] = "Please enter url key";
-            }
-            if(input["url_key"].replace(/\s/g, "").length <=0){
+            if (!input["url_key"] || input["url_key"].replace(/\s/g, "").length <=0) {
                 isValid = false;
                 errors["url_key"] = "Please enter url key";
             }

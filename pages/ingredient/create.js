@@ -34,7 +34,7 @@ export default class IngredientCreate extends Component {
             toast.error("Please enter name");
             return false;
         }
-        if (this.state.ingredientDetails.name === "") {
+        if (this.state.ingredientDetails.name === "" || this.state.ingredientDetails?.name.replace(/\s/g, "").length <=0) {
             toast.error("Please enter name");
             return false;
         }

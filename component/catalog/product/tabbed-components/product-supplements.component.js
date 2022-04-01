@@ -86,7 +86,7 @@ export default class ProductSupplementsComponent extends Component {
                 isValid = false;
                 errors["sort_order"] = "Please enter";
             }
-            if (this.state.supplements?.filter((value)=>{return value.serving_unit ===''}).length >0) {
+            if (this.state.supplements?.filter((value)=>{return value.serving_unit ===''}).length >0 || this.state.supplements?.filter((value)=>{return value.serving_unit.replace(/\s/g, "")}).length <=0) {
                 isValid = false;
                 errors["serving_unit"] = "Please enter";
             }

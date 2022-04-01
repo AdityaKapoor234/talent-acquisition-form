@@ -56,13 +56,15 @@ export default class AskTheProsEditDetails extends Component {
   validateData = () => {
     if (
       this.state.askTheProsDetails?.name === "" ||
-      this.state.askTheProsDetails?.name === null
+      this.state.askTheProsDetails?.name === null ||
+      this.state.askTheProsDetails?.name.replace(/\s/g, "").length <=0
     ) {
       toast.error("Please enter the name");
       return false;
     }
     if (this.state.askTheProsDetails?.email === ""||
-    this.state.askTheProsDetails?.email === null) {
+    this.state.askTheProsDetails?.email === null ||
+    this.state.askTheProsDetails?.email.replace(/\s/g, "").length <=0) {
       toast.error("Please enter email address");
       return false;
     }
@@ -79,7 +81,8 @@ export default class AskTheProsEditDetails extends Component {
     }
     if (
       this.state.askTheProsDetails?.experience === "" ||
-      this.state.askTheProsDetails?.experience === null
+      this.state.askTheProsDetails?.experience === null ||
+      this.state.askTheProsDetails?.experience.replace(/\s/g, "").length <=0
     ) {
       toast.error("Please enter experience");
       return false;

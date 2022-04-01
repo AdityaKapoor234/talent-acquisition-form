@@ -204,7 +204,7 @@ export default class OrderDetails extends Component {
 																		Select Status{" "}
 																	</MenuItem>
 																	<MenuItem value={"placed"}>Placed</MenuItem>
-																	<MenuItem value={"not placed"}>Not Placed</MenuItem>
+																	<MenuItem value={"shipped"}>Shipped</MenuItem>
 																</Select>
 															</div>
 														</div>

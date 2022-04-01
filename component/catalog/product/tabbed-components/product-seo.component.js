@@ -30,17 +30,6 @@ export default class ProductSEOComponent extends Component {
                 isValid = false;
                 errors["url_key"] = "Please enter url key";
             }
-<<<<<<< HEAD
-            if (!input["meta_keywords"] || input["meta_keywords"].replace(/\s/g, "").length <=0) {
-                isValid = false;
-                errors["meta_keywords"] = "Please enter meta keywords";
-            }
-            if (!input["meta_title"] || input["meta_title"].replace(/\s/g, "").length <=0) {
-                isValid = false;
-                errors["meta_title"] = "Please enter meta title";
-            }
-            if (!input["meta_description"] || input["meta_description"].replace(/\s/g, "").length <=0) {
-=======
             if(input["url_key"].replace(/\s/g, "").length <=0){
                 isValid = false;
                 errors["url_key"] = "Please enter url key";
@@ -62,7 +51,6 @@ export default class ProductSEOComponent extends Component {
                 errors["meta_title"] = "Please enter meta title";
             }
             if (!input["meta_description"]) {
->>>>>>> a9f42aa08ae87d671c84b444b488807b6dacfce2
                 isValid = false;
                 errors["meta_description"] = "Please enter meta description";
             }

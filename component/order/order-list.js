@@ -74,7 +74,7 @@ export default class OrderList extends Component {
                                         <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.customer}>{p?.customer}</div>
                                         <div className="col-2 px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                                         <div className="col-2 px-2 text-center elip-text" title={p?.status}>{p?.status}</div>
-                                        <div className="col-2 px-2 text-center elip-text" title={p?.total}>₹ {p?.total}</div>
+                                        <div className="col-2 px-2 text-center elip-text" title={p?.total}>₹&nbsp;{p?.total?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</div>
                                         <div className="col-1 text-end elip-text">
                                             <RemoveRedEyeIcon
                                                 className="view-icon"

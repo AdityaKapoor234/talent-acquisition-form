@@ -30,10 +30,6 @@ export default class ProductSEOComponent extends Component {
                 isValid = false;
                 errors["url_key"] = "Please enter url key";
             }
-            if(input["url_key"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["url_key"] = "Please enter url key";
-            }
             if (!input["meta_keywords"]) {
                 isValid = false;
                 errors["meta_keywords"] = "Please enter meta keywords";

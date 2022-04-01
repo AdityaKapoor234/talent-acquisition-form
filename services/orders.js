@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ORDERSLIST, GET_ORDER_DETAILS } from "../utils/constant";
+import { ORDERSLIST, GET_ORDER_DETAILS, ADD_ORDER_STATUS } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class OrderApi {
@@ -24,6 +24,17 @@ export class OrderApi {
             }
         };
         return axios.get(`${GET_ORDER_DETAILS}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static AddOrder(id,data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${ADD_ORDER_STATUS}`.replace('{{id}}', id),data, httpOptions)
     }
 
 

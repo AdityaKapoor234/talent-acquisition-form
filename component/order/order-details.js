@@ -9,6 +9,10 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 
 export default class OrderDetails extends Component {
 	constructor(props) {
@@ -18,9 +22,13 @@ export default class OrderDetails extends Component {
 			tab: 1,
 			order: props?.order,
 			mode: props?.mode,
+			error: props?.error,
 			open: false,
 		};
 	}
+	handleChange = (event) => {
+		this.props?.handle(event.target.value);
+	};
 	handleClose = () => {
 		this.setState({
 			open: false,
@@ -45,11 +53,13 @@ export default class OrderDetails extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (
 			prevState.order !== nextProps.order ||
-			prevState.mode !== nextProps.mode
+			prevState.mode !== nextProps.mode ||
+			prevState.error !== nextProps.error
 		) {
 			return {
 				order: nextProps?.order,
 				mode: nextProps?.mode,
+				error: nextProps?.error,
 				active: nextProps?.order?.is_active
 					? nextProps?.order?.is_active
 					: false,
@@ -104,101 +114,129 @@ export default class OrderDetails extends Component {
 				</div>
 				{this.state.tab === 1 && (
 					<>
-						{this.state.mode === "view" && (
-							<div className="row mt-4">
-								<div className="col">
-									{/* <div className="container"> */}
-									<div className="div-box row">
-										<div className="col-3">
-											<span className="orderLine">
-												<span className="orderInfo">Order No.&nbsp;</span>
-												<span className="orderInfoVal elip-text" title={this.state.order?.order?.order_no}>{this.state.order?.order?.order_no}</span>
-											</span>
-											<span className="orderLine">
-												<span className="orderInfo">Order Date&nbsp;</span>
-												<span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
-											</span>
-											<span className="orderLine">
-												<span className="orderInfo">Name&nbsp;</span>
-												<span className="orderInfoVal elip-text" title={this.state.order?.billing_address?.recipient_name}>{this.state.order?.billing_address?.recipient_name}</span>
-											</span>
-											<span className="orderLine">
-												<span className="orderInfo">Contact No.&nbsp;</span>
-												<span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
-											</span>
-											<span className="orderLine">
-												<span className="orderInfo">Email&nbsp;</span>
-												<span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
-											</span>
-
-										</div>
-										<div className="col-3">
-											<span className="orderLine">
-												<span className="orderInfo">Billing Address</span>
-											</span>
-											<span className="orderLine2">
-												<span className="orderInfoVal">
-													{this.state.order?.billing_address?.flat_no}&nbsp;
-													{this.state.order?.billing_address?.locality}&nbsp;
-													{this.state.order?.billing_address?.landmark}&nbsp;
-													{this.state.order?.billing_address?.state}<br />
-													{this.state.order?.billing_address?.city}&nbsp;
-													{this.state.order?.billing_address?.pin_code}
+						{this.state.mode === "edit" && (
+							<>
+								<div className="row mt-4">
+									<div className="col">
+										<div className="div-box row">
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Order No.&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.order?.order_no}>{this.state.order?.order?.order_no}</span>
 												</span>
-											</span>
-											<span className="orderLine mt-3">
-												<span className="orderInfoVal">{this.state.order?.billing_address?.recipient_phone_number}</span>
-											</span>
-
-										</div>
-										<div className="col-3">
-											<span className="orderLine">
-												<span className="orderInfo">Delivery Address</span>
-											</span>
-											<span className="orderLine2">
-												<span className="orderInfoVal2">
-													{this.state.order?.shipping_address?.flat_no}&nbsp;
-													{this.state.order?.shipping_address?.locality}&nbsp;
-													{this.state.order?.shipping_address?.landmark}&nbsp;
-													{this.state.order?.shipping_address?.state}<br />
-													{this.state.order?.shipping_address?.city}&nbsp;
-													{this.state.order?.shipping_address?.pin_code}
+												<span className="orderLine">
+													<span className="orderInfo">Order Date&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
 												</span>
-											</span>
-											<span className="orderLine mt-3">
-												<span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
-											</span>
+												<span className="orderLine">
+													<span className="orderInfo">Name&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.billing_address?.recipient_name}>{this.state.order?.billing_address?.recipient_name}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Contact No.&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Email&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
+												</span>
 
+											</div>
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Billing Address</span>
+												</span>
+												<span className="orderLine2">
+													<span className="orderInfoVal">
+														{this.state.order?.billing_address?.flat_no}&nbsp;
+														{this.state.order?.billing_address?.locality}&nbsp;
+														{this.state.order?.billing_address?.landmark}&nbsp;
+														{this.state.order?.billing_address?.state}<br />
+														{this.state.order?.billing_address?.city}&nbsp;
+														{this.state.order?.billing_address?.pin_code}
+													</span>
+												</span>
+												<span className="orderLine mt-3">
+													<span className="orderInfoVal">{this.state.order?.billing_address?.recipient_phone_number}</span>
+												</span>
+
+											</div>
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Delivery Address</span>
+												</span>
+												<span className="orderLine2">
+													<span className="orderInfoVal2">
+														{this.state.order?.shipping_address?.flat_no}&nbsp;
+														{this.state.order?.shipping_address?.locality}&nbsp;
+														{this.state.order?.shipping_address?.landmark}&nbsp;
+														{this.state.order?.shipping_address?.state}<br />
+														{this.state.order?.shipping_address?.city}&nbsp;
+														{this.state.order?.shipping_address?.pin_code}
+													</span>
+												</span>
+												<span className="orderLine mt-3">
+													<span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
+												</span>
+
+											</div>
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
+													<div data-component="edit-category">
+														<div className="sort">
+															<div className="sort-by-select-wrapper">
+																<Select
+																	disableUnderline
+																	variant="standard"
+																	autoWidth={true}
+																	IconComponent={ExpandMoreIcon}
+																	name="orderstatus"
+																	onChange={this.handleChange}
+																	className="sort-by-select w-100"
+																	// value={this.state.order?.order?.status}
+																>
+																	<MenuItem
+																		value={"0"}
+																		disabled
+																		className="field_toggle_checked"
+																	>
+																		Select Status{" "}
+																	</MenuItem>
+																	<MenuItem value={"placed"}>Placed</MenuItem>
+																	<MenuItem value={"shipped"}>Shipped</MenuItem>
+																</Select>
+															</div>
+														</div>
+													</div>
+													{/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
+													{/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
+
+												</span>
+												<small className="form-text text-danger" >{this.state.error}</small>
+											</div>
 										</div>
-										<div className="col-3">
-											<span className="orderLine">
-												<span className="orderInfo">Status&nbsp;</span>
-												<span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
-											</span>
 
+
+										<div data-component="CustomerComponent">
+											<div className="tableRow row py-3">
+												<div className="col-6">Product</div>
+												<div className="col-2 text-center">Quantity</div>
+												<div className="col-2 text-center">Price</div>
+												<div className="col-2 text-center">Amount</div>
+											</div>
 										</div>
-									</div>
 
 
-									<div data-component="CustomerComponent">
-										<div className="tableRow row py-3">
-											<div className="col-6">Product</div>
-											<div className="col-2 text-center">Quantity</div>
-											<div className="col-2 text-center">Price</div>
-											<div className="col-2 text-center">Amount</div>
-										</div>
-									</div>
-
-
-									{
-										this.state.order?.products?.map((p, index) => {
-											return (
-												<>
-													<div className="div-box row mb-2" key={index}>
-														<div className="col-6">
-															<div className="row">
-																<div className="col-3">
-																	{/* <div
+										{
+											this.state.order?.products?.map((p, index) => {
+												return (
+													<>
+														<div className="div-box row mb-2" key={index}>
+															<div className="col-6">
+																<div className="row">
+																	<div className="col-3">
+																		{/* <div
 																		style={
 																			{
 																				backgroundImage: `url(${p?.image})`,
@@ -211,64 +249,64 @@ export default class OrderDetails extends Component {
 																		}
 																		className="orderImg"
 																		alt=""></div> */}
-																	<img src={p?.image} className="orderImg" alt="" />
-																</div>
-																<div className="col-9">
-																	<span className="orderLine">
-																		<span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
-																	</span>
-																	<span className="orderLine mt-4">
-																		<span className="orderInfoValQuant elip-text">{p?.quantity} Kg</span>
-																	</span>
+																		<img src={p?.image} className="orderImg" alt="" />
+																	</div>
+																	<div className="col-9">
+																		<span className="orderLine">
+																			<span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
+																		</span>
+																		<span className="orderLine mt-4">
+																			<span className="orderInfoValQuant elip-text">{p?.quantity} Kg</span>
+																		</span>
+																	</div>
 																</div>
 															</div>
-														</div>
-														<div className="col-2">
-															<span className="orderLine justify-content-center d-flex">
-																<span className="orderInfoVal">Order Qty: {p?.quantity}</span>
-															</span>
-															<span className="orderLine justify-content-center d-flex">
-																<span className="orderInfoVal">Shipped Qty: {p?.quantity}</span>
-															</span>
+															<div className="col-2">
+																<span className="orderLine justify-content-center d-flex">
+																	<span className="orderInfoVal">Order Qty: {p?.quantity}</span>
+																</span>
+																<span className="orderLine justify-content-center d-flex">
+																	<span className="orderInfoVal">Shipped Qty: {p?.quantity}</span>
+																</span>
+
+															</div>
+															<div className="col-2 justify-content-center d-flex">
+																<span className="orderLine">
+																	<span className="orderInfoVal">₹ {p?.unit_price}</span>
+																</span>
+
+															</div>
+															<div className="col-2  justify-content-center d-flex">
+																<span className="orderLine">
+																	<span className="orderInfoVal">₹ {parseFloat(p?.quantity) * parseFloat(p?.unit_price)}</span>
+																</span>
+
+															</div>
 
 														</div>
-														<div className="col-2 justify-content-center d-flex">
-															<span className="orderLine">
-																<span className="orderInfoVal">₹ {p?.unit_price}</span>
-															</span>
+													</>
+												)
+											})}
 
-														</div>
-														<div className="col-2  justify-content-center d-flex">
-															<span className="orderLine">
-																<span className="orderInfoVal">₹ {parseFloat(p?.quantity) * parseFloat(p?.unit_price)}</span>
-															</span>
-
-														</div>
-
+										<div className="div-box row mb-2">
+											<div className="col-12">
+												<div className="row">
+													<div className="col-11 textRight">
+														<span className="orderInfo">Sub Total</span>
 													</div>
-												</>
-											)
-										})}
-
-									<div className="div-box row mb-2">
-										<div className="col-12">
-											<div className="row">
-												<div className="col-11 textRight">
-													<span className="orderInfo">Sub Total</span>
+													<div className="col-1">
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+													</div>
 												</div>
-												<div className="col-1">
-													<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+												<div className="row">
+													<div className="col-11 textRight">
+														<span className="orderInfo">Shipping Charges</span>
+													</div>
+													<div className="col-1">
+														<span className="orderInfoVal elip-text" title="0.00">₹ 0.00</span>
+													</div>
 												</div>
-											</div>
-											<div className="row">
-												<div className="col-11 textRight">
-													<span className="orderInfo">Shipping Charges</span>
-												</div>
-												<div className="col-1">
-													<span className="orderInfoVal elip-text" title="0.00">₹ 0.00</span>
-												</div>
-											</div>
-											{/* <div className="col-11 textRight">
+												{/* <div className="col-11 textRight">
 											<span className="orderInfo">Tax</span>
 										</div>
 										<div className="col-1">
@@ -280,21 +318,218 @@ export default class OrderDetails extends Component {
 										<div className="col-1">
 											<span className="orderInfoVal">abc</span>
 										</div> */}
-											<div className="row">
-												<div className="col-11 textRight">
-													<span className="orderInfo">Grand Total</span>
-												</div>
-												<div className="col-1">
-													<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+												<div className="row">
+													<div className="col-11 textRight">
+														<span className="orderInfo">Grand Total</span>
+													</div>
+													<div className="col-1">
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+													</div>
 												</div>
 											</div>
 										</div>
+
+
+
 									</div>
-
-
-
 								</div>
-							</div>
+							</>
+						)}
+
+
+						{this.state.mode === "view" && (
+							<>
+								<div className="row mt-4">
+									<div className="col">
+										{/* <div className="container"> */}
+										<div className="div-box row">
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Order No.&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.order?.order_no}>{this.state.order?.order?.order_no}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Order Date&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Name&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.billing_address?.recipient_name}>{this.state.order?.billing_address?.recipient_name}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Contact No.&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Email&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
+												</span>
+
+											</div>
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Billing Address</span>
+												</span>
+												<span className="orderLine2">
+													<span className="orderInfoVal">
+														{this.state.order?.billing_address?.flat_no}&nbsp;
+														{this.state.order?.billing_address?.locality}&nbsp;
+														{this.state.order?.billing_address?.landmark}&nbsp;
+														{this.state.order?.billing_address?.state}<br />
+														{this.state.order?.billing_address?.city}&nbsp;
+														{this.state.order?.billing_address?.pin_code}
+													</span>
+												</span>
+												<span className="orderLine mt-3">
+													<span className="orderInfoVal">{this.state.order?.billing_address?.recipient_phone_number}</span>
+												</span>
+
+											</div>
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Delivery Address</span>
+												</span>
+												<span className="orderLine2">
+													<span className="orderInfoVal2">
+														{this.state.order?.shipping_address?.flat_no}&nbsp;
+														{this.state.order?.shipping_address?.locality}&nbsp;
+														{this.state.order?.shipping_address?.landmark}&nbsp;
+														{this.state.order?.shipping_address?.state}<br />
+														{this.state.order?.shipping_address?.city}&nbsp;
+														{this.state.order?.shipping_address?.pin_code}
+													</span>
+												</span>
+												<span className="orderLine mt-3">
+													<span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
+												</span>
+
+											</div>
+											<div className="col-3">
+												<span className="orderLine">
+													<span className="orderInfo">Status&nbsp;</span>
+													<span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
+												</span>
+
+											</div>
+										</div>
+
+
+										<div data-component="CustomerComponent">
+											<div className="tableRow row py-3">
+												<div className="col-6">Product</div>
+												<div className="col-2 text-center">Quantity</div>
+												<div className="col-2 text-center">Price</div>
+												<div className="col-2 text-center">Amount</div>
+											</div>
+										</div>
+
+
+										{
+											this.state.order?.products?.map((p, index) => {
+												return (
+													<>
+														<div className="div-box row mb-2" key={index}>
+															<div className="col-6">
+																<div className="row">
+																	<div className="col-3">
+																		{/* <div
+																		style={
+																			{
+																				backgroundImage: `url(${p?.image})`,
+																				backgroundSize: "cover",
+																				borderRadius: "0px",
+																				backgroundPosition: "center",
+																				// height: "7rem",
+																				// width: "6rem",
+																			}
+																		}
+																		className="orderImg"
+																		alt=""></div> */}
+																		<img src={p?.image} className="orderImg" alt="" />
+																	</div>
+																	<div className="col-9">
+																		<span className="orderLine">
+																			<span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
+																		</span>
+																		<span className="orderLine mt-4">
+																			<span className="orderInfoValQuant elip-text">{p?.quantity} Kg</span>
+																		</span>
+																	</div>
+																</div>
+															</div>
+															<div className="col-2">
+																<span className="orderLine justify-content-center d-flex">
+																	<span className="orderInfoVal">Order Qty: {p?.quantity}</span>
+																</span>
+																<span className="orderLine justify-content-center d-flex">
+																	<span className="orderInfoVal">Shipped Qty: {p?.quantity}</span>
+																</span>
+
+															</div>
+															<div className="col-2 justify-content-center d-flex">
+																<span className="orderLine">
+																	<span className="orderInfoVal">₹ {p?.unit_price}</span>
+																</span>
+
+															</div>
+															<div className="col-2  justify-content-center d-flex">
+																<span className="orderLine">
+																	<span className="orderInfoVal">₹ {parseFloat(p?.quantity) * parseFloat(p?.unit_price)}</span>
+																</span>
+
+															</div>
+
+														</div>
+													</>
+												)
+											})}
+
+										<div className="div-box row mb-2">
+											<div className="col-12">
+												<div className="row">
+													<div className="col-11 textRight">
+														<span className="orderInfo">Sub Total</span>
+													</div>
+													<div className="col-1">
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+													</div>
+												</div>
+												<div className="row">
+													<div className="col-11 textRight">
+														<span className="orderInfo">Shipping Charges</span>
+													</div>
+													<div className="col-1">
+														<span className="orderInfoVal elip-text" title="0.00">₹ 0.00</span>
+													</div>
+												</div>
+												{/* <div className="col-11 textRight">
+											<span className="orderInfo">Tax</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">abc</span>
+										</div>
+										<div className="col-11 textRight">
+											<span className="orderInfo">Round Off</span>
+										</div>
+										<div className="col-1">
+											<span className="orderInfoVal">abc</span>
+										</div> */}
+												<div className="row">
+													<div className="col-11 textRight">
+														<span className="orderInfo">Grand Total</span>
+													</div>
+													<div className="col-1">
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+
+									</div>
+								</div>
+							</>
 						)}
 					</>
 				)

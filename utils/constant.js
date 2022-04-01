@@ -64,9 +64,10 @@ export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/s
 //ORDERS
 export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
 export const GET_ORDER_DETAILS = `http://65.1.17.188:5002/manage/order/{{id}}`;
+export const ADD_ORDER_STATUS = `http://65.1.17.188:5002/manage/order/{{id}}/status`;
 
 //PRODUCT
-export const GET_INGREDIENT = `http://65.1.17.188:5001/ingredient/`;
+export const GET_INGREDIENT = `http://65.1.17.188:5001/manage/ingredient/all`;
 export const ADD_SUPPLEMENT = `http://65.1.17.188:5001/manage/product/{{id}}/supplement-facts`;
 export const CONTENTLIST = `http://65.1.17.188:5001/manage/product/{{id}}/content`; 
 export const CONTENT_LIST_EDIT = `http://65.1.17.188:5001/manage/product/{{id}}/content`

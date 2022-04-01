@@ -6,9 +6,11 @@ import cookie from "js-cookie";
 export class SupplementApi {
 
     static IngredientList() {
+        const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
             }
         };
         return axios.get(`${GET_INGREDIENT}`, httpOptions)

@@ -14,6 +14,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
+import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import Cookies from "js-cookie";
 import {loginAPI} from "../../../services/login-service";
 import {toast } from 'react-toastify';
@@ -128,7 +130,7 @@ export default function DashboardLayoutComponent({children}) {
                                     }
                                     <div className={ tabAskthePros?'menu-btn active':'menu-btn'} onClick={()=> setAskthePros(!tabAskthePros)}>
                                     <span>
-                                        {tabAskthePros ? <GroupIcon className='outline-icon'/>:<GroupOutlinedIcon className='outline-icon'/>}
+                                        {tabAskthePros ? <GroupsIcon className='outline-icon'/>:<GroupsOutlinedIcon className='outline-icon'/>}
                                         ask the pros
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon'/>

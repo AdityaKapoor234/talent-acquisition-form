@@ -54,7 +54,6 @@ export default class ProductList extends Component {
                                     <div className=" col-2 px-2 text-center elip-text" title={p?.sku}>{p?.sku}</div>
                                     <div className=" col-2 px-2 text-center elip-text" title={p?.stock}>{p?.stock}</div>
                                     <div className="col-1 text-center">
-                                        {console.log("test",p?.status)}
                                         {p?.status === "draft" &&(
                                             <BlockOutlinedIcon className="draft"/>
                                         ) }

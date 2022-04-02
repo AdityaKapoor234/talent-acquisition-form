@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import AskTheProsCreateComponent from "../../../component/ask-the-pros/ask-the-pros-details";
+import AskTheProsCreateComponent from "../../../component/ask-the-pros/ask-the-pros";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import AskTheProsApi from "../../../services/ask-the-pros";
@@ -31,12 +31,21 @@ export default function AskTheProsViewDetails({ id }) {
   const mode = "view";
   const [askThePros, setAskThePros] = useState([]);
   const [open, setOpen] = useState(false);
-  const [expertise, setExpertise] = useState([]);
 
   const AskTheProsDetail = (id) => {
     AskTheProsApi.getAskTheProsDetails(id)
       .then((response) => {
-        setAskThePros(response.data.data);
+        if (response.data.httpStatusCode === 200) {
+          let details = {
+            name:response.data.data.expert?.name,
+            email:response.data.data.expert?.email,
+            avatar_url: response.data.data.expert?.avatar_url,
+            is_active: response.data.data.expert?.is_active,
+            experience:response.data.data.expert?.experience,
+            expertises:response.data.data?.expertise?.expertise === "deleted"? []:response.data.data?.expertise?.map(val=>val?.id)
+          };
+        setAskThePros(details);
+        }
       })
       .catch((error) => {
         toast.error(
@@ -68,30 +77,12 @@ export default function AskTheProsViewDetails({ id }) {
         );
       });
   };
-  const getExpertiseList = () => {
-    AskTheProsApi.getExpertise()
-      .then((response) => {
-        if (response.data.httpStatusCode === 200) {
-          setExpertise(response.data.data);
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  };
 
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    getExpertiseList();
     AskTheProsDetail(id);
   }, [id]);
   return (
@@ -110,7 +101,7 @@ export default function AskTheProsViewDetails({ id }) {
                 <span>Ask The Pros / Ask The Pros / </span>View Ask The Pros
               </div>
               <div className="page-name">
-                Ask The Pros Details - {askThePros?.expert?.name}
+                Ask The Pros Details - {askThePros?.name}
               </div>
             </div>
             <div className="col-md-7 btn-save">
@@ -136,9 +127,7 @@ export default function AskTheProsViewDetails({ id }) {
             <div className="col-m-12">
               <AskTheProsCreateComponent
                 mode={mode}
-                askThePros={askThePros?.expert}
-                expert={askThePros?.expertise}
-                expertise={expertise}
+                askThePros={askThePros}
               />
             </div>
           </div>

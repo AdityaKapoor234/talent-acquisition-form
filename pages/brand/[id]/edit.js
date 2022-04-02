@@ -173,7 +173,7 @@ export default class BrandEditDetails extends Component {
                   <span>Catalog / Brand / </span>Edit Brand
                 </div>
                 <div className="page-name">
-                  Edit Brand Details - {this.state.brand.name}
+                  Edit Brand Details - {this.state.brand?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">

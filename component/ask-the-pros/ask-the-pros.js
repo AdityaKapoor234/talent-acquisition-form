@@ -4,6 +4,9 @@ import Checkbox from "@mui/material/Checkbox";
 import AskTheProsApi from "../../services/ask-the-pros";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function AskTheProps(props) {
 
@@ -148,15 +151,53 @@ export default function AskTheProps(props) {
                         />
                       </div>}
                       
-                      <div className="login-form mt-3">
+                      <div className="login-form mt-3 sort">
                         <label>Experience<span className="mandatory-star">*</span></label>
-                        <input
+                        <div className="sort-by-select-wrapper">
+                          <Select
+                            disableUnderline
+                            variant="standard"
+                            disabled={mode==="view"?true:false}
+                            autoWidth={true}
+                            IconComponent={ExpandMoreIcon}
+                            name="experience"
+                            onChange={handleChange.bind(this)}
+                            className="sort-by-select"
+                            value={ask?.experience?ask?.experience:"select"}
+                          >
+                            <MenuItem
+                              value="select"
+                              disabled
+                              className="field_toggle_checked"
+                            >
+                              Select Category{" "}
+                            </MenuItem>
+                              <MenuItem value="1 Month">1 Month</MenuItem>
+                              <MenuItem value="2 Months">2 Months</MenuItem>
+                              <MenuItem value="3 Months">3 Months</MenuItem>
+                              <MenuItem value="4 Months">4 Months</MenuItem>
+                              <MenuItem value="5 Months">5 Months</MenuItem>
+                              <MenuItem value="6 Months">6 Months</MenuItem>
+                              <MenuItem value="7 Months">7 Months</MenuItem> 
+                              <MenuItem value="8 Months">8 Months</MenuItem>
+                              <MenuItem value="9 Months">9 Months</MenuItem>
+                              <MenuItem value="10 Months">10 Months</MenuItem>
+                              <MenuItem value="11 Months">11 Months</MenuItem>
+                              <MenuItem value="1 Year">1 Year</MenuItem>
+                              <MenuItem value="2 Years">2 Years</MenuItem>
+                              <MenuItem value="3 Years">3 Years</MenuItem>
+                              <MenuItem value="4 Years">4 Years</MenuItem>
+                              <MenuItem value="5 Years">5 Years</MenuItem>
+                              <MenuItem value="5+ Years">5+ Years</MenuItem>
+                          </Select>
+                        </div>
+                        {/* <input
                           type="text"
                           name="experience"
                           value={ask?.experience}
                           readOnly={mode==="view"?true:false}
                           onChange={handleChange.bind(this)}
-                        />
+                        /> */}
                       </div>
                       <div className="signup-check">
                         <Checkbox

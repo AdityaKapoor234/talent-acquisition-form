@@ -13,6 +13,8 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Cookie from "js-cookie";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 export default function Dashboard() {
 
@@ -22,13 +24,16 @@ export default function Dashboard() {
 	const [order, setOrder] = useState([]);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [isLoader, setLoader] = useState(false);
 
 	const customerList = (page, search) => {
+		setLoader(true);
 		CustomerApi.CustomerList(page, search)
 			.then((response) => {
 				setCustomer(response.data.data.list);
 				setCustomerNo(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				setLoader(false);
 			})
 			.catch((error) => {
 				toast.error(
@@ -41,11 +46,14 @@ export default function Dashboard() {
 			});
 	};
 	function dashboardStats() {
+		setLoader(true);
 		DashboardApi.OrderStats()
 			.then((response) => {
 				setOrderStats(response.data.data.stats.orders);
+				setLoader(false);
 			})
 			.catch((error) => {
+				setLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -57,11 +65,14 @@ export default function Dashboard() {
 			});
 	};
 	function orderList(page, search, latest) {
+		setLoader(true);
 		OrderApi.OrderList(page, search, latest)
 			.then((response) => {
 				setOrder(response.data.data.list);
+				setLoader(false);
 			})
 			.catch((error) => {
+				setLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -94,6 +105,18 @@ export default function Dashboard() {
 				<DashboardLayoutComponent>
 					<div page-component="Dashboard">
 						<div className="container-fluid">
+							{isLoader && 
+								<div className="row justify-content-center">
+								<div className="col-md-12 loader-cart">
+									<Box sx={{ display: "flex" }}>
+										<CircularProgress
+											style={{ color: "#F54A00" }}
+										/>
+									</Box>
+								</div>
+							</div>
+							}
+							{isLoader === false &&
 							<div className="sticky-scroll scroll">
 								<div className="row">
 									<Link href="/order">
@@ -144,7 +167,7 @@ export default function Dashboard() {
 										<SignUpComponent customer={customer} />
 									</div>
 								</div>
-							</div>
+							</div>}
 						</div>
 					</div>
 

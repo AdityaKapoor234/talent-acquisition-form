@@ -127,7 +127,7 @@ export default function Dashboard() {
 											<span className="iconInfo mt-3">
 												{orderStats?.today} Orders
 											</span>
-											<span className="iconPrice">₹&nbsp;{orderPriceStats?.today_total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+											<span className="iconPrice">₹&nbsp;{orderPriceStats?.today_total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') === undefined ? <span>0.00</span> : orderPriceStats?.today_total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 											<span className="iconInfo mb-3">Today</span>
 										</div>
 									</Link>
@@ -137,7 +137,7 @@ export default function Dashboard() {
 											<span className="iconInfo mt-3">
 												{orderStats?.last_seven_days} Orders
 											</span>
-											<span className="iconPrice">₹&nbsp;{orderPriceStats?.last_seven_days_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+											<span className="iconPrice">₹&nbsp;{orderPriceStats?.last_seven_days_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') === undefined ? <span>0.00</span> : orderPriceStats?.last_seven_days_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 											<span className="iconInfo mb-3">Last 7 Days</span>
 										</div>
 									</Link>
@@ -147,7 +147,7 @@ export default function Dashboard() {
 											<span className="iconInfo mt-3">
 												{orderStats?.total} Orders
 											</span>
-											<span className="iconPrice">₹&nbsp;{orderPriceStats?.total_order_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+											<span className="iconPrice">₹&nbsp;{orderPriceStats?.total_order_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') === undefined ? <span>0.00</span> : orderPriceStats?.total_order_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 											<span className="iconInfo mb-3">Total</span>
 										</div>
 									</Link>

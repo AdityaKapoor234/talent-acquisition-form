@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import AskTheProsCreateComponent from "../../component/ask-the-pros/ask-the-pros-details";
+import AskTheProsCreateComponent from "../../component/ask-the-pros/ask-the-pros";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import AskTheProsApi from "../../services/ask-the-pros";
@@ -110,29 +110,12 @@ export default class AskTheProsCreate extends Component {
   stateHandle = (value) => {
     this.setState({ askTheProsDetails: value });
   };
-  getExpertiseList = () => {
-    AskTheProsApi.getExpertise()
-      .then((response) => {
-        if (response.data.httpStatusCode === 200) {
-          this.setState({ expertise: response.data.data });
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  };
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    this.getExpertiseList();
     this.setState({ id: this.props?.id });
   }
   render() {
@@ -177,7 +160,6 @@ export default class AskTheProsCreate extends Component {
                 <AskTheProsCreateComponent
                   askThePros={this.state.asktheProps}
                   mode={this.state.mode}
-                  expertise={this.state.expertise}
                   handle={this.stateHandle.bind(this)}
                 />
               </div>

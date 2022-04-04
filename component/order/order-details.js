@@ -272,13 +272,13 @@ export default class OrderDetails extends Component {
 															</div>
 															<div className="col-2 justify-content-center d-flex">
 																<span className="orderLine">
-																	<span className="orderInfoVal">₹ {p?.unit_price}</span>
+																	<span className="orderInfoVal">₹&nbsp;{p?.unit_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 																</span>
 
 															</div>
 															<div className="col-2  justify-content-center d-flex">
 																<span className="orderLine">
-																	<span className="orderInfoVal">₹ {parseFloat(p?.quantity) * parseFloat(p?.unit_price)}</span>
+																	<span className="orderInfoVal">₹&nbsp;{(parseFloat(p?.quantity) * parseFloat(p?.unit_price))?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 																</span>
 
 															</div>
@@ -295,7 +295,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Sub Total</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 													</div>
 												</div>
 												<div className="row">
@@ -303,7 +303,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Shipping Charges</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title="0.00">₹ 0.00</span>
+														<span className="orderInfoVal elip-text" title="0.00">₹&nbsp;0.00</span>
 													</div>
 												</div>
 												{/* <div className="col-11 textRight">
@@ -323,7 +323,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Grand Total</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 													</div>
 												</div>
 											</div>
@@ -468,13 +468,13 @@ export default class OrderDetails extends Component {
 															</div>
 															<div className="col-2 justify-content-center d-flex">
 																<span className="orderLine">
-																	<span className="orderInfoVal">₹ {p?.unit_price}</span>
+																	<span className="orderInfoVal">₹&nbsp;{p?.unit_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 																</span>
 
 															</div>
 															<div className="col-2  justify-content-center d-flex">
 																<span className="orderLine">
-																	<span className="orderInfoVal">₹ {parseFloat(p?.quantity) * parseFloat(p?.unit_price)}</span>
+																	<span className="orderInfoVal">₹&nbsp;{(parseFloat(p?.quantity) * parseFloat(p?.unit_price))?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 																</span>
 
 															</div>
@@ -491,7 +491,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Sub Total</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 													</div>
 												</div>
 												<div className="row">
@@ -499,7 +499,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Shipping Charges</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title="0.00">₹ 0.00</span>
+														<span className="orderInfoVal elip-text" title="0.00">₹&nbsp;0.00</span>
 													</div>
 												</div>
 												{/* <div className="col-11 textRight">
@@ -519,7 +519,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Grand Total</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title={this.state.order?.total_price}>₹ {this.state.order?.total_price}</span>
+														<span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 													</div>
 												</div>
 											</div>

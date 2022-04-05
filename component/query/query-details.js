@@ -321,12 +321,21 @@ export default class QueryDetails extends Component {
 													readOnly={true}
 												/>
 											</div>
+											<div className="login-form ">
+												<label>Categories<span className="mandatory-star">*</span></label>
+												<textarea
+													cols="100"
+													rows="5"
+													value={this.state.queries?.expert?.expertises?.map((value) => value?.name)?.join(" , ")}
+													readOnly={true}
+												/>
+											</div>
 										</div>
-										<div className="col-md-12">
+										{/* <div className="col-md-12 ">
 											<label className="expertise">Categories<span className="mandatory-star">*</span></label>
 											<div className="signup-check">
-												<div className="d-flex flex-wrap">
-													{this.state.queries?.expert?.expertises?.map((value) => {
+												<div className="d-flex flex-wrap login-form"> */}
+													{/* {this.state.queries?.expert?.expertises?.map((value) => {
 														return (
 															<FormGroup>
 																<FormControlLabel
@@ -343,16 +352,22 @@ export default class QueryDetails extends Component {
 																	}
 																	label={
 																		<span style={{ fontSize: "0.875rem" }}>
-																			{value?.name}
+																			{(value?.name)?.join(" , ")}
 																		</span>
 																	}
 																/>
 															</FormGroup>
 														);
-													})}
+													})} */}
+													{/* <textarea
+														cols="100"
+														rows="5"
+														value={this.state.queries?.expert?.expertises?.map((value) => value?.name)?.join(" , ")}
+														readOnly={true}
+													/>
 												</div>
 											</div>
-										</div>
+										</div> */}
 									</div>
 								</div>
 							</div>

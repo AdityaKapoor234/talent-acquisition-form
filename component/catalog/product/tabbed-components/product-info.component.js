@@ -103,82 +103,82 @@ export default class ProductInfoComponent extends Component {
                 isValid = false;
                 errors["status"] = "Please select status";
             }
-            if (input["brand_id"] === 0) {
-                isValid = false;
-                errors["brand_id"] = "Please select brand";
-            }
-            if (input["flavor_id"] === 0) {
-                isValid = false;
-                errors["flavor_id"] = "Please select flavor";
-            }
-            if (!input["weight"]) {
-                isValid = false;
-                errors["weight"] = "Please enter weight";
-            }
-            if (!input["weight_unit"]) {
-                isValid = false;
-                errors["weight_unit"] = "Please enter weight unit";
-            }
-            if(input["weight_unit"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["weight_unit"] = "Please enter weight unit";
-            }
-            if (!input["serving_size"]) {
-                isValid = false;
-                errors["serving_size"] = "Please enter serving size";
-            }
-            if (!input["serving_size_unit"]) {
-                isValid = false;
-                errors["serving_size_unit"] = "Please enter serving size unit";
-            }
-            if(input["serving_size_unit"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["serving_size_unit"] = "Please enter serving size unit";
-            }
-            if (!input["serving_count"]) {
-                isValid = false;
-                errors["serving_count"] = "Please enter serving count";
-            }
-            if (!input["product_form"]) {
-                isValid = false;
-                errors["product_form"] = "Please enter form";
-            }
-            if(input["product_form"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["product_form"] = "Please enter product form";
-            }
-            if (!input["gender"]) {
-                isValid = false;
-                errors["gender"] = "Please enter gender";
-            }
-            if(input["gender"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["gender"] = "Please enter gender";
-            }
-            if (!input["specialty_diet"]) {
-                isValid = false;
-                errors["specialty_diet"] = "Please enter specialty diet";
-            }
-            if(input["specialty_diet"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["specialty_diet"] = "Please enter specialty diet";
-            }
-            if (!input["recommended_age"]) {
-                isValid = false;
-                errors["recommended_age"] = "Please enter recommended age";
-            }
-            if(input["recommended_age"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["recommended_age"] = "Please enter recommended age";
-            }
-            if (input["is_vegetarian"] === null) {
-                isValid = false;
-                errors["is_vegetarian"] = "Please select vegetarian";
-            }
-            if (input["origin_country_id"] === "select") {
-                isValid = false;
-                errors["origin_country_id"] = "Please enter country of origin";
-            }
+            // if (input["brand_id"] === 0) {
+            //     isValid = false;
+            //     errors["brand_id"] = "Please select brand";
+            // }
+            // if (input["flavor_id"] === 0) {
+            //     isValid = false;
+            //     errors["flavor_id"] = "Please select flavor";
+            // }
+            // if (!input["weight"]) {
+            //     isValid = false;
+            //     errors["weight"] = "Please enter weight";
+            // }
+            // if (!input["weight_unit"]) {
+            //     isValid = false;
+            //     errors["weight_unit"] = "Please enter weight unit";
+            // }
+            // if(input["weight_unit"].replace(/\s/g, "").length <=0){
+            //     isValid = false;
+            //     errors["weight_unit"] = "Please enter weight unit";
+            // }
+            // if (!input["serving_size"]) {
+            //     isValid = false;
+            //     errors["serving_size"] = "Please enter serving size";
+            // }
+            // if (!input["serving_size_unit"]) {
+            //     isValid = false;
+            //     errors["serving_size_unit"] = "Please enter serving size unit";
+            // }
+            // if(input["serving_size_unit"].replace(/\s/g, "").length <=0){
+            //     isValid = false;
+            //     errors["serving_size_unit"] = "Please enter serving size unit";
+            // }
+            // if (!input["serving_count"]) {
+            //     isValid = false;
+            //     errors["serving_count"] = "Please enter serving count";
+            // }
+            // if (!input["product_form"]) {
+            //     isValid = false;
+            //     errors["product_form"] = "Please enter form";
+            // }
+            // if(input["product_form"].replace(/\s/g, "").length <=0){
+            //     isValid = false;
+            //     errors["product_form"] = "Please enter product form";
+            // }
+            // if (!input["gender"]) {
+            //     isValid = false;
+            //     errors["gender"] = "Please enter gender";
+            // }
+            // if(input["gender"].replace(/\s/g, "").length <=0){
+            //     isValid = false;
+            //     errors["gender"] = "Please enter gender";
+            // }
+            // if (!input["specialty_diet"]) {
+            //     isValid = false;
+            //     errors["specialty_diet"] = "Please enter specialty diet";
+            // }
+            // if(input["specialty_diet"].replace(/\s/g, "").length <=0){
+            //     isValid = false;
+            //     errors["specialty_diet"] = "Please enter specialty diet";
+            // }
+            // if (!input["recommended_age"]) {
+            //     isValid = false;
+            //     errors["recommended_age"] = "Please enter recommended age";
+            // }
+            // if(input["recommended_age"].replace(/\s/g, "").length <=0){
+            //     isValid = false;
+            //     errors["recommended_age"] = "Please enter recommended age";
+            // }
+            // if (input["is_vegetarian"] === null) {
+            //     isValid = false;
+            //     errors["is_vegetarian"] = "Please select vegetarian";
+            // }
+            // if (input["origin_country_id"] === "select") {
+            //     isValid = false;
+            //     errors["origin_country_id"] = "Please enter country of origin";
+            // }
             
             
         this.setState({
@@ -193,10 +193,10 @@ export default class ProductInfoComponent extends Component {
             toast.error("Please select atleast one Category ");
             return false;
         }
-        if ( this.state.infoDetails?.certifications?.length === 0) {
-            toast.error("Please select atleast one Certification ");
-            return false;
-        }
+        // if ( this.state.infoDetails?.certifications?.length === 0) {
+        //     toast.error("Please select atleast one Certification ");
+        //     return false;
+        // }
           return true;
     }
 
@@ -391,7 +391,9 @@ export default class ProductInfoComponent extends Component {
                                 <div className="col-md-4">
 
                                     <div className="sort fc-select-form-group">
-                                        <label>Brand<span className="mandatory-star">*</span></label>
+                                        <label>Brand
+                                            {/* <span className="mandatory-star">*</span> */}
+                                            </label>
                                         <div className="sort-by-select-wrapper">
                                             <Select
                                                 disableUnderline
@@ -421,7 +423,9 @@ export default class ProductInfoComponent extends Component {
                                 <div className="col-md-4">
 
                                     <div className="sort fc-select-form-group">
-                                        <label>Flavor<span className="mandatory-star">*</span></label>
+                                        <label>Flavor
+                                            {/* <span className="mandatory-star">*</span> */}
+                                            </label>
                                         <div className="sort-by-select-wrapper">
                                             <Select
                                                 disableUnderline
@@ -479,7 +483,9 @@ export default class ProductInfoComponent extends Component {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Weight<span className="mandatory-star">*</span></label>
+                                            <label>Weight
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="number"
                                                 min="0"
@@ -493,7 +499,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Weight Unit<span className="mandatory-star">*</span></label>
+                                            <label>Weight Unit
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="text"
                                                 name="weight_unit"
@@ -508,7 +516,9 @@ export default class ProductInfoComponent extends Component {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Serving Size<span className="mandatory-star">*</span></label>
+                                            <label>Serving Size
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="number"
                                                 min="0"
@@ -522,7 +532,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Serving Size Unit<span className="mandatory-star">*</span></label>
+                                            <label>Serving Size Unit
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="text"
                                                 name="serving_size_unit"
@@ -535,7 +547,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Serving Count<span className="mandatory-star">*</span></label>
+                                            <label>Serving Count
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="number"
                                                 min="0"
@@ -557,7 +571,9 @@ export default class ProductInfoComponent extends Component {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Form<span className="mandatory-star">*</span></label>
+                                            <label>Form
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="text"
                                                 name="product_form"
@@ -570,7 +586,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Gender<span className="mandatory-star">*</span></label>
+                                            <label>Gender
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="text"
                                                 name="gender"
@@ -583,7 +601,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Specialty Diet<span className="mandatory-star">*</span></label>
+                                            <label>Specialty Diet
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="text"
                                                 name="specialty_diet"
@@ -596,7 +616,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Recommended Age<span className="mandatory-star">*</span></label>
+                                            <label>Recommended Age
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <input
                                                 type="text"
                                                 name="recommended_age"
@@ -609,7 +631,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Is Vegetarian<span className="mandatory-star">*</span></label>
+                                            <label>Is Vegetarian
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <RadioGroup
                                                 row
                                                 disabled={this.state.mode === "view"?true:false}
@@ -626,7 +650,9 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Country of Origin<span className="mandatory-star">*</span></label>
+                                            <label>Country of Origin
+                                                {/* <span className="mandatory-star">*</span> */}
+                                                </label>
                                             <select className='form-control' 
                                                 disabled={this.state.mode === "view"?true:false}  
                                                 value={this.state.infoDetails?.origin_country_id} 

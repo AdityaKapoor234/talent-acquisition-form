@@ -98,10 +98,10 @@ export default class ProductSupplementsComponent extends Component {
     }
 
     validate=()=>{
-        if ( this.state.supplements?.length === 0) {
-            toast.error("Please Add atleast one supplements ");
-            return false;
-        }
+        // if ( this.state.supplements?.length === 0) {
+        //     toast.error("Please Add atleast one supplements ");
+        //     return false;
+        // }
           return true;
     }
 

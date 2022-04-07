@@ -150,7 +150,6 @@ export default function Order() {
                                         <OrderList order={order} />
                                 )
                             }
-{console.log(order,"order.length")}
 
                             
                         </div>

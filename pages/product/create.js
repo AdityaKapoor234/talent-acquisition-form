@@ -17,6 +17,7 @@ export default class ProductCreate extends Component {
         mode: "edit",
         product: {},
         open: false,
+        disableBtn:false,
         productDetails: {
             name:"",
             sku:"",
@@ -67,6 +68,7 @@ export default class ProductCreate extends Component {
 
     OnSave = () => {
         if (this.validation()) {
+            this.setState({disableBtn:true})
           let data = {
             "sku": this.state.productDetails?.sku,
             "name":this.state.productDetails?.name,
@@ -76,7 +78,11 @@ export default class ProductCreate extends Component {
             .then((response) => {
               if (response.data.httpStatusCode === 200) {
                 // toast.success(response.data.message);
-                Router.push(`/product/${response.data.data?.product?.id}/edit`);
+                if(response.data.message === 'Sku already exist, Please select unique one'){
+                    toast.error(response.data.message);
+                }else{
+                    Router.push(`/product/${response.data.data?.product?.id}/edit`);
+                }
               }
             })
             .catch((error) => {
@@ -120,6 +126,15 @@ export default class ProductCreate extends Component {
                             <div className="page-name">Add  A New Product</div>
                         </div>
                         <div className="col-md-8 btn-save">
+                            {this.state.disableBtn ?
+                            <div
+                                className="custom-btn "
+                                // onClick={() => {
+                                //     this.OnSave();
+                                // }}
+                                >
+                                <span>Save </span>
+                            </div>:
                             <div
                                 className="custom-btn "
                                 onClick={() => {
@@ -127,7 +142,7 @@ export default class ProductCreate extends Component {
                                 }}
                                 >
                                 <span>Save </span>
-                            </div>
+                            </div>}
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO, CONTENTLIST, CONTENT_LIST_EDIT } from "../utils/constant";
+import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO, CONTENTLIST, CONTENT_LIST_EDIT,GET_PRICE } from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -69,6 +69,28 @@ export class ProductApi {
             }
         };
         return axios.post(`${CONTENT_LIST_EDIT}`.replace('{{id}}', id),data,httpOptions)
+    }
+
+    static getPrice(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`          
+            }
+        };
+        return axios.get(`${GET_PRICE}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static updatePrice(id,data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`          
+            }
+        };
+        return axios.post(`${GET_PRICE}`.replace('{{id}}',id),data,httpOptions)
     }
 
 

@@ -88,3 +88,4 @@ export const GET_INFO =`http://65.1.17.188:5001/manage/product/{{id}}/detail`;
 export const CREATE_PRODUCT = `http://65.1.17.188:5001/manage/product`;
 export const GET_PHOTO =`http://65.1.17.188:5001/manage/product/{{id}}/images`;
 export const GET_COUNTRY =`http://65.1.17.188:5001/manage/country`;
+export const GET_PRICE =`http://65.1.17.188:5001/manage/product/{{id}}/price`;

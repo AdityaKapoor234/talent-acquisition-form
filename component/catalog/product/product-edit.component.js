@@ -63,10 +63,12 @@ export default class ProductEditComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            content: props?.content ? props.content : {},
             tabs: editor_tabs,
             active: false,
             tab: 'info',
             mode: props?.mode,
+            id:props?.id,
             product: props?.product ? props.product : {},
             name: props?.product?.name ? props.product?.name : "",
             type: props?.product?.type ? props.product?.type : "",
@@ -75,6 +77,9 @@ export default class ProductEditComponent extends Component {
     handleChange = (event) => {
         this.setState({ type: event.target.value });
     };
+    setTab = (value)=>{
+        this.setState({tab:value})
+    }
 
     render() {
         return (
@@ -103,42 +108,42 @@ export default class ProductEditComponent extends Component {
                 <div>
                     {this.state.tab === 'info' && (
                         <>
-                            <ProductInfoComponent product_id={this.state.product.id}/>
+                            <ProductInfoComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'content' && (
                         <>
-                            <ProductContentComponent product_id={this.state.product.id} mode={this.state.mode}/>
+                            <ProductContentComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)} content={this.state.content}/>
                         </>
                     )}
                     {this.state.tab === 'inventories' && (
                         <>
-                            <ProductInventoryComponent product_id={this.state.product.id}/>
+                            <ProductInventoryComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'prices' && (
                         <>
-                            <ProductPriceComponent product_id={this.state.product.id}/>
+                            <ProductPriceComponent  id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'photos' && (
                         <>
-                            <ProductPhotoComponent product_id={this.state.product.id}/>
+                            <ProductPhotoComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'seo' && (
                         <>
-                            <ProductSEOComponent product_id={this.state.product.id}/>
+                            <ProductSEOComponent id={this.state.id} mode={this.state.mode}/>
                         </>
                     )}
                     {this.state.tab === 'custom' && (
                         <>
-                            <ProductCustomComponent product_id={this.state.product.id}/>
+                            <ProductCustomComponent  id={this.state.id} mode={this.state.mode}/>
                         </>
                     )}
                     {this.state.tab === 'supplements' && (
                         <>
-                            <ProductSupplementsComponent product_id={this.state.product.id}/>
+                            <ProductSupplementsComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                 </div>

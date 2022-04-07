@@ -10,11 +10,11 @@ export default class QueryDetails extends Component {
 		super(props);
 		this.state = {
 			tab: 1,
-			queries: props?.queries, 
+			queries: props?.queries,
 			query: props?.query,
 			mode: props?.mode,
 			expert: [],
-			expertise: this.selectTypes(this.props.expert, this.props?.expertise),
+			// expertise: this.selectTypes(this.props.expert, this.props?.expertise),
 			img_icon: "file-input",
 			input: {
 				name: "",
@@ -31,10 +31,11 @@ export default class QueryDetails extends Component {
 			prevState.queries !== nextProps.queries ||
 			prevState.query !== nextProps.query ||
 			prevState.mode !== nextProps.mode ||
-			prevState.expertise !== nextProps?.expertise ||
+			// prevState.expertise !== nextProps?.expertise ||
 			prevState.expert !== nextProps?.expert
 		) {
 			return {
+				queries: nextProps?.queries,
 				query: nextProps?.query,
 				mode: nextProps?.mode,
 				expertise: nextProps?.expertise,
@@ -57,71 +58,71 @@ export default class QueryDetails extends Component {
 		this.setState({ input });
 		this.props?.handle(input);
 	};
-	handleCheck = (event) => {
-		let input = this.state.input;
-		input[event.target.name] = event.target.checked;
-		this.setState({ input });
-		this.props?.handle(input);
-	};
-	handlePhotoUrl = (name, url) => {
-		let input = this.state.input;
-		input[name] = url;
-		this.setState({ input });
-		this.props?.handle(input);
-	};
-	selectTypes = (list, expertise) => {
-		let model = list?.map(p => p?.id)
-		let tempcategoryList = expertise;
-		for (let i in tempcategoryList) {
-			if (model !== undefined) {
-				if (model?.length > 1) {
-					if (model.indexOf(tempcategoryList[i].id) >= 0)
-						tempcategoryList[i].selected = true;
-					else {
-						tempcategoryList[i].selected = false;
-					}
-				} else {
-					if (model?.indexOf(tempcategoryList[i].id) >= 0)
-						tempcategoryList[i].selected = true;
-					else {
-						tempcategoryList[i].selected = false;
-					}
-				}
-			}
-			else {
-				tempcategoryList[i].selected = false;
-			}
-		}
-		return tempcategoryList;
-	};
+	// handleCheck = (event) => {
+	// 	let input = this.state.input;
+	// 	input[event.target.name] = event.target.checked;
+	// 	this.setState({ input });
+	// 	this.props?.handle(input);
+	// };
+	// handlePhotoUrl = (name, url) => {
+	// 	let input = this.state.input;
+	// 	input[name] = url;
+	// 	this.setState({ input });
+	// 	this.props?.handle(input);
+	// };
+	// selectTypes = (list, expertise) => {
+	// 	let model = list?.map(p => p?.id)
+	// 	let tempcategoryList = expertise;
+	// 	for (let i in tempcategoryList) {
+	// 		if (model !== undefined) {
+	// 			if (model?.length > 1) {
+	// 				if (model.indexOf(tempcategoryList[i].id) >= 0)
+	// 					tempcategoryList[i].selected = true;
+	// 				else {
+	// 					tempcategoryList[i].selected = false;
+	// 				}
+	// 			} else {
+	// 				if (model?.indexOf(tempcategoryList[i].id) >= 0)
+	// 					tempcategoryList[i].selected = true;
+	// 				else {
+	// 					tempcategoryList[i].selected = false;
+	// 				}
+	// 			}
+	// 		}
+	// 		else {
+	// 			tempcategoryList[i].selected = false;
+	// 		}
+	// 	}
+	// 	return tempcategoryList;
+	// };
 
-	handleChangeExpert = (event) => {
-		let List = this.state.expertise;
-		for (let i in List) {
-			if (List[i].id === parseInt(event.target.value)) {
-				List[i].selected = event.target.checked;
-				break;
-			}
-		}
-		this.setState({ expertise: List });
-		const expertList = List?.filter(p => p?.selected === true)?.map(val => val?.id)
-		let input = this.state.input;
-		input["expertises"] = expertList;
-		this.setState({ input });
-		this.props?.handle(input);
-	};
+	// handleChangeExpert = (event) => {
+	// 	let List = this.state.expertise;
+	// 	for (let i in List) {
+	// 		if (List[i].id === parseInt(event.target.value)) {
+	// 			List[i].selected = event.target.checked;
+	// 			break;
+	// 		}
+	// 	}
+	// 	this.setState({ expertise: List });
+	// 	const expertList = List?.filter(p => p?.selected === true)?.map(val => val?.id)
+	// 	let input = this.state.input;
+	// 	input["expertises"] = expertList;
+	// 	this.setState({ input });
+	// 	this.props?.handle(input);
+	// };
 
 
-	componentDidUpdate(prevProps) {
-		if (this.props.expert !== prevProps?.expert) {
-			this.setState({
-				expertise: this.selectTypes(this.props.expert, this.props?.expertise)
-			})
-		}
-	}
-	componentDidMount() {
+	// componentDidUpdate(prevProps) {
+	// 	if (this.props.expert !== prevProps?.expert) {
+	// 		this.setState({
+	// 			expertise: this.selectTypes(this.props.expert, this.props?.expertise)
+	// 		})
+	// 	}
+	// }
+	// componentDidMount() {
 
-	}
+	// }
 
 	convertDateStringToDate = (dateStr) => {
 		let months = [
@@ -283,7 +284,7 @@ export default class QueryDetails extends Component {
 												<label>Date<span className="mandatory-star">*</span></label>
 												<input
 													type="text"
-													// value={this.convertDateStringToDate(this.state.queries?.submitted_at)}
+													value={this.convertDateStringToDate(this.state.queries?.submitted_at)}
 													readOnly={true}
 												/>
 											</div>
@@ -313,18 +314,28 @@ export default class QueryDetails extends Component {
 											</div>
 											<div className="login-form ">
 												<label>Description<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.input?.experience}
+												<textarea
+													cols="100"
+													rows="5"
+													value={this.state.queries?.body}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Categories<span className="mandatory-star">*</span></label>
+												<textarea
+													cols="100"
+													rows="5"
+													value={this.state.queries?.expert?.expertises?.map((value) => value?.name)?.join(" , ")}
 													readOnly={true}
 												/>
 											</div>
 										</div>
-										<div className="col-md-12">
+										{/* <div className="col-md-12 ">
 											<label className="expertise">Categories<span className="mandatory-star">*</span></label>
 											<div className="signup-check">
-												<div className="d-flex flex-wrap">
-													{this.state.queries?.expert?.expertises?.map((value) => {
+												<div className="d-flex flex-wrap login-form"> */}
+													{/* {this.state.queries?.expert?.expertises?.map((value) => {
 														return (
 															<FormGroup>
 																<FormControlLabel
@@ -333,24 +344,30 @@ export default class QueryDetails extends Component {
 																			style={{ color: "#012169" }}
 																			size="small"
 																			className="check"
-																			value={value.id}
+																			value={value?.name}
 																			onChange={this.handleChange.bind(this)}
-																			checked={value?.selected ? value?.selected : false}
+																			checked={value?.selected ? value?.selected : true}
 																			name={value?.name}
 																		/>
 																	}
 																	label={
 																		<span style={{ fontSize: "0.875rem" }}>
-																			{value?.name}
+																			{(value?.name)?.join(" , ")}
 																		</span>
 																	}
 																/>
 															</FormGroup>
 														);
-													})}
+													})} */}
+													{/* <textarea
+														cols="100"
+														rows="5"
+														value={this.state.queries?.expert?.expertises?.map((value) => value?.name)?.join(" , ")}
+														readOnly={true}
+													/>
 												</div>
 											</div>
-										</div>
+										</div> */}
 									</div>
 								</div>
 							</div>

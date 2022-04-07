@@ -13,22 +13,28 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Cookie from "js-cookie";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 export default function Dashboard() {
 
 	const [customer, setCustomer] = useState([]);
 	const [customerNo, setCustomerNo] = useState([]);
 	const [orderStats, setOrderStats] = useState([]);
+	const [orderPriceStats, setOrderPriceStats] = useState([]);
 	const [order, setOrder] = useState([]);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [isLoader, setLoader] = useState(false);
 
 	const customerList = (page, search) => {
+		setLoader(true);
 		CustomerApi.CustomerList(page, search)
 			.then((response) => {
-				setCustomer(response.data.data.list);
-				setCustomerNo(response.data.data);
+				setCustomer(response.data?.data?.list);
+				setCustomerNo(response.data?.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				setLoader(false);
 			})
 			.catch((error) => {
 				toast.error(
@@ -41,11 +47,15 @@ export default function Dashboard() {
 			});
 	};
 	function dashboardStats() {
+		setLoader(true);
 		DashboardApi.OrderStats()
 			.then((response) => {
-				setOrderStats(response.data.data.stats.orders);
+				setOrderStats(response.data.data?.stats?.orders);
+				setOrderPriceStats(response.data.data?.stats?.price);
+				setLoader(false);
 			})
 			.catch((error) => {
+				setLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -57,11 +67,14 @@ export default function Dashboard() {
 			});
 	};
 	function orderList(page, search, latest) {
+		setLoader(true);
 		OrderApi.OrderList(page, search, latest)
 			.then((response) => {
 				setOrder(response.data.data.list);
+				setLoader(false);
 			})
 			.catch((error) => {
+				setLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -94,15 +107,27 @@ export default function Dashboard() {
 				<DashboardLayoutComponent>
 					<div page-component="Dashboard">
 						<div className="container-fluid">
+							{isLoader && 
+								<div className="row justify-content-center">
+								<div className="col-md-12 loader-cart">
+									<Box sx={{ display: "flex" }}>
+										<CircularProgress
+											style={{ color: "#F54A00" }}
+										/>
+									</Box>
+								</div>
+							</div>
+							}
+							{isLoader === false &&
 							<div className="sticky-scroll scroll">
 								<div className="row">
 									<Link href="/order">
 										<div className="col point-but mx-3" style={{ backgroundColor: "#AAE3E2" }}>
 											<div className="icon"></div>
 											<span className="iconInfo mt-3">
-												{orderStats.today} Orders
+												{orderStats?.today} Orders
 											</span>
-											<span className="iconPrice">₹ 0.00</span>
+											<span className="iconPrice">₹&nbsp;{orderPriceStats?.today_total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') === undefined ? <span>0.00</span> : orderPriceStats?.today_total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 											<span className="iconInfo mb-3">Today</span>
 										</div>
 									</Link>
@@ -110,9 +135,9 @@ export default function Dashboard() {
 										<div className="col point-but mx-3" style={{ backgroundColor: "#FEC9FC" }}>
 											<div className="icon"></div>
 											<span className="iconInfo mt-3">
-												{orderStats.last_seven_days} Orders
+												{orderStats?.last_seven_days} Orders
 											</span>
-											<span className="iconPrice">₹ 14970.00</span>
+											<span className="iconPrice">₹&nbsp;{orderPriceStats?.last_seven_days_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') === undefined ? <span>0.00</span> : orderPriceStats?.last_seven_days_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 											<span className="iconInfo mb-3">Last 7 Days</span>
 										</div>
 									</Link>
@@ -120,9 +145,9 @@ export default function Dashboard() {
 										<div className="col point-but mx-3" style={{ backgroundColor: "#B0E9FC" }}>
 											<div className="icon"></div>
 											<span className="iconInfo mt-3">
-												{orderStats.total} Orders
+												{orderStats?.total} Orders
 											</span>
-											<span className="iconPrice">₹ 33873.00</span>
+											<span className="iconPrice">₹&nbsp;{orderPriceStats?.total_order_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') === undefined ? <span>0.00</span> : orderPriceStats?.total_order_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 											<span className="iconInfo mb-3">Total</span>
 										</div>
 									</Link>
@@ -130,7 +155,7 @@ export default function Dashboard() {
 										<div className="col point-but mx-3" style={{ backgroundColor: "#FFEADE" }}>
 											<div className="icon2"></div>
 											<span className="iconInfo mt-3">Customers</span>
-											<span className="iconPrice">{customerNo.total}</span>
+											<span className="iconPrice">{customerNo?.total}</span>
 											<span className="iconInfo mb-3"></span>
 										</div>
 									</Link>
@@ -144,7 +169,7 @@ export default function Dashboard() {
 										<SignUpComponent customer={customer} />
 									</div>
 								</div>
-							</div>
+							</div>}
 						</div>
 					</div>
 

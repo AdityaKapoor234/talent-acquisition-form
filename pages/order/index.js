@@ -122,7 +122,7 @@ export default function Order() {
                             <div className="login-form ">
                                 <input
                                     type="text"
-                                    placeholder="Search..."
+                                    placeholder="Search Order No..."
                                     className="search-box"
                                     value={wordEntered}
                                     onChange={handleFilter}
@@ -146,11 +146,11 @@ export default function Order() {
                                         </div>
                                     </div>
                                 ) : (
-                                    order && order.length === 0 ? <div className="not-found">No Data Found</div> :
+                                    order === undefined ? <div className="not-found">No Data Found</div> :
                                         <OrderList order={order} />
                                 )
                             }
-
+{console.log(order,"order.length")}
 
                             
                         </div>

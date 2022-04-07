@@ -1,51 +1,168 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import React,{useEffect, useState} from "react";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import ProductInfoApi from "../../../../../../services/product-info";
+import { toast } from "react-toastify";
+import { appendOwnerState } from "@mui/material";
 
 
-export default function InfoCategoryComponent() {
-  const [checked, setChecked] = React.useState([true, false]);
+export default function InfoCategoryComponent(props) {
+  const [category, setCategory] = useState([]);
+  const [mode, setMode] = useState(props?.mode);
 
-  const handleChange1 = (event) => {
-    setChecked([event.target.checked, event.target.checked]);
+  const handleChangeAll = (event) => {
+    let list = category
+    let subList = [];
+    let objIndex = list.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+    list[objIndex]["select_all"] = event?.target?.checked;
+    for(let i in list){
+      if (list[i].select_all && (list[i].id === parseInt(event?.target?.value))){
+        let sub = list[i]?.sub
+        for(let j in sub){
+            sub[j].select = event?.target?.checked;
+        }
+      }else if((list[i].id === parseInt(event?.target?.value)) && list[i].select_all === false){
+        let sub = list[i]?.sub
+        for(let j in sub){
+            sub[j].select = event?.target?.checked;
+        }
+      }
+    }
+    setCategory([...list])
+    let data = list?.filter(val=>val?.select_all === true)?.map(p=>p?.id)
+    for(let j in list){
+      let sub = list[j]?.sub
+      for(let i in sub){
+        if (sub[i].select){
+          subList.push(sub[i].id)
+        }
+      }
+    }
+    let sub = [...data,...subList]
+    props?.handle([...new Set(sub)])
   };
 
-  const handleChange2 = (event) => {
-    setChecked([event.target.checked, checked[1]]);
+  const handleChange = (event) => {
+    let list = category
+    let model= []
+    let subList = [];
+    for(let i in list){
+      let sub = list[i]?.sub
+      let objIndex = sub?.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+      if(sub[objIndex]){
+        sub[objIndex]["select"] = event?.target?.checked;
+      }
+      let count = 0
+      for(let j in sub){
+        if (sub[j].select === true){
+          count = count+1
+        }
+      }
+      if(count === sub?.length){
+        list[i]["select_all"] = true;
+      }else{
+        list[i]["select_all"] = false;
+      }
+    }
+    setCategory([...list])
+    let data = list?.filter(val=>val?.select_all === true)?.map(p=>p?.id)
+    for(let j in list){
+      let sub = list[j]?.sub
+      for(let i in sub){
+        if (sub[i].select){
+          subList.push(sub[i].id)
+        }
+      }
+    }
+    
+    let sub = [...data,...subList]
+    props?.handle([...new Set(sub)])
   };
 
-  const handleChange3 = (event) => {
-    setChecked([checked[0], event.target.checked]);
-  };
+  const getCategoryDetails =(model)=>{
+    ProductInfoApi.getCategory()
+        .then((response) => {
+          if (response.data.httpStatusCode === 200) {
+              let list =  response.data.data?.categories
+              for(let i in list){
+                if (model?.indexOf(list[i].id) >= 0){
+                  list[i].select_all = true;
+                }
+                let sub = list[i]?.sub
+                for(let j in sub){
+                  if (model?.indexOf(sub[j].id) >= 0){
+                    sub[j].select = true;
+                  }
+                }
+              }
+              setCategory(list);
+          }
+        })
+        .catch((error) => {
+          toast.error(
+            error?.response &&
+              error?.response?.data &&
+              error?.response?.data?.message
+              ? error.response.data.message
+              : "Unable to process your request, please try after sometime"
+          );
+        });
+  }
 
+  useEffect(() => {
+    getCategoryDetails(props?.details)
+    setMode(props?.mode)
+  }, [props?.details])
+  
 
-  const children = (
-    <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
-      <FormControlLabel
-        label="Child 1"
-        control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-      />
-      <FormControlLabel
-        label="Child 2"
-        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
-      />
-    </Box>
-  );
 
   return (
-        <div>
-        <FormControlLabel
-          label="parent"
-          control={
-            <Checkbox
-              // checked={val?.selected}
-              // indeterminate={val?.selected}
-              onChange={handleChange1}
-            />
-          }
-        />
-        {children}
-      </div>
-      )
+    <div>
+      {category?.map((val) => {
+        return (
+          <div className="cat-check">
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    style={{ color: "#012169" }}
+                    size="small"
+                    disabled={mode === "view"?true:false}
+                    checked={val?.select_all}
+                    value={val?.id}
+                    onChange={handleChangeAll}
+                  />
+                }
+                label={val?.name}
+              />
+            </FormGroup>
+            <div className="row margin-check">
+              {val?.sub?.map((p) => {
+                return (
+                  <div className="col-md-4">
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            style={{ color: "#012169" }}
+                            size="small"
+                            disabled={mode === "view"?true:false}
+                            checked={p?.select}
+                            value={p?.id}
+                            onChange={handleChange}
+                          />
+                        }
+                        label={p?.name}
+                      />
+                    </FormGroup>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }

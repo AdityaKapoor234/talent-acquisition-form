@@ -1,64 +1,76 @@
 import axios from "axios";
-import {PRODUCTLIST, GET_PRODUCT_DETAILS, GET_PRODUCT_CREATE, GET_PRODUCT_EDIT, GET_PRODUCT_DELETE} from "../utils/constant";
+import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO, CONTENTLIST, CONTENT_LIST_EDIT } from "../utils/constant";
 import cookie from "js-cookie";
 
 
 export class ProductApi {
 
-    static ProductList(page,search) {
+    static ProductList(page, search) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${PRODUCTLIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+    }
+
+    static createProduct(data) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${CREATE_PRODUCT}`, data, httpOptions)
+    }
+
+    static getPhoto(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${GET_PHOTO}`.replace('{{id}}', id), httpOptions)
+    }
+
+    static updatePhoto(id, data) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${GET_PHOTO}`.replace('{{id}}', id), data, httpOptions)
+    }
+
+    static ContentList(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${CONTENTLIST}`.replace('{{id}}', id), httpOptions)
+    }
+
+    static ContentListEdit(id,data) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json', 
-                'Authorization': `Bearer ${token} `          
+                'Authorization': `Bearer ${token}`          
             }
         };
-        return axios.get(`${PRODUCTLIST}`.replace('{{page}}', page).replace('{{search}}', search),httpOptions)
+        return axios.post(`${CONTENT_LIST_EDIT}`.replace('{{id}}', id),data,httpOptions)
     }
 
-    // static getProductDetails(id) {
-    //     const  token = cookie.get('access_token_admin');
-    //     const httpOptions = {
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             'Authorization': `Bearer ${token} `          
-    //         }
-    //     };
-    //     return axios.get(`${GET_PRODUCT_DETAILS}`.replace('{{id}}', id),httpOptions)
-    // }
-
-    // static ProductEdit(id,data) {
-    //     const  token = cookie.get('access_token_admin');
-    //     const httpOptions = {
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             'Authorization': `Bearer ${token}`          
-    //         }
-    //     };
-    //     return axios.post(`${GET_PRODUCT_EDIT}`.replace('{{id}}', id),data,httpOptions)
-    // }
-
-    // static ProductCreate(data) {
-    //     const  token = cookie.get('access_token_admin');
-    //     const httpOptions = {
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             'Authorization': `Bearer ${token}`          
-    //         }
-    //     };
-    //     return axios.post(`${GET_PRODUCT_CREATE}`,data,httpOptions)
-    // }
-
-    // static ProductDelete(id,data) {
-    //     const  token = cookie.get('access_token_admin');
-    //     const httpOptions = {
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             'Authorization': `Bearer ${token}`          
-    //         }
-    //     };
-    //     return axios.post(`${GET_PRODUCT_DELETE}`.replace('{{id}}', id),data,httpOptions)
-    // }
 
 }
-export default ProductApi ;
+export default ProductApi;

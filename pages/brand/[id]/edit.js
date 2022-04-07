@@ -52,7 +52,7 @@ export default class BrandEditDetails extends Component {
       toast.error("Please enter name");
       return false;
     }
-    if (this.state.brandDetails.name === "") {
+    if (this.state.brandDetails.name === "" || this.state.brandDetails.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter name");
       return false;
     }
@@ -173,7 +173,7 @@ export default class BrandEditDetails extends Component {
                   <span>Catalog / Brand / </span>Edit Brand
                 </div>
                 <div className="page-name">
-                  Edit Brand Details - {this.state.brand.name}
+                  Edit Brand Details - {this.state.brand?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">

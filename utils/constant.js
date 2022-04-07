@@ -64,6 +64,27 @@ export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/s
 //ORDERS
 export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
 export const GET_ORDER_DETAILS = `http://65.1.17.188:5002/manage/order/{{id}}`;
+export const ADD_ORDER_STATUS = `http://65.1.17.188:5002/manage/order/{{id}}/status`;
+
+//PRODUCT
+export const GET_INGREDIENT = `http://65.1.17.188:5001/manage/ingredient/all`;
+export const ADD_SUPPLEMENT = `http://65.1.17.188:5001/manage/product/{{id}}/supplement-facts`;
+export const CONTENTLIST = `http://65.1.17.188:5001/manage/product/{{id}}/content`; 
+export const CONTENT_LIST_EDIT = `http://65.1.17.188:5001/manage/product/{{id}}/content`
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;
+export const GET_QUERY = `http://65.1.17.188:5000/manage/queries/{{id}}`;
+
+//SEO
+export const SEO = `http://65.1.17.188:5001/manage/product/{{id}}/seo`;
+
+//PRODUCT-INFO
+export const GET_CATEGORY_INFO = `http://65.1.17.188:5001/manage/category/all`;
+export const GET_BRAND_INFO = `http://65.1.17.188:5001/manage/brand/all`;
+export const GET_FLAVOR_INFO = `http://65.1.17.188:5001/manage/flavor/all`;
+export const GET_CERTIFICATION =`http://65.1.17.188:5001/certification/`;
+export const GET_INFO =`http://65.1.17.188:5001/manage/product/{{id}}/detail`;
+export const CREATE_PRODUCT = `http://65.1.17.188:5001/manage/product`;
+export const GET_PHOTO =`http://65.1.17.188:5001/manage/product/{{id}}/images`;
+export const GET_COUNTRY =`http://65.1.17.188:5001/manage/country`;

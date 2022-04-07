@@ -48,7 +48,11 @@ export default class IngredientCreate extends Component {
     }
     handleChange = (event) => {
         let input = this.state.input;
-        input[event.target.name] = event.target.value;
+        if(event.target.name === "sort_order"){
+            input[event.target.name] = event.target.value.replace(/[^\d]/, "");
+          }else{
+            input[event.target.name] = event.target.value;
+          }
         this.setState({ input });
         this.props?.handle(input);
     };
@@ -58,34 +62,6 @@ export default class IngredientCreate extends Component {
         this.setState({ input });
         this.props?.handle(input);
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     render() {
         return (
@@ -134,6 +110,7 @@ export default class IngredientCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
+                                                    min="0"
                                                     name="sort_order"
                                                     value={this.state.input.sort_order}
                                                     onChange={this.handleChange.bind(this)}
@@ -179,6 +156,7 @@ export default class IngredientCreate extends Component {
                                                 </label>
                                                 <input
                                                     type="number"
+                                                    min="0"
                                                     readOnly={true}
                                                     value={this.state.input?.sort_order}
                                                 />

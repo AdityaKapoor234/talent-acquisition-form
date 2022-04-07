@@ -275,6 +275,21 @@
   .photo-upload-list{
 
   }
+  .photo-uplaod{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $clr-gray200;
+    // input{
+    //   display: none;
+    // }
+    .file{
+      cursor: pointer;
+      border: 1px solid $clr-dark-blue;
+      padding: 6px;
+      color: $clr-dark-blue;
+    }
+  }
   .photo-upload-box{
     margin-top: 1rem;
     height: 10rem;
@@ -287,6 +302,19 @@
       background-repeat: no-repeat;
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: flex-end;
+      .checkbox{
+        display: flex;
+        width: 100%;
+        background-color: $clr-gray500;
+        align-items: center;
+        justify-content: space-between;
+        .delete-icon{
+          cursor: pointer;
+          color: rgba(223, 12, 12, 0.87);
+        }
+      }
     }
   }
 }
@@ -347,5 +375,22 @@
   }
   .textRight{
     text-align: right;
+  }
+}
+[data-component="product-info-edit"]{
+  .certification{
+    .bck-img{
+      height: 8rem;
+      width: 8rem !important;
+      background-repeat: no-repeat !important;
+      background-position:center !important;
+      background-size: cover !important;
+      margin-bottom: 2rem;
+      border:2px solid $clr-gray200;
+      filter: grayscale(100%);
+    }
+    .active{
+      filter: grayscale(0%);
+    }
   }
 }

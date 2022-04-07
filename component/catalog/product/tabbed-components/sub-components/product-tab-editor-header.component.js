@@ -17,6 +17,7 @@ export default class ProductTabEditorHeader extends Component {
                     <div className='col-md-8'>
                         <div className='tab-heading'>{this.props.children}</div>
                     </div>
+                    {this.props?.mode !== "view" &&<>
                     <div className='col-md-2 d-grid'>
                         <button className='btn btn-primary   full-width btn-sm' onClick={this.props.onSave}>Save</button>
                     </div>
@@ -25,7 +26,7 @@ export default class ProductTabEditorHeader extends Component {
                             <button className='btn btn-primary   full-width btn-sm' onClick={this.props.onSaveAndContinue}>Save and Continue</button>
                         </div>
                     }
-
+                    </>}
                 </div>
             </div>
         );

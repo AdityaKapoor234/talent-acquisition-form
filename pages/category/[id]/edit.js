@@ -64,7 +64,7 @@ export default class CategoryEditDetails extends Component {
       toast.error("Please upload short banner image");
       return false;
     }
-    if (this.state.categoryDetails?.name === "" || this.state.categoryDetails?.name === null) {
+    if (this.state.categoryDetails?.name === "" || this.state.categoryDetails?.name === null || this.state.categoryDetails?.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter the name");
       return false;
     }
@@ -72,7 +72,7 @@ export default class CategoryEditDetails extends Component {
     //   toast.error("Please enter the short description");
     //   return false;
     // }
-    if (this.state.categoryDetails?.description === "" ||this.state.categoryDetails?.description=== null) {
+    if (this.state.categoryDetails?.description === "" ||this.state.categoryDetails?.description=== null || this.state.categoryDetails?.description.replace(/\s/g, "").length <=0) {
       toast.error("Please enter the full description");
       return false;
     }

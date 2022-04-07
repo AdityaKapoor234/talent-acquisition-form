@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import Router from "next/router";
 
 
 export default class ProductPriceComponent extends Component {
@@ -20,7 +21,8 @@ export default class ProductPriceComponent extends Component {
                     'created_at': new Date() - 10,
                     'id': 2
                 }
-            ]
+            ],
+            mode:props?.mode
         };
     }
     handleChange = (event) => {
@@ -47,6 +49,7 @@ export default class ProductPriceComponent extends Component {
         this.setState({
             isunsaved: false
         })
+        Router.push("/product")
     }
 
     onSaveAndContinue() {
@@ -54,11 +57,14 @@ export default class ProductPriceComponent extends Component {
         this.setState({
             isunsaved: false
         })
+        this.props?.tab("photos")
     }
+        
     render() {
         return (
             <div data-component="product-price-edit" className='product-tabbed-editor'>
-                <ProductTabEditorHeader onSave={this.onSave.bind(this)} onSaveAndContinue={this.onSaveAndContinue.bind(this)} showSaveContinueButton={true}>Prices</ProductTabEditorHeader>
+                <ProductTabEditorHeader onSave={this.onSave.bind(this)} onSaveAndContinue={this.onSaveAndContinue.bind(this)} mode={this.state.mode} showSaveContinueButton={true}>Prices</ProductTabEditorHeader>
+                {/* <ProductTabEditorHeader onSave={this.onSave}  onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true}>Prices</ProductTabEditorHeader> */}
                 <div className="row ">
                     <div className="col-md-12">
                         {

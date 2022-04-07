@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import AskTheProsCreateComponent from "../../../component/ask-the-pros/ask-the-pros-details";
+import AskTheProsCreateComponent from "../../../component/ask-the-pros/ask-the-pros";
 import AskTheProsApi from "../../../services/ask-the-pros";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -33,17 +33,15 @@ export default class AskTheProsEditDetails extends Component {
     this.state = {
       id: props?.id,
       mode: "edit",
-      asktheProps: {},
       expertise: [],
       open: false,
-      expert:[],
       askTheProsDetails: {
         name: "",
         email: "",
         avatar_url: null,
         is_active: false,
         experience: "",
-        expertises: [1],
+        expertises: [],
       },
     };
   }
@@ -56,13 +54,15 @@ export default class AskTheProsEditDetails extends Component {
   validateData = () => {
     if (
       this.state.askTheProsDetails?.name === "" ||
-      this.state.askTheProsDetails?.name === null
+      this.state.askTheProsDetails?.name === null ||
+      this.state.askTheProsDetails?.name.replace(/\s/g, "").length <=0
     ) {
       toast.error("Please enter the name");
       return false;
     }
     if (this.state.askTheProsDetails?.email === ""||
-    this.state.askTheProsDetails?.email === null) {
+    this.state.askTheProsDetails?.email === null ||
+    this.state.askTheProsDetails?.email.replace(/\s/g, "").length <=0) {
       toast.error("Please enter email address");
       return false;
     }
@@ -79,7 +79,8 @@ export default class AskTheProsEditDetails extends Component {
     }
     if (
       this.state.askTheProsDetails?.experience === "" ||
-      this.state.askTheProsDetails?.experience === null
+      this.state.askTheProsDetails?.experience === null ||
+      this.state.askTheProsDetails?.experience.replace(/\s/g, "").length <=0
     ) {
       toast.error("Please enter experience");
       return false;
@@ -129,12 +130,10 @@ export default class AskTheProsEditDetails extends Component {
             avatar_url: response.data.data.expert?.avatar_url,
             is_active: response.data.data.expert?.is_active,
             experience:response.data.data.expert?.experience,
-            expertises:response.data.data.expert?.expertises,
+            expertises:response.data.data?.expertise?.expertise === "deleted"? []:response.data.data?.expertise?.map(val=>val?.id)
           };
           this.setState({
             askTheProsDetails: details,
-            asktheProps: response.data.data.expert,
-            expert:response.data.data.expertise
           });
         }
       })
@@ -168,30 +167,12 @@ export default class AskTheProsEditDetails extends Component {
         );
       });
   };
-  getExpertiseList = () => {
-    AskTheProsApi.getExpertise()
-      .then((response) => {
-        if (response.data.httpStatusCode === 200) {
-          this.setState({ expertise: response.data.data });
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  };
-
+  
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    this.getExpertiseList();
     this. getAskTheProsDetails(this.props.id);
     this.setState({ id: this.props?.id });
   }
@@ -212,7 +193,7 @@ export default class AskTheProsEditDetails extends Component {
                 <span>Ask The Pros / Ask The Pros /  </span>Edit Ask The Pros 
                 </div>
                 <div className="page-name">
-                Edit Ask The Pros  - {this.state.asktheProps?.name}
+                Edit Ask The Pros  - {this.state.askTheProsDetails?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">
@@ -245,11 +226,9 @@ export default class AskTheProsEditDetails extends Component {
             <div className="row">
               <div className="col-m-12">
               <AskTheProsCreateComponent
-                  askThePros={this.state.asktheProps}
+                  askThePros={this.state.askTheProsDetails}
                   mode={this.state.mode}
-                  expertise={this.state.expertise}
                   handle={this.stateHandle.bind(this)}
-                  expert={this.state.expert}
                 />
               </div>
             </div>

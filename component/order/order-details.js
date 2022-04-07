@@ -24,10 +24,13 @@ export default class OrderDetails extends Component {
 			mode: props?.mode,
 			error: props?.error,
 			open: false,
+			status: props?.order?.order?.status ? props?.order?.order?.status : "0",
 		};
 	}
 	handleChange = (event) => {
+		this.setState({status: event.target.value});
 		this.props?.handle(event.target.value);
+		
 	};
 	handleClose = () => {
 		this.setState({
@@ -60,6 +63,7 @@ export default class OrderDetails extends Component {
 				order: nextProps?.order,
 				mode: nextProps?.mode,
 				error: nextProps?.error,
+				status: nextProps?.order.order.status,
 				active: nextProps?.order?.is_active
 					? nextProps?.order?.is_active
 					: false,
@@ -181,7 +185,7 @@ export default class OrderDetails extends Component {
 
 											</div>
 											<div className="col-3">
-												<span className="orderLine">
+												<span className="orderLine align-items-center">
 													<span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
 													<div data-component="edit-category">
 														<div className="sort">
@@ -194,7 +198,7 @@ export default class OrderDetails extends Component {
 																	name="orderstatus"
 																	onChange={this.handleChange}
 																	className="sort-by-select w-100"
-																	// value={this.state.order?.order?.status}
+																	value={this.state?.status ? this.state?.status : "0"}
 																>
 																	<MenuItem
 																		value={"0"}
@@ -206,6 +210,7 @@ export default class OrderDetails extends Component {
 																	<MenuItem value={"placed"}>Placed</MenuItem>
 																	<MenuItem value={"shipped"}>Shipped</MenuItem>
 																</Select>
+
 															</div>
 														</div>
 													</div>

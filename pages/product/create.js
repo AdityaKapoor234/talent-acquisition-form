@@ -75,8 +75,8 @@ export default class ProductCreate extends Component {
           ProductApi.createProduct(data)
             .then((response) => {
               if (response.data.httpStatusCode === 200) {
-                toast.success(response.data.message);
-                Router.push(`/product`);
+                // toast.success(response.data.message);
+                Router.push(`/product/${response.data.data?.product?.id}/edit`);
               }
             })
             .catch((error) => {

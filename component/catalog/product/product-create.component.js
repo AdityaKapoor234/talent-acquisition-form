@@ -14,7 +14,7 @@ export default class BrandCreate extends Component {
       input: {
         name: props?.product?.name ? props.product?.name : "",
         sku: props?.product?.sku ? props.product?.sku : "",
-        status: props?.product?.status ? props.product?.status : "",
+        status: props?.product?.status ? props.product?.status : "draft",
       },
     };
   }
@@ -32,7 +32,7 @@ export default class BrandCreate extends Component {
         input: {
           name: nextProps?.product?.name ? nextProps.product?.name : "",
           sku: nextProps?.product?.sku ? nextProps.product?.sku : "",
-          status: nextProps?.product?.status ? nextProps.product?.status : "",
+          status: nextProps?.product?.status ? nextProps.product?.status : "draft",
         },
       };
     }
@@ -105,6 +105,7 @@ export default class BrandCreate extends Component {
                             disableUnderline
                             variant="standard"
                             autoWidth={true}
+                            disabled={true}
                             name="status"
                             onChange={this.handleChange}
                             className="sort-by-select w-100"

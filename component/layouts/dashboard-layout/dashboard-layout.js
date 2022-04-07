@@ -124,7 +124,7 @@ export default function DashboardLayoutComponent({children}) {
                                             <li className={categary=== "classification" ? "sub_active":""} onClick={()=> handleCategary("/classification","classification")}>classification</li>
                                             <li className={categary=== "brand" ? "sub_active":""} onClick={()=> handleCategary("/brand","brand")}>brand</li>
                                             <li className={categary=== "product" ? "sub_active":""} onClick={()=> handleCategary("/product","product")}>product</li>
-                                            <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li>
+                                            {/* <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li> */}
                                             <li className={categary=== "flavor" ? "sub_active":""} onClick={()=> handleCategary("/flavor","flavor")}>flavor</li>
                                         </ul>
                                     }

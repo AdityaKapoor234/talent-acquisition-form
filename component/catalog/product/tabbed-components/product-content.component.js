@@ -107,18 +107,18 @@ export default class ProductContentComponent extends Component {
             isValid = false;
             errors["description"] = "Please enter Full Description";
         }
-        if (!content["direction_of_use"] || content["direction_of_use"] ==="<p></p>\n" || content["direction_of_use"].replace(/&nbsp;/g, "").length <=8) {
-            isValid = false;
-            errors["direction_of_use"] = "Please enter Direction of Use";
-        }
-        if (!content["does_not_contain"] || content["does_not_contain"] ==="<p></p>\n" || content["does_not_contain"].replace(/&nbsp;/g, "").length <=8) {
-            isValid = false;
-            errors["does_not_contain"] = "Please enter Does Not Contain Field";
-        }
-        if (!content["other_ingredients"] || content["other_ingredients"] ==="<p></p>\n" || content["other_ingredients"].replace(/&nbsp;/g, "").length <=8) {
-            isValid = false;
-            errors["other_ingredients"] = "Please enter Other Ingredients";
-        }
+        // if (!content["direction_of_use"] || content["direction_of_use"] ==="<p></p>\n" || content["direction_of_use"].replace(/&nbsp;/g, "").length <=8) {
+        //     isValid = false;
+        //     errors["direction_of_use"] = "Please enter Direction of Use";
+        // }
+        // if (!content["does_not_contain"] || content["does_not_contain"] ==="<p></p>\n" || content["does_not_contain"].replace(/&nbsp;/g, "").length <=8) {
+        //     isValid = false;
+        //     errors["does_not_contain"] = "Please enter Does Not Contain Field";
+        // }
+        // if (!content["other_ingredients"] || content["other_ingredients"] ==="<p></p>\n" || content["other_ingredients"].replace(/&nbsp;/g, "").length <=8) {
+        //     isValid = false;
+        //     errors["other_ingredients"] = "Please enter Other Ingredients";
+        // }
         if (!content["product_label"] || content["product_label"] ==="<p></p>\n" || content["product_label"].replace(/&nbsp;/g, "").length <=8) {
             isValid = false;
             errors["product_label"] = "Please enter Product Label";
@@ -127,10 +127,10 @@ export default class ProductContentComponent extends Component {
             isValid = false;
             errors["short_description"] = "Please enter Short Description";
         }
-        if (!content["warning"] || content["warning"] ==="<p></p>\n" || content["warning"].replace(/&nbsp;/g, "").length <=8) {
-            isValid = false;
-            errors["warning"] = "Please enter Warning";
-        }
+        // if (!content["warning"] || content["warning"] ==="<p></p>\n" || content["warning"].replace(/&nbsp;/g, "").length <=8) {
+        //     isValid = false;
+        //     errors["warning"] = "Please enter Warning";
+        // }
 
         this.setState({
             errors: errors
@@ -217,7 +217,9 @@ export default class ProductContentComponent extends Component {
                     <div className="row ">
                         <div className="col-md-12">
                             <div className="fc-form-group editor">
-                                <label>Product Label<span className="mandatory-star">*</span></label>
+                                <label>Product Label
+                                    <span className="mandatory-star">*</span>
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.product_label}
@@ -229,7 +231,9 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["product_label"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Short Description<span className="mandatory-star">*</span></label>
+                                <label>Short Description
+                                    <span className="mandatory-star">*</span>
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.short_description}
@@ -240,7 +244,9 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["short_description"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Full Description<span className="mandatory-star">*</span></label>
+                                <label>Full Description
+                                    <span className="mandatory-star">*</span>
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.description}
@@ -251,7 +257,9 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["description"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Direction of Use<span className="mandatory-star">*</span></label>
+                                <label>Direction of Use
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.direction_of_use}
@@ -262,7 +270,9 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["direction_of_use"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Other Ingredient<span className="mandatory-star">*</span></label>
+                                <label>Other Ingredient
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.other_ingredients}
@@ -273,7 +283,9 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["other_ingredients"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Does Not Contain<span className="mandatory-star">*</span></label>
+                                <label>Does Not Contain
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.does_not_contain}
@@ -284,7 +296,9 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["does_not_contain"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Warning<span className="mandatory-star">*</span></label>
+                                <label>Warning
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.warning}
@@ -328,7 +342,9 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Direction of Use<span className="mandatory-star">*</span></label>
+                                <label>Direction of Use
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.direction_of_use}
@@ -337,7 +353,9 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Other Ingredient<span className="mandatory-star">*</span></label>
+                                <label>Other Ingredient
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.other_ingredients}
@@ -346,7 +364,9 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Does Not Contain<span className="mandatory-star">*</span></label>
+                                <label>Does Not Contain
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.does_not_contain}
@@ -355,7 +375,9 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Warning<span className="mandatory-star">*</span></label>
+                                <label>Warning
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.warning}

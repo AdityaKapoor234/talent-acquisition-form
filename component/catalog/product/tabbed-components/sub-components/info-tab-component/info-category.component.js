@@ -73,10 +73,14 @@ export default function InfoCategoryComponent(props) {
         if (sub[i].select){
           subList.push(sub[i].id)
         }
+        if(subList?.length>0 ){
+          if(subList?.indexOf(sub[i].id)>=0){
+            subList.push(list[j].id)
+          }
+        }
       }
     }
-    
-    let sub = [...data,...subList]
+    let sub = [...data,...new Set(subList)]
     props?.handle([...new Set(sub)])
   };
 
@@ -86,14 +90,16 @@ export default function InfoCategoryComponent(props) {
           if (response.data.httpStatusCode === 200) {
               let list =  response.data.data?.categories
               for(let i in list){
-                if (model?.indexOf(list[i].id) >= 0){
-                  list[i].select_all = true;
-                }
                 let sub = list[i]?.sub
+                let count = 0
                 for(let j in sub){
                   if (model?.indexOf(sub[j].id) >= 0){
                     sub[j].select = true;
+                    count = count+1
                   }
+                }
+                if (model?.indexOf(list[i].id) >= 0 && count === sub?.length){
+                  list[i].select_all = true;
                 }
               }
               setCategory(list);
@@ -119,6 +125,7 @@ export default function InfoCategoryComponent(props) {
 
   return (
     <div>
+      {console.log("test88898",props?.details)}
       {category?.map((val) => {
         return (
           <div className="cat-check">
@@ -131,6 +138,7 @@ export default function InfoCategoryComponent(props) {
                     disabled={mode === "view"?true:false}
                     checked={val?.select_all}
                     value={val?.id}
+                    indeterminate={(props?.details?.indexOf(val?.id) >=0 ) && val?.select_all === false }
                     onChange={handleChangeAll}
                   />
                 }

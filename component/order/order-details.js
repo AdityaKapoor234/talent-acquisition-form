@@ -63,7 +63,7 @@ export default class OrderDetails extends Component {
 				order: nextProps?.order,
 				mode: nextProps?.mode,
 				error: nextProps?.error,
-				status: nextProps?.order.order.status,
+				status: nextProps?.order?.order?.status,
 				active: nextProps?.order?.is_active
 					? nextProps?.order?.is_active
 					: false,
@@ -93,9 +93,6 @@ export default class OrderDetails extends Component {
 			date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
 		return str;
 	};
-
-
-
 
 	render() {
 		return (
@@ -300,7 +297,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Sub Total</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+														<span className="orderInfoVal elip-text" title={(this.state.order?.total_price - this.state.order?.shipping_price)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{(this.state.order?.total_price - this.state.order?.shipping_price)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 													</div>
 												</div>
 												<div className="row">
@@ -308,7 +305,7 @@ export default class OrderDetails extends Component {
 														<span className="orderInfo">Shipping Charges</span>
 													</div>
 													<div className="col-1">
-														<span className="orderInfoVal elip-text" title="0.00">₹&nbsp;0.00</span>
+														<span className="orderInfoVal elip-text" title="0.00">₹ {this.state.order?.shipping_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
 													</div>
 												</div>
 												{/* <div className="col-11 textRight">

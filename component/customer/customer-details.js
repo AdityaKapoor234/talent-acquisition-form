@@ -9,6 +9,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { toast } from "react-toastify";
+import CustomerApi from "../../services/customer";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import Pagination from "@mui/material/Pagination";
+import Router from "next/router";
 
 export default class CustomerDetails extends Component {
   constructor(props) {
@@ -18,7 +26,14 @@ export default class CustomerDetails extends Component {
       tab: 1,
       customer: props?.customer,
       mode: props?.mode,
+      currentPage: 1,
+      currentPageAddress: 1,
+      id: props?.id,
       open: false,
+      address: [],
+      orders: [],
+      orderTotal: 1,
+      addressTotal: 1,
     };
   }
   handleClose = () => {
@@ -41,21 +56,97 @@ export default class CustomerDetails extends Component {
       this.props?.active(true);
     }
   };
+  onPageChange = (e, page) => {
+    this.setState({ currentPage: page });
+    this.getOrder(this.state.id, page);
+  };
+
+  onPageChangeAddress = (e, page) => {
+    this.setState({ currentPageAddress: page });
+    this.getAddress(this.state.id, page);
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
       prevState.customer !== nextProps.customer ||
-      prevState.mode !== nextProps.mode
+      prevState.mode !== nextProps.mode ||
+      prevState.id !== nextProps.id
     ) {
       return {
         customer: nextProps?.customer,
         mode: nextProps?.mode,
+        id: nextProps?.id,
         active: nextProps?.customer?.is_active
           ? nextProps?.customer?.is_active
           : false,
       };
     }
     return null;
+  }
+
+  convertDateStringToDate = (dateStr) => {
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    let date = new Date(dateStr);
+    let str =
+      date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+    return str;
+  };
+
+  getAddresses = (id, page) => {
+    CustomerApi.CustomerAddresses(id, page)
+      .then((response) => {
+        this.setState({ 
+          address: response?.data?.data?.list,
+          addressTotal: response?.data?.data?.pages,
+         });
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  getOrder = (id, page) => {
+    CustomerApi.CustomerOrder(id, page)
+      .then((response) => {
+        this.setState({
+          orders: response?.data?.data?.list,
+          orderTotal: response?.data?.data?.pages,
+        });
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  componentDidMount() {
+    this.getAddresses(this.state.id, 1);
+    this.getOrder(this.state.id, 1);
   }
 
   render() {
@@ -193,20 +284,80 @@ export default class CustomerDetails extends Component {
             )}
           </>
         )}
-        {this.state.tab === 2 && (
-          <div className="row mt-4">
-            {this.state.customer?.addressInfo?.map((p) => {
+        {this.state.tab === 2 && (<>
+          <div data-component="address-view">
+          <div className="row mt-4 sticky-scroll scroll">
+            {this.state.address?.length === 0 && (
+                  <div className="error-message">No Address Info</div>
+              )}
+            {this.state.address?.map((p) => {
               return (
-                <div className="col-3">
-                  <div className="complete-address">
-                    <div className="name">{p?.name}</div>
-                    <div className="address">{p?.address}</div>
-                    <div className="number">{p?.phone_number}</div>
+                <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+                <div className="edit-box">
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="complete-address">
+                        <div>
+                          <div
+                            className="name two-line-ellipsis mt-3"
+                            title={p?.recipient_name}
+                          >
+                            {p?.recipient_name}
+                          </div>
+                          <div
+                            className="address"
+                            title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
+                          >
+                            {p?.flat_no} {p?.locality}
+                            {p?.landmark !== "" ? ", " : " "}
+                            <div>
+                              {p?.landmark !== "" ? "Near " : ""}
+                              {p?.landmark !== "" ? p?.landmark : ""}
+                              {p?.landmark !== "" ? ", " : ""}
+                              {p?.city}{" "}
+                            </div>
+                            <div>
+                              {p?.state}
+                              {" - "}
+                              {p?.pin_code}
+                            </div>
+                          </div>
+                          <div className="number">
+                            {p?.recipient_phone_number}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </div>
                 </div>
               );
             })}
           </div>
+          </div>
+          {this.state.addressTotal > 1 && (
+              <div className="row">
+                <div className="col-md-12 justify-content-between d-flex position-relative">
+                  <div className="pagiantion-category">
+                    <div>
+                      <Pagination
+                        className="pagination pagi"
+                        page={this.state.currentPageAddress}
+                        count={this.state.addressTotal}
+                        onChange={this.onPageChangeAddress}
+                      />
+                    </div>
+                    <div
+                      className="position-absolute totalCount"
+                      style={{ right: 23, bottom: 5 }}
+                    >
+                      Total Addresses: {this.state.address?.length}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            </>
         )}
         {this.state.tab === 3 && (
           <>
@@ -217,49 +368,80 @@ export default class CustomerDetails extends Component {
                     <div className="col">Order#</div>
                     <div className="col text-center">Date</div>
                     <div className="col text-center">Status</div>
-                    <div className="col-3 text-center">Shipment Method</div>
+                    {/* <div className="col-3 text-center">Shipment Method</div> */}
                     <div className="col text-center">Total</div>
-                    <div className="col-1 text-center">Active</div>
+                    {/* <div className="col-1 text-center">Active</div> */}
                     <div className="col-1 text-end">View</div>
                   </div>
                 </div>
               </div>
-              <div className="scroll-table scroll">
-                <div className="error-message">No order Info</div>
-                {/* {order?.map((p) => {
+              <div className="sticky-scroll scroll">
+                {this.state.orders?.length === 0 && (
+                  <div className="error-message">No order Info</div>
+                )}
+                {this.state.orders?.map((p) => {
                   return (
                     <div className="row">
                       <div className="col-md-12">
                         <div className="tableCell">
-                          <div className="tableBody col">1011</div>
-                          <div className="col text-center">28/01/2022</div>
+                          <div className="tableBody col">{p?.order_number}</div>
+                          <div className="col text-center">
+                            {this.convertDateStringToDate(p?.created_at)}
+                          </div>
                           <div className="tableBody col justify-content-center">
-                            Shipped
+                            {p?.status}
                           </div>
-                          <div className="col-3 text-center">COD</div>
-                          <div className="col text-center">₹1000.00</div>
-                          <div className="col-1 text-center">
+                          {/* <div className="col-3 text-center">COD</div> */}
+                          <div className="col text-center">
+                            ₹{" "}
+                            {p?.total
+                              ?.toFixed(2)
+                              .toString()
+                              .replace(
+                                /\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
+                                ","
+                              )}
+                          </div>
+                          {/* <div className="col-1 text-center">
                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
-                          </div>
+                          </div> */}
                           <div className="col-1 text-end">
-                            <RemoveRedEyeIcon className="view-icon" />
+                            <RemoveRedEyeIcon
+                              className="view-icon"
+                              onClick={() => {
+                                Router.push(`/order/${p?.order_number}/view`);
+                              }}
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   );
-                })} */}
+                })}
               </div>
             </div>
-            {/* <div className="pagination">
-              <Pagination
-                count={10}
-                showFirstButton
-                showLastButton
-                size="small"
-                color="primary"
-              />
-            </div> */}
+            {this.state.orderTotal > 1 && (
+              <div className="row">
+                <div className="col-md-12 justify-content-between d-flex position-relative">
+                  <div className="pagiantion-category">
+                    <div>
+                      <Pagination
+                        className="pagination pagi"
+                        page={this.state.currentPage}
+                        count={this.state.orderTotal}
+                        onChange={this.onPageChange}
+                      />
+                    </div>
+                    <div
+                      className="position-absolute totalCount"
+                      style={{ right: 23, bottom: 5 }}
+                    >
+                      Total Orders: {this.state.orders?.length}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
         <Dialog

@@ -167,7 +167,7 @@ export default class OrderDetails extends Component {
 													<span className="orderInfo">Delivery Address</span>
 												</span>
 												<span className="orderLine2">
-													<span className="orderInfoVal2">
+													<span className="orderInfoVal">
 														{this.state.order?.shipping_address?.flat_no}&nbsp;
 														{this.state.order?.shipping_address?.locality}&nbsp;
 														{this.state.order?.shipping_address?.landmark}&nbsp;
@@ -393,7 +393,7 @@ export default class OrderDetails extends Component {
 													<span className="orderInfo">Delivery Address</span>
 												</span>
 												<span className="orderLine2">
-													<span className="orderInfoVal2">
+													<span className="orderInfoVal">
 														{this.state.order?.shipping_address?.flat_no}&nbsp;
 														{this.state.order?.shipping_address?.locality}&nbsp;
 														{this.state.order?.shipping_address?.landmark}&nbsp;

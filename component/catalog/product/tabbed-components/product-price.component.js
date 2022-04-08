@@ -145,6 +145,15 @@ export default class ProductPriceComponent extends Component {
     this.setState({ prices });
   };
 
+  remove(i){
+    let prices = this.state.prices;
+    prices.splice(0,1);
+    this.setState({
+        prices,
+        isunsaved: false,
+    })
+}
+
   componentDidMount() {
     this.getprice(this.state.id);
   }
@@ -168,6 +177,15 @@ export default class ProductPriceComponent extends Component {
             {this.state.prices.length === 0 && (
               <p className="mt-2">Add price but clicking on the button below</p>
             )}
+            {this.state.prices.length >0 && (
+            <div className="row mt-2">
+                  <div className="col-md-4">
+                    <label style={{color:'#012169'}}>Price</label>
+                  </div>
+                  <div className="col-md-4 ">
+                    <label style={{color:'#012169'}}>Special Price</label>
+                  </div>
+            </div>)}
             {this.state.prices.map((p, i) => {
               return (
                 <div key={i} className="row mt-2">
@@ -205,6 +223,10 @@ export default class ProductPriceComponent extends Component {
                       </small>
                     )}
                   </div>
+                  {p?.id === 0 &&
+                  <div className='col-md-2 d-grid'>
+                        <button className='btn btn-danger btn-sm' onClick={this.remove.bind(this,0)}>Remove</button>
+                    </div>}
                   <div className="col-md-4 mt-1">
                     {/*Added on: {p.created_at}*/}
                   </div>

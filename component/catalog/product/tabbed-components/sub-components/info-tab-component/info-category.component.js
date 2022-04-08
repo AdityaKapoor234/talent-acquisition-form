@@ -125,7 +125,6 @@ export default function InfoCategoryComponent(props) {
 
   return (
     <div>
-      {console.log("test88898",props?.details)}
       {category?.map((val) => {
         return (
           <div className="cat-check">

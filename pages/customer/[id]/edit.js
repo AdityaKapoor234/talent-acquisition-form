@@ -117,7 +117,7 @@ export default function CustomerEditDetails({id}) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <CustomerDetails customer={customer} mode={mode} active={activeHandle} />
+              <CustomerDetails customer={customer} id={id} mode={mode} active={activeHandle} />
             </div>
           </div>
         </DashboardLayoutComponent>

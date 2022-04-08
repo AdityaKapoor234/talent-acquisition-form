@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CUSTOMERLIST,GET_CUSTOMER} from "../utils/constant";
+import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -36,6 +36,28 @@ export class CustomerApi {
             }
         };
         return axios.post(`${GET_CUSTOMER}`.replace('{{id}}', id),data,httpOptions)
+    }
+
+    static CustomerOrder(id,page) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_CUSTOMER_ORDER}`.replace('{{id}}', id).replace('{{page}}', page),httpOptions)
+    }
+
+    static CustomerAddresses(id,page) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_CUSTOMER_ADDRESSES}`.replace('{{id}}', id).replace('{{page}}', page),httpOptions)
     }
 
 }

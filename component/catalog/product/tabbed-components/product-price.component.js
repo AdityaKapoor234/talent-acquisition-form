@@ -211,6 +211,7 @@ export default class ProductPriceComponent extends Component {
                 </div>
               );
             })}
+            {this.state.mode === "edit" &&
             <div className="mt-5">
               <button
                 className="btn btn-primary"
@@ -219,7 +220,7 @@ export default class ProductPriceComponent extends Component {
               >
                 Add New Price
               </button>
-            </div>
+            </div>}
           </div>
         </div>
       </div>

@@ -81,7 +81,7 @@ export default function CustomerViewDetails({id}) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <CustomerDetail customer={customer} mode={mode} />
+              <CustomerDetail customer={customer} id={id} mode={mode} />
             </div>
           </div>
         </DashboardLayoutComponent>

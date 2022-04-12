@@ -379,8 +379,8 @@ export default class AdminDetails extends Component {
                         <Typography style={{ color: "#7e8f99" }}>
                             Are you sure you want to{" "}
                             {this.state.active
-                                ? " deactivate this customer"
-                                : "activate this customer"}
+                                ? " deactivate this user"
+                                : "activate this user"}
                             ?
                         </Typography>
                     </DialogContent>

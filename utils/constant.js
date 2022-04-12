@@ -90,3 +90,10 @@ export const CREATE_PRODUCT = `http://65.1.17.188:5001/manage/product`;
 export const GET_PHOTO =`http://65.1.17.188:5001/manage/product/{{id}}/images`;
 export const GET_COUNTRY =`http://65.1.17.188:5001/manage/country`;
 export const GET_PRICE =`http://65.1.17.188:5001/manage/product/{{id}}/price`;
+
+
+//USERS
+export const ADMINLIST = `http://65.1.17.188:5000/admin/all?page={{page}}&q={{search}}`;
+export const GET_ADMIN_DETAILS = `http://65.1.17.188:5000/admin/{{id}}/view`;
+export const ADD_ADMIN = `http://65.1.17.188:5000/admin/create`;
+export const ADMIN_LIST_EDIT = `http://65.1.17.188:5000/admin/{{id}}/edit`;

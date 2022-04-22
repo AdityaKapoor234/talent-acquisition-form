@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 import CustomerApi from "../../services/customer";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -109,10 +110,10 @@ export default class CustomerDetails extends Component {
   getAddresses = (id, page) => {
     CustomerApi.CustomerAddresses(id, page)
       .then((response) => {
-        this.setState({ 
+        this.setState({
           address: response?.data?.data?.list,
           addressTotal: response?.data?.data?.pages,
-         });
+        });
       })
       .catch((error) => {
         toast.error(
@@ -184,6 +185,16 @@ export default class CustomerDetails extends Component {
                 }}
               >
                 order Info
+              </div>
+              <div
+                className={
+                  this.state.tab === 4 ? `sub-tab active-tab` : "sub-tab"
+                }
+                onClick={() => {
+                  this.setState({ tab: 4 });
+                }}
+              >
+                wishlist Info
               </div>
             </div>
           </div>
@@ -286,78 +297,78 @@ export default class CustomerDetails extends Component {
         )}
         {this.state.tab === 2 && (<>
           <div data-component="address-view">
-          <div className="row mt-4 sticky-scroll scroll">
-            {this.state.address?.length === 0 && (
-                  <div className="error-message">No Address Info</div>
+            <div className="row mt-4 sticky-scroll scroll">
+              {this.state.address?.length === 0 && (
+                <div className="error-message">No Address Info</div>
               )}
-            {this.state.address?.map((p) => {
-              return (
-                <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
-                <div className="edit-box">
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="complete-address">
-                        <div>
-                          <div
-                            className="name two-line-ellipsis mt-3"
-                            title={p?.recipient_name}
-                          >
-                            {p?.recipient_name}
-                          </div>
-                          <div
-                            className="address"
-                            title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
-                          >
-                            {p?.flat_no} {p?.locality}
-                            {p?.landmark !== "" ? ", " : " "}
+              {this.state.address?.map((p) => {
+                return (
+                  <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+                    <div className="edit-box">
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="complete-address">
                             <div>
-                              {p?.landmark !== "" ? "Near " : ""}
-                              {p?.landmark !== "" ? p?.landmark : ""}
-                              {p?.landmark !== "" ? ", " : ""}
-                              {p?.city}{" "}
+                              <div
+                                className="name two-line-ellipsis mt-3"
+                                title={p?.recipient_name}
+                              >
+                                {p?.recipient_name}
+                              </div>
+                              <div
+                                className="address"
+                                title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
+                              >
+                                {p?.flat_no} {p?.locality}
+                                {p?.landmark !== "" ? ", " : " "}
+                                <div>
+                                  {p?.landmark !== "" ? "Near " : ""}
+                                  {p?.landmark !== "" ? p?.landmark : ""}
+                                  {p?.landmark !== "" ? ", " : ""}
+                                  {p?.city}{" "}
+                                </div>
+                                <div>
+                                  {p?.state}
+                                  {" - "}
+                                  {p?.pin_code}
+                                </div>
+                              </div>
+                              <div className="number">
+                                {p?.recipient_phone_number}
+                              </div>
                             </div>
-                            <div>
-                              {p?.state}
-                              {" - "}
-                              {p?.pin_code}
-                            </div>
-                          </div>
-                          <div className="number">
-                            {p?.recipient_phone_number}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
           </div>
           {this.state.addressTotal > 1 && (
-              <div className="row">
-                <div className="col-md-12 justify-content-between d-flex position-relative">
-                  <div className="pagiantion-category">
-                    <div>
-                      <Pagination
-                        className="pagination pagi"
-                        page={this.state.currentPageAddress}
-                        count={this.state.addressTotal}
-                        onChange={this.onPageChangeAddress}
-                      />
-                    </div>
-                    <div
-                      className="position-absolute totalCount"
-                      style={{ right: 23, bottom: 5 }}
-                    >
-                      Total Addresses: {this.state.address?.length}
-                    </div>
+            <div className="row">
+              <div className="col-md-12 justify-content-between d-flex position-relative">
+                <div className="pagiantion-category">
+                  <div>
+                    <Pagination
+                      className="pagination pagi"
+                      page={this.state.currentPageAddress}
+                      count={this.state.addressTotal}
+                      onChange={this.onPageChangeAddress}
+                    />
+                  </div>
+                  <div
+                    className="position-absolute totalCount"
+                    style={{ right: 23, bottom: 5 }}
+                  >
+                    Total Addresses: {this.state.address?.length}
                   </div>
                 </div>
               </div>
-            )}
-            </>
+            </div>
+          )}
+        </>
         )}
         {this.state.tab === 3 && (
           <>
@@ -442,6 +453,52 @@ export default class CustomerDetails extends Component {
                 </div>
               </div>
             )}
+          </>
+        )}
+        {this.state.tab === 4 && (
+          <>
+            <div data-component="wishlist">
+              <div className='row'>
+                {/* {data?.map(val => {
+                  return ( */}
+                <div className='col-3'>
+                  <div className='padding'>
+                    <div className='box'>
+                      {/* <div className='close'>
+                            <span onClick={() => Close(val?.product_id, "remove")}><CloseRoundedIcon /></span>
+                          </div> */}
+                      <div
+                        className="bck-img mt-4"
+                        // onClick={() => { Router.push(`/product/${val?.product_id}`) }}
+                        style={{ backgroundImage: "url('/images/product5.png')", }}
+                        
+                      >
+                        {/* <img src="/images/product5.png" alt="" /> */}
+                      </div>
+                      <div className='name'>
+                        <h3
+                          className='text-center'
+                        // onClick={() => { Router.push(`/product/${val?.product_id}`) }}
+                        >
+                          Product Name
+                        </h3>
+                        <div className="product-qulaty-div mb-3">
+                          <span >Product Size</span>
+                          {/* {val?.size !== "" && val?.flavor !== "" ? "|" : ""} */}
+                          <span >Product Flavor</span>
+                        </div>
+                      </div>
+                      {/* <div className='button'>
+                        <div className='custom-btn' onClick={() => MoveToCart(val?.product_id)}>Move to Cart</div>
+                      </div> */}
+                    </div>
+                  </div>
+                </div>
+                {/* )
+                })} */}
+              </div>
+            </div>
+
           </>
         )}
         <Dialog

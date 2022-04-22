@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
 import ProductList from "../../component/catalog/product/product-list";
+import XLSX from "xlsx";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -71,6 +73,16 @@ export default function Product() {
 		productList(page, wordEntered)
 	};
 
+	const handleOnExport = () => {
+        var XLSX = require("xlsx");
+        var wb=XLSX.utils.book_new();
+        var ws=XLSX.utils.json_to_sheet(product);
+
+        XLSX.utils.book_append_sheet(wb,ws,"ProductList");
+
+        XLSX.writeFile(wb, "Product List.xlsx");
+    };
+
 	const productList = (page, search) => {
 		setIsLoader(true);
 		ProductApi.ProductList(page, search)
@@ -101,7 +113,7 @@ export default function Product() {
 	}, []);
 
 	return (
-		<div page-component="category-page">
+		<div page-component="product-page">
 			<Head>
 				<title>{APP_NAME} - Product</title>
 				<meta name="description" content="Trusted Brands. Better Health." />
@@ -111,7 +123,7 @@ export default function Product() {
 			<main>
 				<DashboardLayoutComponent>
 					<div className="row border-box">
-						<div className="col-md-6">
+						<div className="col-md-4">
 							<div className="hamburger">
 								<span>Catalog / </span>Product
 							</div>
@@ -140,6 +152,15 @@ export default function Product() {
 								<span>Add New </span>
 							</div>
 						</div>
+						<div className="col-md-2 btn-save">
+                                <div className="custom-btn ">
+                                    <span
+                                        onClick={handleOnExport}
+                                    >
+                                        Download File <FileDownloadIcon />
+                                    </span>
+                                </div>
+                            </div>
 					</div>
 					<div className="row sticky-scroll scroll">
 						<div className="col-md-12 ">

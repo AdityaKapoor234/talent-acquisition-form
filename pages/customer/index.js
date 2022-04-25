@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
 import CustomerList from "../../component/customer/customer-list";
+import XLSX from "xlsx";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -70,6 +72,17 @@ export default function Customer() {
 		customerList(page, wordEntered)
 	};
 
+	const handleOnExport = () => {
+        var XLSX = require("xlsx");
+        var wb=XLSX.utils.book_new();
+        var ws=XLSX.utils.json_to_sheet(customer);
+
+        XLSX.utils.book_append_sheet(wb,ws,"CustomerList");
+
+        XLSX.writeFile(wb, "Customer List.xlsx");
+    };
+
+
 	const customerList = (page, search) => {
 		setIsLoader(true);
 		CustomerApi.CustomerList(page, search)
@@ -99,57 +112,67 @@ export default function Customer() {
 	}, []);
 	return (
 		<div>
-			<Head>
-				<title>{APP_NAME} - Customer</title>
-				<meta name="description" content="Trusted Brands. Better Health." />
-				<link rel="icon" href="/fitcart.ico" />
-			</Head>
+			<div page-component="category-page">
+				<Head>
+					<title>{APP_NAME} - Customer</title>
+					<meta name="description" content="Trusted Brands. Better Health." />
+					<link rel="icon" href="/fitcart.ico" />
+				</Head>
 
-			<main>
-				<DashboardLayoutComponent>
-					<div className="row border-box">
-						<div className="col-md-8">
-							<div className="hamburger">
-								<span>customer / </span>customer
+				<main>
+					<DashboardLayoutComponent>
+						<div className="row border-box">
+							<div className="col-md-6">
+								<div className="hamburger">
+									<span>customer / </span>customer
+								</div>
+								<div className="page-name">Customer</div>
 							</div>
-							<div className="page-name">Customer</div>
-						</div>
-						<div className="col-md-4">
-							<div className="login-form ">
-								<input
-									type="text"
-									placeholder="Search..."
-									className="search-box"
-									value={wordEntered}
-									onChange={handleFilter}
-									onKeyPress={handleKeyPress}
-								/>
-								<SearchIcon className="search-icon point-but" onClick={handleClickPress} />
+							<div className="col-md-4">
+								<div className="login-form ">
+									<input
+										type="text"
+										placeholder="Search..."
+										className="search-box"
+										value={wordEntered}
+										onChange={handleFilter}
+										onKeyPress={handleKeyPress}
+									/>
+									<SearchIcon className="search-icon point-but" onClick={handleClickPress} />
+								</div>
+							</div>
+							<div className="col-md-2 btn-save">
+								<div className="custom-btn ">
+									<span
+										onClick={handleOnExport}
+									>
+										Download File <FileDownloadIcon />
+									</span>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="row sticky-scroll scroll">
-						<div className="col-md-12 ">
-							{
-								isLoader ? (
-									<div className="row justify-content-center">
-										<div className="col-md-12 loader-cart">
-											<Box sx={{ display: "flex" }}>
-												<CircularProgress
-													style={{ color: "#F54A00" }}
-												/>
-											</Box>
+						<div className="row sticky-scroll scroll">
+							<div className="col-md-12 ">
+								{
+									isLoader ? (
+										<div className="row justify-content-center">
+											<div className="col-md-12 loader-cart">
+												<Box sx={{ display: "flex" }}>
+													<CircularProgress
+														style={{ color: "#F54A00" }}
+													/>
+												</Box>
+											</div>
 										</div>
-									</div>
-								) : (
-									customer && customer.length === 0 ? <div className="not-found">No Data Found</div> :
-										<CustomerList customer={customer} />
-								)
-							}
+									) : (
+										customer && customer.length === 0 ? <div className="not-found">No Data Found</div> :
+											<CustomerList customer={customer} />
+									)
+								}
 
+							</div>
 						</div>
-					</div>
-					{/* <div className="row">
+						{/* <div className="row">
             <div className="col-md-12">
               <div className="pagiantion-category">
                 <Pagination
@@ -161,26 +184,27 @@ export default function Customer() {
               </div>
             </div>
           </div> */}
-					<div className="row">
-						<div className="col-md-12 justify-content-between d-flex position-relative">
-							<div className="pagiantion-category">
-								<div>
-									<Pagination
-										className="pagination pagi"
-										page={currentPage}
-										count={totalPage}
-										onChange={onPageChange}
-									/>
-								</div>
-								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-									Total Customers: {totalCustomer.total}
+						<div className="row">
+							<div className="col-md-12 justify-content-between d-flex position-relative">
+								<div className="pagiantion-category">
+									<div>
+										<Pagination
+											className="pagination pagi"
+											page={currentPage}
+											count={totalPage}
+											onChange={onPageChange}
+										/>
+									</div>
+									<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+										Total Customers: {totalCustomer.total}
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-				</DashboardLayoutComponent>
-			</main>
+					</DashboardLayoutComponent>
+				</main>
+			</div>
 		</div>
 	);
 }

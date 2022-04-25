@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
 import OrderList from "../../component/order/order-list";
+import XLSX from "xlsx";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -57,13 +59,23 @@ export default function Order() {
     const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
-		if (event.target.value === "") {
-			Router.push({
-				pathname: "/order",
-				query: "",
-			});
-			orderList(1, "", "latest");
-		}
+        if (event.target.value === "") {
+            Router.push({
+                pathname: "/order",
+                query: "",
+            });
+            orderList(1, "", "latest");
+        }
+    };
+
+    const handleOnExport = () => {
+        var XLSX = require("xlsx");
+        var wb=XLSX.utils.book_new();
+        var ws=XLSX.utils.json_to_sheet(order);
+
+        XLSX.utils.book_append_sheet(wb,ws,"OrderList");
+
+        XLSX.writeFile(wb, "Order List.xlsx");
     };
 
     let onPageChange = function (e, page) {
@@ -103,58 +115,68 @@ export default function Order() {
     }, []);
     return (
         <div>
-            <Head>
-                <title>{APP_NAME} - Order</title>
-                <meta name="description" content="Trusted Brands. Better Health." />
-                <link rel="icon" href="/fitcart.ico" />
-            </Head>
+            <div page-component="category-page">
+                <Head>
+                    <title>{APP_NAME} - Order</title>
+                    <meta name="description" content="Trusted Brands. Better Health." />
+                    <link rel="icon" href="/fitcart.ico" />
+                </Head>
 
-            <main>
-                <DashboardLayoutComponent>
-                    <div className="row border-box">
-                        <div className="col-md-8">
-                            <div className="hamburger">
-                                <span>order / </span>order
+                <main>
+                    <DashboardLayoutComponent>
+                        <div className="row border-box">
+                            <div className="col-md-6">
+                                <div className="hamburger">
+                                    <span>order / </span>order
+                                </div>
+                                <div className="page-name">Order</div>
                             </div>
-                            <div className="page-name">Order</div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="login-form ">
-                                <input
-                                    type="text"
-                                    placeholder="Search Order No..."
-                                    className="search-box"
-                                    value={wordEntered}
-                                    onChange={handleFilter}
-                                    onKeyPress={handleKeyPress}
-                                />
-                                <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
+                            <div className="col-md-4">
+                                <div className="login-form ">
+                                    <input
+                                        type="text"
+                                        placeholder="Search Order No..."
+                                        className="search-box"
+                                        value={wordEntered}
+                                        onChange={handleFilter}
+                                        onKeyPress={handleKeyPress}
+                                    />
+                                    <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
+                                </div>
+                            </div>
+                            <div className="col-md-2 btn-save">
+                                <div className="custom-btn ">
+                                    <span
+                                        onClick={handleOnExport}
+                                    >
+                                        Download File <FileDownloadIcon />
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row sticky-scroll scroll">
-                        <div className="col-md-12 ">
-                        {
-                                isLoader ? (
-                                    <div className="row justify-content-center">
-                                        <div className="col-md-12 loader-cart">
-                                            <Box sx={{ display: "flex" }}>
-                                                <CircularProgress
-                                                    style={{ color: "#F54A00" }}
-                                                />
-                                            </Box>
+                        <div className="row sticky-scroll scroll">
+                            <div className="col-md-12 ">
+                                {
+                                    isLoader ? (
+                                        <div className="row justify-content-center">
+                                            <div className="col-md-12 loader-cart">
+                                                <Box sx={{ display: "flex" }}>
+                                                    <CircularProgress
+                                                        style={{ color: "#F54A00" }}
+                                                    />
+                                                </Box>
+                                            </div>
                                         </div>
-                                    </div>
-                                ) : (
-                                    order === undefined ? <div className="not-found">No Data Found</div> :
-                                        <OrderList order={order} />
-                                )
-                            }
+                                    ) : (
+                                        order === undefined ? <div className="not-found">No Data Found</div> :
+                                            <OrderList order={order} />
+                                    )
+                                }
 
-                            
+
+                            </div>
                         </div>
-                    </div>
-                    {/* <div className="row">
+                        {/* <div className="row">
                         <div className="col-md-12">
                             <div className="pagiantion-category">
                                 <Pagination
@@ -166,26 +188,27 @@ export default function Order() {
                             </div>
                         </div>
                     </div> */}
-                    <div className="row">
-						<div className="col-md-12 justify-content-between d-flex position-relative">
-							<div className="pagiantion-category">
-								<div>
-									<Pagination
-										className="pagination pagi"
-										page={currentPage}
-										count={totalPage}
-										onChange={onPageChange}
-									/>
-								</div>
-								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-									Total Orders: {totalOrders.total}
-								</div>
-							</div>
-						</div>
-					</div>
+                        <div className="row">
+                            <div className="col-md-12 justify-content-between d-flex position-relative">
+                                <div className="pagiantion-category">
+                                    <div>
+                                        <Pagination
+                                            className="pagination pagi"
+                                            page={currentPage}
+                                            count={totalPage}
+                                            onChange={onPageChange}
+                                        />
+                                    </div>
+                                    <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                                        Total Orders: {totalOrders.total}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                </DashboardLayoutComponent>
-            </main>
+                    </DashboardLayoutComponent>
+                </main>
+            </div>
         </div>
     );
 }

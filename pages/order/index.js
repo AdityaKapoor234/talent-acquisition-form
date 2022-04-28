@@ -14,11 +14,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import OrderApi from "../../services/orders";
+import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
 
 export default function Order() {
     const pathArr = useRouter();
     const [order, setOrder] = useState([]);
+    const [orderExcel, setOrderExcel] = useState([]);
     const [totalOrders, setTotalOrder] = useState([]);
     const [orderPage, setOrderPage] = useState([]);
     const [wordEntered, setWordEntered] = useState(
@@ -71,7 +73,7 @@ export default function Order() {
     const handleOnExport = () => {
         var XLSX = require("xlsx");
         var wb=XLSX.utils.book_new();
-        var ws=XLSX.utils.json_to_sheet(order);
+        var ws=XLSX.utils.json_to_sheet(orderExcel);
 
         XLSX.utils.book_append_sheet(wb,ws,"OrderList");
 
@@ -106,12 +108,35 @@ export default function Order() {
             });
     };
 
+
+    function orderExcelList() {
+        setIsLoader(true);
+        ExcelApi.OrderExcelList()
+            .then((response) => {
+                setOrderExcel(response.data.data.list);
+                setIsLoader(false);
+            })
+            .catch((error) => {
+                setIsLoader(false);
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+
+            });
+    };
+
+
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
         orderList(currentPage, "", "latest");
+        orderExcelList();
     }, []);
     return (
         <div>

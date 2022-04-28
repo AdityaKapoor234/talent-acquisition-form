@@ -14,11 +14,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import CustomerApi from "../../services/customer";
+import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
 
 export default function Customer() {
 	const pathArr = useRouter();
 	const [customer, setCustomer] = useState([]);
+	const [customerExcel, setCustomerExcelList] = useState([]);
 	const [totalCustomer, setTotalCustomer] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
@@ -75,7 +77,7 @@ export default function Customer() {
 	const handleOnExport = () => {
         var XLSX = require("xlsx");
         var wb=XLSX.utils.book_new();
-        var ws=XLSX.utils.json_to_sheet(customer);
+        var ws=XLSX.utils.json_to_sheet(customerExcel);
 
         XLSX.utils.book_append_sheet(wb,ws,"CustomerList");
 
@@ -103,12 +105,33 @@ export default function Customer() {
 				);
 			});
 	};
+
+
+	const customerExcelList = () => {
+		setIsLoader(true);
+		ExcelApi.CustomerExcelList()
+			.then((response) => {
+				setCustomerExcelList(response.data.data.list);
+				setIsLoader(false);
+			})
+			.catch((error) => {
+				setIsLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+			});
+	};
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
 			Router.push("/");
 		}
 		customerList(currentPage, "");
+		customerExcelList();
 	}, []);
 	return (
 		<div>

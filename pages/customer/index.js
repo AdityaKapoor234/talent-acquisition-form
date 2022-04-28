@@ -188,7 +188,7 @@ export default function Customer() {
 											</div>
 										</div>
 									) : (
-										customer && customer.length === 0 ? <div className="not-found">No Data Found</div> :
+										// customer && customer.length === 0 ? <div className="not-found">No Data Found</div> :
 											<CustomerList customer={customer} />
 									)
 								}

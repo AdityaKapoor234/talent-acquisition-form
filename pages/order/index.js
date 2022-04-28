@@ -193,7 +193,7 @@ export default function Order() {
                                             </div>
                                         </div>
                                     ) : (
-                                        order === undefined ? <div className="not-found">No Data Found</div> :
+                                        // order === undefined ? <div className="not-found">No Data Found</div> :
                                             <OrderList order={order} />
                                     )
                                 }

@@ -38,7 +38,7 @@ export default class AsktheprosList extends Component {
           </div>
         </div>
         {
-        // this.state.askThePros && this.state.askThePros.length === 0 ? <div className="not-found">No Data Found</div> :
+        this.state.askThePros && this.state.askThePros.length === 0 ? <div className="not-found">No Data Found</div> :
           this.state.askThePros?.map((p, index) => {
             return (
               <div className="row" key={index}>

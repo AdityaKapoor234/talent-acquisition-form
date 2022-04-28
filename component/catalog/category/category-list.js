@@ -41,7 +41,7 @@ export default class CategoryList extends Component {
                     </div>
                 </div>
                 {
-                // this.state.category && this.state.category.length === 0 ? <div className="not-found">No Data Found</div> :
+                this.state.category && this.state.category.length === 0 ? <div className="not-found">No Data Found</div> :
                     this.state.category?.map((p, index) => {
                         return (
                             <div className="row" key={index}>

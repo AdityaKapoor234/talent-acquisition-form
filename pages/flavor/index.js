@@ -153,7 +153,7 @@ export default function Flavor() {
                                         </div>
                                     </div>
                                 ) : (
-                                    flavors && flavors.length === 0 ? <div className="not-found">No Data Found</div> :
+                                    // flavors && flavors.length === 0 ? <div className="not-found">No Data Found</div> :
                                         <FlavorList flavors={flavors} />
                                 )
                             }

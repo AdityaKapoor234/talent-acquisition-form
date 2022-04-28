@@ -156,7 +156,7 @@ export default function AskThePros() {
                     </div>
                   </div>
                 ) : (
-                  askThePros && askThePros.length === 0 ? <div className="not-found">No Data Found</div> :
+                  // askThePros && askThePros.length === 0 ? <div className="not-found">No Data Found</div> :
                     <AsktheprosList askThePros={askThePros} />
                 )
               }

@@ -200,7 +200,7 @@ export default function Product() {
                                         </div>
                                     </div>
                                 ) : (
-                                    product && product.length === 0 ? <div className="not-found">No Data Found</div> :
+                                    // product && product.length === 0 ? <div className="not-found">No Data Found</div> :
 										<ProductList product={product} />
                                 )
                             }

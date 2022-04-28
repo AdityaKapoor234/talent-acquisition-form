@@ -161,7 +161,7 @@ export default function Ingredient() {
 										</div>
 									</div>
 								) : (
-									ingredient && ingredient.length === 0 ? <div className="not-found">No Data Found</div> :
+									// ingredient && ingredient.length === 0 ? <div className="not-found">No Data Found</div> :
 										<IngredientList ingredient={ingredient} />
 								)
 							}

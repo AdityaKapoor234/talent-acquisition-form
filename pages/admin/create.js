@@ -26,6 +26,7 @@ export default class AdminCreate extends Component {
             mode: "create",
             admin: {},
             expertise: [],
+            pass2: "",
             open: false,
             adminDetails: {
                 name: "",
@@ -47,14 +48,14 @@ export default class AdminCreate extends Component {
         if (
             this.state.adminDetails?.name === "" ||
             this.state.adminDetails?.name === null ||
-            this.state.adminDetails?.name.replace(/\s/g, "").length <=0
+            this.state.adminDetails?.name.replace(/\s/g, "").length <= 0
         ) {
             toast.error("Please enter the name");
             return false;
         }
         if (this.state.adminDetails?.email === "" ||
             this.state.adminDetails?.email === null ||
-            this.state.adminDetails?.email.replace(/\s/g, "").length <=0
+            this.state.adminDetails?.email.replace(/\s/g, "").length <= 0
         ) {
             toast.error("Please enter email address");
             return false;
@@ -65,11 +66,25 @@ export default class AdminCreate extends Component {
         }
         if (this.state.adminDetails?.password === "" ||
             this.state.adminDetails?.password === null ||
-            this.state.adminDetails?.password.replace(/\s/g, "").length <=0
+            this.state.adminDetails?.password === undefined ||
+            this.state.adminDetails?.password.replace(/\s/g, "").length <= 0
         ) {
             toast.error("Please enter password");
             return false;
         }
+        if (this.state.pass2 === "" ||
+            this.state.pass2 === null ||
+            this.state.pass2 === undefined ||
+            this.state.pass2.replace(/\s/g, "").length <= 0
+        ) {
+            toast.error("Please enter the password again");
+            return false;
+        }
+        if (this.state.adminDetails?.password !== this.state.pass2) {
+            toast.error("Your password doesn't match");
+            return false;
+        }
+
         if (this.state.adminDetails?.phone_number === "") {
             toast.error("Please enter phone number");
             return false;
@@ -84,7 +99,7 @@ export default class AdminCreate extends Component {
                 return false;
             }
         }
-        
+
         return true;
     };
     OnSave = () => {
@@ -134,6 +149,9 @@ export default class AdminCreate extends Component {
     passHandle = (value) => {
         // this.setState({ adminDetails: value });
         this.state.adminDetails.password = value;
+    };
+    passHandle2 = (value) => {
+        this.state.pass2 = value;
     };
     activeHandle = (value) => {
         // this.setState({ adminDetails: value });
@@ -193,6 +211,7 @@ export default class AdminCreate extends Component {
                                     name={this.nameHandle.bind(this)}
                                     phone={this.phoneHandle.bind(this)}
                                     pass={this.passHandle.bind(this)}
+                                    pass2={this.passHandle2.bind(this)}
                                     mail={this.mailHandle.bind(this)}
                                     active={this.activeHandle.bind(this)}
                                 />

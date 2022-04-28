@@ -256,6 +256,14 @@ export default class AdminDetails extends Component {
                                             onChange={this.handleChange.bind(this)}
                                         />
                                     </div>
+                                    <div className="login-form ">
+                                        <label>Confirm Password<span className="mandatory-star">*</span></label>
+                                        <input
+                                            type="password"
+                                            value={this.state?.password2}
+                                            onChange={this.handleChange2.bind(this)}
+                                        />
+                                    </div>
                                     <div className="signup-check">
                                         <Checkbox
                                             size="small"
@@ -297,7 +305,6 @@ export default class AdminDetails extends Component {
                                             readOnly={true}
                                         />
                                     </div>
-
 
 
                                     <div className="login-form ">
@@ -495,3 +502,4 @@ export default class AdminDetails extends Component {
         );
     }
 }
+

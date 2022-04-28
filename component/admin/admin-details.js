@@ -3,6 +3,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -31,8 +32,8 @@ export default class AdminDetails extends Component {
             tab: 1,
             admin: props?.admin,
             mode: props?.mode,
-            password: props?.admin?.password ? props?.admin?.password : "",
-            password2: props?.admin?.password ? props?.admin?.password : "",
+            password: "",
+            password2: "",
             id: props?.id,
             currentPage: 1,
             currentPageAddress: 1,
@@ -41,8 +42,9 @@ export default class AdminDetails extends Component {
             orders: [],
             orderTotal: 1,
             addressTotal: 1,
+            dialog: false,
             input: {
-                password: props?.admin?.password ? props?.admin?.password : "",
+                password: "",
                 is_active: props?.admin?.is_active ? props?.admin?.is_active : false,
             },
         };
@@ -58,8 +60,6 @@ export default class AdminDetails extends Component {
                 admin: nextProps?.admin,
                 mode: nextProps?.mode,
                 id: nextProps?.id,
-                password: nextProps?.admin?.password,
-                password2: nextProps?.admin?.password,
                 active: nextProps?.admin?.is_active
                     ? nextProps?.admin?.is_active
                     : false,
@@ -67,7 +67,6 @@ export default class AdminDetails extends Component {
                     is_active: nextProps?.admin?.is_active
                         ? nextProps?.admin?.is_active
                         : false,
-                    password: nextProps?.admin?.password ? nextProps.admin?.password : "",
                 },
             };
         }
@@ -84,18 +83,31 @@ export default class AdminDetails extends Component {
         this.props?.mail(event.target.value);
     };
     handleChange = (event) => {
-        this.setState({password: event.target.value}) ;
+        this.setState({ password: event.target.value });
         this.props?.pass(event.target.value);
+        if (this.state.mode === "edit"){
+            this.props?.passCheck();
+        }
     };
     handleChange2 = (event) => {
-        this.setState({password2: event.target.value}) ;
+        this.setState({ password2: event.target.value });
         this.props?.pass2(event.target.value);
+        if (this.state.mode === "edit"){
+            this.props?.passCheck();
+        }
     };
     handleClose = () => {
         this.setState({
             open: false,
         });
     };
+    handleClickOpen = () => {
+        this.setState({ dialog: true });
+    };
+    handleClickClose = () => {
+        this.setState({ dialog: false });
+    };
+
     handleCheckbox = () => {
         if (this.state.active) {
             this.setState({
@@ -120,7 +132,6 @@ export default class AdminDetails extends Component {
         this.setState({ currentPageAddress: page });
         this.getAddress(this.state.id, page);
     };
-
 
     convertDateStringToDate = (dateStr) => {
         let months = [
@@ -280,7 +291,74 @@ export default class AdminDetails extends Component {
                                             readOnly={true}
                                         />
                                     </div>
+
+
+
                                     <div className="login-form ">
+                                        <button
+                                            type="button"
+                                            onClick={this.handleClickOpen}
+                                        >
+                                            Change Password
+                                        </button>
+                                        <Dialog
+                                            open={this.state.dialog}
+                                            onClose={this.handleClickClose}
+                                            aria-labelledby="alert-dialog-title"
+                                            aria-describedby="alert-dialog-description"
+                                        >
+                                            <DialogTitle id="alert-dialog-title">
+                                                <div className="d-flex justify-content-between">
+                                                    <span style={{ color: "#012169" }}>
+                                                        {"Change Password"}
+                                                    </span>
+                                                    <Box position="absolute" right={0}>
+                                                        <Button style={{ cursor: "pointer", color: "#012169" }} onClick={this.handleClickClose}>
+                                                            {<CloseIcon />}
+                                                        </Button>
+                                                    </Box></div>
+                                            </DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText
+                                                    id="alert-dialog-description"
+                                                    sx={{ color: "#012169" }} >
+                                                    <div className="login-form ">
+                                                        <label>Password<span className="mandatory-star">*</span></label>
+                                                        <input
+                                                            type="password"
+                                                            value={this.state?.password}
+                                                            onChange={this.handleChange.bind(this)}
+                                                        />
+                                                    </div>
+                                                    <div className="login-form ">
+                                                        <label>Confirm Password<span className="mandatory-star">*</span></label>
+                                                        <input
+                                                            type="password"
+                                                            value={this.state?.password2}
+                                                            onChange={this.handleChange2.bind(this)}
+                                                        />
+                                                    </div>
+
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <div className="login-form ">
+                                                    <Button
+                                                        style={{ background: "#f54a00", borderRadius: "0px", color: "#ffffff", border: "1.5px solid #f54a00" }}
+                                                        color="secondary"
+                                                        variant="contained"
+
+                                                        onClick={this.handleClickClose}
+                                                        autoFocus
+                                                    >
+                                                        Submit
+                                                    </Button>
+                                                </div>
+                                            </DialogActions>
+                                        </Dialog>
+                                    </div>
+
+                                    {/* <div className="login-form ">
                                         <label>Password<span className="mandatory-star">*</span></label>
                                         <input
                                             type="password"
@@ -295,7 +373,7 @@ export default class AdminDetails extends Component {
                                             value={this.state?.password2}
                                             onChange={this.handleChange2.bind(this)}
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="signup-check">
                                         <Checkbox
                                             size="small"
@@ -411,5 +489,3 @@ export default class AdminDetails extends Component {
         );
     }
 }
-
-

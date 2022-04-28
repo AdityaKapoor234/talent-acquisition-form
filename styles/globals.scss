@@ -163,6 +163,17 @@ a {
     margin: 0;
   }
 
+  button {
+    background-color: #ffffff;
+    border: 1.5px solid $clr-dark-blue;
+    color: $clr-dark-blue;
+    font-weight: 600 !important;
+    padding: 0.2rem 1.2rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0.4rem;
+
+  }
+
   input {
     border: 1.5px solid $clr-gray200;
     width: 100%;

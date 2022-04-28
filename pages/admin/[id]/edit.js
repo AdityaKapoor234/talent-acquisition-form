@@ -12,155 +12,190 @@ import Cookie from "js-cookie";
 import AdminApi from "../../../services/admin";
 
 export async function getServerSideProps(context) {
-	const { id } = context.query;
-	return {
-		props: {
-			id: id || null,
-		},
-	};
+    const { id } = context.query;
+    return {
+        props: {
+            id: id || null,
+        },
+    };
 }
 
 export default function AdminEditDetails({ id }) {
 
-	const mode = "edit";
+    const mode = "edit";
 
-	const [admin, setAdmin] = useState([]);
-	const [active, setActive] = useState(false);
-	const [pass, setPass] = useState("");
-	const [pass2, setPass2] = useState("");
+    const [admin, setAdmin] = useState([]);
+    const [active, setActive] = useState(false);
+    const [pass, setPass] = useState("");
+    const [pass2, setPass2] = useState("");
+    const [passCheck, setPassCheck] = useState(false);
 
-	const activeHandle = (value) => {
-		setActive(value)
-	}
+    const activeHandle = (value) => {
+        setActive(value)
+    }
 
-	const passHandle = (value) => {
-		setPass(value)
-	}
+    const passHandle = (value) => {
+        setPass(value)
+    }
 
-	const passHandle2 = (value) => {
-		setPass2(value)
-	}
+    const passHandle2 = (value) => {
+        setPass2(value)
+    }
 
-	function validateData() {
-		if (
-			pass === "" ||
-			pass === null ||
-			pass.replace(/\s/g, "").length <= 0
-		) {
-			toast.error("Please enter the password");
-			return false;
-		}
-		if (pass2 === "" ||
-			pass2 === null ||
-			pass2.replace(/\s/g, "").length <= 0
-		) {
-			toast.error("Please enter the password again");
-			return false;
-		}
-		if (pass !== pass2) {
-			toast.error("Your password does't match");
-			return false;
-		}
+    const passCheckHandle = () => {
+        setPassCheck(true)
+    }
 
-		return true;
-	};
+    function validateData() {
+        if (passCheck === true) {
+            if (
+                pass === "" ||
+                pass === null ||
+                pass === undefined ||
+                pass.replace(/\s/g, "").length <= 0
+            ) {
+                toast.error("Please enter the password");
+                return false;
+            }
+            if (pass2 === "" ||
+                pass2 === null ||
+                pass2 === undefined ||
+                pass2.replace(/\s/g, "").length <= 0
+            ) {
+                toast.error("Please enter the password again");
+                return false;
+            }
+            if (pass !== pass2) {
+                toast.error("Your password doesn't match");
+                return false;
+            }
+        }
+        return true;
+    };
 
-	const saveDetails = (id) => {
-		if (validateData()) {
-			let data = {
-				"is_active": active,	
-				"password": pass,
-			}
-			AdminApi
-				.AdminDetails(id, data)
-				.then((response) => {
-					if (response.data.httpStatusCode === 200) {
-						toast.success(response.data.message)
-						Router.push(`/admin`);
-					}
-				})
-				.catch((error) => {
-					toast.error(
-						error?.response &&
-							error?.response?.data &&
-							error?.response?.data?.message
-							? error.response.data.message
-							: "Unable to process your request, please try after sometime"
-					);
-				});
+    const saveDetails = (id) => {
+        if (validateData()) {
+            if (passCheck === true) {
+                let data = {
+                    "is_active": active,
+                    "password": pass,
+                }   
+                AdminApi
+                .AdminDetails(id, data)
+                .then((response) => {
+                    if (response.data.httpStatusCode === 200) {
+                        toast.success(response.data.message)
+                        Router.push(`/admin`);
+                    }
+                })
+                .catch((error) => {
+                    toast.error(
+                        error?.response &&
+                            error?.response?.data &&
+                            error?.response?.data?.message
+                            ? error.response.data.message
+                            : "Unable to process your request, please try after sometime"
+                    );
+                });
 
-		}
-	}
+            }
+            else {
+                let data = {
+                    "is_active": active,
+                    "password": "0",
+                }   
+                AdminApi
+                .AdminDetails(id, data)
+                .then((response) => {
+                    if (response.data.httpStatusCode === 200) {
+                        toast.success(response.data.message)
+                        Router.push(`/admin`);
+                    }
+                })
+                .catch((error) => {
+                    toast.error(
+                        error?.response &&
+                            error?.response?.data &&
+                            error?.response?.data?.message
+                            ? error.response.data.message
+                            : "Unable to process your request, please try after sometime"
+                    );
+                });
+            }
+        }
+    }
 
-	const adminDetail = (id) => {
-		AdminApi
-			.getAdminDetails(id)
-			.then((response) => {
-				setAdmin(response.data.data)
-				setPass(response.data.data.password)
-				setPass2(response.data.data.password)
-			})
-			.catch((error) => {
-				toast.error(
-					error?.response &&
-						error?.response?.data &&
-						error?.response?.data?.message
-						? error.response.data.message
-						: "Unable to process your request, please try after sometime"
-				);
-			});
-	}
+    const adminDetail = (id) => {
+        AdminApi
+            .getAdminDetails(id)
+            .then((response) => {
+                setAdmin(response.data.data)
+                setPass(response.data.data.password)
+                setPass2(response.data.data.password)
+                setActive(response.data.data.is_active)
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
 
-	useEffect(() => {
-		const token = Cookie.get("access_token_admin");
-		if (token === undefined) {
-			Router.push("/");
-		}
-		adminDetail(id)
-	}, [id]);
-	return (
-		<div>
-			<Head>
-				<title>{APP_NAME} - User</title>
-				<meta name="description" content="Trusted Brands. Better Health." />
-				<link rel="icon" href="/fitcart.ico" />
-			</Head>
+    useEffect(() => {
+        const token = Cookie.get("access_token_admin");
+        if (token === undefined) {
+            Router.push("/");
+        }
+        adminDetail(id)
+        setPassCheck(false)
+    }, [id]);
+    return (
+        <div>
+            <Head>
+                <title>{APP_NAME} - User</title>
+                <meta name="description" content="Trusted Brands. Better Health." />
+                <link rel="icon" href="/fitcart.ico" />
+            </Head>
 
-			<main>
-				<DashboardLayoutComponent>
-					<div className="row border-box">
-						<div className="col-md-5">
-							<div className="hamburger">
-								<span>user / user / </span>Edit user{" "}
-							</div>
-							<div className="page-name">User - {admin?.name}</div>
-						</div>
-						<div className="col-md-7 btn-save">
-							<div
-								className="custom-btn "
-								onClick={() => {
-									saveDetails(id)
-								}}
-							>
-								<span>Save </span>
-							</div>
-							<div
-								className="Cancel-btn custom-btn"
-								onClick={() => {
-									Router.push(`/admin`);
-								}}
-							>
-								<span>Cancel </span>
-							</div>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-m-12">
-							<AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} pass={passHandle} pass2={passHandle2} />
-						</div>
-					</div>
-				</DashboardLayoutComponent>
-			</main>
-		</div>
-	);
+            <main>
+                <DashboardLayoutComponent>
+                    <div className="row border-box">
+                        <div className="col-md-5">
+                            <div className="hamburger">
+                                <span>user / user / </span>Edit user{" "}
+                            </div>
+                            <div className="page-name">User - {admin?.name}</div>
+                        </div>
+                        <div className="col-md-7 btn-save">
+                            <div
+                                className="custom-btn "
+                                onClick={() => {
+                                    saveDetails(id)
+                                }}
+                            >
+                                <span>Save </span>
+                            </div>
+                            <div
+                                className="Cancel-btn custom-btn"
+                                onClick={() => {
+                                    Router.push(`/admin`);
+                                }}
+                            >
+                                <span>Cancel </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-m-12">
+                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} />
+                        </div>
+                    </div>
+                </DashboardLayoutComponent>
+            </main>
+        </div>
+    );
 }

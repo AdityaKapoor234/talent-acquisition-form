@@ -149,7 +149,7 @@ export default function Order() {
                                     <span
                                         onClick={handleOnExport}
                                     >
-                                        Download File <FileDownloadIcon />
+                                        Download&nbsp;<FileDownloadIcon />
                                     </span>
                                 </div>
                             </div>

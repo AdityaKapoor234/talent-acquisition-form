@@ -103,3 +103,6 @@ export const ADMIN_LIST_EDIT = `http://65.1.17.188:5000/admin/{{id}}/edit`;
 export const CUSTOMER_EXCEL_LIST = `http://65.1.17.188:5000/customer/all`;
 export const ORDER_EXCEL_LIST = `http://65.1.17.188:5002/manage/order/all`;
 export const PRODUCT_EXCEL_LIST = `http://65.1.17.188:5001/manage/product/all`;
+
+//WISHLIST
+export const WISH_LIST = `http://65.1.17.188:5001/manage/wishlist/{{id}}?page={{page}}`;

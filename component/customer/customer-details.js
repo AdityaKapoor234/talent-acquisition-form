@@ -26,6 +26,7 @@ export default class CustomerDetails extends Component {
       active: props?.customer?.is_active ? props?.customer?.is_active : false,
       tab: 1,
       customer: props?.customer,
+      wishList: props?.wishList,
       mode: props?.mode,
       currentPage: 1,
       currentPageAddress: 1,
@@ -71,11 +72,13 @@ export default class CustomerDetails extends Component {
     if (
       prevState.customer !== nextProps.customer ||
       prevState.mode !== nextProps.mode ||
+      prevState.wishList !== nextProps.wishList ||
       prevState.id !== nextProps.id
     ) {
       return {
         customer: nextProps?.customer,
         mode: nextProps?.mode,
+        wishList: nextProps?.wishList,
         id: nextProps?.id,
         active: nextProps?.customer?.is_active
           ? nextProps?.customer?.is_active
@@ -459,8 +462,9 @@ export default class CustomerDetails extends Component {
           <>
             <div data-component="wishlist">
               <div className='row'>
-                {/* {data?.map(val => {
-                  return ( */}
+                {console.log(this.state.wishList,"wishlist")}
+                {this.state?.wishList?.map(val => {
+                  return (
                 <div className='col-3'>
                   <div className='padding'>
                     <div className='box'>
@@ -470,8 +474,9 @@ export default class CustomerDetails extends Component {
                       <div
                         className="bck-img mt-4"
                         // onClick={() => { Router.push(`/product/${val?.product_id}`) }}
-                        style={{ backgroundImage: "url('/images/product5.png')", }}
-                        
+                        // style={{ backgroundImage: "url('/images/product5.png')", }}
+                        style={{ backgroundImage: `url(${val?.primary_image_path})`, }}
+
                       >
                         {/* <img src="/images/product5.png" alt="" /> */}
                       </div>
@@ -480,12 +485,16 @@ export default class CustomerDetails extends Component {
                           className='text-center'
                         // onClick={() => { Router.push(`/product/${val?.product_id}`) }}
                         >
-                          Product Name
+                          {val?.name}
                         </h3>
                         <div className="product-qulaty-div mb-3">
-                          <span >Product Size</span>
-                          {/* {val?.size !== "" && val?.flavor !== "" ? "|" : ""} */}
-                          <span >Product Flavor</span>
+                          <span >
+                            {val?.size}
+                          </span>
+                          {val?.size !== "" && val?.flavor !== "" ? "|" : ""}
+                          <span >
+                            {val?.flavor}
+                          </span>
                         </div>
                       </div>
                       {/* <div className='button'>
@@ -494,8 +503,8 @@ export default class CustomerDetails extends Component {
                     </div>
                   </div>
                 </div>
-                {/* )
-                })} */}
+                )
+                })}
               </div>
             </div>
 

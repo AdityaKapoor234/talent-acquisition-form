@@ -34,6 +34,7 @@ export default class AdminDetails extends Component {
             mode: props?.mode,
             password: "",
             password2: "",
+            timeout: "",
             id: props?.id,
             currentPage: 1,
             currentPageAddress: 1,
@@ -115,19 +116,22 @@ export default class AdminDetails extends Component {
     };
 
     handleCheckbox = () => {
-        if (this.state.active) {
-            this.setState({
-                active: false,
-                open: false,
-            });
-            this.props?.active(false);
-        } else {
-            this.setState({
-                active: true,
-                open: false,
-            });
-            this.props?.active(true);
-        }
+        this.setState({ open: false });
+
+        this.state.timeout = setTimeout(() => {
+            if (this.state.active) {
+                this.setState({
+                    active: false,
+                });
+                this.props?.active(false);
+            } else {
+                this.setState({
+                    active: true,
+                });
+                this.props?.active(true);
+            }
+        }, 200)
+
     };
     onPageChange = (e, page) => {
         this.setState({ currentPage: page });

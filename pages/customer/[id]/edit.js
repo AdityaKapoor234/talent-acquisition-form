@@ -26,6 +26,10 @@ export default function CustomerEditDetails({id}) {
 
   const [customer,setCustomer]=useState([]);
   const [active, setActive]=useState(false);
+  const [wishList,setWishList]=useState([]);
+  const [wishListTotalProduct,setWishListTotalProduct]=useState("");
+  const [totalWishListPage,setTotalWishListPage]=useState("");
+
 
   const activeHandle =(value)=>{
     setActive(value)
@@ -72,12 +76,37 @@ export default function CustomerEditDetails({id}) {
     });
   }
 
+  const wishListDetail =(id, page)=>{
+    CustomerApi.WishList(id, page)
+    .then((response) => {
+      setWishList(response.data.data.list);
+      setWishListTotalProduct(response.data.data.total);
+      setTotalWishListPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
+
+  const wishListPage = (value) => {
+    wishListDetail(id, value);
+  }
+
+
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    customerDetail(id)
+    customerDetail(id);
+    wishListDetail(id, "1");
   }, [id]);
   return (
     <div>
@@ -117,7 +146,7 @@ export default function CustomerEditDetails({id}) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <CustomerDetails customer={customer} id={id} mode={mode} active={activeHandle} />
+              <CustomerDetails customer={customer} id={id} mode={mode} active={activeHandle} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage} />
             </div>
           </div>
         </DashboardLayoutComponent>

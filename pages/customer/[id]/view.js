@@ -26,6 +26,9 @@ export default function CustomerViewDetails({id}) {
 
   const [customer,setCustomer]=useState([]);
   const [wishList,setWishList]=useState([]);
+  const [wishListTotalProduct,setWishListTotalProduct]=useState("");
+  const [totalWishListPage,setTotalWishListPage]=useState("");
+
 
   const customerDetail =(id)=>{
     CustomerApi
@@ -47,7 +50,10 @@ export default function CustomerViewDetails({id}) {
   const wishListDetail =(id, page)=>{
     CustomerApi.WishList(id, page)
     .then((response) => {
-      setWishList(response.data.data.list)
+      setWishList(response.data.data.list);
+      setWishListTotalProduct(response.data.data.total);
+      setTotalWishListPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+
     })
     .catch((error) => {
       toast.error(
@@ -58,6 +64,10 @@ export default function CustomerViewDetails({id}) {
           : "Unable to process your request, please try after sometime"
       );
     });
+  }
+
+  const wishListPage = (value) => {
+    wishListDetail(id, value);
   }
 
   useEffect(() => {
@@ -99,8 +109,7 @@ export default function CustomerViewDetails({id}) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              {/* {console.log(wishList,"wishList")} */}
-              <CustomerDetail customer={customer} id={id} mode={mode} wishList={wishList} />
+              <CustomerDetail customer={customer} id={id} mode={mode} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage}/>
             </div>
           </div>
         </DashboardLayoutComponent>

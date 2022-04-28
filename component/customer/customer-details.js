@@ -30,6 +30,9 @@ export default class CustomerDetails extends Component {
       mode: props?.mode,
       currentPage: 1,
       currentPageAddress: 1,
+      currentWishListPage: 1,
+      wishListTotalProduct: props?.wishListTotalProduct,
+      totalWishListPage: props?.totalWishListPage,
       id: props?.id,
       open: false,
       address: [],
@@ -73,12 +76,16 @@ export default class CustomerDetails extends Component {
       prevState.customer !== nextProps.customer ||
       prevState.mode !== nextProps.mode ||
       prevState.wishList !== nextProps.wishList ||
+      prevState.wishListTotalProduct !== nextProps.wishListTotalProduct ||
+      prevState.totalWishListPage !== nextProps.totalWishListPage ||
       prevState.id !== nextProps.id
     ) {
       return {
         customer: nextProps?.customer,
         mode: nextProps?.mode,
         wishList: nextProps?.wishList,
+        wishListTotalProduct: nextProps?.wishListTotalProduct,
+        totalWishListPage: nextProps?.totalWishListPage,
         id: nextProps?.id,
         active: nextProps?.customer?.is_active
           ? nextProps?.customer?.is_active
@@ -147,6 +154,11 @@ export default class CustomerDetails extends Component {
         );
       });
   };
+
+  pageChange = (e, page) => {
+    this.props?.wishListPage(page);
+    this.setState({ currentWishListPage: page });
+  }
 
   componentDidMount() {
     this.getAddresses(this.state.id, 1);
@@ -462,50 +474,57 @@ export default class CustomerDetails extends Component {
           <>
             <div data-component="wishlist">
               <div className='row'>
-                {console.log(this.state.wishList,"wishlist")}
                 {this.state?.wishList?.map(val => {
                   return (
-                <div className='col-3'>
-                  <div className='padding'>
-                    <div className='box'>
-                      {/* <div className='close'>
-                            <span onClick={() => Close(val?.product_id, "remove")}><CloseRoundedIcon /></span>
-                          </div> */}
-                      <div
-                        className="bck-img mt-4"
-                        // onClick={() => { Router.push(`/product/${val?.product_id}`) }}
-                        // style={{ backgroundImage: "url('/images/product5.png')", }}
-                        style={{ backgroundImage: `url(${val?.primary_image_path})`, }}
-
-                      >
-                        {/* <img src="/images/product5.png" alt="" /> */}
-                      </div>
-                      <div className='name'>
-                        <h3
-                          className='text-center'
-                        // onClick={() => { Router.push(`/product/${val?.product_id}`) }}
-                        >
-                          {val?.name}
-                        </h3>
-                        <div className="product-qulaty-div mb-3">
-                          <span >
-                            {val?.size}
-                          </span>
-                          {val?.size !== "" && val?.flavor !== "" ? "|" : ""}
-                          <span >
-                            {val?.flavor}
-                          </span>
+                    <div className='col-3'>
+                      <div className='padding'>
+                        <div className='box'>
+                          <div
+                            className="bck-img mt-4"
+                            style={{ backgroundImage: `url(${val?.primary_image_path})`, }}
+                          >
+                          </div>
+                          <div className='name'>
+                            <h3
+                              className='text-center'
+                            >
+                              {val?.name}
+                            </h3>
+                            <div className="product-qulaty-div mb-3">
+                              <span >
+                                {val?.size}
+                              </span>
+                              {val?.size !== "" && val?.flavor !== "" ? "|" : ""}
+                              <span >
+                                {val?.flavor}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      {/* <div className='button'>
-                        <div className='custom-btn' onClick={() => MoveToCart(val?.product_id)}>Move to Cart</div>
-                      </div> */}
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="row">
+                <div className="col-md-12 py-5 justify-content-between d-flex position-relative">
+                  <div className="pagiantion-category">
+                    <div>
+                      <Pagination
+                        className="pagination pagi"
+                        page={this.state.currentWishListPage}
+                        count={this.state.totalWishListPage}
+                        onChange={this.pageChange.bind(this)}
+                      />
+                    </div>
+                    <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                      Total Products: {this.state.wishListTotalProduct}
                     </div>
                   </div>
                 </div>
-                )
-                })}
               </div>
+
+
             </div>
 
           </>

@@ -85,15 +85,21 @@ export default class AdminDetails extends Component {
     handleChange = (event) => {
         this.setState({ password: event.target.value });
         this.props?.pass(event.target.value);
-        if (this.state.mode === "edit"){
+        if (this.state.mode === "edit") {
             this.props?.passCheck();
+            if (event.target.value === "") {
+                this.props?.passCheckFalse();
+            }
         }
     };
     handleChange2 = (event) => {
         this.setState({ password2: event.target.value });
         this.props?.pass2(event.target.value);
-        if (this.state.mode === "edit"){
+        if (this.state.mode === "edit") {
             this.props?.passCheck();
+            if (event.target.value === "") {
+                this.props?.passCheckFalse();
+            }
         }
     };
     handleClose = () => {

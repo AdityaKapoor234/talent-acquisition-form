@@ -46,6 +46,10 @@ export default function AdminEditDetails({ id }) {
         setPassCheck(true)
     }
 
+	const passCheckFalseHandle = () => {
+        setPassCheck(false)
+    }
+
     function validateData() {
         if (passCheck === true) {
             if (
@@ -191,7 +195,7 @@ export default function AdminEditDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} />
+                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} passCheckFalse={passCheckFalseHandle} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

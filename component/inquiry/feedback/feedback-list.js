@@ -5,20 +5,20 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Router from "next/router";
 
-export default class MarketingAndSponsorshipsList extends Component {
+export default class FeedbackList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      marketingAndSponsorships: props?.marketingAndSponsorships,
+      feedback: props?.feedback,
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      prevState.marketingAndSponsorships !== nextProps.marketingAndSponsorships
+      prevState.feedback !== nextProps.feedback
     ) {
       return {
-        marketingAndSponsorships: nextProps?.marketingAndSponsorships
+        feedback: nextProps?.feedback
       };
     }
     return null;
@@ -53,38 +53,39 @@ export default class MarketingAndSponsorshipsList extends Component {
           <div className="col-md-12">
             <div className="tableRow">
               <div className="col pe-1">Name</div>
+              <div className="col px-2 text-center">User Name</div>
+              <div className="col px-2 text-center">Feedback Topic</div>
               <div className="col px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
-              <div className="col px-2 text-center">Sponsorship</div>
               <div className="col-1 text-end">Action</div>
             </div>
           </div>
         </div>
-        {console.log(this.state.marketingAndSponsorships, "this.state.marketingAndSponsorships")}
         {
-          this.state.marketingAndSponsorships && this.state.marketingAndSponsorships.length === 0 ? <div className="not-found">No Data Found</div> :
-            this.state.marketingAndSponsorships?.map((p, index) => {
+          this.state.feedback && this.state.feedback.length === 0 ? <div className="not-found">No Data Found</div> :
+            this.state.feedback?.map((p, index) => {
               return (
                 <div className="row" key={index}>
                   <div className="col-md-12">
                     <div className="tableCell">
                       <div className="tableBody pe-1 col elip-text" title={p?.name}>{p?.name}</div>
-                      <div className="tableBody px-2 col justify-content-center elip-text" title={p?.email}>
-                        {p?.email}
+                      <div className="tableBody px-2 col justify-content-center elip-text" title={p?.user_name}>
+                        {p?.user_name}
                       </div>
+                      <div className="col px-2 text-center elip-text" title={p?.topic}>{p?.topic}</div>
+                      <div className="col px-2 text-center elip-text" title={p?.email}>{p?.email}</div>
                       <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
-                      <div className="col px-2 text-center elip-text" title={p?.sponsorship_request}>{p?.sponsorship_request}</div>
                       <div className="col-1 text-end">
                         <RemoveRedEyeIcon
                           className="view-icon"
                           onClick={() => {
-                            Router.push(`/marketing-and-sponsorships/${p?.id}/view`);
+                            Router.push(`/feedback/${p?.id}/view`);
                           }}
                         />
                         {/* <EditOutlinedIcon
                       className="edit-icon"
                       onClick={() => {
-                        Router.push(`/marketing-and-sponsorships/${p?.id}/edit`);
+                        Router.push(`/feedback/${p?.id}/edit`);
                       }}
                     /> */}
                       </div>

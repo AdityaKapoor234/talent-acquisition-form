@@ -132,7 +132,7 @@ export default class MarketingAndSponsorshipsDetails extends Component {
                                     this.setState({ tab: 1 });
                                 }}
                             >
-                                Sales info
+                                Marketing & Sponsorships info
                             </div>
                         </div>
                     </div>

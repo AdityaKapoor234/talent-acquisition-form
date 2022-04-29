@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS } from "../utils/constant";
+import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS, FEEDBACK_LIST, GET_FEEDBACK_DETAILS } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class InquiryApi {
@@ -69,6 +69,29 @@ export class InquiryApi {
         };
         return axios.get(`${GET_MARKETING_AND_SPONSORSHIP_DETAILS}`.replace('{{id}}', id),httpOptions)
     }
+
+    static feedbackList(page, search) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${FEEDBACK_LIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+    }
+
+    static getFeedbackDetails(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_FEEDBACK_DETAILS}`.replace('{{id}}', id),httpOptions)
+    }
+
 
 
 

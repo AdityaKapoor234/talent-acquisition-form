@@ -31,7 +31,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
-    const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" ? true : false);
+    const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -177,12 +177,12 @@ export default function DashboardLayoutComponent({ children }) {
                                 </div>
                                 {tabInquiry &&
                                     <ul>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/feedback", "feedback")}>Feedback</li>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/advertise-with-Us", "advertise-with-us")}>Advertise with Us</li>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/affiliate-marketing", "affiliate-marketing")}>Affiliate Marketing</li>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/marketing-sponsorships", "sponsorships")}>Marketing & Sponsorships</li>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/sell-on-fitcart", "sell-on-fitcart")}>Sell on Fitcart</li>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li>
+                                        <li className={categary === "feedback" ? "sub_active" : ""} onClick={() => handleCategary("/feedback", "feedback")}>Feedback</li>
+                                        <li className={categary === "advertise-with-us" ? "sub_active" : ""} onClick={() => handleCategary("/advertise-with-us", "advertise-with-us")}>Advertise with Us</li>
+                                        <li className={categary === "affiliate-marketing" ? "sub_active" : ""} onClick={() => handleCategary("/affiliate-marketing", "affiliate-marketing")}>Affiliate Marketing</li>
+                                        <li className={categary === "marketing-and-sponsorships" ? "sub_active" : ""} onClick={() => handleCategary("/marketing-and-sponsorships", "marketing-and-sponsorships")}>Marketing & Sponsorships</li>
+                                        <li className={categary === "sell-on-fitcart" ? "sub_active" : ""} onClick={() => handleCategary("/sell-on-fitcart", "sell-on-fitcart")}>Sell on Fitcart</li>
+                                        <li className={categary === "bulk-buys" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li>
                                     </ul>
                                     
                                 }

@@ -143,7 +143,7 @@ export default class MarketingAndSponsorshipsDetails extends Component {
                             <div className="row sticky-scroll scroll">
                                 <div className="col">
                                     <div className="row mt-4">
-                                        <div className="col-md-4">
+                                        <div className="col-md-5">
                                             <div className="login-form ">
                                                 <label>Name<span className="mandatory-star">*</span></label>
                                                 <input

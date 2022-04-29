@@ -31,6 +31,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
+    const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -166,6 +167,24 @@ export default function DashboardLayoutComponent({ children }) {
                                     <ul>
                                         <li className={categary === "admin" ? "sub_active" : ""} onClick={() => handleCategary("/admin", "admin")}>user</li>
                                     </ul>
+                                }
+                                <div className={tabInquiry ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabInquiry(!tabInquiry)}>
+                                    <span>
+                                        {tabInquiry ? <GroupIcon className='outline-icon' /> : <GroupOutlinedIcon className='outline-icon' />}
+                                        Inquiry
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabInquiry &&
+                                    <ul>
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/feedback", "feedback")}>Feedback</li>
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/advertise-with-Us", "advertise-with-us")}>Advertise with Us</li>
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/affiliate-marketing", "affiliate-marketing")}>Affiliate Marketing</li>
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/marketing-sponsorships", "sponsorships")}>Marketing & Sponsorships</li>
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/sell-on-fitcart", "sell-on-fitcart")}>Sell on Fitcart</li>
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li>
+                                    </ul>
+                                    
                                 }
 
                             </div>

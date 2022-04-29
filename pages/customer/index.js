@@ -168,6 +168,7 @@ export default function Customer() {
 								<div className="custom-btn ">
 									<span
 										onClick={handleOnExport}
+										className="d-flex"
 									>
 										Download&nbsp;<FileDownloadIcon />
 									</span>

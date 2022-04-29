@@ -70,7 +70,7 @@ export default class AdvertiseWithUsList extends Component {
                   <div className="tableBody px-2 col justify-content-center elip-text" title={p?.email}>
                     {p?.email}
                   </div>
-                  <div className="col px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_no}</div>
+                  <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
                   <div className="col-1 text-end">
                     <RemoveRedEyeIcon
                       className="view-icon"

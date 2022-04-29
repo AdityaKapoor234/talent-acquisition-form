@@ -53,9 +53,9 @@ export default class MarketingAndSponsorshipsList extends Component {
           <div className="col-md-12">
             <div className="tableRow">
               <div className="col pe-1">Name</div>
-              <div className="col-3 px-2 text-center">Email</div>
-              <div className="col-1 px-2 text-center">Mobile No.</div>
-              <div className="col-3 px-2 text-center">Sponsorship</div>
+              <div className="col px-2 text-center">Email</div>
+              <div className="col px-2 text-center">Mobile No.</div>
+              <div className="col px-2 text-center">Sponsorship</div>
               <div className="col-1 text-end">Action</div>
             </div>
           </div>
@@ -69,11 +69,11 @@ export default class MarketingAndSponsorshipsList extends Component {
                   <div className="col-md-12">
                     <div className="tableCell">
                       <div className="tableBody pe-1 col elip-text" title={p?.name}>{p?.name}</div>
-                      <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.email}>
+                      <div className="tableBody px-2 col justify-content-center elip-text" title={p?.email}>
                         {p?.email}
                       </div>
-                      <div className="col-1 px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_no}</div>
-                      <div className="col-3 px-2 text-center elip-text" title={p?.sponsorship_request}>{p?.sponsorship_request}</div>
+                      <div className="col px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_no}</div>
+                      <div className="col px-2 text-center elip-text" title={p?.sponsorship_request}>{p?.sponsorship_request}</div>
                       <div className="col-1 text-end">
                         <RemoveRedEyeIcon
                           className="view-icon"

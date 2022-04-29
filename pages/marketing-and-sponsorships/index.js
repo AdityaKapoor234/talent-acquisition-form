@@ -118,7 +118,7 @@ export default function MarketingAndSponsorships() {
 					<div className="row border-box">
 						<div className="col-md-8">
 							<div className="hamburger">
-								<span>Catalog / </span>Marketing & Sponsorships
+								<span>Inquiry / </span>Marketing & Sponsorships
 							</div>
 							<div className="page-name">Marketing & Sponsorships</div>
 						</div>

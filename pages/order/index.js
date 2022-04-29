@@ -173,6 +173,7 @@ export default function Order() {
                                 <div className="custom-btn ">
                                     <span
                                         onClick={handleOnExport}
+                                        className="d-flex"
                                     >
                                         Download&nbsp;<FileDownloadIcon />
                                     </span>

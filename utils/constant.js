@@ -106,3 +106,11 @@ export const PRODUCT_EXCEL_LIST = `http://65.1.17.188:5001/manage/product/all`;
 
 //WISHLIST
 export const WISH_LIST = `http://65.1.17.188:5001/manage/wishlist/{{id}}?page={{page}}`;
+
+//INQUIRY
+export const ADVERTISE_WITH_US_LIST = `http://65.1.17.188:5000/manage/advertise?page={{page}}&q={{search}}`;
+export const GET_ADVERTISE_WITH_US_DETAILS = `http://65.1.17.188:5000/manage/advertise/{{id}}/view`;
+export const SELL_ON_FITCART_LIST = `http://65.1.17.188:5000/manage/sell?page={{page}}&q={{search}}`;
+export const GET_SELL_ON_FITCART_DETAILS = `http://65.1.17.188:5000/manage/sell/{{id}}/view`;
+export const MARKETING_AND_SPONSORSHIP_LIST = `http://65.1.17.188:5000/manage/sponsorship?page={{page}}&q={{search}}`;
+export const GET_MARKETING_AND_SPONSORSHIP_DETAILS = `http://65.1.17.188:5000/manage/sponsorship/{{id}}/view`;

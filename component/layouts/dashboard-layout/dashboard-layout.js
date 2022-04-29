@@ -20,6 +20,7 @@ import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettin
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
 import { toast } from 'react-toastify';
+import Link from 'next/link'
 
 export default function DashboardLayoutComponent({ children }) {
 
@@ -182,7 +183,8 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/affiliate-marketing", "affiliate-marketing")}>Affiliate Marketing</li>
                                         <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/marketing-sponsorships", "sponsorships")}>Marketing & Sponsorships</li>
                                         <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/sell-on-fitcart", "sell-on-fitcart")}>Sell on Fitcart</li>
-                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li>
+                                        <Link href="/bulk-buys" >
+                                        <li className={categary === "inquiry" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li></Link>
                                     </ul>
                                     
                                 }

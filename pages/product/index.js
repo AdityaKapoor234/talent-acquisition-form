@@ -14,12 +14,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ProductApi from "../../services/product";
+import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
 
 export default function Product() {
 
 	const pathArr = useRouter();
 	const [product, setProduct] = useState([]);
+	const [productExcel, setProductExcel] = useState([]);
 	const [totalProducts, setTotalProduct] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
@@ -76,7 +78,7 @@ export default function Product() {
 	const handleOnExport = () => {
         var XLSX = require("xlsx");
         var wb=XLSX.utils.book_new();
-        var ws=XLSX.utils.json_to_sheet(product);
+        var ws=XLSX.utils.json_to_sheet(productExcel);
 
         XLSX.utils.book_append_sheet(wb,ws,"ProductList");
 
@@ -104,12 +106,34 @@ export default function Product() {
 			});
 	};
 
+
+
+	const productExcelList = () => {
+		setIsLoader(true);
+		ExcelApi.ProductExcelList()
+			.then((response) => {
+				setProductExcel(response.data.data.list);
+				setIsLoader(false);
+			})
+			.catch((error) => {
+				setIsLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+			});
+	};
+
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
 			Router.push("/");
 		}
 		productList(currentPage, "");
+		productExcelList();
 	}, []);
 
 	return (
@@ -176,7 +200,7 @@ export default function Product() {
                                         </div>
                                     </div>
                                 ) : (
-                                    product && product.length === 0 ? <div className="not-found">No Data Found</div> :
+                                    // product && product.length === 0 ? <div className="not-found">No Data Found</div> :
 										<ProductList product={product} />
                                 )
                             }

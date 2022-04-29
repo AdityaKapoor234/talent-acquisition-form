@@ -62,7 +62,7 @@ export default class AdminList extends Component {
 					</div>
 				</div>
 				{
-					// this.state.customer && this.state.customer.length === 0 ? <div className="not-found">No Data Found</div> :
+					this.state.admin && this.state.admin.length === 0 ? <div className="not-found">No Data Found</div> :
 					this.state.admin?.map((p, index) => {
 						return (
 							<div className="row" key={index}>

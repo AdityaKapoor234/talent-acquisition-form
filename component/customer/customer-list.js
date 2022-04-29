@@ -63,7 +63,7 @@ export default class CustomerList extends Component {
           </div>
         </div>
         {
-		// this.state.customer && this.state.customer.length === 0 ? <div className="not-found">No Data Found</div> :
+		this.state.customer && this.state.customer.length === 0 ? <div className="not-found">No Data Found</div> :
           this.state.customer?.map((p, index) => {
           return (
             <div className="row" key={index}>

@@ -44,7 +44,7 @@ export default class ProductList extends Component {
                     </div>
                 </div>
                 {
-                // this.state.product && this.state.product.length === 0 ? <div className="not-found">No Data Found</div> :
+                this.state.product && this.state.product.length === 0 ? <div className="not-found">No Data Found</div> :
                     this.state.product?.map((p, index) => {
                     return (
                         <div className="row" key={index}>

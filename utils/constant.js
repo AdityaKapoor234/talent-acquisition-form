@@ -97,3 +97,12 @@ export const ADMINLIST = `http://65.1.17.188:5000/admin/all?page={{page}}&q={{se
 export const GET_ADMIN_DETAILS = `http://65.1.17.188:5000/admin/{{id}}/view`;
 export const ADD_ADMIN = `http://65.1.17.188:5000/admin/create`;
 export const ADMIN_LIST_EDIT = `http://65.1.17.188:5000/admin/{{id}}/edit`;
+
+
+//EXCEL EXPORT
+export const CUSTOMER_EXCEL_LIST = `http://65.1.17.188:5000/customer/all`;
+export const ORDER_EXCEL_LIST = `http://65.1.17.188:5002/manage/order/all`;
+export const PRODUCT_EXCEL_LIST = `http://65.1.17.188:5001/manage/product/all`;
+
+//WISHLIST
+export const WISH_LIST = `http://65.1.17.188:5001/manage/wishlist/{{id}}?page={{page}}`;

@@ -238,7 +238,7 @@ export default function Admin() {
                                             </div>
                                         </div>
                                     ) : (
-                                        admin && admin.length === 0 ? <div className="not-found">No Data Found</div> :
+                                        // admin && admin.length === 0 ? <div className="not-found">No Data Found</div> :
                                         <AdminList admin={admin} />
                                     )
                                 }

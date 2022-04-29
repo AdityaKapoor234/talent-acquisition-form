@@ -161,7 +161,7 @@ export default function Category() {
                                         </div>
                                     </div>
                                 ) : (
-                                    category && category.length === 0 ? <div className="not-found">No Data Found</div> :
+                                    // category && category.length === 0 ? <div className="not-found">No Data Found</div> :
 										<CategoryList category={category} />
                                 )
                             }

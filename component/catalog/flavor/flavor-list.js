@@ -39,7 +39,7 @@ export default class FlavorList extends Component {
                     </div>
                 </div>
                 {
-                // this.state.flavors && this.state.flavors.length === 0 ? <div className="not-found">No Data Found</div> :
+                this.state.flavors && this.state.flavors.length === 0 ? <div className="not-found">No Data Found</div> :
                     this.state.flavors?.map((p, index) => {
                     return (
                         <div className="row" key={index}>

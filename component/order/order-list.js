@@ -64,7 +64,7 @@ export default class OrderList extends Component {
                     </div>
                 </div>
                 {
-                    // this.state.order && this.state.order?.length === 0 ? <div className="not-found">No Data Found</div> :
+                    this.state.order && this.state.order?.length === 0 ? <div className="not-found">No Data Found</div> :
                     this.state.order?.map((p, index) => {
                         return (
                             <div className="row" key={index}>

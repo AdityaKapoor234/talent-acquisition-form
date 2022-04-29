@@ -153,7 +153,7 @@ export default function Brand() {
                     </div>
                   </div>
                 ) : (
-                  brands && brands.length === 0 ? <div className="not-found">No Data Found</div> :
+                  // brands && brands.length === 0 ? <div className="not-found">No Data Found</div> :
                     <BrandList brands={brands} />
                 )
               }

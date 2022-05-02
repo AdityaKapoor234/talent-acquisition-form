@@ -90,7 +90,8 @@ export default class AdminCreate extends Component {
             return false;
         }
         if (this.state.adminDetails?.phone_number !== undefined) {
-            if (!this.state.adminDetails?.phone_number.match(/^[0-9]{10}$/)) {
+            // if (!this.state.adminDetails?.phone_number.match(/^[0-9]{10}$/)) {
+            if (!this.state.adminDetails?.phone_number.match(/^[6-9]{1}[0-9]{9}$/)) {
                 toast.error("Please enter valid phone number");
                 return false;
             }

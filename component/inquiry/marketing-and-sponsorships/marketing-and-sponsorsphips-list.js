@@ -60,7 +60,6 @@ export default class MarketingAndSponsorshipsList extends Component {
             </div>
           </div>
         </div>
-        {console.log(this.state.marketingAndSponsorships, "this.state.marketingAndSponsorships")}
         {
           this.state.marketingAndSponsorships && this.state.marketingAndSponsorships.length === 0 ? <div className="not-found">No Data Found</div> :
             this.state.marketingAndSponsorships?.map((p, index) => {
@@ -73,7 +72,7 @@ export default class MarketingAndSponsorshipsList extends Component {
                         {p?.email}
                       </div>
                       <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
-                      <div className="col px-2 text-center elip-text" title={p?.sponsorship_request}>{p?.sponsorship_request}</div>
+                      <div className="col px-2 text-center elip-text text-capitalize" title={p?.sponsorship_request}>{p?.sponsorship_request}</div>
                       <div className="col-1 text-end">
                         <RemoveRedEyeIcon
                           className="view-icon"

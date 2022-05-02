@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import SellOnFitcartCreateComponent from "../../../component/inquiry/sell-on-fitcart/sell-on-fitcart-details";
+import FeedbackCreateComponent from "../../../component/inquiry/feedback/feedback-details";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import InquiryApi from "../../../services/inquiry";
@@ -27,16 +27,16 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function SellOnFitcartDetails({ id }) {
+export default function FeedbackViewDetails({ id }) {
     const mode = "view";
 
-    const [sellOnFitcart, setSellOnFitcart] = useState([]);
+    const [feedback, setFeedback] = useState([]);
     const [open, setOpen] = useState(false);
 
-    const sellOnFitcartDetail = (id) => {
-        InquiryApi.getSellOnFitcartDetails(id)
+    const feedbackDetail = (id) => {
+        InquiryApi.getFeedbackDetails(id)
             .then((response) => {
-                setSellOnFitcart(response.data.data.sell_on_view);
+                setFeedback(response.data.data.feedback_view);
             })
             .catch((error) => {
                 toast.error(
@@ -75,12 +75,12 @@ export default function SellOnFitcartDetails({ id }) {
         if (token === undefined) {
             Router.push("/");
         }
-        sellOnFitcartDetail(id);
+        feedbackDetail(id);
     }, [id]);
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Sell on Fitcart</title>
+                <title>{APP_NAME} - Feedback</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -90,9 +90,9 @@ export default function SellOnFitcartDetails({ id }) {
                     <div className="row border-box">
                         <div className="col-md-7">
                             <div className="hamburger">
-                                <span>Inquiry / Sell on Fitcart/ </span>View Sell on Fitcart
+                                <span>Inquiry / Feedback/ </span>View Feedback
                             </div>
-                            <div className="page-name">Sell on Fitcart Details - {sellOnFitcart?.company_name}</div>
+                            <div className="page-name">Feedback Details - {feedback?.name}</div>
                         </div>
                         <div className="col-md-5 btn-save">
                             {/* <div
@@ -106,7 +106,7 @@ export default function SellOnFitcartDetails({ id }) {
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
-                                    Router.push(`/sell-on-fitcart`);
+                                    Router.push(`/feedback`);
                                 }}
                             >
                                 <span>Cancel </span>
@@ -115,7 +115,7 @@ export default function SellOnFitcartDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <SellOnFitcartCreateComponent sellOnFitcart={sellOnFitcart} mode={mode} />
+                            <FeedbackCreateComponent feedback={feedback} mode={mode} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

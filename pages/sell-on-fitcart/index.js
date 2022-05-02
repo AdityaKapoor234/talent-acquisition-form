@@ -118,7 +118,7 @@ export default function SellOnFitcart() {
 					<div className="row border-box">
 						<div className="col-md-8">
 							<div className="hamburger">
-								<span>Catalog / </span>Sell on Fitcart
+								<span>Inquiry / </span>Sell on Fitcart
 							</div>
 							<div className="page-name">Sell on Fitcart</div>
 						</div>

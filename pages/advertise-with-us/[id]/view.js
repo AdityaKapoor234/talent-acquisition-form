@@ -88,13 +88,13 @@ export default function AdvertiseWithUsViewDetails({ id }) {
             <main>
                 <DashboardLayoutComponent>
                     <div className="row border-box">
-                        <div className="col-md-5">
+                        <div className="col-md-7">
                             <div className="hamburger">
-                                <span>Catalog / Advertise with Us/ </span>View Advertise with Us
+                                <span>Inquiry / Advertise with Us/ </span>View Advertise with Us
                             </div>
                             <div className="page-name">Advertise with Us Details - {advertiseWithUs?.name}</div>
                         </div>
-                        <div className="col-md-7 btn-save">
+                        <div className="col-md-5 btn-save">
                             {/* <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

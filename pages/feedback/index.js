@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import MarketingAndSponsorshipsList from "../../component/inquiry/marketing-and-sponsorships/marketing-and-sponsorsphips-list";
+import FeedbackList from "../../component/inquiry/feedback/feedback-list";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -15,11 +15,11 @@ import InquiryApi from "../../services/inquiry";
 import { useRouter } from "next/router";
 
 
-export default function MarketingAndSponsorships() {
+export default function Feedback() {
 
 	const pathArr = useRouter();
-	const [marketingAndSponsorships, setMarketingAndSponsorships] = useState([]);
-	const [totalMarketingAndSponsorships, setTotalMarketingAndSponsorships] = useState([]);
+	const [feedback, setFeedback] = useState([]);
+	const [totalFeedback, setTotalFeedback] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
 	);
@@ -34,11 +34,11 @@ export default function MarketingAndSponsorships() {
 		}
 		if (event.key === "Enter") {
 			Router.push({
-				pathname: "/marketing-and-sponsorships",
+				pathname: "/feedback",
 				query: router_query_object,
 			});
 			setCurrentPage(1)
-			marketingAndSponsorshipsList(1, wordEntered);
+			feedbackList(1, wordEntered);
 		}
 	};
 
@@ -49,11 +49,11 @@ export default function MarketingAndSponsorships() {
 		}
 		// if (event.key === "Enter") {
 		Router.push({
-			pathname: "/marketing-and-sponsorships",
+			pathname: "/feedback",
 			query: router_query_object,
 		});
 		setCurrentPage(1)
-		marketingAndSponsorshipsList(1, wordEntered);
+		feedbackList(1, wordEntered);
 		// }
 	};
 
@@ -62,24 +62,24 @@ export default function MarketingAndSponsorships() {
 		setWordEntered(searchWord);
 		if (event.target.value === "") {
 			Router.push({
-				pathname: "/marketing-and-sponsorships",
+				pathname: "/feedback",
 				query: "",
 			});
-			marketingAndSponsorshipsList(1, "");
+			feedbackList(1, "");
 		}
 	};
 
 	let onPageChange = function (e, page) {
 		setCurrentPage(page)
-		marketingAndSponsorshipsList(page, wordEntered)
+		feedbackList(page, wordEntered)
 	};
 
-	const marketingAndSponsorshipsList = (page, search) => {
+	const feedbackList = (page, search) => {
 		setIsLoader(true);
-		InquiryApi.marketingAndSponsorspihList(page, search)
+		InquiryApi.feedbackList(page, search)
 			.then((response) => {
-				setMarketingAndSponsorships(response.data.data.list);
-				setTotalMarketingAndSponsorships(response.data.data.total);
+				setFeedback(response.data.data.list);
+				setTotalFeedback(response.data.data.total);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 				setIsLoader(false);
 			})
@@ -100,7 +100,7 @@ export default function MarketingAndSponsorships() {
 		if (token === undefined) {
 			Router.push("/");
 		}
-		marketingAndSponsorshipsList(currentPage, "");
+		feedbackList(currentPage, "");
 	}, []);
 
 
@@ -108,7 +108,7 @@ export default function MarketingAndSponsorships() {
 		<>
 			{/* <div page-component="category-page"> */}
 			<Head>
-				<title>{APP_NAME} - Marketing & Sponsorships</title>
+				<title>{APP_NAME} - Feedback</title>
 				<meta name="description" content="Trusted Brands. Better Health." />
 				<link rel="icon" href="/fitcart.ico" />
 			</Head>
@@ -118,9 +118,9 @@ export default function MarketingAndSponsorships() {
 					<div className="row border-box">
 						<div className="col-md-8">
 							<div className="hamburger">
-								<span>Inquiry / </span>Marketing & Sponsorships
+								<span>Inquiry / </span>Feedback
 							</div>
-							<div className="page-name">Marketing & Sponsorships</div>
+							<div className="page-name">Feedback</div>
 						</div>
 						<div className="col-md-4">
 							<div className="login-form ">
@@ -141,7 +141,7 @@ export default function MarketingAndSponsorships() {
 							<div
 								className="custom-btn "
 								onClick={() => {
-									Router.push(`/marketing-and-sponsorships/create`);
+									Router.push(`/feedback/create`);
 								}}
 							>
 								<span>Add New </span>
@@ -162,8 +162,8 @@ export default function MarketingAndSponsorships() {
 										</div>
 									</div>
 								) : (
-									// marketingAndSponsorships && marketingAndSponsorships.length === 0 ? <div className="not-found">No Data Found</div> :
-									<MarketingAndSponsorshipsList marketingAndSponsorships={marketingAndSponsorships} />
+									// feedback && feedback.length === 0 ? <div className="not-found">No Data Found</div> :
+									<FeedbackList feedback={feedback} />
 								)
 							}
 
@@ -195,7 +195,7 @@ export default function MarketingAndSponsorships() {
 									/>
 								</div>
 								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-									Total Sales: {totalMarketingAndSponsorships}
+									Total Feedbacks: {totalFeedback}
 								</div>
 							</div>
 						</div>

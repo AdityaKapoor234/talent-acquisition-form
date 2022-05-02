@@ -118,7 +118,7 @@ export default function AdvertiseWithUs() {
 					<div className="row border-box">
 						<div className="col-md-8">
 							<div className="hamburger">
-								<span>Catalog / </span>Advertise With Us
+								<span>Inquiry / </span>Advertise With Us
 							</div>
 							<div className="page-name">Advertise With Us</div>
 						</div>

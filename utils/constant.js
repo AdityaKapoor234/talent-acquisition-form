@@ -114,3 +114,5 @@ export const SELL_ON_FITCART_LIST = `http://65.1.17.188:5000/manage/sell?page={{
 export const GET_SELL_ON_FITCART_DETAILS = `http://65.1.17.188:5000/manage/sell/{{id}}/view`;
 export const MARKETING_AND_SPONSORSHIP_LIST = `http://65.1.17.188:5000/manage/sponsorship?page={{page}}&q={{search}}`;
 export const GET_MARKETING_AND_SPONSORSHIP_DETAILS = `http://65.1.17.188:5000/manage/sponsorship/{{id}}/view`;
+export const GET_BULK_BUY_LIST = `http://65.1.17.188:5000/manage/bulkbuy?page={{page}}&q={{search}}`;
+export const GET_Bulk_BUY_VIEW_DETAILS = `http://65.1.17.188:5000/manage/bulkbuy/{{id}}/view`;

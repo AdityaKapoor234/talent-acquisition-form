@@ -17,8 +17,40 @@ import CustomerApi from "../../services/customer";
 import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
 import BulkBuys from "../../component/enquiry/bulk-buys/bulk-buys.component";
+import InquiryApi from "../../services/inquiry";
 
 export default function Bulk_Buys() {
+    const [bulkBuys, setBulkBuys] = useState([]);
+    const [Page, setPage] = useState(1);
+
+    const getBulkBuyList = (page,search) => {
+		// setIsLoader(true);
+		InquiryApi.getBulkBuyList(page,search)
+			.then((response) => {
+                // console.log(response)
+				setBulkBuys(response.data.data.list);
+				// setTotalCustomer(response.data.data);
+				// setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				// setIsLoader(false);
+			})
+			.catch((error) => {
+				// setIsLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+			});
+	};
+    useEffect(() => {
+		const token = Cookie.get("access_token_admin");
+		if (token === undefined) {
+			Router.push("/");
+		}
+		getBulkBuyList(Page, "");
+	}, []);
 
     return (
         <div>
@@ -81,7 +113,7 @@ export default function Bulk_Buys() {
                                 //     )
                                 }
                                 <CustomerList customer={customer} /> */}
-                                < BulkBuys />
+                                { bulkBuys.length>0 && < BulkBuys product={bulkBuys} /> }
                             </div>
                         </div>
                         {/* <div className="row">

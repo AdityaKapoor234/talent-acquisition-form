@@ -1,5 +1,6 @@
 import axios from "axios";
-import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS,GET_BULK_BUY_LIST,GET_Bulk_BUY_VIEW_DETAILS, FEEDBACK_LIST,   } from "../utils/constant";
+import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS,GET_BULK_BUY_LIST,GET_Bulk_BUY_VIEW_DETAILS, FEEDBACK_LIST,SUBSCRIPTION_LIST, SUBSCRIPTION_LIST_EDIT   } from "../utils/constant";
+
 import cookie from "js-cookie";
 
 export class InquiryApi {
@@ -95,6 +96,27 @@ export class InquiryApi {
     }
 
     static getBulkBuysViewDetails(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${GET_Bulk_BUY_VIEW_DETAILS}`.replace('{{id}}', id),httpOptions)
+    }
+    static subscriptionList(page, search) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${SUBSCRIPTION_LIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+    }
+
+    static subscriptionListEDIT(id,data) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -102,9 +124,10 @@ export class InquiryApi {
                 'Authorization': `Bearer ${token} `          
             }
         };
-        return axios.get(`${GET_Bulk_BUY_VIEW_DETAILS}`.replace('{{id}}', id),httpOptions)
-    }
+       
       
+        return axios.post(`${SUBSCRIPTION_LIST_EDIT}`.replace('{{id}}', id),data,httpOptions)
+    }
 
 
 

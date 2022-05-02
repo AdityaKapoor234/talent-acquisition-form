@@ -116,3 +116,5 @@ export const MARKETING_AND_SPONSORSHIP_LIST = `http://65.1.17.188:5000/manage/sp
 export const GET_MARKETING_AND_SPONSORSHIP_DETAILS = `http://65.1.17.188:5000/manage/sponsorship/{{id}}/view`;
 export const FEEDBACK_LIST = `http://65.1.17.188:5000/manage/feedback?page={{page}}&q={{search}}`;
 export const GET_FEEDBACK_DETAILS = `http://65.1.17.188:5000/manage/feedback/{{id}}/view`;
+export const SUBSCRIPTION_LIST = `http://65.1.17.188:5000/manage/subscribe?page={{page}}&q={{search}}`;
+export const SUBSCRIPTION_LIST_EDIT = `http://65.1.17.188:5000/manage/subscribe/{{id}}/edit`;

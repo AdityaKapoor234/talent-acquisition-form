@@ -125,6 +125,13 @@ export default class AdminDetails extends Component {
     handleClickClose = () => {
         this.setState({ dialog: false });
     };
+    handleClickSubmitClose = () => {
+        this.setState({ dialog: false });
+        this.props.save(this.state.id);
+        this.setState({ oldPassword: "" });
+        this.setState({ password: "" });
+        this.setState({ password2: "" });
+    };
 
     handleCheckbox = () => {
         this.setState({ open: false });
@@ -384,7 +391,7 @@ export default class AdminDetails extends Component {
                                                         color="secondary"
                                                         variant="contained"
 
-                                                        onClick={this.handleClickClose}
+                                                        onClick={this.handleClickSubmitClose}
                                                         autoFocus
                                                     >
                                                         Submit

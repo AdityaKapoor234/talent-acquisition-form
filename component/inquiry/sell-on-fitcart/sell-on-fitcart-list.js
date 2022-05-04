@@ -53,8 +53,8 @@ export default class SellOnFitcartList extends Component {
           <div className="col-md-12">
             <div className="tableRow">
               <div className="col pe-1">Company Name</div>
-              <div className="col-3 px-2 text-center">Email</div>
-              <div className="col-3 px-2 text-center">Mobile No.</div>
+              <div className="col px-2 text-center">Email</div>
+              <div className="col px-2 text-center">Mobile No.</div>
               <div className="col-1 text-end">Action</div>
             </div>
           </div>
@@ -67,10 +67,10 @@ export default class SellOnFitcartList extends Component {
               <div className="col-md-12">
                 <div className="tableCell">
                   <div className="tableBody pe-1 col elip-text" title={p?.company_name}>{p?.company_name}</div>
-                  <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.email}>
+                  <div className="tableBody px-2 col justify-content-center elip-text" title={p?.email}>
                     {p?.email}
                   </div>
-                  <div className="col-3 px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
+                  <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
                   <div className="col-1 text-end">
                     <RemoveRedEyeIcon
                       className="view-icon"

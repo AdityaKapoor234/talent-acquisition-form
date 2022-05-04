@@ -1,24 +1,35 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-export default class SellOnFitcartDetails extends Component {
+export default class SubscriptionDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			tab: 1,
-			sellOnFitcart: props?.sellOnFitcart,
+			subscription: props?.subscription,
+			open: false,
 			mode: props?.mode,
 		};
 	}
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (
-			prevState.sellOnFitcart !== nextProps.sellOnFitcart ||
+			prevState.subscription !== nextProps.subscription ||
 			prevState.mode !== nextProps.mode
 		) {
 			return {
-				sellOnFitcart: nextProps?.sellOnFitcart,
+				subscription: nextProps?.subscription,
 				mode: nextProps?.mode,
 			};
 		}
@@ -132,65 +143,59 @@ export default class SellOnFitcartDetails extends Component {
 									this.setState({ tab: 1 });
 								}}
 							>
-								Sales info
+								Subscription info
 							</div>
 						</div>
 					</div>
 				</div>
 				{this.state.tab === 1 && (
 					<>
-						{this.state.mode === "view" && (
+						{this.state.mode === "edit" && (
 							<div className="row sticky-scroll scroll">
 								<div className="col">
 									<div className="row mt-4">
 										<div className="col-md-4">
 											<div className="login-form ">
-												<label>Company Name<span className="mandatory-star">*</span></label>
+												<label>Email<span className="mandatory-star">*</span></label>
 												<input
 													type="text"
-													value={this.state.sellOnFitcart?.company_name}
+													value={this.state.subscription?.email}
 													readOnly={true}
 												/>
 											</div>
 											<div className="login-form ">
-												<label>Product/ Brand Name<span className="mandatory-star">*</span></label>
+												<label>Registration Date<span className="mandatory-star">*</span></label>
 												<input
 													type="text"
-													value={this.state.sellOnFitcart?.product_name}
+													value={this.convertDateStringToDate(this.state.subscription?.reg_date)}
 													readOnly={true}
 												/>
 											</div>
-											<div className="login-form ">
-												<label>Product/ Brands description / Website<span className="mandatory-star">*</span></label>
-                                                <textarea
-                                                    cols="100"
-                                                    rows="5"
-													value={this.state.sellOnFitcart?.product_brand_description}
-													readOnly={true}
-												/>
-											</div>
-											<div className="login-form ">
-												<label>Email / Name of contact<span className="mandatory-star">*</span></label>
+											{/* <div className="login-form ">
+												<label>Subcription<span className="mandatory-star">*</span></label>
 												<input
 													type="text"
-													value={this.state.sellOnFitcart?.email}
+													value={this.state.subscription?.topic}
 													readOnly={true}
 												/>
-											</div>
-											<div className="login-form ">
-												<label>Contact No.<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.sellOnFitcart?.phone_no}
-													readOnly={true}
+											</div> */}
+											<div className="signup-check">
+												<Checkbox
+													size="small"
+													style={{ color: "#012169" }}
+													checked={this.state.subscription?.is_unsubscribe}
+													onChange={() => {
+														this.setState({ open: true });
+													}}
 												/>
+												<label>Subscription</label>
 											</div>
 										</div>
 										{/* <div className="col-md-12 ">
 											<label className="expertise">Categories<span className="mandatory-star">*</span></label>
 											<div className="signup-check">
 												<div className="d-flex flex-wrap login-form"> */}
-													{/* {this.state.sellOnFitcart?.expert?.expertises?.map((value) => {
+										{/* {this.state.subscription?.expert?.expertises?.map((value) => {
 														return (
 															<FormGroup>
 																<FormControlLabel
@@ -214,10 +219,10 @@ export default class SellOnFitcartDetails extends Component {
 															</FormGroup>
 														);
 													})} */}
-													{/* <textarea
+										{/* <textarea
 														cols="100"
 														rows="5"
-														value={this.state.sellOnFitcart?.expert?.expertises?.map((value) => value?.name)?.join(" , ")}
+														value={this.state.subscription?.expert?.expertises?.map((value) => value?.name)?.join(" , ")}
 														readOnly={true}
 													/>
 												</div>
@@ -229,6 +234,55 @@ export default class SellOnFitcartDetails extends Component {
 						)}
 					</>
 				)}
+				<Dialog
+					open={this.state.open}
+					onClose={this.handleClose}
+					maxWidth="sm"
+					fullWidth
+					aria-labelledby="alert-dialog-title"
+					aria-describedby="alert-dialog-description"
+				>
+					<DialogTitle style={{ color: "#012169" }}>
+						Confirm the action
+					</DialogTitle>
+					<Box position="absolute" top={0} right={0}>
+						<IconButton onClick={this.handleClose}>
+							<CloseIcon />
+						</IconButton>
+					</Box>
+					<DialogContent>
+						<Typography style={{ color: "#7e8f99" }}>
+							Are you sure you want to{" "}
+							{this.state.is_unsubscribe
+								? " deactivate this subscription"
+								: "activate this subscription"}
+							?
+						</Typography>
+					</DialogContent>
+					<DialogActions style={{ marginBottom: "0.5rem" }}>
+						<Button
+							onClick={this.handleClose}
+							style={{
+								color: "#012169",
+								background: "white",
+								borderRadius: "0px",
+							}}
+							color="primary"
+							variant="contained"
+						>
+							Cancel
+						</Button>
+						<Button
+							onClick={this.handleCheckbox}
+							style={{ background: "#f54a00", borderRadius: "0px" }}
+							color="secondary"
+							variant="contained"
+						>
+							Confirm
+						</Button>
+					</DialogActions>
+				</Dialog>
+
 			</div>
 		);
 	}

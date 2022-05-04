@@ -32,6 +32,7 @@ export default class AdminDetails extends Component {
             tab: 1,
             admin: props?.admin,
             mode: props?.mode,
+            oldPassword: "",
             password: "",
             password2: "",
             timeout: "",
@@ -96,6 +97,16 @@ export default class AdminDetails extends Component {
     handleChange2 = (event) => {
         this.setState({ password2: event.target.value });
         this.props?.pass2(event.target.value);
+        if (this.state.mode === "edit") {
+            this.props?.passCheck();
+            if (event.target.value === "") {
+                this.props?.passCheckFalse();
+            }
+        }
+    };
+    handleChange3 = (event) => {
+        this.setState({ oldPassword: event.target.value });
+        this.props?.oldPass(event.target.value);
         if (this.state.mode === "edit") {
             this.props?.passCheck();
             if (event.target.value === "") {
@@ -339,6 +350,14 @@ export default class AdminDetails extends Component {
                                                 <DialogContentText
                                                     id="alert-dialog-description"
                                                     sx={{ color: "#012169" }} >
+                                                    <div className="login-form ">
+                                                        <label>Old Password<span className="mandatory-star">*</span></label>
+                                                        <input
+                                                            type="password"
+                                                            value={this.state?.oldPassword}
+                                                            onChange={this.handleChange3.bind(this)}
+                                                        />
+                                                    </div>
                                                     <div className="login-form ">
                                                         <label>Password<span className="mandatory-star">*</span></label>
                                                         <input

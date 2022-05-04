@@ -120,3 +120,8 @@ export const FEEDBACK_LIST = `http://65.1.17.188:5000/manage/feedback?page={{pag
 export const GET_FEEDBACK_DETAILS = `http://65.1.17.188:5000/manage/feedback/{{id}}/view`;
 export const SUBSCRIPTION_LIST = `http://65.1.17.188:5000/manage/subscribe?page={{page}}&q={{search}}`;
 export const SUBSCRIPTION_LIST_EDIT = `http://65.1.17.188:5000/manage/subscribe/{{id}}/edit`;
+export const TRUSTED_HEALTH_LIST = `http://65.1.17.188:5001/manage/trusthealth?page={{page}}`;
+export const TRUSTED_HEALTH_DETAILS = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/view`;
+export const TRUSTED_HEALTH_EDIT = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/edit`;
+export const TRUSTED_HEALTH_CREATE = `http://65.1.17.188:5001/manage/trusthealth/add`;
+export const TRUSTED_HEALTH_DELETE = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/delete`;

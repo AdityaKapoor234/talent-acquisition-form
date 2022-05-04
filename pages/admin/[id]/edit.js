@@ -26,12 +26,17 @@ export default function AdminEditDetails({ id }) {
 
     const [admin, setAdmin] = useState([]);
     const [active, setActive] = useState(false);
+    const [oldPass, setOldPass] = useState("");
     const [pass, setPass] = useState("");
     const [pass2, setPass2] = useState("");
     const [passCheck, setPassCheck] = useState(false);
 
     const activeHandle = (value) => {
         setActive(value)
+    }
+
+    const oldPassHandle = (value) => {
+        setOldPass(value)
     }
 
     const passHandle = (value) => {
@@ -52,6 +57,15 @@ export default function AdminEditDetails({ id }) {
 
     function validateData() {
         if (passCheck === true) {
+            if (
+                oldPass === "" ||
+                oldPass === null ||
+                oldPass === undefined ||
+                oldPass.replace(/\s/g, "").length <= 0
+            ) {
+                toast.error("Please enter the old password");
+                return false;
+            }
             if (
                 pass === "" ||
                 pass === null ||
@@ -83,7 +97,8 @@ export default function AdminEditDetails({ id }) {
                 let data = {
                     "is_active": active,
                     "password": pass,
-                }   
+                    "old_pass": oldPass,
+                }
                 AdminApi
                 .AdminDetails(id, data)
                 .then((response) => {
@@ -101,12 +116,12 @@ export default function AdminEditDetails({ id }) {
                             : "Unable to process your request, please try after sometime"
                     );
                 });
-
             }
             else {
                 let data = {
                     "is_active": active,
-                    "password": "0",
+                    "password": "-1",
+                    "old_pass": "-1",
                 }   
                 AdminApi
                 .AdminDetails(id, data)
@@ -195,7 +210,7 @@ export default function AdminEditDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} passCheckFalse={passCheckFalseHandle} />
+                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} oldPass={oldPassHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} passCheckFalse={passCheckFalseHandle} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

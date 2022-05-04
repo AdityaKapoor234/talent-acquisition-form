@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS,GET_BULK_BUY_LIST,GET_Bulk_BUY_VIEW_DETAILS, FEEDBACK_LIST,   } from "../utils/constant";
+import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS,GET_BULK_BUY_LIST,GET_Bulk_BUY_VIEW_DETAILS, FEEDBACK_LIST,GET_AFFILIATE_MARKETING_LIST, GET_AFFILIATE_MARKETING_VIEW_DETAILS   } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class InquiryApi {
@@ -103,6 +103,28 @@ export class InquiryApi {
             }
         };
         return axios.get(`${GET_Bulk_BUY_VIEW_DETAILS}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static getAffiliateMarketingList(page,search) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_AFFILIATE_MARKETING_LIST}`.replace('{{page}}', page).replace('{{search}}', search),httpOptions)
+    }
+
+    static getAffiliateMarketingViewDetails(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_AFFILIATE_MARKETING_VIEW_DETAILS}`.replace('{{id}}', id),httpOptions)
     }
       
 

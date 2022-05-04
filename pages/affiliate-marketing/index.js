@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-
 import XLSX from "xlsx";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Pagination from "@mui/material/Pagination";
@@ -20,15 +19,15 @@ import  AffiliatedMarketing from "../../component/enquiry/affiliated-marketing/a
 import InquiryApi from "../../services/inquiry";
 
 export default function Affiliate_Marketing() {
-    const [bulkBuys, setBulkBuys] = useState([]);
+    const [affiliateMarketing, setAffiliateMarketing] = useState([]);
     const [Page, setPage] = useState(1);
 
-    const getBulkBuyList = (page,search) => {
+    const getAffiliateMarketingList = (page,search) => {
 		// setIsLoader(true);
-		InquiryApi.getBulkBuyList(page,search)
+		InquiryApi.getAffiliateMarketingList(page,search)
 			.then((response) => {
-                // console.log(response)
-				setBulkBuys(response.data.data.list);
+                 console.log(response)
+                 setAffiliateMarketing(response.data.data.list);
 				// setTotalCustomer(response.data.data);
 				// setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 				// setIsLoader(false);
@@ -49,7 +48,7 @@ export default function Affiliate_Marketing() {
 		if (token === undefined) {
 			Router.push("/");
 		}
-		getBulkBuyList(Page, "");
+		getAffiliateMarketingList(Page, "");
 	}, []);
 
     return (
@@ -113,7 +112,7 @@ export default function Affiliate_Marketing() {
                                 //     )
                                 }
                                 <CustomerList customer={customer} /> */}
-                            <AffiliatedMarketing /> 
+                          { affiliateMarketing.length>0 && <AffiliatedMarketing list={affiliateMarketing} />} 
                             </div>
                         </div>
                         {/* <div className="row">

@@ -118,3 +118,5 @@ export const GET_BULK_BUY_LIST = `http://65.1.17.188:5000/manage/bulkbuy?page={{
 export const GET_Bulk_BUY_VIEW_DETAILS = `http://65.1.17.188:5000/manage/bulkbuy/{{id}}/view`;
 export const FEEDBACK_LIST = `http://65.1.17.188:5000/manage/feedback?page={{page}}&q={{search}}`;
 export const GET_FEEDBACK_DETAILS = `http://65.1.17.188:5000/manage/feedback/{{id}}/view`;
+export const GET_AFFILIATE_MARKETING_LIST = `http://65.1.17.188:5000/manage/affiliate?page={{page}}&q={{search}}`;
+export const GET_AFFILIATE_MARKETING_VIEW_DETAILS = `http://65.1.17.188:5000/manage/affiliate/{{id}}/view`;

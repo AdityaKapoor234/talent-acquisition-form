@@ -9,7 +9,7 @@ export default class AffiliatedMarketing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: props?.product,
+      product: props?.list,
     };
   }
 
@@ -60,7 +60,7 @@ export default class AffiliatedMarketing extends Component {
               {/* <div className="col text-center">Type</div> */}
               <div className="col-3 px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
-              <div className="col px-2 text-center">Product</div>
+              <div className="col px-2 text-center">Enquiry</div>
               <div className="col-2 text-center ">View</div>
             </div>
           </div>
@@ -72,18 +72,18 @@ export default class AffiliatedMarketing extends Component {
             <div className="row" key={index}>
               <div className="col-md-12">
                 <div className="tableCell">
-                  <div className="tableBody pe-1 col-2 elip-text" title={p?.name}>{p?.name}</div>
+                  <div className="tableBody pe-1 col-2 elip-text" title={p?.company_name}>{p?.company_name}</div>
                   {/* <div className="col text-center">{p?.type?p?.type:"General"}</div> */}
                   <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.email}>
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
-                  <div className="col px-2 text-center elip-text" title={p?.order_product}>{p?.order_product}</div>
+                  <div className="col px-2 text-center elip-text" title={p?.enquiry}>{p?.enquiry}</div>
                   <div className="col-2 text-center">
                     <RemoveRedEyeIcon
                       className="view-icon"
                       onClick={() => {
-                        Router.push(`/bulk-buys/${p?.id}/view`);
+                        Router.push(`/affiliate-marketing/${p?.id}/view`);
                       }}
                     />
                   </div>

@@ -116,7 +116,7 @@ export default function TrustedHealth() {
                             <div className="page-name">Trusted Health</div>
                         </div>
                         <div className="col-md-4">
-                            <div className="login-form ">
+                            {/* <div className="login-form ">
                                 <input
                                     type="text"
                                     placeholder="Search..."
@@ -126,7 +126,7 @@ export default function TrustedHealth() {
                                     onKeyPress={handleKeyPress}
                                 />
                                 <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
-                            </div>
+                            </div> */}
                         </div>
                         <div className="col-md-2 btn-save">
                             <div

@@ -24,9 +24,10 @@ export default class TrustedHealthDetails extends Component {
             open: false,
             mode: props?.mode,
             name: props?.trustedHealth?.name ? props?.trustedHealth?.name : "",
+            sort_order: props?.trustedHealth?.sort_order ? props?.trustedHealth?.sort_order : "",
             content: props?.trustedHealth?.content ? props?.trustedHealth?.content : "",
             is_trust_health: props?.trustedHealth?.is_trust_health ? props?.trustedHealth?.is_trust_health : "",
-            path: props?.trustedHealth?.path ? props?.trustedHealth?.path : "",
+            path: props?.trustedHealth?.image_url ? props?.trustedHealth?.image_url : "",
             read_more_url: props?.trustedHealth?.read_more_url ? props?.trustedHealth?.read_more_url : "",
             img_sm: "file-input-sm",
             img_lg: "file-input-lg",
@@ -37,19 +38,15 @@ export default class TrustedHealthDetails extends Component {
         if (
             prevState.trustedHealth !== nextProps.trustedHealth ||
             prevState.mode !== nextProps.mode
-            // prevState.name !== nextProps.name  ||
-            // prevState.content !== nextProps.content  ||
-            // prevState.is_trust_health !== nextProps.is_trust_health  ||
-            // prevState.path !== nextProps.path  ||
-            // prevState.read_more_url !== nextProps.read_more_url
         ) {
             return {
                 trustedHealth: nextProps?.trustedHealth,
                 mode: nextProps?.mode,
                 name: nextProps?.trustedHealth?.name,
+                sort_order: nextProps?.trustedHealth?.sort_order,
                 content: nextProps?.trustedHealth?.content,
                 is_trust_health: nextProps?.trustedHealth?.is_trust_health,
-                path: nextProps?.trustedHealth?.path,
+                path: nextProps?.trustedHealth?.image_url,
                 read_more_url: nextProps?.trustedHealth?.read_more_url,
             };
         }
@@ -148,6 +145,11 @@ export default class TrustedHealthDetails extends Component {
         this.props?.name(event.target.value);
     }
 
+    sortOrderHandle = (event) => {
+        this.setState({ sort_order: event.target.value });
+        this.props?.sortOrder(event.target.value);
+    }
+
     contentHandle = (event) => {
         this.setState({ content: event.target.value });
         this.props?.content(event.target.value);
@@ -217,18 +219,24 @@ export default class TrustedHealthDetails extends Component {
                                                     onChange={(event) => { this.contentHandle(event) }}
                                                 />
                                             </div>
-                                            <div className="signup-check">
+                                            <div className="login-form ">
+                                                <label>Sort Order<span className="mandatory-star">*</span></label>
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={this.state.sort_order}
+                                                    onChange={(event) => { this.sortOrderHandle(event) }}
+                                                />
+                                            </div>
+                                            {/* <div className="signup-check">
                                                 <Checkbox
                                                     size="small"
                                                     style={{ color: "#012169" }}
                                                     checked={this.state.is_trust_health}
                                                     onChange={this.isTrustHealthHandle}
-                                                // onChange={() => {
-                                                //     this.setState({ open: true });
-                                                // }}
                                                 />
                                                 <label>Active</label>
-                                            </div>
+                                            </div> */}
                                             <div className="mb-4">
                                                 <Photo
                                                     mode={this.state.mode}
@@ -280,14 +288,22 @@ export default class TrustedHealthDetails extends Component {
                                                     readOnly={true}
                                                 />
                                             </div>
-                                            <div className="signup-check">
+                                            <div className="login-form ">
+                                                <label>Sort Order<span className="mandatory-star">*</span></label>
+                                                <input
+                                                    type="number"
+                                                    value={this.state.sort_order}
+                                                    readOnly={true}
+                                                />
+                                            </div>
+                                            {/* <div className="signup-check">
                                                 <Checkbox
                                                     size="small"
                                                     style={{ color: "#012169" }}
                                                     checked={this.state.is_trust_health}
                                                 />
                                                 <label>Active</label>
-                                            </div>
+                                            </div> */}
                                             <div className="mb-4">
                                                 <Photo
                                                     mode={this.state.mode}

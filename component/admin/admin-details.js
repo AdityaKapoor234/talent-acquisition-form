@@ -32,6 +32,7 @@ export default class AdminDetails extends Component {
             tab: 1,
             admin: props?.admin,
             mode: props?.mode,
+            oldPassword: "",
             password: "",
             password2: "",
             timeout: "",
@@ -103,6 +104,16 @@ export default class AdminDetails extends Component {
             }
         }
     };
+    handleChange3 = (event) => {
+        this.setState({ oldPassword: event.target.value });
+        this.props?.oldPass(event.target.value);
+        if (this.state.mode === "edit") {
+            this.props?.passCheck();
+            if (event.target.value === "") {
+                this.props?.passCheckFalse();
+            }
+        }
+    };
     handleClose = () => {
         this.setState({
             open: false,
@@ -113,6 +124,13 @@ export default class AdminDetails extends Component {
     };
     handleClickClose = () => {
         this.setState({ dialog: false });
+    };
+    handleClickSubmitClose = () => {
+        this.setState({ dialog: false });
+        this.props.save(this.state.id);
+        this.setState({ oldPassword: "" });
+        this.setState({ password: "" });
+        this.setState({ password2: "" });
     };
 
     handleCheckbox = () => {
@@ -340,6 +358,14 @@ export default class AdminDetails extends Component {
                                                     id="alert-dialog-description"
                                                     sx={{ color: "#012169" }} >
                                                     <div className="login-form ">
+                                                        <label>Old Password<span className="mandatory-star">*</span></label>
+                                                        <input
+                                                            type="password"
+                                                            value={this.state?.oldPassword}
+                                                            onChange={this.handleChange3.bind(this)}
+                                                        />
+                                                    </div>
+                                                    <div className="login-form ">
                                                         <label>Password<span className="mandatory-star">*</span></label>
                                                         <input
                                                             type="password"
@@ -365,7 +391,7 @@ export default class AdminDetails extends Component {
                                                         color="secondary"
                                                         variant="contained"
 
-                                                        onClick={this.handleClickClose}
+                                                        onClick={this.handleClickSubmitClose}
                                                         autoFocus
                                                     >
                                                         Submit

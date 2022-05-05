@@ -146,8 +146,8 @@ export default class TrustedHealthDetails extends Component {
     }
 
     sortOrderHandle = (event) => {
-        this.setState({ sort_order: event.target.value });
-        this.props?.sortOrder(event.target.value);
+        this.setState({ sort_order: event.target.value.replace(/[^\d]/, "") });
+        this.props?.sortOrder(event.target.value.replace(/[^\d]/, ""));
     }
 
     contentHandle = (event) => {
@@ -223,7 +223,7 @@ export default class TrustedHealthDetails extends Component {
                                                 <label>Sort Order<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="number"
-                                                    min="1"
+                                                    min="0"
                                                     value={this.state.sort_order}
                                                     onChange={(event) => { this.sortOrderHandle(event) }}
                                                 />

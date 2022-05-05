@@ -64,10 +64,10 @@ export default function TrustedHealthEditDetails({ id }) {
 			return false;
 		}
 		if (content === "" || content === null || content.replace(/\s/g, "").length <= 0) {
-			toast.error("Please enter the name");
+			toast.error("Please enter the content");
 			return false;
 		}
-		if (sortOrder === "" || sortOrder === null || sortOrder > 0 || sortOrder.replace(/\s/g, "").length <= 0) {
+		if (sortOrder === "" || sortOrder === null) {
 			toast.error("Please enter the sorting order");
 			return false;
 		}
@@ -76,7 +76,7 @@ export default function TrustedHealthEditDetails({ id }) {
 			return false;
 		}
 		if (readMoreUrl === "" || readMoreUrl === null || readMoreUrl.replace(/\s/g, "").length <= 0) {
-			toast.error("Please enter the name");
+			toast.error("Please enter the read more url");
 			return false;
 		}
 
@@ -120,7 +120,7 @@ export default function TrustedHealthEditDetails({ id }) {
 				setSortOrder(response.data.data.trust_helath_view.sort_order);
 				setContent(response.data.data.trust_helath_view.content);
 				setIsTrustHealth(response.data.data.trust_helath_view.is_trust_health);
-				setPath(response.data.data.trust_helath_view.path);
+				setPath(response.data.data.trust_helath_view.image_url);
 				setReadMoreUrl(response.data.data.trust_helath_view.read_more_url);
 			})
 			.catch((error) => {

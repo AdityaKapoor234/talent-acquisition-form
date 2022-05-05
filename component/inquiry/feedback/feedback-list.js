@@ -52,8 +52,7 @@ export default class FeedbackList extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col pe-1">Name</div>
-              <div className="col px-2 text-center">User Name</div>
+              <div className="col-2 pe-1">Name</div>
               <div className="col px-2 text-center">Feedback Topic</div>
               <div className="col px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
@@ -68,10 +67,7 @@ export default class FeedbackList extends Component {
                 <div className="row" key={index}>
                   <div className="col-md-12">
                     <div className="tableCell">
-                      <div className="tableBody pe-1 col elip-text" title={p?.name}>{p?.name}</div>
-                      <div className="tableBody px-2 col justify-content-center elip-text" title={p?.user_name}>
-                        {p?.user_name}
-                      </div>
+                      <div className="tableBody pe-1 col-2 elip-text" title={p?.name}>{p?.name}</div>
                       <div className="col px-2 text-center elip-text" title={p?.topic}>{p?.topic}</div>
                       <div className="col px-2 text-center elip-text" title={p?.email}>{p?.email}</div>
                       <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>

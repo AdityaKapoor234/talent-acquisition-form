@@ -26,12 +26,17 @@ export default function AdminEditDetails({ id }) {
 
     const [admin, setAdmin] = useState([]);
     const [active, setActive] = useState(false);
+    const [oldPass, setOldPass] = useState("");
     const [pass, setPass] = useState("");
     const [pass2, setPass2] = useState("");
     const [passCheck, setPassCheck] = useState(false);
 
     const activeHandle = (value) => {
         setActive(value)
+    }
+
+    const oldPassHandle = (value) => {
+        setOldPass(value)
     }
 
     const passHandle = (value) => {
@@ -52,6 +57,15 @@ export default function AdminEditDetails({ id }) {
 
     function validateData() {
         if (passCheck === true) {
+            if (
+                oldPass === "" ||
+                oldPass === null ||
+                oldPass === undefined ||
+                oldPass.replace(/\s/g, "").length <= 0
+            ) {
+                toast.error("Please enter the old password");
+                return false;
+            }
             if (
                 pass === "" ||
                 pass === null ||
@@ -79,10 +93,35 @@ export default function AdminEditDetails({ id }) {
 
     const saveDetails = (id) => {
         if (validateData()) {
-            if (passCheck === true) {
+            // if (passCheck === true) {
+            //     let data = {
+            //         "is_active": active,
+            //         "password": pass,
+            //         "old_pass": oldPass,
+            //     }
+            //     AdminApi
+            //     .AdminDetails(id, data)
+            //     .then((response) => {
+            //         if (response.data.httpStatusCode === 200) {
+            //             toast.success(response.data.message)
+            //             Router.push(`/admin`);
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         toast.error(
+            //             error?.response &&
+            //                 error?.response?.data &&
+            //                 error?.response?.data?.message
+            //                 ? error.response.data.message
+            //                 : "Unable to process your request, please try after sometime"
+            //         );
+            //     });
+            // }
+            // else {
                 let data = {
                     "is_active": active,
-                    "password": pass,
+                    "password": "-1",
+                    "old_pass": "-1",
                 }   
                 AdminApi
                 .AdminDetails(id, data)
@@ -101,19 +140,48 @@ export default function AdminEditDetails({ id }) {
                             : "Unable to process your request, please try after sometime"
                     );
                 });
+            // }
+        }
+    }
 
+    const savePass = (id) => {
+        if (validateData()) {
+            if (passCheck === true) {
+                let data = {
+                    "is_active": active,
+                    "password": pass,
+                    "old_pass": oldPass,
+                }
+                AdminApi
+                .AdminDetails(id, data)
+                .then((response) => {
+                    if (response.data.httpStatusCode === 200) {
+                        toast.success(response.data.message)
+                        // Router.push(`/admin`);
+                    }
+                })
+                .catch((error) => {
+                    toast.error(
+                        error?.response &&
+                            error?.response?.data &&
+                            error?.response?.data?.message
+                            ? error.response.data.message
+                            : "Unable to process your request, please try after sometime"
+                    );
+                });
             }
             else {
                 let data = {
                     "is_active": active,
-                    "password": "0",
+                    "password": "-1",
+                    "old_pass": "-1",
                 }   
                 AdminApi
                 .AdminDetails(id, data)
                 .then((response) => {
                     if (response.data.httpStatusCode === 200) {
                         toast.success(response.data.message)
-                        Router.push(`/admin`);
+                        // Router.push(`/admin`);
                     }
                 })
                 .catch((error) => {
@@ -128,6 +196,7 @@ export default function AdminEditDetails({ id }) {
             }
         }
     }
+
 
     const adminDetail = (id) => {
         AdminApi
@@ -195,7 +264,7 @@ export default function AdminEditDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} passCheckFalse={passCheckFalseHandle} />
+                            <AdminDetails admin={admin} id={id} mode={mode} active={activeHandle} oldPass={oldPassHandle} pass={passHandle} pass2={passHandle2} passCheck={passCheckHandle} passCheckFalse={passCheckFalseHandle} save={savePass}/>
                         </div>
                     </div>
                 </DashboardLayoutComponent>

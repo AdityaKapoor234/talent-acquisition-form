@@ -33,6 +33,7 @@ export default function TrustedHealthAddDetails({ id }) {
 	const [trustedHealth, setTrustedHealth] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [name, setName] = useState("");
+	const [sortOrder, setSortOrder] = useState("");
 	const [content, setContent] = useState("");
 	const [isTrustHealth, setIsTrustHealth] = useState(false);
 	const [path, setPath] = useState("");
@@ -40,23 +41,21 @@ export default function TrustedHealthAddDetails({ id }) {
 
 	const nameHandle = (value) => {
 		setName(value);
-		console.log(name,"name");
+	}
+	const sortOrderHandle = (value) => {
+		setSortOrder(value);
 	}
 	const contentHandle = (value) => {
 		setContent(value);
-		console.log(content,"content");
 	}
 	const isTrustHealthHandle = (value) => {
 		setIsTrustHealth(value);
-		console.log(isTrustHealth,"isTrustHealth");
 	}
 	const pathHandle = (value) => {
 		setPath(value);
-		console.log(path,"path");
 	}
 	const readMoreUrlHandle = (value) => {
 		setReadMoreUrl(value);
-		console.log(readMoreUrl,"readMoreUrl");
 	}
 
 	const validateData = () => {
@@ -66,6 +65,10 @@ export default function TrustedHealthAddDetails({ id }) {
 		}
 		if (content === "" || content === null || content.replace(/\s/g, "").length <= 0) {
 			toast.error("Please enter the name");
+			return false;
+		}
+		if ((sortOrder === "" || sortOrder === null || sortOrder.replace(/\s/g, "").length <= 0) && sortOrder >= 1) {
+			toast.error("Please enter the sorting order");
 			return false;
 		}
 		if (path === "" || path === null) {
@@ -82,12 +85,13 @@ export default function TrustedHealthAddDetails({ id }) {
 
 
 	const OnSave = (id) => {
-		if (validateData) {
+		if (validateData()) {
 			let data = {
 				name: name,
 				content: content,
-				is_trust_health: isTrustHealth,
-				path: path,
+				sort_order: sortOrder,
+				is_trust_health: true,
+				image_url: path,
 				read_more_url: readMoreUrl,
 			};
 			InquiryApi.trustedHealthCreate(data)
@@ -113,6 +117,7 @@ export default function TrustedHealthAddDetails({ id }) {
 	// 		.then((response) => {
 	// 			setTrustedHealth(response.data.data.trust_helath_view);
 	// 			setName(response.data.data.trust_helath_view.name);
+	//			setSortOrder(response.data.data.trust_helath_view.sort_order);
 	// 			setContent(response.data.data.trust_helath_view.content);
 	// 			setIsTrustHealth(response.data.data.trust_helath_view.is_trust_health);
 	// 			setPath(response.data.data.trust_helath_view.path);
@@ -130,7 +135,9 @@ export default function TrustedHealthAddDetails({ id }) {
 	// };
 
 	// const Delete = (id) => {
-	// 	let data = {};
+	// 	let data = {
+	//		is_trust_health: false
+	//	};
 	// 	InquiryApi.trustedHealthDelete(id, data)
 	// 		.then((response) => {
 	// 			if (response.data.httpStatusCode === 200) {
@@ -204,7 +211,7 @@ export default function TrustedHealthAddDetails({ id }) {
 					</div>
 					<div className="row">
 						<div className="col-m-12">
-							<TrustedHealthCreateComponent trustedHealth={trustedHealth} mode={mode} name={nameHandle} content={contentHandle} isTrustHealth={isTrustHealthHandle} path={pathHandle} readMoreUrl={readMoreUrlHandle} />
+							<TrustedHealthCreateComponent trustedHealth={trustedHealth} mode={mode} name={nameHandle} sortOrder={sortOrderHandle} content={contentHandle} isTrustHealth={isTrustHealthHandle} path={pathHandle} readMoreUrl={readMoreUrlHandle} />
 						</div>
 					</div>
 				</DashboardLayoutComponent>

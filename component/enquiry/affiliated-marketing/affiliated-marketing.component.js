@@ -15,10 +15,10 @@ export default class AffiliatedMarketing extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      prevState.customer !== nextProps.customer
+      prevState.product !== nextProps.list
     ) {
       return {
-        customer: nextProps?.customer
+        product: nextProps?.list
       };
     }
     return null;

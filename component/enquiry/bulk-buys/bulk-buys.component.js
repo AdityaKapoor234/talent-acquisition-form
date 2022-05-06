@@ -15,10 +15,10 @@ export default class BulkBuys extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      prevState.customer !== nextProps.customer
+      prevState.product !== nextProps.product
     ) {
       return {
-        customer: nextProps?.customer
+        product: nextProps?.product
       };
     }
     return null;

@@ -153,46 +153,6 @@ export default class FeedbackDetails extends Component {
 												/>
 											</div>
 											<div className="login-form ">
-												<label>User Name<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.feedback?.user_name}
-													readOnly={true}
-												/>
-											</div>
-											<div className="login-form ">
-												<label>Feedback Topic<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.feedback?.topic}
-													readOnly={true}
-												/>
-											</div>
-											<div className="login-form ">
-												<label>Access to Site/Tools<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.feedback?.accessing_by}
-													readOnly={true}
-												/>
-											</div>
-											<div className="login-form ">
-												<label>Purpose of Visit<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.feedback?.visit_purpose}
-													readOnly={true}
-												/>
-											</div>
-											<div className="login-form ">
-												<label>Able to complete the purpose of your visit<span className="mandatory-star">*</span></label>
-												<input
-													type="text"
-													value={this.state.feedback?.complete_visit_purpose}
-													readOnly={true}
-												/>
-											</div>
-											<div className="login-form ">
 												<label>Email Address<span className="mandatory-star">*</span></label>
 												<input
 													type="text"
@@ -205,6 +165,63 @@ export default class FeedbackDetails extends Component {
 												<input
 													type="text"
 													value={this.state.feedback?.phone_no}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Feedback Topic<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.feedback?.topic}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Feedback Experience<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.feedback?.finding_exp_fitcart}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Purpose of Visit<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.feedback?.visit_purpose}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Able to Find Everything You were looking for<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.feedback?.find_everything}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Recommendation for Fitcart<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.feedback?.recommend}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Category<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.feedback?.category}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Feedback<span className="mandatory-star">*</span></label>
+                                                <textarea
+                                                    cols="100"
+                                                    rows="5"
+													value={this.state.feedback?.feedback}
 													readOnly={true}
 												/>
 											</div>

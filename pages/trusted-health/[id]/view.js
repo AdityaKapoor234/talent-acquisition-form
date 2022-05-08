@@ -97,14 +97,14 @@ export default function TrustedHealthViewDetails({ id }) {
 							<div className="page-name">Trusted Health Details - {trustedHealth?.name}</div>
 						</div>
 						<div className="col-md-7 btn-save">
-							{/* <div
+							<div
 								className="Cancel-btn custom-btn"
 								onClick={() => {
 									setOpen(true);
 								}}
 							>
 								<span>Delete </span>
-							</div> */}
+							</div>
 							<div
 								className="Cancel-btn custom-btn"
 								onClick={() => {

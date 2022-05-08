@@ -127,3 +127,25 @@ export const TRUSTED_HEALTH_DETAILS = `http://65.1.17.188:5001/manage/trusthealt
 export const TRUSTED_HEALTH_EDIT = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/edit`;
 export const TRUSTED_HEALTH_CREATE = `http://65.1.17.188:5001/manage/trusthealth/add`;
 export const TRUSTED_HEALTH_DELETE = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/delete`;
+
+//SPORTS
+export const SPORTS_LIST = `http://65.1.17.188:5001/manage/sports?page={{page}}&q={{search}}`;
+export const SPORTS_VIEW = `http://65.1.17.188:5001/manage/sports/{{id}}`;
+export const SPORTS_EDIT = `http://65.1.17.188:5001/manage/sports/{{id}}`;
+export const SPORTS_CREATE = `http://65.1.17.188:5001/manage/sports`;
+export const SPORTS_DELETE = `http://65.1.17.188:5001/manage/sports/{{id}}/delete`;
+
+//GOALS
+export const GOALS_LIST = `http://65.1.17.188:5001/manage/goals?page={{page}}&q={{search}}`;
+export const GOALS_VIEW = `http://65.1.17.188:5001/manage/goals/{{id}}`;
+export const GOALS_EDIT = `http://65.1.17.188:5001/manage/goals/{{id}}`;
+export const GOALS_CREATE = `http://65.1.17.188:5001/manage/goals`;
+export const GOALS_DELETE = `http://65.1.17.188:5001/manage/goals/{{id}}/delete`;
+
+//DIET
+export const DIET_LIST = `http://65.1.17.188:5001/manage/diets?page={{page}}&q={{search}}`;
+export const DIET_VIEW = `http://65.1.17.188:5001/manage/diets/{{id}}`;
+export const DIET_EDIT = `http://65.1.17.188:5001/manage/diets/{{id}}`;
+export const DIET_CREATE = `http://65.1.17.188:5001/manage/diets`;
+export const DIET_DELETE = `http://65.1.17.188:5001/manage/diets/{{id}}/delete`;
+

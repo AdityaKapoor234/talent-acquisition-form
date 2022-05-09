@@ -74,7 +74,6 @@ export default class DietCreate extends Component {
 	render() {
 		return (
 			<div data-component="edit-category">
-				{console.log(this.state.diet,"diet")}
 				<div className="row ">
 					<div className="col-md-12">
 						<div className="tab">

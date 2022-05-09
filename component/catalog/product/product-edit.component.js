@@ -7,6 +7,7 @@ import ProductPhotoComponent from "./tabbed-components/product-photo.component";
 import ProductSEOComponent from "./tabbed-components/product-seo.component";
 import ProductCustomComponent from "./tabbed-components/product-custom.component";
 import ProductSupplementsComponent from "./tabbed-components/product-supplements.component";
+import ProductCertificateComponent from "./tabbed-components/product-certificate.component";
 
 const editor_tabs = [
     {
@@ -14,6 +15,12 @@ const editor_tabs = [
         'show': true,
         'label': 'Info',
         'key': 'info'
+    },
+    {
+        'id': 8,
+        'show': true,
+        'label': 'Certificate',
+        'key': 'Certificate'
     },
     {
         'id': 4,
@@ -109,6 +116,11 @@ export default class ProductEditComponent extends Component {
                     {this.state.tab === 'info' && (
                         <>
                             <ProductInfoComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
+                        </>
+                    )}
+                    {this.state.tab === 'Certificate' && (
+                        <>
+                            <ProductCertificateComponent id={this.state.id} mode={this.state.mode} tab={this.setTab.bind(this)}/>
                         </>
                     )}
                     {this.state.tab === 'content' && (

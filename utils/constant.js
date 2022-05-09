@@ -71,7 +71,9 @@ export const ADD_ORDER_STATUS = `http://65.1.17.188:5002/manage/order/{{id}}/sta
 export const GET_INGREDIENT = `http://65.1.17.188:5001/manage/ingredient/all`;
 export const ADD_SUPPLEMENT = `http://65.1.17.188:5001/manage/product/{{id}}/supplement-facts`;
 export const CONTENTLIST = `http://65.1.17.188:5001/manage/product/{{id}}/content`; 
-export const CONTENT_LIST_EDIT = `http://65.1.17.188:5001/manage/product/{{id}}/content`
+export const CONTENT_LIST_EDIT = `http://65.1.17.188:5001/manage/product/{{id}}/content`;
+export const ADD_CERTIFICATE = `http://65.1.17.188:5001/manage/product/{{id}}/certificate`;
+export const GET_CERTIFICATE=`http://65.1.17.188:5001/manage/product/{{id}}/certificate/view`;
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;

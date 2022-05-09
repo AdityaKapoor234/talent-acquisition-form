@@ -47,7 +47,6 @@ export default class AffiliatedMarketing extends Component {
   };
 
   componentDidMount(){
-    console.log(this.state.product);
   }
 
   render() {

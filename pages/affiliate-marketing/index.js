@@ -82,7 +82,6 @@ export default function Affiliate_Marketing() {
 		 setIsLoader(true);
 		InquiryApi.getAffiliateMarketingList(page,search)
 			.then((response) => {
-                 console.log(response)
                  setAffiliateMarketing(response.data.data.list);
 				 setTotalAffiliateMarketing(response.data.data.total);
 				  setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

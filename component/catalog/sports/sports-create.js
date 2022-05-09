@@ -144,7 +144,6 @@ export default class SportsCreate extends Component {
 													urlName="icon"
 												/>
 											</div>
-											{console.log(this.state.sports,"sports")}
 											<div className="mt-4">
 												<Photo
 													mode={this.state.mode}

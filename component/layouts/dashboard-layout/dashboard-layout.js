@@ -28,7 +28,7 @@ export default function DashboardLayoutComponent({ children }) {
 
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" ? true : false);
-    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "product" || pathArr === "flavor" ? true : false);
+    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" ? true : false);
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
@@ -126,6 +126,9 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "ingredient" ? "sub_active" : ""} onClick={() => handleCategary("/ingredient", "ingredient")}>ingredient</li>
                                         <li className={categary === "classification" ? "sub_active" : ""} onClick={() => handleCategary("/classification", "classification")}>classification</li>
                                         <li className={categary === "brand" ? "sub_active" : ""} onClick={() => handleCategary("/brand", "brand")}>brand</li>
+                                        <li className={categary === "sports" ? "sub_active" : ""} onClick={() => handleCategary("/sports", "sports")}>sports</li>
+                                        <li className={categary === "goals" ? "sub_active" : ""} onClick={() => handleCategary("/goals", "goals")}>goals</li>
+                                        <li className={categary === "diet" ? "sub_active" : ""} onClick={() => handleCategary("/diet", "diet")}>diet</li>
                                         <li className={categary === "product" ? "sub_active" : ""} onClick={() => handleCategary("/product", "product")}>product</li>
                                         {/* <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li> */}
                                         <li className={categary === "flavor" ? "sub_active" : ""} onClick={() => handleCategary("/flavor", "flavor")}>flavor</li>

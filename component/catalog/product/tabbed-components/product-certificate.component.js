@@ -4,17 +4,9 @@ import ProductApi from "../../../../services/product";
 import cookie from "js-cookie";
 import axios from "axios";
 import { toast } from "react-toastify";
-import PDFViewer from 'pdf-viewer-reactjs'
-import Photo from "../../../common-component/photo";
-import IconButton from "@mui/material/IconButton";
-import {PhotoCamera} from "@mui/icons-material";
 import Router from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import Checkbox from "@mui/material/Checkbox";
-import DeleteIcon from '@mui/icons-material/Delete';
-import InfoIcon from '@mui/icons-material/Info';
-import DefaultLayoutExample from "../../../common-component/pdf";
 
 export default class ProductCertificateComponent extends Component {
     constructor(props) {
@@ -92,15 +84,11 @@ export default class ProductCertificateComponent extends Component {
     }
 
     onSave=()=> {
-        // if(this.validation()){
             this.updatePhoto(this.state.id,"save")
-        // }
     }
 
     onSaveAndContinue=()=> {
-        // if(this.validation()){
             this.updatePhoto(this.state.id,"continue")
-        // }
     }
 
     getCertification=(id)=>{
@@ -152,7 +140,6 @@ export default class ProductCertificateComponent extends Component {
                             </div>
                         }
                         </div>
-                        {/* <DefaultLayoutExample /> */}
                     </div>}
                     {this.state.certificate !== "" ? 
                     <div className="col-md-3 mt-3">

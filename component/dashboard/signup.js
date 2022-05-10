@@ -46,7 +46,7 @@ export default class signup extends Component {
     };
 
     empRows() {
-        for (let i = this.state.rows; i < 10; i++) {
+        for (let i = this.state.rows; i < 15; i++) {
             this.state.remainingRows[i] = i
         }
 

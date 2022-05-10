@@ -35,44 +35,68 @@ export default class BrandEditDetails extends Component {
       mode: "edit",
       brand: {},
       open: false,
+      is_all: false,
       brandDetails: {
-        sort_order: null,
         name: "",
-        is_active: null,
+        description: "",
+        sort_order: null,
+        icon_url: "",
+        banner_url: "",
+        banner_url_sm: "",
+        is_active: false,
+        show_in_main_menu: false,
       },
     };
   }
   validateData = () => {
-    if (
-      this.state.brandDetails.name === "" &&
-      (this.state.brandDetails.sort_order === "" ||
-        this.state.brandDetails.sort_order === null)
-    ) {
-      toast.error("Please enter Display Order ");
+    this.setState({ is_all: false });
+
+
+    if (this.state.brandDetails.name === "" || this.state.brandDetails.name === null || this.state.brandDetails.name.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter name");
-      return false;
+      this.state.is_all = true;
     }
-    if (this.state.brandDetails.name === "" || this.state.brandDetails.name.replace(/\s/g, "").length <=0) {
-      toast.error("Please enter name");
-      return false;
+    if (this.state.brandDetails.description === "" || this.state.brandDetails.description === null || this.state.brandDetails.description.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter description");
+      this.state.is_all = true;
     }
-    if (
-      this.state.brandDetails.sort_order === "" ||
-      this.state.brandDetails.sort_order === null
-    ) {
-      toast.error("Please enter Display Order ");
-      return false;
+    if (this.state.brandDetails.sort_order === "" || this.state.brandDetails.sort_order === null) {
+      toast.error("Please enter display order ");
+      this.state.is_all = true;
+    }
+    if (this.state.brandDetails.icon_url === "" || this.state.brandDetails.icon_url === null || this.state.brandDetails.icon_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter icon ");
+      this.state.is_all = true;
+    }
+    if (this.state.brandDetails.banner_url === "" || this.state.brandDetails.banner_url === null || this.state.brandDetails.banner_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter full banner image ");
+      this.state.is_all = true;
+    }
+    if (this.state.brandDetails.banner_url_sm === "" || this.state.brandDetails.banner_url_sm === null || this.state.brandDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter short banner image ");
+      this.state.is_all = true;
     }
 
-    return true;
+
+    if (this.state.is_all === true) {
+      return false;
+    }
+    else {
+      return true;
+    }
   };
 
   OnSave = () => {
     if (this.validateData()) {
       let data = {
         name: this.state.brandDetails.name,
+        description: this.state.brandDetails.description,
         sort_order: parseInt(this.state.brandDetails.sort_order),
+        icon_url: this.state.brandDetails.icon_url,
+        banner_url: this.state.brandDetails.banner_url,
+        banner_url_sm: this.state.brandDetails.banner_url_sm,
         is_active: this.state.brandDetails.is_active,
+        show_in_main_menu: this.state.brandDetails.show_in_main_menu,
       };
       BrandsApi.BrandsEdit(this.props.id, data)
         .then((response) => {
@@ -101,15 +125,14 @@ export default class BrandEditDetails extends Component {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
-            sort_order: response.data.data.brand.sort_order
-              ? response.data.data.brand.sort_order
-              : null,
-            name: response.data.data.brand.name
-              ? response.data.data.brand.name
-              : "",
-            is_active: response.data.data.brand.is_active
-              ? response.data.data.brand.is_active
-              : null,
+            name: response.data.data.brand.name ? response.data.data.brand.name : "",
+            description: response.data.data.brand.description ? response.data.data.brand.description : "",
+            sort_order: response.data.data.brand.sort_order ? response.data.data.brand.sort_order : null,
+            icon_url: response.data.data.brand.icon_url ? response.data.data.brand.icon_url : "",
+            banner_url: response.data.data.brand.banner_url ? response.data.data.brand.banner_url : "",
+            banner_url_sm: response.data.data.brand.banner_url_sm ? response.data.data.brand.banner_url_sm : "",
+            is_active: response.data.data.brand.is_active ? response.data.data.brand.is_active : false,
+            show_in_main_menu: response.data.data.brand.show_in_main_menu ? response.data.data.brand.show_in_main_menu : false,
           };
           this.setState({
             brandDetails: details,

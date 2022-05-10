@@ -74,6 +74,8 @@ export const CONTENTLIST = `http://65.1.17.188:5001/manage/product/{{id}}/conten
 export const CONTENT_LIST_EDIT = `http://65.1.17.188:5001/manage/product/{{id}}/content`;
 export const ADD_CERTIFICATE = `http://65.1.17.188:5001/manage/product/{{id}}/certificate`;
 export const GET_CERTIFICATE=`http://65.1.17.188:5001/manage/product/{{id}}/certificate/view`;
+export const ADD_CLASSIFICTION= `http://65.1.17.188:5001/manage/classification/{{id}}`;
+export const GET_CLASSIFICTION = `http://65.1.17.188:5001/manage/classification/all`;
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;

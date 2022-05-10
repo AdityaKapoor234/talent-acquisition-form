@@ -47,7 +47,6 @@ export default class BulkBuys extends Component {
   };
 
   componentDidMount(){
-    console.log(this.state.product);
   }
 
   render() {

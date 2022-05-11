@@ -12,41 +12,18 @@ export default class topSearchTerms extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderStatsDetails: props?.orderStatsDetails,
-
-            rows: 0,
-            remainingRows: [],
-            chartData: {
-                labels: ["Whey Protein", "A", "B", "2nd surge ultra energy gel", "diet"],
-                datasets: [
-                    {
-                        // label: ["Whey Protein", "A", "B", "2nd surge ultra energy gel", "diet"],
-                        data: [30, 70, 40, 50, 60],
-                        backgroundColor: [
-                            "#ff7e80",
-                            // 'rgb(54, 162, 235)',
-                            // 'rgb(255, 99, 132)',
-                            // 'rgb(255, 162, 132)',
-                            // 'rgb(255, 99, 162)',
-                            // 'rgb(255, 235, 132)',
-                        ],
-                        hoverOffset: 4,
-                        borderWidth: 3,
-                        borderColor: "#ce6964",
-                        hoverBorderWidth: 2,
-                        // hoverBorderColor: "#000",
-                    }],
-            },
-
+            topSearchTerms: props?.topSearchTerms,
+            topSearchLabel: [],
+            topSearchValues: [],
         };
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-            prevState.orderStatsDetails !== nextProps.orderStatsDetails
+            prevState.topSearchTerms !== nextProps.topSearchTerms
         ) {
             return {
-                orderStatsDetails: nextProps?.orderStatsDetails
+                topSearchTerms: nextProps?.topSearchTerms
             };
         }
         return null;
@@ -57,18 +34,39 @@ export default class topSearchTerms extends Component {
         return (
             <>
                 <div className="row mb-2">
-                    <div className="col page-name">Top Search Terms</div>
-                    <div className="col d-flex justify-content-end align-self-end">
-                        {/* <Link href="/order">
-                            <span className='page-name-link'>View All</span>
-                        </Link> */}
-                    </div>
+                    <div className="col-12 page-name">Top Search Terms</div>
                 </div>
+
+                {
+                    this.state.topSearchTerms?.map(elem => {
+                        return (
+                            <>
+                                <div className='noVisi'>
+                                    {this.state.topSearchLabel.push(elem?.term)}
+                                    {this.state.topSearchValues.push(elem?.count)}
+                                </div>
+                            </>
+                        )
+                    })
+                }
 
                 <div className="row mb-2">
                     <div className="col">
                         <Bar
-                            data={this.state.chartData}
+                            data={{
+                                labels: this.state.topSearchLabel,
+                                datasets: [
+                                    {
+                                        data: this.state.topSearchValues,
+                                        backgroundColor: [
+                                            "#ff7e80"
+                                        ],
+                                        hoverOffset: 4,
+                                        borderWidth: 3,
+                                        borderColor: "#ce6964",
+                                        hoverBorderWidth: 2,
+                                    }],
+                            }}
                             options={{
                                 indexAxis: 'y',
                                 responsive: true,

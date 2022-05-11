@@ -20,22 +20,15 @@ export default class salesTrend extends Component {
                 labels: ["Feb 2019", "Mar 2020", "Oct 2021", "Dec 2021", "Jan 2022", "Feb 2022"],
                 datasets: [
                     {
-                        // label: ["Feb 2019", "Mar 2020", "Oct 2021", "Dec 2021", "Jan 2022", "Feb 2022"],
                         data: [30, 70, 40, 50, 60, 55, 10],
                         fill: true,
                         backgroundColor: [
                             "#b2dafd",
-                            // 'rgb(54, 162, 235)',
-                            // 'rgb(255, 99, 132)',
-                            // 'rgb(255, 162, 132)',
-                            // 'rgb(255, 99, 162)',
-                            // 'rgb(255, 235, 132)',
                         ],
                         hoverOffset: 4,
-                        borderWidth: 1,
-                        // borderColor: "#777",
-                        hoverBorderWidth: 2,
-                        // hoverBorderColor: "#000",
+                        borderWidth: 3,
+                        borderColor: "#4ba6f2",
+                        hoverBorderWidth: 3,
                     }],
             },
 

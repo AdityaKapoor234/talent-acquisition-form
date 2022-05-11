@@ -65,7 +65,7 @@ export default class orderPayment extends Component {
                             }}
                             options={{
                                 responsive: true,
-                                maintainAspectRatio: true,
+                                maintainAspectRatio: false,
                                 plugins: {
                                     legend: {
                                         display: true,
@@ -73,7 +73,8 @@ export default class orderPayment extends Component {
                                     },
                                 },
                             }}
-                            className="pieChart"
+                            height="250%"
+                            // className="pieChart"
                         />
                     </div>
                 </div>

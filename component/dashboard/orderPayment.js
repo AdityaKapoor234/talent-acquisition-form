@@ -51,8 +51,8 @@ export default class orderPayment extends Component {
                                             parseInt(this.state?.orderStatsDetails?.payment_pending?.all_time) === null ? 0 : parseInt(this.state?.orderStatsDetails?.payment_pending?.all_time),
                                         ],
                                         backgroundColor: [
-                                            "green",
-                                            "#e60000",
+                                            "#faba3c",
+                                            "#76c547",
                                             // 'rgb(54, 162, 235)',
                                             // 'rgb(255, 99, 132)',
                                         ],

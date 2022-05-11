@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST} from "../utils/constant";
+import {CUSTOMERLIST,GET_CUSTOMER,CUSTOMER_TYPE,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -69,6 +69,17 @@ export class CustomerApi {
             }
         };
         return axios.get(`${WISH_LIST}`.replace('{{id}}', id).replace('{{page}}', page), httpOptions)
+    }
+
+    static CustomerType() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${CUSTOMER_TYPE}`,httpOptions)
     }
 
 }

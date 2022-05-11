@@ -115,7 +115,7 @@ export default class BrandCreate extends Component {
                       </div>
                       <div className="login-form ">
 												<label>
-													Description<span className="mandatory-star">*</span>
+													Description
 												</label>
 												<textarea
 													name="description"
@@ -216,7 +216,7 @@ export default class BrandCreate extends Component {
                       </div>
 											<div className="login-form ">
 												<label>
-													Description<span className="mandatory-star">*</span>
+													Description
 												</label>
 												<textarea
 													name="description"

@@ -37,26 +37,26 @@ export default class SportsCreate extends Component {
       toast.error("Please enter name");
       this.state.is_all = true;
     }
-    if (this.state.sportsDetails.description === "" || this.state.sportsDetails.description === null || this.state.sportsDetails.description.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter description");
-      this.state.is_all = true;
-    }
+    // if (this.state.sportsDetails.description === "" || this.state.sportsDetails.description === null || this.state.sportsDetails.description.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter description");
+    //   this.state.is_all = true;
+    // }
     if (this.state.sportsDetails.sort_order === "" || this.state.sportsDetails.sort_order === null) {
       toast.error("Please enter display order ");
       this.state.is_all = true;
     }
-    if (this.state.sportsDetails.icon_url === "" || this.state.sportsDetails.icon_url === null || this.state.sportsDetails.icon_url.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter icon ");
-      this.state.is_all = true;
-    }
-    if (this.state.sportsDetails.banner_url === "" || this.state.sportsDetails.banner_url === null || this.state.sportsDetails.banner_url.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter full banner image ");
-      this.state.is_all = true;
-    }
-    if (this.state.sportsDetails.banner_url_sm === "" || this.state.sportsDetails.banner_url_sm === null || this.state.sportsDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter short banner image ");
-      this.state.is_all = true;
-    }
+    // if (this.state.sportsDetails.icon_url === "" || this.state.sportsDetails.icon_url === null || this.state.sportsDetails.icon_url.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter icon ");
+    //   this.state.is_all = true;
+    // }
+    // if (this.state.sportsDetails.banner_url === "" || this.state.sportsDetails.banner_url === null || this.state.sportsDetails.banner_url.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter full banner image ");
+    //   this.state.is_all = true;
+    // }
+    // if (this.state.sportsDetails.banner_url_sm === "" || this.state.sportsDetails.banner_url_sm === null || this.state.sportsDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter short banner image ");
+    //   this.state.is_all = true;
+    // }
 
 
     if (this.state.is_all === true) {

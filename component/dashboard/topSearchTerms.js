@@ -37,6 +37,11 @@ export default class topSearchTerms extends Component {
                     <div className="col-12 page-name">Top Search Terms</div>
                 </div>
 
+                <div className='noVisi'>
+                    {this.state.topSearchLabel = []}
+                    {this.state.topSearchValues = []}
+                </div>
+
                 {
                     this.state.topSearchTerms?.map(elem => {
                         return (
@@ -44,11 +49,13 @@ export default class topSearchTerms extends Component {
                                 <div className='noVisi'>
                                     {this.state.topSearchLabel.push(elem?.term)}
                                     {this.state.topSearchValues.push(elem?.count)}
+
                                 </div>
                             </>
                         )
                     })
                 }
+
 
                 <div className="row mb-2">
                     <div className="col">

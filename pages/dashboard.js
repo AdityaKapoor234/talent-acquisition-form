@@ -31,6 +31,7 @@ export default function Dashboard() {
 	const [orderStatsDetails, setOrderStatsDetails] = useState([]);
 	const [orderPriceStats, setOrderPriceStats] = useState([]);
 	const [order, setOrder] = useState([]);
+	const [topSearchTerms, setTopSearchTerms] = useState([]);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isLoader, setLoader] = useState(false);
@@ -112,6 +113,25 @@ export default function Dashboard() {
 
 			});
 	};
+	function topSearchTerm() {
+		setLoader(true);
+		DashboardApi.TopSearchTerms()
+			.then((response) => {
+				setTopSearchTerms(response.data.data?.top_serach);
+				setLoader(false);
+			})
+			.catch((error) => {
+				setLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+
+			});
+	};
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
@@ -121,6 +141,7 @@ export default function Dashboard() {
 		dashboardStats();
 		orderList(currentPage, "", "latest");
 		orderPaymentStats();
+		topSearchTerm();
 	}, []);
 
 	return (
@@ -208,7 +229,7 @@ export default function Dashboard() {
 									</div>
 									<div className="row my-4">
 										<div className="col">
-											<TopSearchTermsComponent />
+											<TopSearchTermsComponent topSearchTerms={topSearchTerms} />
 										</div>
 										<div className="col">
 											<TopSoldProductsComponent />

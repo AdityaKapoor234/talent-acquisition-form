@@ -12,40 +12,19 @@ export default class topSoldProducts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderStatsDetails: props?.orderStatsDetails,
-
-            rows: 0,
-            remainingRows: [],
-            chartData: {
-                labels: ["Kinetica Whey Protein (1Kg)", "Jim Stoppani's Encyclopedia of Muscle & Strength 2", "Thermobol (90 Tablets)", "Kinetica BCAA Hydrofuel (450gm)"],
-                datasets: [
-                    {
-                        // label: ["Kinetica Whey Protein (1Kg)", "Jim Stoppani's Encyclopedia of Muscle & Strength 2", "Thermobol (90 Tablets)", "Kinetica BCAA Hydrofuel (450gm)"],
-                        data: [30, 70, 40, 50],
-                        backgroundColor: [
-                            "#7ca950",
-                            // 'rgb(54, 162, 235)',
-                            // 'rgb(255, 99, 132)',
-                            // 'rgb(255, 162, 132)',
-                            // 'rgb(255, 99, 162)',
-                        ],
-                        hoverOffset: 4,
-                        borderWidth: 3,
-                        borderColor: "#67874c",
-                        hoverBorderWidth: 2,
-                        // hoverBorderColor: "#000",
-                    }],
-            },
+            topSoldProduct: props?.topSoldProduct,
+            topSoldProductLabel: [],
+            topSoldProductValues: [],
 
         };
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-            prevState.orderStatsDetails !== nextProps.orderStatsDetails
+            prevState.topSoldProduct !== nextProps.topSoldProduct
         ) {
             return {
-                orderStatsDetails: nextProps?.orderStatsDetails
+                topSoldProduct: nextProps?.topSoldProduct
             };
         }
         return null;
@@ -56,18 +35,46 @@ export default class topSoldProducts extends Component {
         return (
             <>
                 <div className="row mb-2">
-                    <div className="col page-name">Top Sold Products</div>
-                    <div className="col d-flex justify-content-end align-self-end">
-                        {/* <Link href="/order">
-                            <span className='page-name-link'>View All</span>
-                        </Link> */}
-                    </div>
+                    <div className="col-12 page-name">Top Sold Products</div>
                 </div>
+
+                <div className='noVisi'>
+                    {this.state.topSoldProductLabel = []}
+                    {this.state.topSoldProductValues = []}
+                </div>
+
+                {
+                    this.state.topSoldProduct?.map(elem => {
+                        return (
+                            <>
+                                <div className='noVisi'>
+                                    {this.state.topSoldProductLabel.push(elem?.product_name)}
+                                    {this.state.topSoldProductValues.push(elem?.count === null ? 0 : elem?.count)}
+
+                                </div>
+                            </>
+                        )
+                    })
+                }
+
 
                 <div className="row mb-2">
                     <div className="col">
                         <Bar
-                            data={this.state.chartData}
+                            data={{
+                                labels: this.state.topSoldProductLabel,
+                                datasets: [
+                                    {
+                                        data: this.state.topSoldProductValues,
+                                        backgroundColor: [
+                                            "#7ca950",
+                                        ],
+                                        hoverOffset: 4,
+                                        borderWidth: 3,
+                                        borderColor: "#67874c",
+                                        hoverBorderWidth: 2,
+                                    }],
+                            }}
                             options={{
                                 indexAxis: 'y',
                                 responsive: true,

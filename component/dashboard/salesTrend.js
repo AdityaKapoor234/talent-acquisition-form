@@ -12,35 +12,18 @@ export default class salesTrend extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderStatsDetails: props?.orderStatsDetails,
-
-            rows: 0,
-            remainingRows: [],
-            chartData: {
-                labels: ["Feb 2019", "Mar 2020", "Oct 2021", "Dec 2021", "Jan 2022", "Feb 2022"],
-                datasets: [
-                    {
-                        data: [30, 70, 40, 50, 60, 55, 10],
-                        fill: true,
-                        backgroundColor: [
-                            "#b2dafd",
-                        ],
-                        hoverOffset: 4,
-                        borderWidth: 3,
-                        borderColor: "#4ba6f2",
-                        hoverBorderWidth: 3,
-                    }],
-            },
-
+            salesTrend: props?.salesTrend,
+            salesTrendLabel: [],
+            salesTrendValues: [],
         };
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-            prevState.orderStatsDetails !== nextProps.orderStatsDetails
+            prevState.salesTrend !== nextProps.salesTrend
         ) {
             return {
-                orderStatsDetails: nextProps?.orderStatsDetails
+                salesTrend: nextProps?.salesTrend
             };
         }
         return null;
@@ -51,18 +34,45 @@ export default class salesTrend extends Component {
         return (
             <>
                 <div className="row mb-2">
-                    <div className="col page-name">Sales Trend</div>
-                    <div className="col d-flex justify-content-end align-self-end">
-                        {/* <Link href="/order">
-                            <span className='page-name-link'>View All</span>
-                        </Link> */}
-                    </div>
+                    <div className="col-12 page-name">Sales Trend</div>
                 </div>
+
+                <div className='noVisi'>
+                    {this.state.salesTrendLabel = []}
+                    {this.state.salesTrendValues = []}
+                </div>
+
+                {
+                    this.state.salesTrend?.map(elem => {
+                        return (
+                            <>
+                                <div className='noVisi'>
+                                    {this.state.salesTrendLabel.push(elem?.per_month_sale?.month)}
+                                    {this.state.salesTrendValues.push(elem?.per_month_sale?.amount === null ? 0 : elem?.per_month_sale?.amount)}
+                                </div>
+                            </>
+                        )
+                    })
+                }
 
                 <div className="row mb-2">
                     <div className="col">
                         <Line
-                            data={this.state.chartData}
+                            data={{
+                                labels: this.state.salesTrendLabel,
+                                datasets: [
+                                    {
+                                        data: this.state.salesTrendValues,
+                                        fill: true,
+                                        backgroundColor: [
+                                            "#b2dafd",
+                                        ],
+                                        hoverOffset: 4,
+                                        borderWidth: 3,
+                                        borderColor: "#4ba6f2",
+                                        hoverBorderWidth: 3,
+                                    }],
+                            }}
                             options={{
                                 // indexAxis: 'y',
                                 responsive: true,

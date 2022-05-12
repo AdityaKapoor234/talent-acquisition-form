@@ -18,6 +18,9 @@ export const CUSTOMERLIST = `http://65.1.17.188:5000/customer?page={{page}}&q={{
 export const GET_CUSTOMER = `http://65.1.17.188:5000/customer/{{id}}`;
 export const GET_CUSTOMER_ORDER = `http://65.1.17.188:5002/manage/order/customer/{{id}}?page={{page}}`;
 export const GET_CUSTOMER_ADDRESSES = `http://65.1.17.188:5000/customer/{{id}}/addresses?page={{page}}`;
+export const GET_CUSTOMER_SUPPORT_INFORMATION = `http://65.1.17.188:5000/manage/enquiry?page={{page}}&q={{search}}`;
+export const GET_CUSTOMER_SUPPORT_INFORMATION_VIEW = `http://65.1.17.188:5000/manage/enquiry/{{id}}/view`;
+
 //Category
 export const CATEGORYLIST = `http://65.1.17.188:5001/manage/category?page={{page}}&q={{search}}`;
 export const GET_CATEGORY_DETAILS = `http://65.1.17.188:5001/manage/category/{{id}}`;
@@ -63,6 +66,8 @@ export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;
 export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/stats`;
 export const GET_DASHBOARD_ORDER_PAYMENT_STATS = `http://65.1.17.188:5002/manage/order/payment/stats`;
 export const GET_DASHBOARD_TOP_SEARCH_TERMS = `http://65.1.17.188:5001/manage/top-search`;
+export const GET_DASHBOARD_SALES_TREND = `http://65.1.17.188:5002/manage/order/sales-trend/product`;
+export const GET_DASHBOARD_TOP_SOLD = `http://65.1.17.188:5002/manage/order/top-sold/product`;
 
 //ORDERS
 export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;

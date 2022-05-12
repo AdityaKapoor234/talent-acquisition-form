@@ -12,12 +12,15 @@ import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 import CustomerApi from "../../services/customer";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default class CustomerDetails extends Component {
   constructor(props) {
@@ -37,8 +40,16 @@ export default class CustomerDetails extends Component {
       open: false,
       address: [],
       orders: [],
+      typeList:[],
       orderTotal: 1,
       addressTotal: 1,
+      input:{
+        phone_number: null,
+        name : "",
+        email:"",
+        user_type: "select",
+        is_active : true
+        }
     };
   }
   handleClose = () => {
@@ -82,6 +93,15 @@ export default class CustomerDetails extends Component {
     ) {
       return {
         customer: nextProps?.customer,
+        input:{
+          phone_number: nextProps?.customer?.phone_number,
+          name : nextProps?.customer?.name,
+          email:nextProps?.customer?.email,
+          user_type: nextProps?.customer?.user_type?nextProps?.customer?.user_type:"select",
+          is_active : nextProps?.customer?.is_active
+          ? nextProps?.customer?.is_active
+          : false,
+          },
         mode: nextProps?.mode,
         wishList: nextProps?.wishList,
         wishListTotalProduct: nextProps?.wishListTotalProduct,
@@ -136,6 +156,13 @@ export default class CustomerDetails extends Component {
       });
   };
 
+  handleChange = (event) => {
+    let input = this.state.input;
+    input[event.target.name] = event.target.value;
+    this.setState({ input });
+    this.props?.handle(input);
+  };
+
   getOrder = (id, page) => {
     CustomerApi.CustomerOrder(id, page)
       .then((response) => {
@@ -155,14 +182,33 @@ export default class CustomerDetails extends Component {
       });
   };
 
+  getCustomerType = () => {
+    CustomerApi.CustomerType()
+      .then((response) => {
+        this.setState({
+          typeList:response.data.data.list
+        });
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
   pageChange = (e, page) => {
     this.props?.wishListPage(page);
     this.setState({ currentWishListPage: page });
-  }
+  };
 
   componentDidMount() {
     this.getAddresses(this.state.id, 1);
     this.getOrder(this.state.id, 1);
+    this.getCustomerType();
   }
 
   render() {
@@ -219,32 +265,70 @@ export default class CustomerDetails extends Component {
             {this.state.mode === "edit" && (
               <div className="row mt-4">
                 <div className="col-md-4">
-                  {/* <div className="login-form ">
-                    <label>Customer Type</label>
-                    <input type="text" value={this.state.type} onChange={(e)=>{this.setState({type:e.target.value})}} />
-                  </div> */}
+                  <div className="login-form sort ">
+                    <label>
+                      Customer Type<span className="mandatory-star">*</span>
+                    </label>
+                    <div className="sort-by-select-wrapper">
+                      <Select
+                        disableUnderline
+                        variant="standard"
+                        autoWidth={true}
+                        IconComponent={ExpandMoreIcon}
+                        name="user_type"
+                        onChange={this.handleChange}
+                        className="sort-by-select"
+                        value={this.state.input?.user_type}
+                      >
+                        <MenuItem
+                          value="select"
+                          disabled
+                          className="field_toggle_checked"
+                        >
+                          Select Customer Type{" "}
+                        </MenuItem>
+                        {this.state.typeList?.map((value) => {
+                          return (
+                            <MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </div>
+                  </div>
                   <div className="login-form ">
-                    <label>Name</label>
+                    <label>
+                      Name<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="text"
-                      value={this.state.customer?.name}
-                      readOnly={true}
+                      value={this.state.input?.name}
+                      name="name"
+                      onChange={this.handleChange}
+                      readOnly={this.state.input?.user_type==="General"?true:false}
                     />
                   </div>
                   <div className="login-form ">
-                    <label>Email</label>
+                    <label>
+                      Email<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="text"
-                      value={this.state.customer?.email}
-                      readOnly={true}
+                      value={this.state.input?.email}
+                      name="email"
+                      onChange={this.handleChange}
+                      readOnly={this.state.input?.user_type==="General"?true:false}
                     />
                   </div>
                   <div className="login-form ">
-                    <label>Mobile</label>
+                    <label>
+                      Mobile<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="number"
-                      value={this.state.customer?.phone_number}
-                      readOnly={true}
+                      name="phone_number"
+                      onChange={this.handleChange}
+                      value={this.state.input?.phone_number}
+                      readOnly={this.state.input?.user_type==="General"?true:false}
                     />
                   </div>
                   <div className="signup-check">
@@ -264,16 +348,20 @@ export default class CustomerDetails extends Component {
             {this.state.mode === "view" && (
               <div className="row mt-4">
                 <div className="col-md-4">
-                  {/* <div className="login-form ">
-                    <label>Customer Type</label>
+                  <div className="login-form ">
+                    <label>
+                      Customer Type<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="text"
                       readOnly={true}
                       value={this.state.type}
                     />
-                  </div> */}
+                  </div>
                   <div className="login-form ">
-                    <label>Name</label>
+                    <label>
+                      Name<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="text"
                       readOnly={true}
@@ -281,7 +369,9 @@ export default class CustomerDetails extends Component {
                     />
                   </div>
                   <div className="login-form ">
-                    <label>Email</label>
+                    <label>
+                      Email<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="text"
                       readOnly={true}
@@ -289,7 +379,9 @@ export default class CustomerDetails extends Component {
                     />
                   </div>
                   <div className="login-form ">
-                    <label>Mobile</label>
+                    <label>
+                      Mobile<span className="mandatory-star">*</span>
+                    </label>
                     <input
                       type="number"
                       readOnly={true}
@@ -310,80 +402,81 @@ export default class CustomerDetails extends Component {
             )}
           </>
         )}
-        {this.state.tab === 2 && (<>
-          <div data-component="address-view">
-            <div className="row mt-4 sticky-scroll scroll">
-              {this.state.address?.length === 0 && (
-                <div className="error-message">No Address Info</div>
-              )}
-              {this.state.address?.map((p) => {
-                return (
-                  <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
-                    <div className="edit-box">
-                      <div className="row">
-                        <div className="col-12">
-                          <div className="complete-address">
-                            <div>
-                              <div
-                                className="name two-line-ellipsis mt-3"
-                                title={p?.recipient_name}
-                              >
-                                {p?.recipient_name}
-                              </div>
-                              <div
-                                className="address"
-                                title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
-                              >
-                                {p?.flat_no} {p?.locality}
-                                {p?.landmark !== "" ? ", " : " "}
-                                <div>
-                                  {p?.landmark !== "" ? "Near " : ""}
-                                  {p?.landmark !== "" ? p?.landmark : ""}
-                                  {p?.landmark !== "" ? ", " : ""}
-                                  {p?.city}{" "}
+        {this.state.tab === 2 && (
+          <>
+            <div data-component="address-view">
+              <div className="row mt-4 sticky-scroll scroll">
+                {this.state.address?.length === 0 && (
+                  <div className="error-message">No Address Info</div>
+                )}
+                {this.state.address?.map((p) => {
+                  return (
+                    <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+                      <div className="edit-box">
+                        <div className="row">
+                          <div className="col-12">
+                            <div className="complete-address">
+                              <div>
+                                <div
+                                  className="name two-line-ellipsis mt-3"
+                                  title={p?.recipient_name}
+                                >
+                                  {p?.recipient_name}
                                 </div>
-                                <div>
-                                  {p?.state}
-                                  {" - "}
-                                  {p?.pin_code}
+                                <div
+                                  className="address"
+                                  title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
+                                >
+                                  {p?.flat_no} {p?.locality}
+                                  {p?.landmark !== "" ? ", " : " "}
+                                  <div>
+                                    {p?.landmark !== "" ? "Near " : ""}
+                                    {p?.landmark !== "" ? p?.landmark : ""}
+                                    {p?.landmark !== "" ? ", " : ""}
+                                    {p?.city}{" "}
+                                  </div>
+                                  <div>
+                                    {p?.state}
+                                    {" - "}
+                                    {p?.pin_code}
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="number">
-                                {p?.recipient_phone_number}
+                                <div className="number">
+                                  {p?.recipient_phone_number}
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-          {this.state.addressTotal > 1 && (
-            <div className="row">
-              <div className="col-md-12 justify-content-between d-flex position-relative">
-                <div className="pagiantion-category">
-                  <div>
-                    <Pagination
-                      className="pagination pagi"
-                      page={this.state.currentPageAddress}
-                      count={this.state.addressTotal}
-                      onChange={this.onPageChangeAddress}
-                    />
-                  </div>
-                  <div
-                    className="position-absolute totalCount"
-                    style={{ right: 23, bottom: 5 }}
-                  >
-                    Total Addresses: {this.state.address?.length}
+            {this.state.addressTotal > 1 && (
+              <div className="row">
+                <div className="col-md-12 justify-content-between d-flex position-relative">
+                  <div className="pagiantion-category">
+                    <div>
+                      <Pagination
+                        className="pagination pagi"
+                        page={this.state.currentPageAddress}
+                        count={this.state.addressTotal}
+                        onChange={this.onPageChangeAddress}
+                      />
+                    </div>
+                    <div
+                      className="position-absolute totalCount"
+                      style={{ right: 23, bottom: 5 }}
+                    >
+                      Total Addresses: {this.state.address?.length}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-        </>
+            )}
+          </>
         )}
         {this.state.tab === 3 && (
           <>
@@ -473,37 +566,32 @@ export default class CustomerDetails extends Component {
         {this.state.tab === 4 && (
           <>
             <div data-component="wishlist">
-              <div className='row'>
-                {this.state?.wishList?.map(val => {
+              <div className="row">
+                {this.state?.wishList?.map((val) => {
                   return (
-                    <div className='col-3'>
-                      <div className='padding'>
-                        <div className='box'>
+                    <div className="col-3">
+                      <div className="padding">
+                        <div className="box">
                           <div
                             className="bck-img mt-4"
-                            style={{ backgroundImage: `url(${val?.primary_image_path})`, }}
-                          >
-                          </div>
-                          <div className='name'>
-                            <h3
-                              className='text-center'
-                            >
-                              {val?.name}
-                            </h3>
+                            style={{
+                              backgroundImage: `url(${val?.primary_image_path})`,
+                            }}
+                          ></div>
+                          <div className="name">
+                            <h3 className="text-center">{val?.name}</h3>
                             <div className="product-qulaty-div mb-3">
-                              <span >
-                                {val?.size}
-                              </span>
-                              {val?.size !== "" && val?.flavor !== "" ? "|" : ""}
-                              <span >
-                                {val?.flavor}
-                              </span>
+                              <span>{val?.size}</span>
+                              {val?.size !== "" && val?.flavor !== ""
+                                ? "|"
+                                : ""}
+                              <span>{val?.flavor}</span>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 })}
               </div>
               <div className="row">
@@ -517,16 +605,16 @@ export default class CustomerDetails extends Component {
                         onChange={this.pageChange.bind(this)}
                       />
                     </div>
-                    <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                    <div
+                      className="position-absolute totalCount"
+                      style={{ right: 23, bottom: 5 }}
+                    >
                       Total Products: {this.state.wishListTotalProduct}
                     </div>
                   </div>
                 </div>
               </div>
-
-
             </div>
-
           </>
         )}
         <Dialog

@@ -20,6 +20,7 @@ export const GET_CUSTOMER_ORDER = `http://65.1.17.188:5002/manage/order/customer
 export const GET_CUSTOMER_ADDRESSES = `http://65.1.17.188:5000/customer/{{id}}/addresses?page={{page}}`;
 export const GET_CUSTOMER_SUPPORT_INFORMATION = `http://65.1.17.188:5000/manage/enquiry?page={{page}}&q={{search}}`;
 export const GET_CUSTOMER_SUPPORT_INFORMATION_VIEW = `http://65.1.17.188:5000/manage/enquiry/{{id}}/view`;
+export const CUSTOMER_TYPE = `http://65.1.17.188:5000/customer/type/dropdown`;
 
 //Category
 export const CATEGORYLIST = `http://65.1.17.188:5001/manage/category?page={{page}}&q={{search}}`;

@@ -48,7 +48,7 @@ export default class topSearchTerms extends Component {
                             <>
                                 <div className='noVisi'>
                                     {this.state.topSearchLabel.push(elem?.term)}
-                                    {this.state.topSearchValues.push(elem?.count)}
+                                    {this.state.topSearchValues.push(elem?.count === null ? 0 : elem?.count)}
 
                                 </div>
                             </>

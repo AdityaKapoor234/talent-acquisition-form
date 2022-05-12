@@ -12,6 +12,7 @@ export default class orderPayment extends Component {
         super(props);
         this.state = {
             orderStatsDetails: props?.orderStatsDetails,
+            orderStatsValues: [],
         };
     }
 
@@ -30,31 +31,30 @@ export default class orderPayment extends Component {
         return (
             <>
                 <div className="row mb-2">
-                    <div className="col page-name">Order Payment Status</div>
-                    <div className="col d-flex justify-content-end align-self-end">
-                        {/* <Link href="/order">
-                            <span className='page-name-link'>View All</span>
-                        </Link> */}
-                    </div>
+                    <div className="col-12 page-name">Order Payment Status</div>
+                </div>
+
+                <div className='noVisi'>
+                    {this.state.orderStatsValues = []}
+                    {this.state.orderStatsValues.push(this.state?.orderStatsDetails?.online?.all_time_payment_received === null ? 0 : this.state?.orderStatsDetails?.online?.all_time_payment_received)}
+                    {this.state.orderStatsValues.push(this.state?.orderStatsDetails?.online?.all_time_payment_pending === null ? 0 : this.state?.orderStatsDetails?.online?.all_time_payment_pending)}
+                    {this.state.orderStatsValues.push(this.state?.orderStatsDetails?.cod?.all_time_payment_received === null ? 0 : this.state?.orderStatsDetails?.cod?.all_time_payment_received)}
+                    {this.state.orderStatsValues.push(this.state?.orderStatsDetails?.cod?.all_time_payment_pending === null ? 0 : this.state?.orderStatsDetails?.cod?.all_time_payment_pending)}
                 </div>
 
                 <div className="row mb-2">
                     <div className="col">
                         <Pie
                             data={{
-                                labels: ["Payment Received", "Payment Not Received"],
+                                labels: ["Payment Received (Online)", "Payment Received (Online)", "Payment Received (COD)", "Payment Not Received (COD)"],
                                 datasets: [
                                     {
-                                        // label: ["Payment Received", "Payment Not Recieved"],
-                                        data: [
-                                            parseInt(this.state?.orderStatsDetails?.shipped?.all_time) === null ? 0 : parseInt(this.state?.orderStatsDetails?.shipped?.all_time),
-                                            parseInt(this.state?.orderStatsDetails?.payment_pending?.all_time) === null ? 0 : parseInt(this.state?.orderStatsDetails?.payment_pending?.all_time),
-                                        ],
+                                        data: this.state.orderStatsValues,
                                         backgroundColor: [
                                             "#faba3c",
                                             "#76c547",
-                                            // 'rgb(54, 162, 235)',
-                                            // 'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(255, 99, 132)',
                                         ],
                                         hoverOffset: 4,
                                         borderWidth: 1,
@@ -74,7 +74,7 @@ export default class orderPayment extends Component {
                                 },
                             }}
                             height="250%"
-                            // className="pieChart"
+                        // className="pieChart"
                         />
                     </div>
                 </div>

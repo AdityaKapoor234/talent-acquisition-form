@@ -27,7 +27,7 @@ export default function DashboardLayoutComponent({ children }) {
     const pathArr = useRouter().pathname.split("/")[1]
 
     const [tab, setTab] = useState(pathArr);
-    const [tabSale, setTabSale] = useState(pathArr === "order" ? true : false);
+    const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" ? true : false);
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
@@ -111,6 +111,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabSale &&
                                     <ul>
                                         <li className={categary === "order" ? "sub_active" : ""} onClick={() => handleCategary("/order", "order")}>order</li>
+                                        <li className={categary === "cancel" ? "sub_active" : ""} onClick={() => handleCategary("/cancel", "cancel")}>cancel</li>
                                     </ul>
                                 }
                                 <div className={tabCatalog ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCatalog(!tabCatalog)}>

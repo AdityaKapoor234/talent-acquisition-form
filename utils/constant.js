@@ -157,3 +157,5 @@ export const DIET_EDIT = `http://65.1.17.188:5001/manage/diets/{{id}}`;
 export const DIET_CREATE = `http://65.1.17.188:5001/manage/diets`;
 export const DIET_DELETE = `http://65.1.17.188:5001/manage/diets/{{id}}/delete`;
 
+//CANCEL
+export const CANCEL=`http://65.1.17.188:5002/manage/order/cancelled/all?page={{page}}&q={{search}}`;

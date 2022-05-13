@@ -16,6 +16,8 @@ export const ADMIN_LOGIN = `http://65.1.17.188:5000/admin`;
 //Customer
 export const CUSTOMERLIST = `http://65.1.17.188:5000/customer?page={{page}}&q={{search}}`;
 export const GET_CUSTOMER = `http://65.1.17.188:5000/customer/{{id}}`;
+export const CUSTOMER_ADD = `http://65.1.17.188:5000/customer/add`;
+export const CUSTOMER_TYPE_DROPDOWN = `http://65.1.17.188:5000/customer/type/dropdown`;
 export const GET_CUSTOMER_ORDER = `http://65.1.17.188:5002/manage/order/customer/{{id}}?page={{page}}`;
 export const GET_CUSTOMER_ADDRESSES = `http://65.1.17.188:5000/customer/{{id}}/addresses?page={{page}}`;
 export const ADD_CUSTOMER = `http://65.1.17.188:5000/customer/type/dropdown/add?id={{id}}`;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_DROPDOWN, CUSTOMER_TYPE} from "../utils/constant";
+import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_DROPDOWN, CUSTOMER_TYPE,CUSTOMER_TYPE_EDIT,ADD_CUSTOMER,GET_VIEW_CUSTOMER_TYPE,DELETE_CUSTOMER} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -95,7 +95,7 @@ export class CustomerApi {
         return axios.get(`${WISH_LIST}`.replace('{{id}}', id).replace('{{page}}', page), httpOptions)
     }
 
-    static AddCustomer(id, data) {
+    static AddCustomer( data) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -103,7 +103,7 @@ export class CustomerApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.post(`${ADD_CUSTOMER}`.replace('{{id}}', id), data, httpOptions)
+        return axios.post(`${ADD_CUSTOMER}`, data, httpOptions)
     }
 
     static CustomerType(page, search) {
@@ -129,6 +129,38 @@ export class CustomerApi {
         };
 
         return axios.get(`${GET_CUSTOMER_SUPPORT_INFORMATION_VIEW}`.replace('{{id}}', id), httpOptions)
+    }
+    static EditCustomerType(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${CUSTOMER_TYPE_EDIT}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static getCustomerType(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${GET_VIEW_CUSTOMER_TYPE}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static CustomerDelete(id,data) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${DELETE_CUSTOMER}`.replace('{{id}}', id),data,httpOptions)
     }
 
 }

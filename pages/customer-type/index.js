@@ -2,20 +2,18 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-
-import { APP_NAME } from "../../../utils/constant";
-import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import CustomerType from "../../../component/customer/customer-type.component";
-import XLSX from "xlsx";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { APP_NAME } from "../../utils/constant";
+import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
+import CustomerType from "../../component/customer/customer-type.component";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AddBox } from "@mui/icons-material";
-import CustomerApi from "../../../services/customer";
-import ExcelApi from "../../../services/excel-export";
+import CustomerApi from "../../services/customer";
+import Box from "@mui/material/Box";
+
 import { useRouter } from "next/router";
 import Link from 'next/link'
 
@@ -31,7 +29,7 @@ export default function Customer_Type() {
 	);
 	 const [totalPage, setTotalPage] = useState(1);
 	 const [currentPage, setCurrentPage] = useState(1)
-	// const [isLoader, setIsLoader] = useState(true);
+	 const [isLoader, setIsLoader] = useState(true);
 
 	const handleKeyPress = (event) => {
 		let router_query_object = {};
@@ -40,7 +38,7 @@ export default function Customer_Type() {
 		}
 		if (event.key === "Enter") {
 			Router.push({
-				pathname: "/customer/customer-type/type",
+				pathname: "/customer-type",
 				query: router_query_object,
 			});
 			setCurrentPage(1)
@@ -54,7 +52,7 @@ export default function Customer_Type() {
 			router_query_object["q"] = wordEntered;
 		}
 		Router.push({
-			pathname: "/customer/customer-type/type",
+			pathname: "/customer-type",
 			query: router_query_object,
 		});
 		setCurrentPage(1)
@@ -66,7 +64,7 @@ export default function Customer_Type() {
 		setWordEntered(searchWord);
 		if (event.target.value === "") {
 			Router.push({
-				pathname: "/customer/customer-type/type",
+				pathname: "/customer-type",
 				query: "",
 			});
 			Customer_Type(1, "");
@@ -90,17 +88,17 @@ export default function Customer_Type() {
 
 
 	const Customer_Type = (page, search) => {
-		// setIsLoader(true);
+		setIsLoader(true);
 		CustomerApi.CustomerType(page, search)
 			.then((response) => {
 				console.log(response)
 			    setCustomerType(response.data.data.list);
 				 setTotalCustomer(response.data.data.total);
 				 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
-				// setIsLoader(false);
+				 setIsLoader(false);
 			})
 			.catch((error) => {
-				// setIsLoader(false);
+				 setIsLoader(false);
 				toast.error(
 					error?.response &&
 						error?.response?.data &&
@@ -112,31 +110,13 @@ export default function Customer_Type() {
 	};
 
 
-	// const customerExcelList = () => {
-	// 	setIsLoader(true);
-	// 	ExcelApi.CustomerExcelList()
-	// 		.then((response) => {
-	// 			setCustomerExcelList(response.data.data.list);
-	// 			setIsLoader(false);
-	// 		})
-	// 		.catch((error) => {
-	// 			setIsLoader(false);
-	// 			toast.error(
-	// 				error?.response &&
-	// 					error?.response?.data &&
-	// 					error?.response?.data?.message
-	// 					? error.response.data.message
-	// 					: "Unable to process your request, please try after sometime"
-	// 			);
-	// 		});
-	// };
+	
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
 			Router.push("/");
 		}
-		// customerList(currentPage, "");
-		// customerExcelList();
+		
 		Customer_Type(currentPage,wordEntered)
 	}, []);
 	return (
@@ -174,7 +154,7 @@ export default function Customer_Type() {
                                 <div
                                     className="custom-btn "
                                     onClick={() => {
-                                        Router.push(`/customer/customer-type/add`);
+                                        Router.push(`/customer-type/create`);
                                     }}
                                 >
                                     <span>Add New </span>
@@ -183,7 +163,7 @@ export default function Customer_Type() {
 						</div>
 						<div className="row sticky-scroll scroll">
 							<div className="col-md-12 ">
-								{/* {
+								{
 									isLoader ? (
 										<div className="row justify-content-center">
 											<div className="col-md-12 loader-cart">
@@ -195,25 +175,14 @@ export default function Customer_Type() {
 											</div>
 										</div>
 									) : (
-										// customer && customer.length === 0 ? <div className="not-found">No Data Found</div> :
-											<CustomerList />
+										 customerType && customerType.length === 0 ? <div className="not-found">No Data Found</div> :
+                                        <CustomerType list={customerType} />
 									)
-								} */}
-								<CustomerType list={customerType} />
+								}
+							
 							</div>
 						</div>
-						{/* <div className="row">
-            <div className="col-md-12">
-              <div className="pagiantion-category">
-                <Pagination
-                  className="pagination"
-                  page={currentPage}
-                  count={totalPage}
-                  onChange={onPageChange}
-                />
-              </div>
-            </div>
-          </div> */}
+					
 						<div className="row">
 							<div className="col-md-12 justify-content-between d-flex position-relative">
 								<div className="pagiantion-category">

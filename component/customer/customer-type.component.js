@@ -75,7 +75,7 @@ export default class CustomerType extends Component {
            <div className="tableBody  col-7  elip-text ">
            {ele.user_type}
            </div>
-           <div className="col-2  text-center elip-text "><CheckCircleOutline className="check-icon"/></div>
+           <div className="col-2  text-center elip-text ">{ele.is_active ? <CheckCircleOutline className="check-icon"/> : <CancelOutlinedIcon className="cancel-icon" /> }</div>
            <div className="col-2  text-center elip-text">  <CancelOutlinedIcon className="cancel-icon" /></div>
            <div className="col-1  text-center ">
              {/* {p?.is_active === true ? (
@@ -83,7 +83,9 @@ export default class CustomerType extends Component {
              ) : (
                <CancelOutlinedIcon className="cancel-icon" />
              )} */}
-             <EditOutlinedIcon  className="edit-icon"/>
+             <EditOutlinedIcon  className="edit-icon" onClick={() => {
+                 Router.push(`/customer-type/${ele?.id}/edit`);
+               }}/>
            </div>
            {/* <div className="col-1 text-end">
              <RemoveRedEyeIcon

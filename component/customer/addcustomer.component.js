@@ -10,13 +10,32 @@ export default class AddCustomer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      mode:props?.mode,
       input: {
-        name: props?.customer?.name ? props.customer?.name : "",
-        maximum_order_qty: props?.customer?.maximum_order_qty ? props?.customer?.maximum_order_qty : "",
+        name: props?.customer?.user_type ? props.customer?.user_type : "",
+        maximum_order_qty: props?.customer?.sort_order ? props?.customer?.sort_order : "",
         is_active: props?.customer?.is_active ? props?.customer?.is_active : false,
         by_default: props?.customer?.by_default ? props?.customer?.by_default : false,
-      },
+      }
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      prevState.mode !== nextProps.mode ||
+      prevState.customer !== nextProps.customer
+    ) {
+      return {
+        mode: nextProps?.mode,
+        input: {
+          is_active: nextProps?.customer?.is_active,
+          name: nextProps?.customer?.user_type,
+          by_default: nextProps?.customer?.by_default ? nextProps?.customer?.by_default : false,
+          maximum_order_qty: nextProps?.customer?.sort_order,
+        },
+      };
+    }
+    return null;
   }
 
   handleChange = (event) => {
@@ -67,7 +86,7 @@ export default class AddCustomer extends Component {
                     />
                   </div>
                   <div className="login-form ">
-                    <label>Maximum Order Qty<span className="mandatory-star">*</span></label>
+                    <label>Sort Order<span className="mandatory-star">*</span></label>
                     <input
                       type="text"
                       name="maximum_order_qty"

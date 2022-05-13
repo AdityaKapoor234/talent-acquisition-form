@@ -29,18 +29,22 @@ export default function CustomerEditDetails({id}) {
   const [wishList,setWishList]=useState([]);
   const [wishListTotalProduct,setWishListTotalProduct]=useState("");
   const [totalWishListPage,setTotalWishListPage]=useState("");
+  const [customerDetails,setCustomerDetails] = useState({});
 
 
   const activeHandle =(value)=>{
     setActive(value)
   }
+  const stateHandle = (value) => {
+    setCustomerDetails(value );
+  };
 
   const saveDetails =(id)=>{
     let data ={
-      "is_active":active
+      customerDetails
     }
     CustomerApi
-    .CustomerDetails(id,data)
+    .CustomerDetails(id,customerDetails)
     .then((response) => {
       if(response.data.httpStatusCode === 200)
       {
@@ -146,7 +150,9 @@ export default function CustomerEditDetails({id}) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <CustomerDetails customer={customer} id={id} mode={mode} active={activeHandle} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage} />
+              <CustomerDetails
+                handle={stateHandle}
+               customer={customer} id={id} mode={mode} active={activeHandle} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage} />
             </div>
           </div>
         </DashboardLayoutComponent>

@@ -28,7 +28,7 @@ export default class order extends Component {
 
 
     empRows() {
-        for (let i = this.state.rows; i < 10; i++) {
+        for (let i = this.state.rows; i < 5; i++) {
             this.state.remainingRows[i] = i
         }
 
@@ -38,7 +38,11 @@ export default class order extends Component {
         return (
             <>
                 <div className="row mb-2">
-                    <div className="col page-name">New Orders</div>
+                    <div className="col page-name">
+                        <Link href="/order">
+                            New Orders
+                        </Link>
+                    </div>
                     <div className="col d-flex justify-content-end align-self-end">
                         <Link href="/order">
                             <span className='page-name-link'>View All</span>
@@ -62,18 +66,20 @@ export default class order extends Component {
                     {
                         this.state.order?.map((p, index) => {
                             return (
-                                <div className="row" key={index}>
-                                    <div className="col-md-12">
-                                        <div className="tableCell">
-                                            <div className="tableBody elip rowHeight col-4 elip-text" title={p?.order_number}>{p?.order_number}</div>
-                                            <div className="col-4 elip text-center elip-text" title={p?.customer}>{p?.customer}</div>
-                                            <div className="col-4 elip text-center elip-text" title={p?.total}>₹&nbsp;{p?.total?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</div>
+                                this.state.rows < 5 ?
+                                    <div className="row" key={index}>
+                                        <div className="col-md-12">
+                                            <div className="tableCell">
+                                                <div className="tableBody elip rowHeight col-4 elip-text" title={p?.order_number}>{p?.order_number}</div>
+                                                <div className="col-4 elip text-center elip-text" title={p?.customer}>{p?.customer}</div>
+                                                <div className="col-4 elip text-center elip-text" title={p?.total}>₹&nbsp;{p?.total?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</div>
 
-                                            <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
-                                            
+                                                <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    : ""
                             );
                         })
                     }

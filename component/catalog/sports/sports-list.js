@@ -32,7 +32,7 @@ export default class SportsList extends Component {
                         <div className="tableRow">
                             <div className="col-4 pe-1">Name</div>
                             <div className="col text-center">Active</div>
-                            <div className="col px-2 text-center">Visiblility on Main Menu</div>
+                            <div className="col px-2 text-center">Show on Main Menu</div>
                             <div className="col px-2 text-center">Display Order</div>
                             <div className="col-1 text-center">View</div>
                             <div className="col-1 text-end">Edit</div>

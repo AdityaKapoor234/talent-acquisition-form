@@ -20,6 +20,9 @@ export const GET_CUSTOMER_ORDER = `http://65.1.17.188:5002/manage/order/customer
 export const GET_CUSTOMER_ADDRESSES = `http://65.1.17.188:5000/customer/{{id}}/addresses?page={{page}}`;
 export const ADD_CUSTOMER = `http://65.1.17.188:5000/customer/type/dropdown/add?id={{id}}`;
 export const CUSTOMER_TYPE = `http://65.1.17.188:5000/customer/type/dropdown/paginate?page={{page}}&q={{search}}`;
+export const GET_CUSTOMER_SUPPORT_INFORMATION = `http://65.1.17.188:5000/manage/enquiry?page={{page}}&q={{search}}`;
+export const GET_CUSTOMER_SUPPORT_INFORMATION_VIEW = `http://65.1.17.188:5000/manage/enquiry/{{id}}/view`;
+
 
 //Category
 export const CATEGORYLIST = `http://65.1.17.188:5001/manage/category?page={{page}}&q={{search}}`;
@@ -64,6 +67,10 @@ export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;
 
 //DASHBOARD
 export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/stats`;
+export const GET_DASHBOARD_ORDER_PAYMENT_STATS = `http://65.1.17.188:5002/manage/order/payment/stats`;
+export const GET_DASHBOARD_TOP_SEARCH_TERMS = `http://65.1.17.188:5001/manage/top-search`;
+export const GET_DASHBOARD_SALES_TREND = `http://65.1.17.188:5002/manage/order/sales-trend/product`;
+export const GET_DASHBOARD_TOP_SOLD = `http://65.1.17.188:5002/manage/order/top-sold/product`;
 
 //ORDERS
 export const ORDERSLIST = `http://65.1.17.188:5002/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
@@ -77,6 +84,8 @@ export const CONTENTLIST = `http://65.1.17.188:5001/manage/product/{{id}}/conten
 export const CONTENT_LIST_EDIT = `http://65.1.17.188:5001/manage/product/{{id}}/content`;
 export const ADD_CERTIFICATE = `http://65.1.17.188:5001/manage/product/{{id}}/certificate`;
 export const GET_CERTIFICATE=`http://65.1.17.188:5001/manage/product/{{id}}/certificate/view`;
+export const ADD_CLASSIFICTION= `http://65.1.17.188:5001/manage/classification/{{id}}`;
+export const GET_CLASSIFICTION = `http://65.1.17.188:5001/manage/classification/all`;
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;

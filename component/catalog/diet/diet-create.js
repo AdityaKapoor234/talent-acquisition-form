@@ -110,7 +110,7 @@ export default class DietCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													Description<span className="mandatory-star">*</span>
+													Description
 												</label>
 												<textarea
 													name="description"
@@ -186,7 +186,7 @@ export default class DietCreate extends Component {
 													name="show_in_main_menu"
 													onChange={this.handleCheck.bind(this)}
 												/>
-												<label>Visible</label>
+												<label>Show in Main Menu</label>
 											</div>
 										</div>
 									</div>
@@ -210,7 +210,7 @@ export default class DietCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													Description<span className="mandatory-star">*</span>
+													Description
 												</label>
 												<textarea
 													name="description"
@@ -271,7 +271,7 @@ export default class DietCreate extends Component {
 													style={{ color: "#012169" }}
 													checked={this.state.input.show_in_main_menu}
 												/>
-												<label>Visible</label>
+												<label>Show in Main Menu</label>
 											</div>
 										</div>
 									</div>

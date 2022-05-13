@@ -14,46 +14,70 @@ export default class BrandCreate extends Component {
     super(props);
     this.state = {
       mode: "edit",
+      is_all: false,
       brand: {},
       brandDetails: {
-        sort_order: null,
         name: "",
-        is_active: null,
+        description: "",
+        sort_order: null,
+        icon_url: "",
+        banner_url: "",
+        banner_url_sm: "",
+        is_active: false,
+        show_in_main_menu: false,
       },
     };
   }
 
   validateData = () => {
-    if (
-      this.state.brandDetails.name === "" &&
-      (this.state.brandDetails.sort_order === "" ||
-        this.state.brandDetails.sort_order === null)
-    ) {
-      toast.error("Please enter Display Order ");
-      toast.error("Please enter name");
-      return false;
-    }
-    if (this.state.brandDetails.name === "" || this.state.brandDetails.name.replace(/\s/g, "").length <=0) {
-      toast.error("Please enter name");
-      return false;
-    }
-    if (
-      this.state.brandDetails.sort_order === "" ||
-      this.state.brandDetails.sort_order === null
-    ) {
-      toast.error("Please enter Display Order ");
-      return false;
-    }
+    this.setState({ is_all: false });
 
-    return true;
+
+    if (this.state.brandDetails.name === "" || this.state.brandDetails.name === null || this.state.brandDetails.name.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter name");
+      this.state.is_all = true;
+    }
+    // if (this.state.brandDetails.description === "" || this.state.brandDetails.description === null || this.state.brandDetails.description.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter description");
+    //   this.state.is_all = true;
+    // }
+    if (this.state.brandDetails.sort_order === "" || this.state.brandDetails.sort_order === null) {
+      toast.error("Please enter display order ");
+      this.state.is_all = true;
+    }
+    // if (this.state.brandDetails.icon_url === "" || this.state.brandDetails.icon_url === null || this.state.brandDetails.icon_url.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter icon ");
+    //   this.state.is_all = true;
+    // }
+    // if (this.state.brandDetails.banner_url === "" || this.state.brandDetails.banner_url === null || this.state.brandDetails.banner_url.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter full banner image ");
+    //   this.state.is_all = true;
+    // }
+    // if (this.state.brandDetails.banner_url_sm === "" || this.state.brandDetails.banner_url_sm === null || this.state.brandDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter short banner image ");
+    //   this.state.is_all = true;
+    // }
+
+
+    if (this.state.is_all === true) {
+      return false;
+    }
+    else {
+      return true;
+    }
   };
 
   OnSave = () => {
     if (this.validateData()) {
       let data = {
         name: this.state.brandDetails.name,
+        description: this.state.brandDetails.description,
         sort_order: parseInt(this.state.brandDetails.sort_order),
+        icon_url: this.state.brandDetails.icon_url,
+        banner_url: this.state.brandDetails.banner_url,
+        banner_url_sm: this.state.brandDetails.banner_url_sm,
         is_active: this.state.brandDetails.is_active,
+        show_in_main_menu: this.state.brandDetails.show_in_main_menu,
       };
       BrandsApi.BrandsCreate(data)
         .then((response) => {

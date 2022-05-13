@@ -46,7 +46,7 @@ export default class signup extends Component {
     };
 
     empRows() {
-        for (let i = this.state.rows; i < 10; i++) {
+        for (let i = this.state.rows; i < 5; i++) {
             this.state.remainingRows[i] = i
         }
 
@@ -56,7 +56,11 @@ export default class signup extends Component {
         return (
             <>
                 <div className="row mb-2">
-                    <div className="col page-name">New Sign Ups</div>
+                    <div className="col page-name">
+                        <Link href="/customer">
+                            New Sign Ups
+                        </Link>
+                    </div>
                     <div className="col d-flex justify-content-end align-self-end">
                         <Link href="/customer">
                             <span className='page-name-link'>View All</span>
@@ -80,19 +84,21 @@ export default class signup extends Component {
                     </div>
                     {this.state.customer?.map((p, index) => {
                         return (
-                            <div className="row" key={index}>
-                                <div className="col-md-12">
-                                    <div className="tableCell">
-                                        <div className="tableBody elip col-4 elip-text" title={p?.name}>{p?.name}</div>
-                                        <div className="col-4 elip text-center elip-text" title={p?.email}>{p?.email}</div>
-                                        <div className="col-4 elip text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
+                            this.state.rows < 5 ?
+                                <div className="row" key={index}>
+                                    <div className="col-md-12">
+                                        <div className="tableCell">
+                                            <div className="tableBody elip col-4 elip-text" title={p?.name}>{p?.name}</div>
+                                            <div className="col-4 elip text-center elip-text" title={p?.email}>{p?.email}</div>
+                                            <div className="col-4 elip text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
 
-                                        <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
+                                            <div className="noVisi">{this.state.rows = this.state.rows + 1}</div>
 
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                : ""
                         );
                     })}
 

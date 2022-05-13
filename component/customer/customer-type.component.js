@@ -53,11 +53,11 @@ export default class CustomerType extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col-6 pe-1">Name</div>
+              <div className="col-7 pe-1">Name</div>
               {/* <div className="col text-center">Type</div> */}
               <div className="col-2 px-2 text-center">Active</div>
               <div className="col-2 px-2 text-center">Default</div>
-              <div className="col-2 px-2 text-center">Action</div>
+              <div className="col-1 px-2 text-center">Action</div>
               {/* <div className="col-1 text-center">Active</div> */}
               {/* <div className="col-1 text-end">Action</div> */}
             </div>
@@ -72,12 +72,12 @@ export default class CustomerType extends Component {
          <div className="tableCell">
            
          
-           <div className="tableBody  col-6  elip-text ">
+           <div className="tableBody  col-7  elip-text ">
            {ele.user_type}
            </div>
            <div className="col-2  text-center elip-text "><CheckCircleOutline className="check-icon"/></div>
            <div className="col-2  text-center elip-text">  <CancelOutlinedIcon className="cancel-icon" /></div>
-           <div className="col-2  text-center ">
+           <div className="col-1  text-center ">
              {/* {p?.is_active === true ? (
                <CheckCircleOutlineOutlinedIcon className="check-icon" />
              ) : (

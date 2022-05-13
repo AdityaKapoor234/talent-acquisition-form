@@ -58,7 +58,7 @@ export default class AddCustomer extends Component {
               <div className="row mt-4">
                 <div className="col-md-4">
                   <div className="login-form ">
-                    <label>Company Name<span className="mandatory-star">*</span></label>
+                    <label> Name<span className="mandatory-star">*</span></label>
                     <input
                       type="text"
                       name="name"

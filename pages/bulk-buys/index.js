@@ -82,7 +82,6 @@ export default function Bulk_Buys() {
 		setIsLoader(true);
 		InquiryApi.getBulkBuyList(page,search)
 			.then((response) => {
-                // console.log(response)
 				setBulkBuys(response.data.data.list);
 				setTotalBulkBuys(response.data.data.total);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

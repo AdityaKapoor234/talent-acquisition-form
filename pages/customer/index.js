@@ -75,14 +75,14 @@ export default function Customer() {
 	};
 
 	const handleOnExport = () => {
-        var XLSX = require("xlsx");
-        var wb=XLSX.utils.book_new();
-        var ws=XLSX.utils.json_to_sheet(customerExcel);
+		var XLSX = require("xlsx");
+		var wb = XLSX.utils.book_new();
+		var ws = XLSX.utils.json_to_sheet(customerExcel);
 
-        XLSX.utils.book_append_sheet(wb,ws,"CustomerList");
+		XLSX.utils.book_append_sheet(wb, ws, "CustomerList");
 
-        XLSX.writeFile(wb, "Customer List.xlsx");
-    };
+		XLSX.writeFile(wb, "Customer List.xlsx");
+	};
 
 
 	const customerList = (page, search) => {
@@ -135,7 +135,7 @@ export default function Customer() {
 	}, []);
 	return (
 		<div>
-			<div page-component="category-page">
+			<div page-component="customer-page">
 				<Head>
 					<title>{APP_NAME} - Customer</title>
 					<meta name="description" content="Trusted Brands. Better Health." />
@@ -145,7 +145,7 @@ export default function Customer() {
 				<main>
 					<DashboardLayoutComponent>
 						<div className="row border-box">
-							<div className="col-md-6">
+							<div className="col-md-4">
 								<div className="hamburger">
 									<span>customer / </span>customer
 								</div>
@@ -172,6 +172,16 @@ export default function Customer() {
 									>
 										Download&nbsp;<FileDownloadIcon />
 									</span>
+								</div>
+							</div>
+							<div className="col-md-2 btn-save">
+								<div
+									className="custom-btn "
+									onClick={() => {
+										Router.push(`/customer/create`);
+									}}
+								>
+									<span>Add New </span>
 								</div>
 							</div>
 						</div>

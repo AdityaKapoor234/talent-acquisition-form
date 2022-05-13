@@ -29,7 +29,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" ? true : false);
-    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-type" ? true : false);
+    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "subscription" || pathArr === "trusted-health" ? true : false);
@@ -158,6 +158,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabCustomer &&
                                     <ul>
                                         <li className={categary === "customer" ? "sub_active" : ""} onClick={() => handleCategary("/customer", "customer")}>customer</li>
+                                        <li className={categary === "customer-support-information" ? "sub_active" : ""} onClick={() => handleCategary("/customer-support-information", "customer-support-information")}>customer support info</li>
                                         {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
                                     </ul>
                                 }

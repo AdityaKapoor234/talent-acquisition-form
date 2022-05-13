@@ -32,6 +32,8 @@ export default function Dashboard() {
 	const [orderPriceStats, setOrderPriceStats] = useState([]);
 	const [order, setOrder] = useState([]);
 	const [topSearchTerms, setTopSearchTerms] = useState([]);
+	const [topSoldProduct, setTopSoldProduct] = useState([]);
+	const [salesTrend, setSalesTrend] = useState([]);
 	const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isLoader, setLoader] = useState(false);
@@ -132,6 +134,44 @@ export default function Dashboard() {
 
 			});
 	};
+	function salesTrendGraph() {
+		setLoader(true);
+		DashboardApi.SalesTrendGraph()
+			.then((response) => {
+				setSalesTrend(response.data.data?.sales_trend);
+				setLoader(false);
+			})
+			.catch((error) => {
+				setLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+
+			});
+	};
+	function topSoldProductGraph() {
+		setLoader(true);
+		DashboardApi.TopSoldProductGraph()
+			.then((response) => {
+				setTopSoldProduct(response.data.data?.top_sold);
+				setLoader(false);
+			})
+			.catch((error) => {
+				setLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+
+			});
+	};
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
@@ -142,6 +182,8 @@ export default function Dashboard() {
 		orderList(currentPage, "", "latest");
 		orderPaymentStats();
 		topSearchTerm();
+		salesTrendGraph();
+		topSoldProductGraph();
 	}, []);
 
 	return (
@@ -212,39 +254,39 @@ export default function Dashboard() {
 									</div>
 
 									<div className="row my-4">
-										<div className="col">
+										<div className="col-6">
 											<OrderComponent order={order} />
 										</div>
-										<div className="col">
+										<div className="col-6">
 											<OrderPaymentStatusComponent orderStatsDetails={orderStatsDetails} />
 										</div>
 									</div>
 									<div className="row my-4">
-										<div className="col">
+										<div className="col-6">
 											<SignUpComponent customer={customer} />
 										</div>
-										<div className="col">
-											<SalesTrendComponent />
+										<div className="col-6">
+											<SalesTrendComponent salesTrend={salesTrend} />
 										</div>
 									</div>
 									<div className="row my-4">
-										<div className="col">
+										<div className="col-6">
 											<TopSearchTermsComponent topSearchTerms={topSearchTerms} />
 										</div>
-										<div className="col">
-											<TopSoldProductsComponent />
+										<div className="col-6">
+											<TopSoldProductsComponent topSoldProduct={topSoldProduct} />
 										</div>
 									</div>
 									<div className="row my-4">
-										<div className="col">
+										<div className="col-6">
 											<TotalPageVisitComponent />
 										</div>
-										<div className="col">
+										<div className="col-6">
 											<UniquePageVisitComponent />
 										</div>
 									</div>
 									<div className="row my-4">
-										<div className="col">
+										<div className="col-12">
 											<OrderStatusDetailsComponent orderStatsDetails={orderStatsDetails} />
 										</div>
 									</div>

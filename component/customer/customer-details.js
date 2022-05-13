@@ -367,6 +367,7 @@ export default class CustomerDetails extends Component {
 												disableUnderline
 												variant="standard"
 												autoWidth={true}
+												disabled
 												IconComponent={ExpandMoreIcon}
 												name="user_type"
 												onChange={this.handleChange}
@@ -396,8 +397,7 @@ export default class CustomerDetails extends Component {
 											type="text"
 											value={this.state.input?.name}
 											name="name"
-											onChange={this.handleChange}
-											readOnly={this.state.customer?.user_type === "General" ? true : false}
+											readOnly={true}
 										/>
 									</div>
 									<div className="login-form ">
@@ -408,8 +408,7 @@ export default class CustomerDetails extends Component {
 											type="text"
 											value={this.state.input?.email}
 											name="email"
-											onChange={this.handleChange}
-											readOnly={this.state.input?.user_type === "General" ? true : false}
+											readOnly={true}
 										/>
 									</div>
 									<div className="login-form ">
@@ -419,9 +418,8 @@ export default class CustomerDetails extends Component {
 										<input
 											type="number"
 											name="phone_number"
-											onChange={this.handleChange}
 											value={this.state.input?.phone_number}
-											readOnly={this.state.input?.user_type === "General" ? true : false}
+											readOnly={true}
 										/>
 									</div>
 									<div className="signup-check">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW} from "../utils/constant";
+import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_DROPDOWN} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -25,6 +25,28 @@ export class CustomerApi {
             }
         };
         return axios.get(`${GET_CUSTOMER}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static CustomerAdd(data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.post(`${CUSTOMER_ADD}`,data,httpOptions)
+    }
+
+    static getCustomerTypeDropdownDetails(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${CUSTOMER_TYPE_DROPDOWN}`.replace('{{id}}', id),httpOptions)
     }
 
     static CustomerDetails(id,data) {

@@ -207,6 +207,7 @@ export default class OrderDetails extends Component {
 																	<MenuItem value={"placed"}>Placed</MenuItem>
 																	<MenuItem value={"shipped"}>Shipped</MenuItem>
 																	<MenuItem value={"cancelled"}>cancelled</MenuItem>
+																	<MenuItem value={"cpayment_pending"}>Pending</MenuItem>
 																</Select>
 
 															</div>
@@ -217,6 +218,12 @@ export default class OrderDetails extends Component {
 
 												</span>
 												<small className="form-text text-danger" >{this.state.error}</small>
+												<span className="orderLine">
+													<span className="orderInfo">Payment Mode:&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.order?.payment_mode==="razorpay"?"Online":"Cash on Delivery"}>{this.state.order?.order?.payment_mode==="razorpay"?"Online":"Cash on Delivery"}</span>
+												</span>
+												
+												<div></div>
 											</div>
 										</div>
 
@@ -410,7 +417,11 @@ export default class OrderDetails extends Component {
 											<div className="col-3">
 												<span className="orderLine">
 													<span className="orderInfo">Status&nbsp;</span>
-													<span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
+													<span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status==="payment_pending"?"Pending":this.state.order?.order?.status}>{this.state.order?.order?.status==="payment_pending"?"Pending":this.state.order?.order?.status}</span>
+												</span>
+												<span className="orderLine">
+													<span className="orderInfo">Payment Mode:&nbsp;</span>
+													<span className="orderInfoVal elip-text" title={this.state.order?.order?.payment_mode==="razorpay"?"Online":"Cash on Delivery"}>{this.state.order?.order?.payment_mode==="razorpay"?"Online":"Cash on Delivery"}</span>
 												</span>
 
 											</div>

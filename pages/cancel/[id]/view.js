@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function OrderViewDetails({ id }) {
+export default function CancelViewDetails({ id }) {
 
     const mode = "view";
 
@@ -63,16 +63,16 @@ export default function OrderViewDetails({ id }) {
                     <div className="row border-box">
                         <div className="col-md-10">
                             <div className="hamburger">
-                                <span>sales / cancel / </span>View order{" "}
+                                <span>sales / cancel / </span>View Cancel order{" "}
                             </div>
-                            <div className="page-name">Order - {order?.name}</div>
+                            <div className="page-name">Cancel Order </div>
                         </div>
                         <div className="col-md-2 btn-save">
                             <div
                                 className="Cancel-btn custom-btn"
                                 style={{ width: "100%" }}
                                 onClick={() => {
-                                    Router.push(`/order`);
+                                    Router.push(`/cancel`);
                                 }}
                             >
                                 <span>Cancel </span>

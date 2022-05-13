@@ -125,7 +125,7 @@ export default function DashboardLayoutComponent({ children }) {
                                     <ul>
                                         <li className={categary === "category" ? "sub_active" : ""} onClick={() => handleCategary("/category", "category")}>category</li>
                                         <li className={categary === "ingredient" ? "sub_active" : ""} onClick={() => handleCategary("/ingredient", "ingredient")}>ingredient</li>
-                                        <li className={categary === "classification" ? "sub_active" : ""} onClick={() => handleCategary("/classification", "classification")}>classification</li>
+                                        {/* <li className={categary === "classification" ? "sub_active" : ""} onClick={() => handleCategary("/classification", "classification")}>classification</li> */}
                                         <li className={categary === "brand" ? "sub_active" : ""} onClick={() => handleCategary("/brand", "brand")}>brand</li>
                                         <li className={categary === "sports" ? "sub_active" : ""} onClick={() => handleCategary("/sports", "sports")}>sports</li>
                                         <li className={categary === "goals" ? "sub_active" : ""} onClick={() => handleCategary("/goals", "goals")}>goals</li>

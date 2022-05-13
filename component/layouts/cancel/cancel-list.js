@@ -74,7 +74,7 @@ export default class CancelList extends Component {
 											<RemoveRedEyeIcon
 												className="view-icon"
 												onClick={() => {
-													Router.push(`/order/${p?.order_no}/view`);
+													Router.push(`/cancel/${p?.order_no}/view`);
 												}}
 											/>
 										</div>

@@ -110,9 +110,9 @@ export default function OrderEditDetails({ id }) {
                     <div className="row border-box">
                         <div className="col-md-5">
                             <div className="hamburger">
-                                <span>cancel / cancel/ </span>Edit order{" "}
+                                <span>cancel / cancel/ </span>Cancel order{" "}
                             </div>
-                            <div className="page-name">Cancel - {order?.name}</div>
+                            <div className="page-name">Cancel Order </div>
                         </div>
                         <div className="col-md-7 btn-save">
                             <div
@@ -126,7 +126,7 @@ export default function OrderEditDetails({ id }) {
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
-                                    Router.push(`/order`);
+                                    Router.push(`/cancel`);
                                 }}
                             >
                                 <span>Cancel </span>

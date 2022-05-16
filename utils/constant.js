@@ -20,9 +20,14 @@ export const CUSTOMER_ADD = `http://65.1.17.188:5000/customer/add`;
 export const CUSTOMER_TYPE_DROPDOWN = `http://65.1.17.188:5000/customer/type/dropdown`;
 export const GET_CUSTOMER_ORDER = `http://65.1.17.188:5002/manage/order/customer/{{id}}?page={{page}}`;
 export const GET_CUSTOMER_ADDRESSES = `http://65.1.17.188:5000/customer/{{id}}/addresses?page={{page}}`;
+export const ADD_CUSTOMER = `http://65.1.17.188:5000/customer/type/dropdown/add`;
+export const CUSTOMER_TYPE = `http://65.1.17.188:5000/customer/type/dropdown/paginate?page={{page}}&q={{search}}`;
 export const GET_CUSTOMER_SUPPORT_INFORMATION = `http://65.1.17.188:5000/manage/enquiry?page={{page}}&q={{search}}`;
 export const GET_CUSTOMER_SUPPORT_INFORMATION_VIEW = `http://65.1.17.188:5000/manage/enquiry/{{id}}/view`;
-export const CUSTOMER_TYPE = `http://65.1.17.188:5000/customer/type/dropdown`;
+export const CUSTOMER_TYPE_EDIT=`http://65.1.17.188:5000/customer/type/dropdown/edit/{{id}}`
+export const GET_VIEW_CUSTOMER_TYPE=`http://65.1.17.188:5000/customer/type/dropdown/view/{{id}}`
+export const DELETE_CUSTOMER=`http://65.1.17.188:5000/customer/type/dropdown/delete/{{id}}`
+
 
 //Category
 export const CATEGORYLIST = `http://65.1.17.188:5001/manage/category?page={{page}}&q={{search}}`;

@@ -111,7 +111,7 @@ export default class CustomerSupportInformationDetails extends Component {
 												<textarea
 													cols="100"
 													rows="5"
-													value={this.state.customerSupportInformation?.email}
+													value={this.state.customerSupportInformation?.purpose}
 													readOnly={true}
 												/>
 											</div>

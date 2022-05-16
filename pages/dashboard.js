@@ -277,14 +277,14 @@ export default function Dashboard() {
 											<TopSoldProductsComponent topSoldProduct={topSoldProduct} />
 										</div>
 									</div>
-									<div className="row my-4">
+									{/* <div className="row my-4">
 										<div className="col-6">
 											<TotalPageVisitComponent />
 										</div>
 										<div className="col-6">
 											<UniquePageVisitComponent />
 										</div>
-									</div>
+									</div> */}
 									<div className="row my-4">
 										<div className="col-12">
 											<OrderStatusDetailsComponent orderStatsDetails={orderStatsDetails} />

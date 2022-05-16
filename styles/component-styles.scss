@@ -637,3 +637,107 @@
     }
   }
 }
+
+[data-component="address-component"] {
+  .card {
+    border: 0px !important;
+  }
+  .custom-btn {
+    padding: 0.6rem 0.1rem !important;
+  }
+
+  .login-form {
+    font-size: 0.85rem;
+    color: $clr-dark-blue;
+
+    label {
+      color: $clr-label-name;
+      padding-top: 30px;
+      margin: 0;
+      padding-bottom: 0.7rem;
+    }
+
+    input {
+      border: 1px solid $clr-dark-blue;
+      width: 100%;
+      padding: 15px;
+      height: 45px;
+      color: $clr-dark-blue;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .custom-btn {
+      background-color: $clr-dark-orange;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: white;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .arrow-icon {
+        font-size: 1.2rem !important;
+        margin-left: 0.5rem;
+      }
+    }
+
+    span {
+      font-weight: 500;
+    }
+  }
+
+  .back-icon {
+    background-color: $clr-label-name;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .select-dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .sort-by-select-wrapper {
+      display: contents;
+
+      .sort-by-select {
+        border-radius: 0rem;
+        color: $clr-dark-blue;
+        font-size: 0.9rem;
+        font-weight: 400;
+        border: 1px solid $clr-dark-blue;
+
+        > .MuiSelect-select {
+          padding: 0.7rem 2rem 0.7rem 0.7rem;
+          font-size: 0.9rem;
+        }
+
+        fieldset {
+          top: 0;
+        }
+      }
+    }
+  }
+  @media (max-width: 390.5px) {
+    .mob-button {
+      font-size: 0.7rem !important;
+      padding: 0.6rem 0.1rem !important;
+    }
+    .custom-btn {
+      font-size: 0.7rem !important;
+    }
+  }
+}

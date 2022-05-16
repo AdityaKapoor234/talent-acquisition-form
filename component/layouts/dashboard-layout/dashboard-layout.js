@@ -33,6 +33,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "trusted-health" ? true : false);
+    const [tabCMS, setTabCMS] = useState(pathArr === "banner" || pathArr === "banner" ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -173,6 +174,18 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabAdmin &&
                                     <ul>
                                         <li className={categary === "admin" ? "sub_active" : ""} onClick={() => handleCategary("/admin", "admin")}>user</li>
+                                    </ul>
+                                }
+                                <div className={tabCMS ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCMS(!tabCMS)}>
+                                    <span>
+                                        {tabCMS ? <AdminPanelSettingsOutlinedIcon className='outline-icon' /> : <AdminPanelSettingsOutlinedIcon className='outline-icon' />}
+                                        CMS
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabCMS &&
+                                    <ul>
+                                        <li className={categary === "banner" ? "sub_active" : ""} onClick={() => handleCategary("/banner", "banner")}>banner</li>
                                     </ul>
                                 }
                                 <div className={tabInquiry ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabInquiry(!tabInquiry)}>

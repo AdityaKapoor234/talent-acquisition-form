@@ -21,6 +21,7 @@ import Router from "next/router";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddressForm from "../common-component/address-form"
 
 export default class CustomerDetails extends Component {
 	constructor(props) {
@@ -65,12 +66,12 @@ export default class CustomerDetails extends Component {
 				open: false,
 			});
 			this.props?.active(false);
-			
+
 			let input = this.state.input;
 			input["is_active"] = false;
 			this.setState({ input });
 			this.props?.handle(input);
-	
+
 		} else {
 			this.setState({
 				active: true,
@@ -498,219 +499,238 @@ export default class CustomerDetails extends Component {
 				)}
 				{this.state.tab === 2 && (
 					<>
-						<div data-component="address-view">
-							<div className="row mt-4 sticky-scroll scroll">
-								{this.state.address?.length === 0 && (
-									<div className="error-message">No Address Info</div>
-								)}
-								{this.state.address?.map((p) => {
-									return (
-										<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
-											<div className="edit-box">
-												<div className="row">
-													<div className="col-12">
-														<div className="complete-address">
-															<div>
-																<div
-																	className="name two-line-ellipsis mt-3"
-																	title={p?.recipient_name}
-																>
-																	{p?.recipient_name}
-																</div>
-																<div
-																	className="address"
-																	title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
-																>
-																	{p?.flat_no} {p?.locality}
-																	{p?.landmark !== "" ? ", " : " "}
+						{this.state.mode === "create" && (
+							<>
+								{/* <AddressForm /> */}
+							</>
+						)}
+						{this.state.mode === "edit" && (
+							<>
+								{/* <AddressForm /> */}
+							</>
+						)}
+						{this.state.mode === "view" && (
+							<>
+								<div data-component="address-view">
+									<div className="row mt-4 sticky-scroll scroll">
+										{this.state.address?.length === 0 && (
+											<div className="error-message">No Address Info</div>
+										)}
+										{this.state.address?.map((p) => {
+											return (
+												<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+													<div className="edit-box">
+														<div className="row">
+															<div className="col-12">
+																<div className="complete-address">
 																	<div>
-																		{p?.landmark !== "" ? "Near " : ""}
-																		{p?.landmark !== "" ? p?.landmark : ""}
-																		{p?.landmark !== "" ? ", " : ""}
-																		{p?.city}{" "}
+																		<div
+																			className="name two-line-ellipsis mt-3"
+																			title={p?.recipient_name}
+																		>
+																			{p?.recipient_name}
+																		</div>
+																		<div
+																			className="address"
+																			title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
+																		>
+																			{p?.flat_no} {p?.locality}
+																			{p?.landmark !== "" ? ", " : " "}
+																			<div>
+																				{p?.landmark !== "" ? "Near " : ""}
+																				{p?.landmark !== "" ? p?.landmark : ""}
+																				{p?.landmark !== "" ? ", " : ""}
+																				{p?.city}{" "}
+																			</div>
+																			<div>
+																				{p?.state}
+																				{" - "}
+																				{p?.pin_code}
+																			</div>
+																		</div>
+																		<div className="number">
+																			{p?.recipient_phone_number}
+																		</div>
 																	</div>
-																	<div>
-																		{p?.state}
-																		{" - "}
-																		{p?.pin_code}
-																	</div>
-																</div>
-																<div className="number">
-																	{p?.recipient_phone_number}
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									);
-								})}
-							</div>
-						</div>
-						{this.state.addressTotal > 1 && (
-							<div className="row">
-								<div className="col-md-12 justify-content-between d-flex position-relative">
-									<div className="pagiantion-category">
-										<div>
-											<Pagination
-												className="pagination pagi"
-												page={this.state.currentPageAddress}
-												count={this.state.addressTotal}
-												onChange={this.onPageChangeAddress}
-											/>
-										</div>
-										<div
-											className="position-absolute totalCount"
-											style={{ right: 23, bottom: 5 }}
-										>
-											Total Addresses: {this.state.address?.length}
-										</div>
+											);
+										})}
 									</div>
 								</div>
-							</div>
-						)}
-					</>
-				)}
-				{this.state.tab === 3 && (
-					<>
-						<div data-component="CustomerComponent">
-							<div className="row">
-								<div className="col-md-12">
-									<div className="tableRow">
-										<div className="col">Order#</div>
-										<div className="col text-center">Date</div>
-										<div className="col text-center">Status</div>
-										{/* <div className="col-3 text-center">Shipment Method</div> */}
-										<div className="col text-center">Total</div>
-										{/* <div className="col-1 text-center">Active</div> */}
-										<div className="col-1 text-end">View</div>
-									</div>
-								</div>
-							</div>
-							<div className="sticky-scroll scroll">
-								{this.state.orders?.length === 0 && (
-									<div className="error-message">No order Info</div>
-								)}
-								{this.state.orders?.map((p) => {
-									return (
-										<div className="row">
-											<div className="col-md-12">
-												<div className="tableCell">
-													<div className="tableBody col">{p?.order_number}</div>
-													<div className="col text-center">
-														{this.convertDateStringToDate(p?.created_at)}
-													</div>
-													<div className="tableBody col justify-content-center">
-														{p?.status}
-													</div>
-													{/* <div className="col-3 text-center">COD</div> */}
-													<div className="col text-center">
-														₹{" "}
-														{p?.total
-															?.toFixed(2)
-															.toString()
-															.replace(
-																/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
-																","
-															)}
-													</div>
-													{/* <div className="col-1 text-center">
-                            <CheckCircleOutlineOutlinedIcon className="check-icon" />
-                          </div> */}
-													<div className="col-1 text-end">
-														<RemoveRedEyeIcon
-															className="view-icon"
-															onClick={() => {
-																Router.push(`/order/${p?.order_number}/view`);
-															}}
-														/>
-													</div>
+								{this.state.addressTotal > 1 && (
+									<div className="row">
+										<div className="col-md-12 justify-content-between d-flex position-relative">
+											<div className="pagiantion-category">
+												<div>
+													<Pagination
+														className="pagination pagi"
+														page={this.state.currentPageAddress}
+														count={this.state.addressTotal}
+														onChange={this.onPageChangeAddress}
+													/>
+												</div>
+												<div
+													className="position-absolute totalCount"
+													style={{ right: 23, bottom: 5 }}
+												>
+													Total Addresses: {this.state.address?.length}
 												</div>
 											</div>
 										</div>
-									);
-								})}
-							</div>
-						</div>
-						{this.state.orderTotal > 1 && (
-							<div className="row">
-								<div className="col-md-12 justify-content-between d-flex position-relative">
-									<div className="pagiantion-category">
-										<div>
-											<Pagination
-												className="pagination pagi"
-												page={this.state.currentPage}
-												count={this.state.orderTotal}
-												onChange={this.onPageChange}
-											/>
-										</div>
-										<div
-											className="position-absolute totalCount"
-											style={{ right: 23, bottom: 5 }}
-										>
-											Total Orders: {this.state.orders?.length}
+									</div>
+								)}
+							</>
+						)}
+					</>
+				)
+				}
+				{
+					this.state.tab === 3 && (
+						<>
+							<div data-component="CustomerComponent">
+								<div className="row">
+									<div className="col-md-12">
+										<div className="tableRow">
+											<div className="col">Order#</div>
+											<div className="col text-center">Date</div>
+											<div className="col text-center">Status</div>
+											{/* <div className="col-3 text-center">Shipment Method</div> */}
+											<div className="col text-center">Total</div>
+											{/* <div className="col-1 text-center">Active</div> */}
+											<div className="col-1 text-end">View</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						)}
-					</>
-				)}
-				{this.state.tab === 4 && (
-					<>
-						<div data-component="wishlist">
-							<div className="row">
-								{this.state?.wishList?.map((val) => {
-									return (
-										<div className="col-3">
-											<div className="padding">
-												<div className="box">
-													<div
-														className="bck-img mt-4"
-														style={{
-															backgroundImage: `url(${val?.primary_image_path})`,
-														}}
-													></div>
-													<div className="name">
-														<h3 className="text-center">{val?.name}</h3>
-														<div className="product-qulaty-div mb-3">
-															<span>{val?.size}</span>
-															{val?.size !== "" && val?.flavor !== ""
-																? "|"
-																: ""}
-															<span>{val?.flavor}</span>
+								<div className="sticky-scroll scroll">
+									{this.state.orders?.length === 0 && (
+										<div className="error-message">No order Info</div>
+									)}
+									{this.state.orders?.map((p) => {
+										return (
+											<div className="row">
+												<div className="col-md-12">
+													<div className="tableCell">
+														<div className="tableBody col">{p?.order_number}</div>
+														<div className="col text-center">
+															{this.convertDateStringToDate(p?.created_at)}
+														</div>
+														<div className="tableBody col justify-content-center">
+															{p?.status}
+														</div>
+														{/* <div className="col-3 text-center">COD</div> */}
+														<div className="col text-center">
+															₹{" "}
+															{p?.total
+																?.toFixed(2)
+																.toString()
+																.replace(
+																	/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
+																	","
+																)}
+														</div>
+														{/* <div className="col-1 text-center">
+                            <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                          </div> */}
+														<div className="col-1 text-end">
+															<RemoveRedEyeIcon
+																className="view-icon"
+																onClick={() => {
+																	Router.push(`/order/${p?.order_number}/view`);
+																}}
+															/>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									);
-								})}
+										);
+									})}
+								</div>
 							</div>
-							<div className="row">
-								<div className="col-md-12 py-5 justify-content-between d-flex position-relative">
-									<div className="pagiantion-category">
-										<div>
-											<Pagination
-												className="pagination pagi"
-												page={this.state.currentWishListPage}
-												count={this.state.totalWishListPage}
-												onChange={this.pageChange.bind(this)}
-											/>
+							{this.state.orderTotal > 1 && (
+								<div className="row">
+									<div className="col-md-12 justify-content-between d-flex position-relative">
+										<div className="pagiantion-category">
+											<div>
+												<Pagination
+													className="pagination pagi"
+													page={this.state.currentPage}
+													count={this.state.orderTotal}
+													onChange={this.onPageChange}
+												/>
+											</div>
+											<div
+												className="position-absolute totalCount"
+												style={{ right: 23, bottom: 5 }}
+											>
+												Total Orders: {this.state.orders?.length}
+											</div>
 										</div>
-										<div
-											className="position-absolute totalCount"
-											style={{ right: 23, bottom: 5 }}
-										>
-											Total Products: {this.state.wishListTotalProduct}
+									</div>
+								</div>
+							)}
+						</>
+					)
+				}
+				{
+					this.state.tab === 4 && (
+						<>
+							<div data-component="wishlist">
+								<div className="row">
+									{this.state?.wishList?.map((val) => {
+										return (
+											<div className="col-3">
+												<div className="padding">
+													<div className="box">
+														<div
+															className="bck-img mt-4"
+															style={{
+																backgroundImage: `url(${val?.primary_image_path})`,
+															}}
+														></div>
+														<div className="name">
+															<h3 className="text-center">{val?.name}</h3>
+															<div className="product-qulaty-div mb-3">
+																<span>{val?.size}</span>
+																{val?.size !== "" && val?.flavor !== ""
+																	? "|"
+																	: ""}
+																<span>{val?.flavor}</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										);
+									})}
+								</div>
+								<div className="row">
+									<div className="col-md-12 py-5 justify-content-between d-flex position-relative">
+										<div className="pagiantion-category">
+											<div>
+												<Pagination
+													className="pagination pagi"
+													page={this.state.currentWishListPage}
+													count={this.state.totalWishListPage}
+													onChange={this.pageChange.bind(this)}
+												/>
+											</div>
+											<div
+												className="position-absolute totalCount"
+												style={{ right: 23, bottom: 5 }}
+											>
+												Total Products: {this.state.wishListTotalProduct}
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</>
-				)}
+						</>
+					)
+				}
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}
@@ -759,7 +779,7 @@ export default class CustomerDetails extends Component {
 						</Button>
 					</DialogActions>
 				</Dialog>
-			</div>
+			</div >
 		);
 	}
 }

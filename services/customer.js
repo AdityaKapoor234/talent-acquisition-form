@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_DROPDOWN} from "../utils/constant";
+import {CUSTOMERLIST,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST,SHOPPING_CART_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_DROPDOWN} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -91,6 +91,17 @@ export class CustomerApi {
             }
         };
         return axios.get(`${WISH_LIST}`.replace('{{id}}', id).replace('{{page}}', page), httpOptions)
+    }
+
+    static ShoppingCartList(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${SHOPPING_CART_LIST}`.replace('{{id}}', id), httpOptions)
     }
 
     static CustomerSupportInformationList(page,search) {

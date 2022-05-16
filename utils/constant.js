@@ -121,6 +121,9 @@ export const PRODUCT_EXCEL_LIST = `http://65.1.17.188:5001/manage/product/all`;
 //WISHLIST
 export const WISH_LIST = `http://65.1.17.188:5001/manage/wishlist/{{id}}?page={{page}}`;
 
+//SHOPPING CART
+export const SHOPPING_CART_LIST = `http://65.1.17.188:5002/manage/cart/{{id}}/order`;
+
 //INQUIRY
 export const ADVERTISE_WITH_US_LIST = `http://65.1.17.188:5000/manage/advertise?page={{page}}&q={{search}}`;
 export const GET_ADVERTISE_WITH_US_DETAILS = `http://65.1.17.188:5000/manage/advertise/{{id}}/view`;

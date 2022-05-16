@@ -12,8 +12,8 @@ export default class AddCustomer extends Component {
     this.state = {
       mode:props?.mode,
       input: {
-        name: props?.customer?.user_type ? props.customer?.user_type : "",
-        maximum_order_qty: props?.customer?.sort_order ? props?.customer?.sort_order : "",
+        user_type: props?.customer?.user_type ? props.customer?.user_type : "",
+        sort_order: props?.customer?.sort_order ? props?.customer?.sort_order : null,
         is_active: props?.customer?.is_active ? props?.customer?.is_active : false,
         by_default: props?.customer?.by_default ? props?.customer?.by_default : false,
       }
@@ -22,16 +22,15 @@ export default class AddCustomer extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      prevState.mode !== nextProps.mode ||
       prevState.customer !== nextProps.customer
     ) {
       return {
         mode: nextProps?.mode,
         input: {
           is_active: nextProps?.customer?.is_active?nextProps?.customer?.is_active:false,
-          name: nextProps?.customer?.user_type,
+          user_type: nextProps?.customer?.user_type,
           by_default: nextProps?.customer?.by_default ? nextProps?.customer?.by_default : false,
-          maximum_order_qty: nextProps?.customer?.sort_order,
+          sort_order: nextProps?.customer?.sort_order?nextProps?.customer?.sort_order:null,
         },
       };
     }
@@ -41,12 +40,15 @@ export default class AddCustomer extends Component {
   handleChange = (event) => {
 		let input = this.state.input;
 		input[event.target.name] = event.target.value;
+    this.setState({ input });
+    console.log("test1",input)
 		this.props?.handle(input);
 	};
   
   handleCheck = (event) => {
 		let input = this.state.input;
 		input[event.target.name] = event.target.checked;
+    this.setState({ input });
 		this.props?.handle(input);
 	};
 
@@ -64,6 +66,7 @@ export default class AddCustomer extends Component {
         </div>
         <>
           <div className="row sticky-scroll scroll">
+            {console.log("test98",this.props)}
             <div className="col">
               <div className="row mt-4">
                 <div className="col-md-4">
@@ -71,8 +74,8 @@ export default class AddCustomer extends Component {
                     <label> Name<span className="mandatory-star">*</span></label>
                     <input
                       type="text"
-                      name="name"
-                      value={this.state.input?.name}
+                      name="user_type"
+                      value={this.state.input?.user_type}
                       onChange={this.handleChange.bind(this)}
                     />
                   </div>
@@ -80,8 +83,8 @@ export default class AddCustomer extends Component {
                     <label>Sort Order<span className="mandatory-star">*</span></label>
                     <input
                       type="text"
-                      name="maximum_order_qty"
-                      value={this.state.input?.maximum_order_qty}
+                      name="sort_order"
+                      value={this.state.input?.sort_order}
                       onChange={this.handleChange.bind(this)}
                     />
                   </div>

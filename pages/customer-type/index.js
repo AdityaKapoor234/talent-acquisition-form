@@ -76,16 +76,6 @@ export default function Customer_Type() {
 		Customer_Type(page, wordEntered)
 	};
 
-	// const handleOnExport = () => {
-	//     var XLSX = require("xlsx");
-	//     var wb=XLSX.utils.book_new();
-	//     var ws=XLSX.utils.json_to_sheet(customerExcel);
-
-	//     XLSX.utils.book_append_sheet(wb,ws,"CustomerList");
-
-	//     XLSX.writeFile(wb, "Customer List.xlsx");
-	// };
-
 
 	const Customer_Type = (page, search) => {
 		setIsLoader(true);
@@ -131,13 +121,13 @@ export default function Customer_Type() {
 				<main>
 					<DashboardLayoutComponent>
 						<div className="row border-box">
-							<div className="col-md-6">
+							<div className="col-md-10">
 								<div className="hamburger">
 									<span>customer / </span>customer Type
 								</div>
 								<div className="page-name">Customer Type</div>
 							</div>
-							<div className="col-md-4">
+							{/* <div className="col-md-4">
 								<div className="login-form ">
 									<input
 										type="text"
@@ -149,7 +139,7 @@ export default function Customer_Type() {
 									/>
 									<SearchIcon className="search-icon point-but"  />
 								</div>
-							</div>
+							</div> */}
 							<div className="col-md-2 btn-save">
                                 <div
                                     className="custom-btn "

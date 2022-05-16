@@ -30,15 +30,15 @@ export async function getServerSideProps(context) {
 }
 
 export default function EditCustomer({id}) {
-  const [customerDetails,setCustomerDetails] = useState({"name":"","sort_order":""});
+  const [customerDetails,setCustomerDetails] = useState({"user_type":"","sort_order":"",is_active:false});
   const [customer,setCustomer]= useState([]);
   const [open,setOpen]=useState(false)
   const [mode,setMode] = useState("edit");
 
 
   const validateData = () => {
-    if ((customerDetails?.name === "" || customerDetails?.name === null || customerDetails?.name?.replace(/\s/g, "")?.length <= 0)) {
-      toast.error("Please enter name");
+    if ((customerDetails?.user_type === "" || customerDetails?.user_type === null || customerDetails?.user_type?.replace(/\s/g, "")?.length <= 0)) {
+      toast.error("Please enter user_type");
       return false
     }
     if ((customerDetails?.sort_order === "" || customerDetails?.sort_order === null)) {
@@ -52,9 +52,9 @@ export default function EditCustomer({id}) {
   const OnSave = ()=>{
     if(validateData(id)){
     let data = {
-      user_type: customerDetails?.name,
+      user_type: customerDetails?.user_type,
       is_active: customerDetails?.is_active,
-      sort_order: customerDetails?.maximum_order_qty
+      sort_order: customerDetails?.sort_order
     };
     CustomerApi.EditCustomerType(id,data)
     .then((response) => {
@@ -83,7 +83,6 @@ export default function EditCustomer({id}) {
   const CustomerType= (id) => {
     CustomerApi.getCustomerType(id)
         .then((response) => {
-            console.log(response);
              setCustomer(response.data.data.view);
         })
         .catch((error) => {

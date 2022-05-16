@@ -130,6 +130,17 @@ export class CustomerApi {
 
         return axios.get(`${GET_CUSTOMER_SUPPORT_INFORMATION_VIEW}`.replace('{{id}}', id), httpOptions)
     }
+    static CustomerSupportInformationList(page,search) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+
+        return axios.get(`${GET_CUSTOMER_SUPPORT_INFORMATION}`.replace('{{page}}', page).replace('{{search}}',search ), httpOptions)
+    }
     static EditCustomerType(id) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {

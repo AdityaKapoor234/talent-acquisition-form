@@ -28,7 +28,7 @@ export default class AddCustomer extends Component {
       return {
         mode: nextProps?.mode,
         input: {
-          is_active: nextProps?.customer?.is_active,
+          is_active: nextProps?.customer?.is_active?nextProps?.customer?.is_active:false,
           name: nextProps?.customer?.user_type,
           by_default: nextProps?.customer?.by_default ? nextProps?.customer?.by_default : false,
           maximum_order_qty: nextProps?.customer?.sort_order,
@@ -41,14 +41,12 @@ export default class AddCustomer extends Component {
   handleChange = (event) => {
 		let input = this.state.input;
 		input[event.target.name] = event.target.value;
-		this.setState({ input });
 		this.props?.handle(input);
 	};
   
   handleCheck = (event) => {
 		let input = this.state.input;
 		input[event.target.name] = event.target.checked;
-		this.setState({ input });
 		this.props?.handle(input);
 	};
 
@@ -58,14 +56,7 @@ export default class AddCustomer extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tab">
-              <div
-              // className={
-              //     this.state.tab === 1 ? `sub-tab active-tab` : "sub-tab"
-              // }
-              // onClick={() => {
-              //     this.setState({ tab: 1 });
-              // }}
-              >
+              <div>
                 Customer info
               </div>
             </div>
@@ -95,6 +86,7 @@ export default class AddCustomer extends Component {
                     />
                   </div>
                   <div className="login-form ">
+                    {console.log("test",this.state.input?.is_active,this.props)}
                     <div className="signup-check">
                       <Checkbox
                         size="small"

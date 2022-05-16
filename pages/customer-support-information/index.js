@@ -155,18 +155,6 @@ export default function CustomerSupportInformation() {
 
                         </div>
                     </div>
-                    {/* <div className="row">
-                        <div className="col-md-12">
-                            <div className="pagiantion-category">
-                                <Pagination
-                                    className="pagination"
-                                    page={currentPage}
-                                    count={totalPage}
-                                    onChange={onPageChange}
-                                />
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="row">
                         <div className="col-md-12 justify-content-between d-flex position-relative">
                             <div className="pagiantion-category">

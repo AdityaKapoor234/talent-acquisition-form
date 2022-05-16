@@ -198,7 +198,7 @@ useEffect(()=>{
             </Box>
             <DialogContent>
               <Typography style={{ color: "#7e8f99" }}>
-                Are you sure you want to delete this customer?
+                Are you sure you want to delete this customer Type?
               </Typography>
             </DialogContent>
             <DialogActions style={{ marginBottom: "0.5rem" }}>

@@ -28,6 +28,8 @@ export default function CustomerViewDetails({id}) {
   const [wishList,setWishList]=useState([]);
   const [wishListTotalProduct,setWishListTotalProduct]=useState("");
   const [totalWishListPage,setTotalWishListPage]=useState("");
+  const [shoppingCart,setShoppingCart]=useState([]);
+  const [shoppingCartTotal,setShoppingCartTotal]=useState("");
 
 
   const customerDetail =(id)=>{
@@ -66,6 +68,24 @@ export default function CustomerViewDetails({id}) {
     });
   }
 
+  const shoppingCartDetail =(id)=>{
+    CustomerApi.ShoppingCartList(id)
+    .then((response) => {
+      setShoppingCart(response.data.data.orders);
+      setShoppingCartTotal(response.data.data.cart_price);
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
+
+
   const wishListPage = (value) => {
     wishListDetail(id, value);
   }
@@ -77,6 +97,7 @@ export default function CustomerViewDetails({id}) {
     }
     customerDetail(id);
     wishListDetail(id, "1");
+    shoppingCartDetail(id);
   }, [id]);
   return (
     <div>
@@ -109,7 +130,7 @@ export default function CustomerViewDetails({id}) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <CustomerDetail customer={customer} id={id} mode={mode} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage}/>
+              <CustomerDetail customer={customer} id={id} mode={mode} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage} shoppingCart={shoppingCart} shoppingCartTotal={shoppingCartTotal}/>
             </div>
           </div>
         </DashboardLayoutComponent>

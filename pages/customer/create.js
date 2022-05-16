@@ -31,6 +31,7 @@ export default class CustomerCreate extends Component {
             open: false,
             is_all: false,
             active: "",
+            shoppingCartTotal: "",
             customerDetails: {
                 name: "",
                 email: "",
@@ -41,12 +42,12 @@ export default class CustomerCreate extends Component {
     }
 
     stateHandle = (value) => {
-        this.setState({customerDetails: value});
-    };    
-    activeHandle =(value)=>{
-        this.setState({active: value});
+        this.setState({ customerDetails: value });
+    };
+    activeHandle = (value) => {
+        this.setState({ active: value });
     }
-    
+
 
     ValidateEmail = (mail) => {
         return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
@@ -145,7 +146,7 @@ export default class CustomerCreate extends Component {
     customerTypeDropdownDetail = () => {
         CustomerApi.getCustomerTypeDropdownDetails()
             .then((response) => {
-                this.setState({userType: response.data.data.list})
+                this.setState({ userType: response.data.data.list })
             })
             .catch((error) => {
                 toast.error(
@@ -247,6 +248,7 @@ export default class CustomerCreate extends Component {
                                     userTypeHandle={this.userTypeHandle.bind(this)}
                                     active={this.activeHandle.bind(this)}
                                     userType={this.state.userType}
+                                    shoppingCartTotal={this.state.shoppingCartTotal}
                                 />
                             </div>
                         </div>

@@ -38,6 +38,8 @@ export default class CustomerDetails extends Component {
 			currentWishListPage: 1,
 			wishListTotalProduct: props?.wishListTotalProduct,
 			totalWishListPage: props?.totalWishListPage,
+			shoppingCart: props?.shoppingCart,
+			shoppingCartTotal: props?.shoppingCartTotal,
 			id: props?.id,
 			open: false,
 			address: [],
@@ -102,6 +104,8 @@ export default class CustomerDetails extends Component {
 			prevState.wishList !== nextProps.wishList ||
 			prevState.wishListTotalProduct !== nextProps.wishListTotalProduct ||
 			prevState.totalWishListPage !== nextProps.totalWishListPage ||
+			prevState.shoppingCart !== nextProps.shoppingCart ||
+			prevState.shoppingCartTotal !== nextProps.shoppingCartTotal ||
 
 			prevState.userType !== nextProps.userType ||
 			prevState.id !== nextProps.id
@@ -120,6 +124,8 @@ export default class CustomerDetails extends Component {
 				wishList: nextProps?.wishList,
 				wishListTotalProduct: nextProps?.wishListTotalProduct,
 				totalWishListPage: nextProps?.totalWishListPage,
+				shoppingCart: nextProps?.shoppingCart,
+				shoppingCartTotal: nextProps?.shoppingCartTotal,
 				id: nextProps?.id,
 				active: nextProps?.customer?.is_active ? nextProps?.customer?.is_active : false,
 			};
@@ -270,6 +276,16 @@ export default class CustomerDetails extends Component {
 								}}
 							>
 								wishlist Info
+							</div>
+							<div
+								className={
+									this.state.tab === 5 ? `sub-tab active-tab` : "sub-tab"
+								}
+								onClick={() => {
+									this.setState({ tab: 5 });
+								}}
+							>
+								shopping cart Info
 							</div>
 						</div>
 					</div>
@@ -705,27 +721,114 @@ export default class CustomerDetails extends Component {
 										);
 									})}
 								</div>
-								<div className="row">
-									<div className="col-md-12 py-5 justify-content-between d-flex position-relative">
-										<div className="pagiantion-category">
-											<div>
-												<Pagination
-													className="pagination pagi"
-													page={this.state.currentWishListPage}
-													count={this.state.totalWishListPage}
-													onChange={this.pageChange.bind(this)}
-												/>
-											</div>
-											<div
-												className="position-absolute totalCount"
-												style={{ right: 23, bottom: 5 }}
-											>
-												Total Products: {this.state.wishListTotalProduct}
+								{
+									this.state.wishListTotalProduct > 0 ?
+										<div className="row">
+											<div className="col-md-12 py-5 justify-content-between d-flex position-relative">
+												<div className="pagiantion-category">
+													<div>
+														<Pagination
+															className="pagination pagi"
+															page={this.state.currentWishListPage}
+															count={this.state.totalWishListPage}
+															onChange={this.pageChange.bind(this)}
+														/>
+													</div>
+													<div
+														className="position-absolute totalCount"
+														style={{ right: 23, bottom: 5 }}
+													>
+														Total Products: {this.state.wishListTotalProduct}
+													</div>
+												</div>
 											</div>
 										</div>
+										:
+										<div className="not-found">No Data Found</div>
+								}
+							</div>
+						</>
+					)
+				}
+				{
+					this.state.tab === 5 && (
+						<>
+							{this.state.shoppingCartTotal === "" || this.state.shoppingCartTotal === null || this.state.shoppingCartTotal === undefined ?
+								<div className="not-found">No Data Found</div>
+								:
+								<div>
+									<div data-component="CustomerComponent">
+										<div className="tableRow d-flex justify-content-start">
+											Shopping Cart Total: ₹&nbsp;{this.state.shoppingCartTotal?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}
+										</div>
 									</div>
+									<div data-component="wishlist">
+										<div className="row">
+											{this.state?.shoppingCart?.map((val) => {
+												return (
+													<div className="col-3">
+														<div className="padding">
+															<div className="box">
+																<div
+																	className="bck-img mt-4"
+																	style={{
+																		backgroundImage: `url(${val?.image})`,
+																	}}
+																></div>
+																<div className="name">
+																	<h3 className="text-center">{val?.name}</h3>
+																	<div className="product-qulaty-div">
+																		<span>
+																			{val?.flavor}&nbsp;
+																			{val?.quantity !== "" && val?.flavor !== ""
+																				? "|"
+																				: ""}&nbsp;
+																			Qty:&nbsp;{val?.quantity}&nbsp;Unit
+																		</span>
+																	</div>
+																	{/* <div className="product-qulaty-div mb-3">
+																		<span>Qty:&nbsp;{val?.quantity}&nbsp;Unit</span>
+																	</div>
+																	<div className="product-qulaty-div mb-3">
+																		<span>Weight:&nbsp;{val?.weight}&nbsp;{val?.weight_unit}</span>
+																	</div>
+																	<div className="product-qulaty-div mb-3">
+																		<span>Price: ₹&nbsp;{val?.price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+																	</div> */}
+																	<div className="product-qulaty-div mb-3">
+																		<span>Special Price: ₹&nbsp;{val?.special_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												);
+											})}
+										</div>
+										{/* <div className="row">
+						<div className="col-md-12 py-5 justify-content-between d-flex position-relative">
+							<div className="pagiantion-category">
+								<div>
+									<Pagination
+										className="pagination pagi"
+										page={this.state.currentWishListPage}
+										count={this.state.totalWishListPage}
+										onChange={this.pageChange.bind(this)}
+									/>
+								</div>
+								<div
+									className="position-absolute totalCount"
+									style={{ right: 23, bottom: 5 }}
+								>
+									Total Products: {this.state.wishListTotalProduct}
 								</div>
 							</div>
+						</div>
+					</div> */}
+									</div>
+								</div>
+
+							}
 						</>
 					)
 				}

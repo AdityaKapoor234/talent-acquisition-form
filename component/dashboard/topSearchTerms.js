@@ -72,6 +72,7 @@ export default class topSearchTerms extends Component {
                                         borderWidth: 3,
                                         borderColor: "#ce6964",
                                         hoverBorderWidth: 2,
+                                        barThickness: 20,
                                     }],
                             }}
                             options={{
@@ -83,6 +84,20 @@ export default class topSearchTerms extends Component {
                                         display: false,
                                     },
                                 },
+                                scales: {
+                                    x: {
+                                        display: true,        // show/ hide x-axis
+                                        grid: {
+                                            display: true      // show/hide grid line in x-axis
+                                        },
+                                    },
+                                    y: {
+                                        display: true,      // same as x-axis
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+                                }
                             }}
                             className="barChart"
                         />

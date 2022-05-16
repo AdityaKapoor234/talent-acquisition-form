@@ -73,6 +73,7 @@ export default class topSoldProducts extends Component {
                                         borderWidth: 3,
                                         borderColor: "#67874c",
                                         hoverBorderWidth: 2,
+                                        barThickness: 20,
                                     }],
                             }}
                             options={{
@@ -84,6 +85,21 @@ export default class topSoldProducts extends Component {
                                         display: false,
                                     },
                                 },
+                                scales: {
+                                    x: {
+                                        display: true,        // show/ hide x-axis
+                                        grid: {
+                                            display: true      // show/hide grid line in x-axis
+                                        },
+                                    },
+                                    y: {
+                                        display: true,      // same as x-axis
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+                                }
+
                             }}
                             className="barChart"
                         />

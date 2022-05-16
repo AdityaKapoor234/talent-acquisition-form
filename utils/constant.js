@@ -168,5 +168,16 @@ export const DIET_EDIT = `http://65.1.17.188:5001/manage/diets/{{id}}`;
 export const DIET_CREATE = `http://65.1.17.188:5001/manage/diets`;
 export const DIET_DELETE = `http://65.1.17.188:5001/manage/diets/{{id}}/delete`;
 
+//ADDRESS
+export const CUSTOMER_ADDRESS_EDIT = `http://65.1.17.188:5000/customer/edit/address/{{id}}`;
+export const CUSTOMER_ADDRESS_ADD = `http://65.1.17.188:5000/customer/add/address/{{id}}`;
+
 //CANCEL
 export const CANCEL=`http://65.1.17.188:5002/manage/order/cancelled/all?page={{page}}&q={{search}}`;
+
+//BANNER
+export const BANNER_LIST=`http://65.1.17.188:5001/manage/banner?page={{page}}`;
+export const BANNER_VIEW = `http://65.1.17.188:5001/manage/banner/{{id}}/view`;
+export const BANNER_EDIT = `http://65.1.17.188:5001/manage/banner/{{id}}/edit`;
+export const BANNER_CREATE = `http://65.1.17.188:5001/manage/banner`;
+export const BANNER_DELETE = `http://65.1.17.188:5001/manage/banner/{{id}}/delete`;

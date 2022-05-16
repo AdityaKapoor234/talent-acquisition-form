@@ -46,7 +46,7 @@ export default class orderPayment extends Component {
                     <div className="col">
                         <Pie
                             data={{
-                                labels: ["Payment Received (Online)", "Payment Received (Online)", "Payment Received (COD)", "Payment Not Received (COD)"],
+                                labels: ["Payment Received (Online)", "Payment Not Received (Online)", "Payment Received (COD)", "Payment Not Received (COD)"],
                                 datasets: [
                                     {
                                         data: this.state.orderStatsValues,

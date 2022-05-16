@@ -27,12 +27,12 @@ export default function DashboardLayoutComponent({ children }) {
     const pathArr = useRouter().pathname.split("/")[1]
 
     const [tab, setTab] = useState(pathArr);
-    const [tabSale, setTabSale] = useState(pathArr === "order" ? true : false);
+    const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" ? true : false);
-    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" ? true : false);
+    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription"  ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
-    const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "subscription" || pathArr === "trusted-health" ? true : false);
+    const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "trusted-health" ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -111,6 +111,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabSale &&
                                     <ul>
                                         <li className={categary === "order" ? "sub_active" : ""} onClick={() => handleCategary("/order", "order")}>order</li>
+                                        <li className={categary === "cancel" ? "sub_active" : ""} onClick={() => handleCategary("/cancel", "cancel")}>cancel</li>
                                     </ul>
                                 }
                                 <div className={tabCatalog ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCatalog(!tabCatalog)}>
@@ -124,7 +125,7 @@ export default function DashboardLayoutComponent({ children }) {
                                     <ul>
                                         <li className={categary === "category" ? "sub_active" : ""} onClick={() => handleCategary("/category", "category")}>category</li>
                                         <li className={categary === "ingredient" ? "sub_active" : ""} onClick={() => handleCategary("/ingredient", "ingredient")}>ingredient</li>
-                                        <li className={categary === "classification" ? "sub_active" : ""} onClick={() => handleCategary("/classification", "classification")}>classification</li>
+                                        {/* <li className={categary === "classification" ? "sub_active" : ""} onClick={() => handleCategary("/classification", "classification")}>classification</li> */}
                                         <li className={categary === "brand" ? "sub_active" : ""} onClick={() => handleCategary("/brand", "brand")}>brand</li>
                                         <li className={categary === "sports" ? "sub_active" : ""} onClick={() => handleCategary("/sports", "sports")}>sports</li>
                                         <li className={categary === "goals" ? "sub_active" : ""} onClick={() => handleCategary("/goals", "goals")}>goals</li>
@@ -159,6 +160,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "customer" ? "sub_active" : ""} onClick={() => handleCategary("/customer", "customer")}>customer</li>
                                         <li className={categary === "customer-support-information" ? "sub_active" : ""} onClick={() => handleCategary("/customer-support-information", "customer-support-information")}>customer support info</li>
                                         {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
+                                        <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>NewsLetter Subscribers</li>
                                     </ul>
                                 }
                                 <div className={tabAdmin ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabAdmin(!tabAdmin)}>
@@ -188,7 +190,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "marketing-and-sponsorships" ? "sub_active" : ""} onClick={() => handleCategary("/marketing-and-sponsorships", "marketing-and-sponsorships")}>Marketing & Sponsorships</li>
                                         <li className={categary === "sell-on-fitcart" ? "sub_active" : ""} onClick={() => handleCategary("/sell-on-fitcart", "sell-on-fitcart")}>Sell on Fitcart</li>
                                         <li className={categary === "bulk-buys" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li>
-                                        <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>Subscription</li>
+                                        {/* <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>Subscription</li> */}
                                         <li className={categary === "trusted-health" ? "sub_active" : ""} onClick={() => handleCategary("/trusted-health", "trusted-health")}>Trusted Health</li>
                                     </ul>
                                     

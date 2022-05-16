@@ -106,9 +106,8 @@ export default function Subscription() {
 
 	return (
 		<>
-			{/* <div page-component="category-page"> */}
 			<Head>
-				<title>{APP_NAME} - Subscription</title>
+				<title>{APP_NAME} -NewsLetter Subscribers</title>
 				<meta name="description" content="Trusted Brands. Better Health." />
 				<link rel="icon" href="/fitcart.ico" />
 			</Head>
@@ -118,9 +117,9 @@ export default function Subscription() {
 					<div className="row border-box">
 						<div className="col-md-8">
 							<div className="hamburger">
-								<span>Inquiry / </span>Subscription
+								<span>Customer / </span>NewsLetter Subscribers
 							</div>
-							<div className="page-name">Subscription</div>
+							<div className="page-name">NewsLetter Subscribers</div>
 						</div>
 						<div className="col-md-4">
 							<div className="login-form ">
@@ -137,16 +136,6 @@ export default function Subscription() {
 								</span>
 							</div>
 						</div>
-						{/* <div className="col-md-2 btn-save">
-							<div
-								className="custom-btn "
-								onClick={() => {
-									Router.push(`/subscription/create`);
-								}}
-							>
-								<span>Add New </span>
-							</div>
-						</div> */}
 					</div>
 					<div className="row sticky-scroll scroll">
 						<div className="col-md-12 ">
@@ -162,7 +151,6 @@ export default function Subscription() {
 										</div>
 									</div>
 								) : (
-									// subscription && subscription.length === 0 ? <div className="not-found">No Data Found</div> :
 									<SubscriptionList subscription={subscription} subscriptionList={subscriptionList} currentPage={currentPage}/>
 								)
 							}
@@ -171,18 +159,6 @@ export default function Subscription() {
 
 						</div>
 					</div>
-					{/* <div className="row">
-						<div className="col-md-12">
-							<div className="pagiantion-category">
-								<Pagination
-									className="pagination"
-									page={currentPage}
-									count={totalPage}
-									onChange={onPageChange}
-								/>
-							</div>
-						</div>
-					</div> */}
 					<div className="row">
 						<div className="col-md-12 justify-content-between d-flex position-relative">
 							<div className="pagiantion-category">

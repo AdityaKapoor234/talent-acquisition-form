@@ -48,7 +48,12 @@ export default class AddCustomer extends Component {
   handleCheck = (event) => {
 		let input = this.state.input;
 		input[event.target.name] = event.target.checked;
+<<<<<<< HEAD
+    console.log("test",input)
+		this.setState({ input });
+=======
     this.setState({ input });
+>>>>>>> c0c7206194a3d58bade6dceadf849301a8efb12c
 		this.props?.handle(input);
 	};
 
@@ -56,6 +61,7 @@ export default class AddCustomer extends Component {
     return (
       <div data-component="edit-customer">
         <div className="row">
+          {console.log(this.state.input,"test")}
           <div className="col-md-12">
             <div className="tab">
               <div>
@@ -94,7 +100,7 @@ export default class AddCustomer extends Component {
                       <Checkbox
                         size="small"
                         style={{ color: "#012169" }}
-                        checked={this.state.input?.is_active}
+                        checked={this.state.input?.is_active?this.state.input?.is_active:false}
 												name="is_active"
 												onChange={this.handleCheck.bind(this)}
                       />
@@ -106,7 +112,7 @@ export default class AddCustomer extends Component {
                     <Checkbox
                       size="small"
                       style={{ color: "#012169" }}
-                      checked={this.state.input?.by_default}
+                      checked={this.state.input?.by_default?this.state.input?.by_default:false}
                       name="by_default"
                       onChange={this.handleCheck.bind(this)}
                     />

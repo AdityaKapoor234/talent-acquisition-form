@@ -35,6 +35,7 @@ export default class totalPageVisit extends Component {
                         borderColor: "#ce6964",
                         hoverBorderWidth: 2,
                         // hoverBorderColor: "#000",
+                        barThickness: 20,
                     }],
             },
 
@@ -78,6 +79,21 @@ export default class totalPageVisit extends Component {
                                         display: false,
                                     },
                                 },
+                                scales: {
+                                    x: {
+                                        display: true,        // show/ hide x-axis
+                                        grid: {
+                                            display: true      // show/hide grid line in x-axis
+                                        },
+                                    },
+                                    y: {
+                                        display: true,      // same as x-axis
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+                                }
+
                             }}
                             className="barChart"
                         />

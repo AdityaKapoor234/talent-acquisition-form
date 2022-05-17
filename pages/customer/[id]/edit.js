@@ -34,6 +34,8 @@ export default class CustomerEditDetails extends Component {
       userType: [],
       wishListTotalProduct: "",
       totalWishListPage: "",
+      shoppingCart: [],
+      shoppingCartTotal: "",
       customerDetails: {
         user_type: "",
         name: "",
@@ -174,6 +176,24 @@ export default class CustomerEditDetails extends Component {
       });
   }
 
+  shoppingCartDetail =(id)=>{
+    CustomerApi.ShoppingCartList(id)
+    .then((response) => {
+      this.setState({shoppingCart: response.data.data.orders});
+      this.setState({shoppingCartTotal: response.data.data.cart_price});
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
+
+
   customerTypeDropdownDetail = () => {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {
@@ -202,6 +222,7 @@ export default class CustomerEditDetails extends Component {
     this.customerDetail(this.state.id);
     this.wishListDetail(this.state.id, "1");
     this.customerTypeDropdownDetail();
+    this.shoppingCartDetail(this.state.id);
   }
   render() {
     return (
@@ -244,7 +265,7 @@ export default class CustomerEditDetails extends Component {
               <div className="col-m-12">
                 <CustomerDetails
                   handle={this.stateHandle.bind(this)}
-                  customer={this.state.customer} id={this.state.id} mode={this.state.mode} active={this.activeHandle.bind(this)} userType={this.state.userType} wishList={this.state.wishList} totalWishListPage={this.state.totalWishListPage} wishListTotalProduct={this.state.wishListTotalProduct} wishListPage={this.wishListPage.bind(this)} />
+                  customer={this.state.customer} id={this.state.id} mode={this.state.mode} active={this.activeHandle.bind(this)} userType={this.state.userType} wishList={this.state.wishList} totalWishListPage={this.state.totalWishListPage} wishListTotalProduct={this.state.wishListTotalProduct} wishListPage={this.wishListPage.bind(this)} shoppingCart={this.state.shoppingCart} shoppingCartTotal={this.state.shoppingCartTotal} />
               </div>
             </div>
           </DashboardLayoutComponent>

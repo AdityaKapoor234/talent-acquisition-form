@@ -48,12 +48,7 @@ export default class AddCustomer extends Component {
   handleCheck = (event) => {
 		let input = this.state.input;
 		input[event.target.name] = event.target.checked;
-<<<<<<< HEAD
-    console.log("test",input)
-		this.setState({ input });
-=======
     this.setState({ input });
->>>>>>> c0c7206194a3d58bade6dceadf849301a8efb12c
 		this.props?.handle(input);
 	};
 

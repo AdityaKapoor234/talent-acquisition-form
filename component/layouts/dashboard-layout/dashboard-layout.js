@@ -28,7 +28,7 @@ export default function DashboardLayoutComponent({ children }) {
 
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
-    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" ? true : false);
+    const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" ? true : false);
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription"  ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
@@ -134,6 +134,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "product" ? "sub_active" : ""} onClick={() => handleCategary("/product", "product")}>product</li>
                                         {/* <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li> */}
                                         <li className={categary === "flavor" ? "sub_active" : ""} onClick={() => handleCategary("/flavor", "flavor")}>flavor</li>
+                                        <li className={categary === "bulk-edit-product" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-edit-product", "bulk-edit-product")}>Bulk Edit Product</li>
                                     </ul>
                                 }
                                 <div className={tabAskthePros ? 'menu-btn active' : 'menu-btn'} onClick={() => setAskthePros(!tabAskthePros)}>

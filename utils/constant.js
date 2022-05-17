@@ -170,3 +170,8 @@ export const DIET_DELETE = `http://65.1.17.188:5001/manage/diets/{{id}}/delete`;
 
 //CANCEL
 export const CANCEL=`http://65.1.17.188:5002/manage/order/cancelled/all?page={{page}}&q={{search}}`;
+
+// BULK EDIT PRODUCT
+
+export const  BULK_EDIT_PRODUCT =`http://65.1.17.188:5001/manage/product?page={{page}}&q={{search}}`
+export const UPDATE_PRICE = `http://65.1.17.188:5001/manage/product/{{id}}/price`

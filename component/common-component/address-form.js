@@ -6,6 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React, { Component, useState, useEffect } from "react";
 import AddressService from "../../services/address-services";
+import CustomerApi from "../../services/customer";
 import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-toastify";
 import Cookie from "js-cookie";
@@ -42,6 +43,7 @@ export default function addressform(props) {
         props?.address?.is_default ? props?.address?.is_default : false
     );
     const [mode, setMode] = useState(props?.mode ? props?.mode : "create");
+    const [id, setId] = useState(props?.id ? props?.id : "");
 
 
     const handleChange = (event) => {
@@ -219,7 +221,8 @@ export default function addressform(props) {
     };
 
     const getState = () => {
-        AddressService.getState()
+        // AddressService.getState()
+        CustomerApi.CustomerAddresses(id,1)
             .then((response) => {
                 if (response?.data?.httpStatusCode === 200) {
                     setState(response?.data.data?.list);

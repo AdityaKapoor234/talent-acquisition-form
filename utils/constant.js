@@ -176,6 +176,7 @@ export const DIET_DELETE = `http://65.1.17.188:5001/manage/diets/{{id}}/delete`;
 //ADDRESS
 export const CUSTOMER_ADDRESS_EDIT = `http://65.1.17.188:5000/customer/edit/address/{{id}}`;
 export const CUSTOMER_ADDRESS_ADD = `http://65.1.17.188:5000/customer/add/address/{{id}}`;
+export const STATE="http://65.1.17.188:5000/state/";
 
 //CANCEL
 export const CANCEL=`http://65.1.17.188:5002/manage/order/cancelled/all?page={{page}}&q={{search}}`;

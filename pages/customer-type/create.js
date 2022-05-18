@@ -58,34 +58,6 @@ export default class AddCustomerType extends Component {
 		}
 	};
 
-<<<<<<< HEAD
-  const OnSave = ()=>{
-    if(validateData()){
-    let data = {
-      user_type: customerDetails?.name,
-      is_active: customerDetails?.is_active,
-      sort_order: customerDetails?.maximum_order_qty
-    };
-    CustomerApi.AddCustomer(data)
-    .then((response) => {
-      if (response.data.httpStatusCode === 200) {
-        toast.success(response.data.message);
-        Router.push(`/customer-type`);
-      }
-    })
-    .catch((error) => {
-      toast.error(
-        error?.response &&
-          error?.response?.data &&
-          error?.response?.data?.message
-          ? error.response.data.message
-          : "Unable to process your request, please try after sometime"
-      );
-    });
-  }
-  }
-=======
->>>>>>> 52dd5843fc522d31eabf1ef8752ae5a35fed0d13
 
 	OnSave = () => {
 		if (this.validateData()) {

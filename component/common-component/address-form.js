@@ -6,9 +6,12 @@ import Checkbox from "@mui/material/Checkbox";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React, { Component, useState, useEffect } from "react";
 import AddressService from "../../services/address-services";
+import CustomerApi from "../../services/customer";
 import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-toastify";
 import Cookie from "js-cookie";
+import Router from "next/router";
+
 
 export default function addressform(props) {
     const [city, setCity] = useState(
@@ -42,6 +45,8 @@ export default function addressform(props) {
         props?.address?.is_default ? props?.address?.is_default : false
     );
     const [mode, setMode] = useState(props?.mode ? props?.mode : "create");
+    const [id, setId] = useState(props?.id ? props?.id : "");
+    const [is_all, setIsAll] = useState(false);
 
 
     const handleChange = (event) => {
@@ -58,6 +63,8 @@ export default function addressform(props) {
     };
 
     const validateData = () => {
+        setIsAll(false);
+
         if (flat_no === "") {
             toast.error("Please enter flat_no");
             return false;
@@ -124,10 +131,13 @@ export default function addressform(props) {
                 toast.error("Please enter recipient phone number");
                 return false;
             }
+
+
+
             return true;
         }
     };
-    const onSubmit = (e) => {
+    const onSubmit = (id) => {
         if (validateData()) {
             let data = {
                 flat_no: flat_no,
@@ -140,8 +150,7 @@ export default function addressform(props) {
                 recipient_phone_number: recipientphonenumber,
                 is_default: isDefault,
             };
-
-            AddressService.CustomerAddressCreate(data)
+            CustomerApi.AddressAdd(id,data)
                 .then((response) => {
                     if (response?.data?.httpStatusCode === 200) {
                         toast.success(response?.data?.message);
@@ -156,6 +165,7 @@ export default function addressform(props) {
                         setLandMark("");
                         setIsDefault(false);
                         props.onClose();
+                        Router.push(`/customer`);
                     }
                 })
                 .catch((error) => {
@@ -185,8 +195,7 @@ export default function addressform(props) {
                 recipient_phone_number: recipientphonenumber,
                 is_default: isDefault,
             };
-
-            AddressService.CustomerAddressEdit(data, id)
+            CustomerApi.AddressEdit(id, data)
                 .then((response) => {
                     if (response?.data?.httpStatusCode === 200) {
                         toast.success(response?.data?.message);
@@ -201,6 +210,7 @@ export default function addressform(props) {
                         setLandMark("");
                         setIsDefault(false);
                         props?.onUpdateData(response?.data?.data?.address);
+                        Router.push(`/customer`);
                     }
                 })
                 .catch((error) => {
@@ -219,7 +229,8 @@ export default function addressform(props) {
     };
 
     const getState = () => {
-        AddressService.getState()
+        // AddressService.getState()
+        CustomerApi.getState()
             .then((response) => {
                 if (response?.data?.httpStatusCode === 200) {
                     setState(response?.data.data?.list);
@@ -241,7 +252,7 @@ export default function addressform(props) {
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token !== undefined) {
-            // getState();
+            getState();
         }
         setMode(props?.mode ? props?.mode : "create");
     }, [props]);
@@ -371,12 +382,6 @@ export default function addressform(props) {
                                                 </MenuItem>
                                             );
                                         })}
-                                                <MenuItem
-                                                    style={{ color: "#012169" }}
-                                                    value="Delhi"
-                                                >
-                                                    Delhi
-                                                </MenuItem>
                                     </Select>
                                 </div>
                             </div>
@@ -448,7 +453,7 @@ export default function addressform(props) {
                                     <div className="col-6">
                                         <div
                                             className="custom-btn justify-content-center"
-                                            onClick={() => onSubmitEdit(props?.address?.id)}
+                                            onClick={() => onSubmitEdit(id)}
                                         >
                                             <span>SAVE ADDRESS</span>
                                         </div>
@@ -458,9 +463,9 @@ export default function addressform(props) {
                                     <div className="col-6">
                                         <div
                                             className="custom-btn justify-content-center"
-                                            onClick={onSubmit}
+                                            onClick={() => onSubmit(id)}
                                         >
-                                            <span>SAVE ADDRESS</span>
+                                            <span>SAVE ADDRESS CREATE</span>
                                         </div>
                                     </div>
                                 )}

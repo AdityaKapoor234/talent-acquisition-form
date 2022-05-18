@@ -540,9 +540,9 @@ export default class CustomerDetails extends Component {
 							<> */}
 						<div data-component="address-view">
 							<div className="row mt-4">
-								{this.state.address?.length === 0 && (
+								{/* {this.state.address?.length === 0 && (
 									<div className="error-message">No Address Info</div>
-								)}
+								)} */}
 
 								{(this.state.mode === "edit") && (
 									<div data-component="account-setting" className="mb-4">

@@ -376,7 +376,7 @@ export default class CustomerDetails extends Component {
 											value={this.state.input?.phone_number}
 										/>
 									</div>
-									<div className="signup-check">
+									{/* <div className="signup-check">
 										<Checkbox
 											size="small"
 											style={{ color: "#012169" }}
@@ -386,7 +386,7 @@ export default class CustomerDetails extends Component {
 											}}
 										/>
 										<label>Active</label>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						)}

@@ -65,6 +65,17 @@ export class CustomerApi {
         return axios.post(`${CUSTOMER_TYPE_ADD}`,data,httpOptions)
     }
 
+    static AddCustomerType(data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.post(`${CUSTOMER_TYPE_ADD}`,data,httpOptions)
+    }
+
     static CustomerDetails(id,data) {
         const  token = cookie.get('access_token_admin');
         const httpOptions = {

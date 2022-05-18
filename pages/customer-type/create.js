@@ -66,8 +66,7 @@ export default class AddCustomerType extends Component {
 				is_active: this.state.customerDetails?.is_active,
 				sort_order: parseInt(this.state.customerDetails?.sort_order)
 			};
-			console.log(data, "data on save");
-			CustomerApi.CustomerTypeAdd(data)
+			CustomerApi.AddCustomerType(data)
 				.then((response) => {
 					if (response.data.httpStatusCode === 200) {
 						// this.setState({ customer: response.data.data });

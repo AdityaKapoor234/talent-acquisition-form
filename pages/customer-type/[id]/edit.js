@@ -69,14 +69,12 @@ export default class EditCustomerType extends Component {
 
 
 	OnSave = (id) => {
-		console.log(id,"id on save")
 		if (this.validateData()) {
 			let data = {
 				user_type: this.state.customerDetails?.user_type,
 				is_active: this.state.customerDetails?.is_active,
 				sort_order: this.state.customerDetails?.sort_order
 			};
-			console.log(data,"data on save")
 			CustomerApi.EditCustomerType(id, data)
 				.then((response) => {
 					if (response.data.httpStatusCode === 200) {

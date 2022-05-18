@@ -193,3 +193,11 @@ export const BANNER_VIEW = `http://65.1.17.188:5001/manage/banner/{{id}}/view`;
 export const BANNER_EDIT = `http://65.1.17.188:5001/manage/banner/{{id}}/edit`;
 export const BANNER_CREATE = `http://65.1.17.188:5001/manage/banner`;
 export const BANNER_DELETE = `http://65.1.17.188:5001/manage/banner/{{id}}/delete`;
+
+
+//DEALS
+export const DEALS_LIST = `http://65.1.17.188:5000/manage/deals?page={{page}}&q={{search}}`;
+export const DEALS_VIEW = `http://65.1.17.188:5000/manage/deals/{{id}}/view`;
+export const DEALS_EDIT = `http://65.1.17.188:5000/manage/deals/{{id}}`;
+export const DEALS_CREATE = `http://65.1.17.188:5000/manage/deals`;
+export const DEALS_DELETE = `http://65.1.17.188:5000/manage/deals/{{id}}/delete`;

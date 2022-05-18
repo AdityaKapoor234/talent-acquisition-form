@@ -94,7 +94,7 @@ export default class AddressView extends Component {
                             <div className="col-md-12 d-flex justify-content-end">
                                 {
                                     this.state.mode === "edit" ?
-                                        <div className=" btn-edit" onClick={() => this.setState({ editOpen: true })}><EditOutlinedIcon className="delete-icon" style={{ color: "#f54a00" }} /></div>
+                                        <div className=" btn-edit" onClick={() => this.setState({ editOpen: true })}><EditOutlinedIcon className="delete-icon mx-2 mt-2" style={{ color: "#f54a00" }} /></div>
                                         :
                                         ""
                                 }

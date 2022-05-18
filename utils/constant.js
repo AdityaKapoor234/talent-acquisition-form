@@ -91,6 +91,10 @@ export const ADD_CERTIFICATE = `http://65.1.17.188:5001/manage/product/{{id}}/ce
 export const GET_CERTIFICATE=`http://65.1.17.188:5001/manage/product/{{id}}/certificate/view`;
 export const ADD_CLASSIFICTION= `http://65.1.17.188:5001/manage/classification/{{id}}`;
 export const GET_CLASSIFICTION = `http://65.1.17.188:5001/manage/classification/all`;
+export const GET_INVENTORY_LIST =`http://65.1.17.188:5001/manage/inventory/{{id}}?page={{page}}`;
+export const CREATE_INVENTORY=`http://65.1.17.188:5001/manage/inventory/{{id}}`;
+export const GET_INVENTORY_DELETE=`http://65.1.17.188:5001/manage/inventory/{{id}}/delete`;
+export const GET_INVENTORY_UPADTE=`http://65.1.17.188:5001/manage/inventory/{{id}}/update`;
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;

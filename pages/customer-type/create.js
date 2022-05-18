@@ -40,7 +40,6 @@ export default function AddCustomer() {
 
 
   const OnSave = ()=>{
-    console.log(customerDetails);
     if(validateData()){
     let data = {
       user_type: customerDetails?.name,

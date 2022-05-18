@@ -41,7 +41,6 @@ export default class AddCustomer extends Component {
 		let input = this.state.input;
 		input[event.target.name] = event.target.value;
     this.setState({ input });
-    console.log("test1",input)
 		this.props?.handle(input);
 	};
   
@@ -56,7 +55,6 @@ export default class AddCustomer extends Component {
     return (
       <div data-component="edit-customer">
         <div className="row">
-          {console.log(this.state.input,"test")}
           <div className="col-md-12">
             <div className="tab">
               <div>
@@ -67,7 +65,6 @@ export default class AddCustomer extends Component {
         </div>
         <>
           <div className="row sticky-scroll scroll">
-            {console.log("test98",this.props)}
             <div className="col">
               <div className="row mt-4">
                 <div className="col-md-4">
@@ -90,7 +87,6 @@ export default class AddCustomer extends Component {
                     />
                   </div>
                   <div className="login-form ">
-                    {console.log("test",this.state.input?.is_active,this.props)}
                     <div className="signup-check">
                       <Checkbox
                         size="small"

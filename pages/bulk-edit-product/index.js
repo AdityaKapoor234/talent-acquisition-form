@@ -83,7 +83,6 @@ export default function Bulk_Edit_Product() {
          setIsLoader(true);
         BulkEditProductApi.BulkEditProductList(page, search)
             .then((response) => {
-                console.log(response)
                 setProductType(response.data.data.list);
                    setTotalProduct(response.data.data.total);
                    setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

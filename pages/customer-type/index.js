@@ -81,7 +81,6 @@ export default function Customer_Type() {
 		setIsLoader(true);
 		CustomerApi.CustomerType(page, search)
 			.then((response) => {
-				console.log(response)
 			    setCustomerType(response.data.data.list);
 				 setTotalCustomer(response.data.data.total);
 				 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

@@ -25,7 +25,7 @@ const editor_tabs = [
   },
   {
     id: 8,
-    show: true,
+    show: false,
     label: "Certificate",
     key: "certificate",
   },
@@ -142,7 +142,7 @@ export default class ProductEditComponent extends Component {
               />
             </>
           )}
-          {this.state.tab === "certificate" && (
+          {/* {this.state.tab === "certificate" && (
             <>
               <ProductCertificateComponent
                 id={this.state.id}
@@ -150,7 +150,7 @@ export default class ProductEditComponent extends Component {
                 tab={this.setTab.bind(this)}
               />
             </>
-          )}
+          )} */}
           {this.state.tab === "content" && (
             <>
               <ProductContentComponent

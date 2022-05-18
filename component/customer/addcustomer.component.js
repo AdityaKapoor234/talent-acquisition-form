@@ -42,7 +42,6 @@ export default class AddCustomer extends Component {
 		let input = this.state.input;
 		input[event.target.name] = event.target.value;
 		this.setState({ input });
-		console.log("test1", input)
 		this.props?.handle(input);
 	};
 

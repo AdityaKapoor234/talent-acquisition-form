@@ -71,7 +71,7 @@ export default class ProductClassificationComponent extends Component {
     if (response.data.httpStatusCode === 200) {
         toast.success("Update Classification successfully")
         if(button === "continue"){
-            this.props?.tab("certificate")
+            this.props?.tab("content")
         }else if(button === "save"){
             Router.push("/product")
         }

@@ -224,7 +224,7 @@ export default class ProductInfoComponent extends Component {
                 infoDetails:response.data.data
             })
             if(button === "continue"){
-                this.props?.tab("Classifiction")
+                this.props?.tab("classification")
             }else if(button === "save"){
                 Router.push("/product")
             }

@@ -22,6 +22,7 @@ import Router from "next/router";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddressView from "../common-component/addressview";
 import AddressForm from "../common-component/address-form"
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -43,6 +44,8 @@ export default class CustomerDetails extends Component {
 			shoppingCart: props?.shoppingCart,
 			shoppingCartTotal: props?.shoppingCartTotal,
 			id: props?.id,
+			idAddress: [],
+			add_address: false,
 			open: false,
 			dialog: false,
 			address: [],
@@ -105,6 +108,11 @@ export default class CustomerDetails extends Component {
 	onPageChangeAddress = (e, page) => {
 		this.setState({ currentPageAddress: page });
 		this.getAddress(this.state.id, page);
+	};
+
+	closeAddress = () => {
+		this.setState({ add_address: false });
+		window.scrollTo(0, 0);
 	};
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -523,120 +531,162 @@ export default class CustomerDetails extends Component {
 				)}
 				{this.state.tab === 2 && (
 					<>
-						{this.state.mode === "create" && (
+						{/* {this.state.mode === "create" && (
 							<>
-								{/* <AddressForm /> */}
+								<AddressForm mode="create" />
 							</>
-						)}
-						{this.state.mode === "edit" && (
-							<>
-								<div data-component="address-view">
-									<div className="row mt-4 sticky-scroll scroll">
-										{this.state.address?.length === 0 && (
-											<div className="error-message">No Address Info</div>
+						)} */}
+						{/* {this.state.mode === "edit" && (
+							<> */}
+						<div data-component="address-view">
+							<div className="row mt-4">
+								{this.state.address?.length === 0 && (
+									<div className="error-message">No Address Info</div>
+								)}
+
+								{(this.state.mode === "edit") && (
+									<div data-component="account-setting" className="mb-4">
+
+										{this.state.add_address === true ? (
+											<div id="account">
+												<span className="add-new-address">Add new address </span>
+												<div className="bg-white">
+													<AddressForm onClose={() => this.closeAddress()} mode="create" id={this.state.id} />
+												</div>
+
+											</div>
+										) : (
+											<a href="#account">
+												<div
+													className="custom-btn add-address my-0"
+													onClick={() => {
+														this.setState({ add_address: true });
+													}}
+												>
+													<span>Add new address </span>
+												</div>
+											</a>
 										)}
-										{this.state.address?.map((p) => {
-											return (
-												<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
-													<div className="edit-box">
-														<div className="row">
-															<div className="col-12">
-																<div className="complete-address">
-																	<div>
-																		<div className="text-end">
-																			<span onClick={this.handleClickOpen}>
-																				<EditIcon className="edit-icon" style={{ color: "#f54a00" }} />
-																			</span>
-																		</div>
-																		<Dialog
-																			open={this.state.dialog}
-																			onClose={this.handleClickClose}
-																			aria-labelledby="alert-dialog-title"
-																			aria-describedby="alert-dialog-description"
-																		>
-																			<DialogTitle id="alert-dialog-title">
-																				<div className="d-flex justify-content-between">
-																					<span style={{ color: "#012169" }}>
-																						{"Edit Address"}
+
+
+
+									</div>
+								)}
+
+								{this.state.address?.map((p) => {
+									return (
+										<>
+											<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+												<AddressView addressDetails={p} mode={this.state.mode} id={p?.id}/>
+											</div>
+											{/* <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+												<div className="edit-box">
+													<div className="row">
+														<div className="col-12">
+															<div className="complete-address">
+																<div>
+																	{
+																		(this.state.mode === "edit" || this.state.mode === "create") && (
+																			<>
+																				<div className="text-end">
+																					<span onClick={this.handleClickOpen}>
+																						<EditIcon className="edit-icon" style={{ color: "#f54a00" }} />
 																					</span>
-																					<Box position="absolute" right={0}>
-																						<Button style={{ cursor: "pointer", color: "#012169" }} onClick={this.handleClickClose}>
-																							{<CloseIcon />}
-																						</Button>
-																					</Box></div>
-																			</DialogTitle>
-																			<DialogContent>
-																				<DialogContentText
-																					id="alert-dialog-description"
-																					sx={{ color: "#012169" }} >
-																					<AddressForm address={p} id={this.state.id} mode="edit" />
-																				</DialogContentText>
-																			</DialogContent>
-																		</Dialog>
+																				</div>
+																			</>
+																		)
+																	}
+																	<Dialog
+																		open={this.state.dialog}
+																		onClose={this.handleClickClose}
+																		aria-labelledby="alert-dialog-title"
+																		aria-describedby="alert-dialog-description"
+																	>
+																		<DialogTitle id="alert-dialog-title">
+																			<div className="d-flex justify-content-between">
+																				<span style={{ color: "#012169" }}>
+																					{"Edit Address"}
+																				</span>
+																				<Box position="absolute" right={0}>
+																					<Button style={{ cursor: "pointer", color: "#012169" }} onClick={this.handleClickClose}>
+																						{<CloseIcon />}
+																					</Button>
+																				</Box></div>
+																		</DialogTitle>
+																		<DialogContent>
+																			<DialogContentText
+																				id="alert-dialog-description"
+																				sx={{ color: "#012169" }} >
+																					{p.recipient_name}
+																				<AddressForm address={p} id={p.id} mode="edit" />
+																			</DialogContentText>
+																		</DialogContent>
+																	</Dialog>
 
 
-																		<div
-																			className="name two-line-ellipsis mt-3"
-																			title={p?.recipient_name}
-																		>
-																			{p?.recipient_name}
+																	<div
+																		className="name two-line-ellipsis mt-3"
+																		title={p?.recipient_name}
+																	>
+																		{p?.recipient_name}
+																	</div>
+																	<div
+																		className="address"
+																		title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
+																	>
+																		{p?.flat_no} {p?.locality}
+																		{p?.landmark !== "" ? ", " : " "}
+																		<div>
+																			{p?.landmark !== "" ? "Near " : ""}
+																			{p?.landmark !== "" ? p?.landmark : ""}
+																			{p?.landmark !== "" ? ", " : ""}
+																			{p?.city}{" "}
 																		</div>
-																		<div
-																			className="address"
-																			title={`${p?.flat_no} ${p?.locality} ${p?.city} ${p?.pin_code}`}
-																		>
-																			{p?.flat_no} {p?.locality}
-																			{p?.landmark !== "" ? ", " : " "}
-																			<div>
-																				{p?.landmark !== "" ? "Near " : ""}
-																				{p?.landmark !== "" ? p?.landmark : ""}
-																				{p?.landmark !== "" ? ", " : ""}
-																				{p?.city}{" "}
-																			</div>
-																			<div>
-																				{p?.state}
-																				{" - "}
-																				{p?.pin_code}
-																			</div>
+																		<div>
+																			{p?.state}
+																			{" - "}
+																			{p?.pin_code}
 																		</div>
-																		<div className="number">
-																			{p?.recipient_phone_number}
-																		</div>
+																	</div>
+																	<div className="number">
+																		{p?.recipient_phone_number}
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											);
-										})}
-									</div>
-								</div>
-								{this.state.addressTotal > 1 && (
-									<div className="row">
-										<div className="col-md-12 justify-content-between d-flex position-relative">
-											<div className="pagiantion-category">
-												<div>
-													<Pagination
-														className="pagination pagi"
-														page={this.state.currentPageAddress}
-														count={this.state.addressTotal}
-														onChange={this.onPageChangeAddress}
-													/>
-												</div>
-												<div
-													className="position-absolute totalCount"
-													style={{ right: 23, bottom: 5 }}
-												>
-													Total Addresses: {this.state.address?.length}
-												</div>
-											</div>
+											</div> */}
+										</>
+									);
+								})}
+							</div>
+						</div>
+						{this.state.addressTotal > 1 && (
+							<div className="row">
+								<div className="col-md-12 justify-content-between d-flex position-relative">
+									<div className="pagiantion-category">
+										<div>
+											<Pagination
+												className="pagination pagi"
+												page={this.state.currentPageAddress}
+												count={this.state.addressTotal}
+												onChange={this.onPageChangeAddress}
+											/>
+										</div>
+										<div
+											className="position-absolute totalCount"
+											style={{ right: 23, bottom: 5 }}
+										>
+											Total Addresses: {this.state.address?.length}
 										</div>
 									</div>
-								)}
-							</>
+								</div>
+							</div>
 						)}
-						{this.state.mode === "view" && (
+						{/* </>
+						)} */}
+						{/* {this.state.mode === "view" && (
 							<>
 								<div data-component="address-view">
 									<div className="row mt-4 sticky-scroll scroll">
@@ -711,7 +761,7 @@ export default class CustomerDetails extends Component {
 									</div>
 								)}
 							</>
-						)}
+						)} */}
 					</>
 				)
 				}

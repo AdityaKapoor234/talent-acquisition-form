@@ -15,7 +15,9 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import GroupsIcon from '@mui/icons-material/Groups';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import FindInPageIcon from '@mui/icons-material/FindInPage';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
@@ -180,7 +182,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 }
                                 <div className={tabCMS ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCMS(!tabCMS)}>
                                     <span>
-                                        {tabCMS ? <AdminPanelSettingsOutlinedIcon className='outline-icon' /> : <AdminPanelSettingsOutlinedIcon className='outline-icon' />}
+                                        {tabCMS ? <SupportAgentIcon className='outline-icon' /> : <SupportAgentIcon className='outline-icon' />}
                                         CMS
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon' />
@@ -193,7 +195,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 }
                                 <div className={tabInquiry ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabInquiry(!tabInquiry)}>
                                     <span>
-                                        {tabInquiry ? <GroupIcon className='outline-icon' /> : <GroupOutlinedIcon className='outline-icon' />}
+                                        {tabInquiry ? <FindInPageIcon className='outline-icon' /> : <FindInPageIcon className='outline-icon' />}
                                         Inquiry
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon' />

@@ -129,7 +129,6 @@ export default class AddressView extends Component {
                                         </div>
                                         <div className="number">
                                             {this.state?.addressDetails?.recipient_phone_number}
-                                            {console.log(this.state.addressDetails,"this.state.addressDetails")}
                                         </div>
                                     </div>
                                 </div>

@@ -31,27 +31,27 @@ export default class DealsCreate extends Component {
 
   convertDateStringToDate = (dateStr) => {
     let months = [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
     ];
 
     let date = new Date(dateStr);
     let str =
-        date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
-  // new Date(dateStr).toISOString().split('T')[0];
-  // date.toLocaleDateString('en-CA');
+      date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+    // new Date(dateStr).toISOString().split('T')[0];
+    // date.toLocaleDateString('en-CA');
     return str;
-};
+  };
 
   validateData = () => {
     this.setState({ is_all: false });

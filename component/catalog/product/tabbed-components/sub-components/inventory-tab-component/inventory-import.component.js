@@ -55,41 +55,36 @@ export default function InventoryImportComponent(props) {
 
     if (upc_code === "" || upc_code === null || upc_code.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter upc code");
-      setIsAll(true);
+      
       return (false);
     }
     if (batch_number === "" || batch_number === null || batch_number.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter batch number");
-      setIsAll(true);
+      
       return (false);
     }
     if (count === "" || count === null || count.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter quantity");
-      setIsAll(true);
+      
       return (false);
     }
     if (manufacture_date === "" || manufacture_date === null || manufacture_date.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter manufacturing date");
-      setIsAll(true);
+      
       return (false);
     }
     if (expire_date === "" || expire_date === null || expire_date.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter expiry date");
-      setIsAll(true);
+      
       return (false);
     }
     if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter certificate");
-      setIsAll(true);
+      
       return (false);
     }
 
-    if (is_all === true) {
-      return false;
-    }
-    else {
       return true;
-    }
 
   }
 

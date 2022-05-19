@@ -92,7 +92,7 @@ export default function TrustedHealthViewDetails({ id }) {
 					<div className="row border-box">
 						<div className="col-md-5">
 							<div className="hamburger">
-								<span>Inquiry / Trusted Health/ </span>View Trusted Health
+								<span>CMS / Trusted Health/ </span>View Trusted Health
 							</div>
 							<div className="page-name">Trusted Health Details - {trustedHealth?.name}</div>
 						</div>

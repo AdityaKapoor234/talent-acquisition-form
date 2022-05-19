@@ -177,7 +177,7 @@ export default function TrustedHealthEditDetails({ id }) {
 					<div className="row border-box">
 						<div className="col-md-5">
 							<div className="hamburger">
-								<span>Inquiry / Trusted Health/ </span>Edit Trusted Health
+								<span>CMS / Trusted Health/ </span>Edit Trusted Health
 							</div>
 							<div className="page-name">Trusted Health Details - {trustedHealth?.name}</div>
 						</div>

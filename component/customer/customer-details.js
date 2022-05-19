@@ -551,7 +551,7 @@ export default class CustomerDetails extends Component {
 											<div id="account">
 												<span className="add-new-address">Add new address </span>
 												<div className="bg-white">
-													<AddressForm onClose={() => this.closeAddress()} mode="create" id={this.state.id} />
+													<AddressForm onClose={() => this.closeAddress()} mode="create" id={this.state.id} customerID={this.state.id} />
 												</div>
 
 											</div>
@@ -577,7 +577,7 @@ export default class CustomerDetails extends Component {
 									return (
 										<>
 											<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
-												<AddressView addressDetails={p} mode={this.state.mode} id={p?.id}/>
+												<AddressView addressDetails={p} mode={this.state.mode} id={p?.id} customerID={this.state.id}/>
 											</div>
 											{/* <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
 												<div className="edit-box">

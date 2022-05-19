@@ -46,6 +46,7 @@ export default function addressform(props) {
     );
     const [mode, setMode] = useState(props?.mode ? props?.mode : "create");
     const [id, setId] = useState(props?.id ? props?.id : "");
+    const [customerID, setCustomerID] = useState(props?.customerID ? props?.customerID : "");
     const [is_all, setIsAll] = useState(false);
 
 
@@ -165,7 +166,8 @@ export default function addressform(props) {
                         setLandMark("");
                         setIsDefault(false);
                         props.onClose();
-                        Router.push(`/customer`);
+                        // Router.push(`/customer/${customerID}/edit`);
+                        window.location.reload(false);
                     }
                 })
                 .catch((error) => {
@@ -210,7 +212,8 @@ export default function addressform(props) {
                         setLandMark("");
                         setIsDefault(false);
                         props?.onUpdateData(response?.data?.data?.address);
-                        Router.push(`/customer`);
+                        // Router.push(`/customer/${customerID}/edit`);
+                        window.location.reload(false);
                     }
                 })
                 .catch((error) => {
@@ -465,7 +468,7 @@ export default function addressform(props) {
                                             className="custom-btn justify-content-center"
                                             onClick={() => onSubmit(id)}
                                         >
-                                            <span>SAVE ADDRESS CREATE</span>
+                                            <span>SAVE ADDRESS</span>
                                         </div>
                                     </div>
                                 )}

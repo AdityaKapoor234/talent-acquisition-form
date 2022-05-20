@@ -265,46 +265,53 @@ export default class CustomerDetails extends Component {
 							>
 								General info
 							</div>
-							<div
-								className={
-									this.state.tab === 2 ? `sub-tab active-tab` : "sub-tab"
-								}
-								onClick={() => {
-									this.setState({ tab: 2 });
-								}}
-							>
-								Address Info
-							</div>
-							<div
-								className={
-									this.state.tab === 3 ? `sub-tab active-tab` : "sub-tab"
-								}
-								onClick={() => {
-									this.setState({ tab: 3 });
-								}}
-							>
-								order Info
-							</div>
-							<div
-								className={
-									this.state.tab === 4 ? `sub-tab active-tab` : "sub-tab"
-								}
-								onClick={() => {
-									this.setState({ tab: 4 });
-								}}
-							>
-								wishlist Info
-							</div>
-							<div
-								className={
-									this.state.tab === 5 ? `sub-tab active-tab` : "sub-tab"
-								}
-								onClick={() => {
-									this.setState({ tab: 5 });
-								}}
-							>
-								shopping cart Info
-							</div>
+							{
+								(this.state.mode === "edit" || this.state.mode === "view") ?
+									<>
+										<div
+											className={
+												this.state.tab === 2 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ tab: 2 });
+											}}
+										>
+											Address Info
+										</div>
+										<div
+											className={
+												this.state.tab === 3 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ tab: 3 });
+											}}
+										>
+											order Info
+										</div>
+										<div
+											className={
+												this.state.tab === 4 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ tab: 4 });
+											}}
+										>
+											wishlist Info
+										</div>
+										<div
+											className={
+												this.state.tab === 5 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ tab: 5 });
+											}}
+										>
+											shopping cart Info
+										</div>
+									</>
+									:
+									""
+							}
 						</div>
 					</div>
 				</div>
@@ -577,7 +584,7 @@ export default class CustomerDetails extends Component {
 									return (
 										<>
 											<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
-												<AddressView addressDetails={p} mode={this.state.mode} id={p?.id} customerID={this.state.id}/>
+												<AddressView addressDetails={p} mode={this.state.mode} id={p?.id} customerID={this.state.id} />
 											</div>
 											{/* <div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
 												<div className="edit-box">

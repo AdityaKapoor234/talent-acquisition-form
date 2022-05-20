@@ -21,6 +21,7 @@ export default class DealsCreate extends Component {
 				color_code: props?.deals?.color_code ? props?.deals?.color_code : "",
 				url: props?.deals?.url ? props?.deals?.url : "",
 				icon_url: props?.deals?.icon_url ? props?.deals?.icon_url : "",
+				discount_image_url : props?.deals?.discount_image_url ? props?.deals?.discount_image_url :"",
 				is_active: props?.deals?.is_active ? props?.deals?.is_active : false,
 			},
 		};
@@ -41,6 +42,7 @@ export default class DealsCreate extends Component {
 					color_code: nextProps?.deals?.color_code ? nextProps?.deals?.color_code : "",
 					url: nextProps?.deals?.url ? nextProps?.deals?.url : "",
 					icon_url: nextProps?.deals?.icon_url ? nextProps?.deals?.icon_url : "",
+					discount_image_url:nextProps?.deals?.discount_image_url ? nextProps?.deals?.discount_image_url:"",
 					is_active: nextProps?.deals?.is_active ? nextProps?.deals?.is_active : false,
 				},
 			};
@@ -93,28 +95,6 @@ export default class DealsCreate extends Component {
 			date.toLocaleDateString('en-CA');
         return str;
     };
-
-	// convertDateStringToDate = (dateStr) => {
-    //     let months = [
-    //         "Jan",
-    //         "Feb",
-    //         "Mar",
-    //         "Apr",
-    //         "May",
-    //         "Jun",
-    //         "Jul",
-    //         "Aug",
-    //         "Sep",
-    //         "Oct",
-    //         "Nov",
-    //         "Dec",
-    //     ];
-
-    //     let date = new Date(dateStr);
-    //     let str =
-    //         date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
-    //     return str;
-    // };
 
 	
 
@@ -212,6 +192,18 @@ export default class DealsCreate extends Component {
 													urlName="icon"
 												/>
 											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Discount Image"}
+													accept=".jpg,.jpeg,.png"
+													name="discount_image_url"
+													img={this.state.input?.discount_image_url}
+													setUrl={this.handlePhotoUrl.bind(this)}
+													value={this.state.img_lg}
+													urlName="icon"
+												/>
+											</div>
 											<div className="signup-check mt-4">
 												<Checkbox
 													size="small"
@@ -291,8 +283,16 @@ export default class DealsCreate extends Component {
 													img={this.state.input?.icon_url}
 												/>
 											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Discount Image"}
+													accept=".jpg,.jpeg,.png"
+													img={this.state.input?.discount_image_url}
+												/>
+											</div>
 											<div>
-                                                <a href={this.state.input?.url}><button className="custom-btn w-50 mb-4">URL<ArrowForwardIosIcon className='arrow-icon'/></button></a>
+                                                <a href={this.state.input?.url}><button className="custom-btn w-50 mb-4">URL PREVIEW<ArrowForwardIosIcon className='arrow-icon'/></button></a>
                                             </div>
 											<div className="signup-check">
 												<Checkbox

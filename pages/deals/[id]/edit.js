@@ -44,6 +44,7 @@ export default class DealsEditDetails extends Component {
         color_code: "",
         url: "",
         icon_url: "",
+        discount_image_url:"",
         is_active: false,
       },
     };
@@ -73,6 +74,11 @@ export default class DealsEditDetails extends Component {
     return str;
 };
 
+  urlPatternValidation = (URL) => {
+    const regex = new RegExp('(http?://)');    
+    return regex.test(URL);
+  };
+
 
   validateData = () => {
     this.setState({ is_all: false });
@@ -98,8 +104,17 @@ export default class DealsEditDetails extends Component {
       toast.error("Please enter url");
       this.state.is_all = true;
     }
+
+    if (!this.urlPatternValidation(this.state.dealsDetails.url)) {
+      toast.error("Please Valid url");
+      this.state.is_all = true;
+    }
     if (this.state.dealsDetails.icon_url === "" || this.state.dealsDetails.icon_url === null || this.state.dealsDetails.icon_url.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter icon");
+      this.state.is_all = true;
+    }
+    if (this.state.dealsDetails.discount_image_url === "" || this.state.dealsDetails.discount_image_url === null || this.state.dealsDetails.discount_image_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter discount image");
       this.state.is_all = true;
     }
 
@@ -121,6 +136,7 @@ export default class DealsEditDetails extends Component {
         color_code: this.state.dealsDetails.color_code,
         url: this.state.dealsDetails.url,
         icon_url: this.state.dealsDetails.icon_url,
+        discount_image_url: this.state.dealsDetails.discount_image_url,
         is_active: this.state.dealsDetails.is_active,
       };
       DealsApi.dealsListEDIT(this.state.id, data)
@@ -156,6 +172,7 @@ export default class DealsEditDetails extends Component {
             color_code: response.data.data.list.color_code ? response.data.data.list.color_code : "",
             url: response.data.data.list.url ? response.data.data.list.url : "",
             icon_url: response.data.data.list.icon_url ? response.data.data.list.icon_url : "",
+            discount_image_url:response.data.data.list?.discount_image_url ?response.data.data.list?.discount_image_url:"",
             is_active: response.data.data.list.is_active ? response.data.data.list.is_active : false,
           };
           this.setState({

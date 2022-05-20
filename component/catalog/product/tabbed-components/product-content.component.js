@@ -103,10 +103,10 @@ export default class ProductContentComponent extends Component {
         let content = this.state.content;
         let errors = {};
         let isValid = true;
-        if (!content["description"] || content["description"] ==="<p></p>\n" || content["description"].replace(/&nbsp;/g, "").length <=8) {
-            isValid = false;
-            errors["description"] = "Please enter Full Description";
-        }
+        // if (!content["description"] || content["description"] ==="<p></p>\n" || content["description"].replace(/&nbsp;/g, "").length <=8) {
+        //     isValid = false;
+        //     errors["description"] = "Please enter Full Description";
+        // }
         // if (!content["direction_of_use"] || content["direction_of_use"] ==="<p></p>\n" || content["direction_of_use"].replace(/&nbsp;/g, "").length <=8) {
         //     isValid = false;
         //     errors["direction_of_use"] = "Please enter Direction of Use";
@@ -123,10 +123,10 @@ export default class ProductContentComponent extends Component {
             isValid = false;
             errors["product_label"] = "Please enter Product Label";
         }
-        if (!content["short_description"] || content["short_description"] ==="<p></p>\n" || content["short_description"].replace(/&nbsp;/g, "").length <=8) {
-            isValid = false;
-            errors["short_description"] = "Please enter Short Description";
-        }
+        // if (!content["short_description"] || content["short_description"] ==="<p></p>\n" || content["short_description"].replace(/&nbsp;/g, "").length <=8) {
+        //     isValid = false;
+        //     errors["short_description"] = "Please enter Short Description";
+        // }
         // if (!content["warning"] || content["warning"] ==="<p></p>\n" || content["warning"].replace(/&nbsp;/g, "").length <=8) {
         //     isValid = false;
         //     errors["warning"] = "Please enter Warning";
@@ -232,7 +232,7 @@ export default class ProductContentComponent extends Component {
                             </div>
                             <div className="fc-form-group editor">
                                 <label>Short Description
-                                    <span className="mandatory-star">*</span>
+                                    {/* <span className="mandatory-star">*</span> */}
                                 </label>
                                 <br />
                                 <ArticleEditor
@@ -245,7 +245,7 @@ export default class ProductContentComponent extends Component {
                             </div>
                             <div className="fc-form-group editor">
                                 <label>Full Description
-                                    <span className="mandatory-star">*</span>
+                                    {/* <span className="mandatory-star">*</span> */}
                                 </label>
                                 <br />
                                 <ArticleEditor
@@ -315,7 +315,10 @@ export default class ProductContentComponent extends Component {
                     <div className="row ">
                         <div className="col-md-12">
                             <div className="fc-form-group editor">
-                                <label>Product Label<span className="mandatory-star">*</span></label>
+                                <label>
+                                    Product Label
+                                    <span className="mandatory-star">*</span>
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.product_label}
@@ -324,7 +327,10 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Short Description<span className="mandatory-star">*</span></label>
+                                <label>
+                                    Short Description
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.short_description}
@@ -333,7 +339,10 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Full Description<span className="mandatory-star">*</span></label>
+                                <label>
+                                    Full Description
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.description}

@@ -45,46 +45,60 @@ export default function InventoryImportComponent(props) {
   const [is_active, setIsActive] = useState(false);
   const [certificate_url, setCertificateUrl] = useState("");
   const [is_all, setIsAll] = useState(false);
+  const [is_upc_code, setIsUpcCode] = useState(false);
+  const [is_batch_number, setIsBatchNumber] = useState(false);
+  const [is_count, setIsCount] = useState(false);
+  const [is_manufacture_date, setIsManufactureDate] = useState(false);
+  const [is_expire_date, setIsExpireDate] = useState(false);
+  const [is_certificate_url, setIsCertificateUrl] = useState(false);
+
 
   function setTab(value, url) {
     setCertificateUrl(url);
   };
 
   function validateData() {
-    setIsAll(false);
+    let isValid =true;
+    setIsUpcCode(false);
+    setIsBatchNumber(false);
+    setIsCount(false);
+    setIsManufactureDate(false);
+    setIsExpireDate(false);
+    setIsCertificateUrl(false);
+    setIsActive(false);
 
     if (upc_code === "" || upc_code === null || upc_code.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter upc code");
-      
-      return (false);
+      // toast.error("Please enter upc code");
+      setIsUpcCode(true);
+      isValid =false;
     }
     if (batch_number === "" || batch_number === null || batch_number.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter batch number");
-      
-      return (false);
+      // toast.error("Please enter batch number");
+      setIsBatchNumber(true);
+      isValid =false;
     }
     if (count === "" || count === null || count.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter quantity");
-      
-      return (false);
+      // toast.error("Please enter quantity");
+      setIsCount(true);
+      isValid =false;
     }
     if (manufacture_date === "" || manufacture_date === null || manufacture_date.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter manufacturing date");
-      
-      return (false);
+      // toast.error("Please enter manufacturing date");
+      setIsManufactureDate(true);
+      isValid =false;
     }
     if (expire_date === "" || expire_date === null || expire_date.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter expiry date");
-      
-      return (false);
+      // toast.error("Please enter expiry date");
+      setIsExpireDate(true);
+      isValid =false;
     }
     if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter certificate");
-      
-      return (false);
+      // toast.error("Please enter certific ate");
+      setIsCertificateUrl(true);
+      isValid =false;
     }
 
-      return true;
+    return isValid;
 
   }
 
@@ -98,7 +112,7 @@ export default function InventoryImportComponent(props) {
     { console.log(certificate_url, "certificate_url") }
     { console.log(convertDateStringToDate(manufacture_date), "manufacture_date") }
     if (validateData()) {
-      
+
       let data = {
         upc_code: upc_code,
         batch_number: parseInt(batch_number),
@@ -117,12 +131,13 @@ export default function InventoryImportComponent(props) {
 
       ProductApi.createInventory(id, data)
         .then((response) => {
-          {console.log(data,"data inside api")}
+          { console.log(data, "data inside api") }
           if (response.data.httpStatusCode === 200) {
             toast.success(response.data.message);
-            
-            setIsEdit(false);
 
+            // window.location.reload(false);
+            setIsEdit(false);
+            
             setUpcCode(null);
             setBatchNumber(null);
             setCount(null);
@@ -134,7 +149,7 @@ export default function InventoryImportComponent(props) {
           }
         })
         .catch((error) => {
-          {console.log(error,"error")}
+          { console.log(error, "error") }
           toast.error(
             error?.response &&
               error?.response?.data &&
@@ -353,7 +368,7 @@ export default function InventoryImportComponent(props) {
                       {val?.batch_number ? val?.batch_number : "-"}
                     </div>
                     <div className="col text-center">
-                      {val?.batch_number ? val?.batch_number : "-"}
+                      {val?.batch_number ? val?.count : "-"}
                     </div>
                     <div className="col text-center">
                       {convertDateStringToDateAPI(val?.manufacture_date)}
@@ -400,6 +415,7 @@ export default function InventoryImportComponent(props) {
                   value={upc_code}
                   onChange={(e) => { setUpcCode(e.target.value) }}
                 />
+                {is_upc_code === true ? <small className="form-text text-danger" >Please Enter UPC Code</small> : ""}
               </div>
             </div>
             <div className="col-md-4">
@@ -413,6 +429,7 @@ export default function InventoryImportComponent(props) {
                   value={batch_number}
                   onChange={(e) => { setBatchNumber(e.target.value) }}
                 />
+                {is_batch_number === true ? <small className="form-text text-danger" >Please Enter Batch Number</small> : ""}
               </div>
             </div>
             <div className="col-md-4">
@@ -426,6 +443,7 @@ export default function InventoryImportComponent(props) {
                   value={count}
                   onChange={(e) => { setCount(e.target.value) }}
                 />
+                {is_count === true ? <small className="form-text text-danger" >Please Enter Quantity</small> : ""}
               </div>
             </div>
             <div className="col-md-4">
@@ -439,6 +457,7 @@ export default function InventoryImportComponent(props) {
                   value={convertDateStringToDate(manufacture_date)}
                   onChange={(e) => { setManufactureDate(e.target.value) }}
                 />
+                {is_manufacture_date === true ? <small className="form-text text-danger" >Please Enter Manufacture Date</small> : ""}
               </div>
             </div>
             <div className="col-md-4">
@@ -452,6 +471,7 @@ export default function InventoryImportComponent(props) {
                   value={convertDateStringToDate(expire_date)}
                   onChange={(e) => { setExpireDate(e.target.value) }}
                 />
+                {is_expire_date === true ? <small className="form-text text-danger" >Please Enter Expiry Date</small> : ""}
               </div>
             </div>
             <div className="col-md-4 mt-4">
@@ -483,6 +503,7 @@ export default function InventoryImportComponent(props) {
                 // mode="edit"
                 // tab={(e) => {setTab(value)}}
                 />
+                {is_certificate_url === true ? <small className="form-text text-danger" >Please Enter Certificate</small> : ""}
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 export default class DealsCreate extends Component {
@@ -264,7 +265,7 @@ export default class DealsCreate extends Component {
 													value={this.state.input?.color_code}
 												/>
 											</div>
-											<div className="login-form ">
+											{/* <div className="login-form ">
 												<label>
 													URL<span className="mandatory-star">*</span>
 												</label>
@@ -273,8 +274,8 @@ export default class DealsCreate extends Component {
 													readOnly={true}
 													value={this.state.input?.url}
 												/>
-											</div>
-											<div className="mt-4">
+											</div> */}
+											<div>
 												<Photo
 													mode={this.state.mode}
 													label={"Icon"}
@@ -290,6 +291,9 @@ export default class DealsCreate extends Component {
 													img={this.state.input?.discount_image_url}
 												/>
 											</div>
+											<div>
+                                                <a href={this.state.input?.url}><button className="custom-btn w-50 mb-4">URL PREVIEW<ArrowForwardIosIcon className='arrow-icon'/></button></a>
+                                            </div>
 											<div className="signup-check">
 												<Checkbox
 													size="small"

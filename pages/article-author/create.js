@@ -2,57 +2,52 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { Component } from "react";
 import { toast } from "react-toastify";
-import { APP_NAME } from "../../../utils/constant";
-import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import CategoryCreateComponent from "../../../component/articles/category/category-create";
+import { APP_NAME } from "../../utils/constant";
+import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
+import AuthorCreateComponent from "../../component/articles/author/author-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import ArticleApi from "../../../services/articles";
+import ArticleApi from "../../services/articles";
 
-export async function getServerSideProps(context) {
-  const { id } = context.query;
-  return {
-    props: {
-      id: id || null,
-    },
-  };
-}
-
-export default class CategoryEditDetails extends Component {
+export default class ArticleAuthorCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props?.id,
       mode: "edit",
-      category: {},
-      open: false,
-      categoryDetails: {
+      author: {},
+      authorDetails: {
         name: "",
+        avatar: "",
+        bio:"",
         is_active: null,
       },
     };
   }
 
   validateData = () => {
-    if (this.state.categoryDetails.name === "" || this.state.categoryDetails?.name.replace(/\s/g, "").length <=0) {
+
+    if (this.state.authorDetails.name === "" || this.state.authorDetails?.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter name");
       return false;
     }
+
     return true;
   };
 
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name: this.state.categoryDetails.name,
-        sort_order: parseInt(this.state.categoryDetails.sort_order),
-        is_active: this.state.categoryDetails.is_active,
+        name: this.state.authorDetails.name,
+        avatar: this.state.authorDetails.avatar,
+        bio: this.state.authorDetails.bio,
+        // is_active: this.state.authorDetails.is_active,
       };
-      ArticleApi.CategoryEdit(this.props.id, data)
+      ArticleApi.AuthorCreate(data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
+            this.setState({ author: response.data.data.added_author });
             toast.success(response.data.message);
-            Router.push(`/article-category`);
+            Router.push(`/article-author`);
           }
         })
         .catch((error) => {
@@ -67,51 +62,20 @@ export default class CategoryEditDetails extends Component {
     }
   };
   stateHandle = (value) => {
-    this.setState({ categoryDetails: value });
+    this.setState({ authorDetails: value });
   };
-  getCategoryDetail = (id) => {
-    ArticleApi.getCategoryDetails(id)
-      .then((response) => {
-        if (response.data.httpStatusCode === 200) {
-          let details = {
-            name: response.data.data.view.name
-              ? response.data.data.view.name
-              : "",
-            is_active: response.data.data.view.is_active
-              ? response.data.data.view.is_active
-              : null,
-          };
-          this.setState({
-            categoryDetails: details,
-            category: response.data.data.view,
-          });
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  };
-  
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    this.getCategoryDetail(this.props.id);
-    this.setState({ id: this.props?.id });
   }
 
   render() {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Category</title>
+          <title>{APP_NAME} - Author</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -121,11 +85,9 @@ export default class CategoryEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Catalog / Category / </span>Edit Category
+                  <span>Article / Author / </span>Add A New Author
                 </div>
-                <div className="page-name">
-                  Edit Category Details 
-                </div>
+                <div className="page-name">Add A New Author </div>
               </div>
               <div className="col-md-7 btn-save">
                 <div
@@ -139,7 +101,7 @@ export default class CategoryEditDetails extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    Router.push(`/article-category`);
+                    Router.push(`/article-author`);
                   }}
                 >
                   <span>Cancel </span>
@@ -148,8 +110,7 @@ export default class CategoryEditDetails extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-                <CategoryCreateComponent
-                  category={this.state.category}
+                <AuthorCreateComponent
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                 />

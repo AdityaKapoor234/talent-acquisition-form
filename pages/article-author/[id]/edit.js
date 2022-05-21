@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import CategoryCreateComponent from "../../../component/articles/category/category-create";
+import AuthorCreateComponent from "../../../component/articles/author/author-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import ArticleApi from "../../../services/articles";
@@ -18,23 +18,25 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default class CategoryEditDetails extends Component {
+export default class AuthorEditDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props?.id,
       mode: "edit",
-      category: {},
+      author: {},
       open: false,
-      categoryDetails: {
+      authorDetails: {
         name: "",
+        avatar: "",
+        bio:"",
         is_active: null,
       },
     };
   }
 
   validateData = () => {
-    if (this.state.categoryDetails.name === "" || this.state.categoryDetails?.name.replace(/\s/g, "").length <=0) {
+    if (this.state.authorDetails.name === "" || this.state.authorDetails?.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter name");
       return false;
     }
@@ -44,15 +46,16 @@ export default class CategoryEditDetails extends Component {
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name: this.state.categoryDetails.name,
-        sort_order: parseInt(this.state.categoryDetails.sort_order),
-        is_active: this.state.categoryDetails.is_active,
+        name: this.state.authorDetails.name,
+        avatar: this.state.authorDetails.avatar,
+        bio: this.state.authorDetails.bio,
+        // is_active: this.state.authorDetails.is_active,
       };
-      ArticleApi.CategoryEdit(this.props.id, data)
+      ArticleApi.AuthorEdit(this.props.id, data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
             toast.success(response.data.message);
-            Router.push(`/article-category`);
+            Router.push(`/article-author`);
           }
         })
         .catch((error) => {
@@ -67,10 +70,10 @@ export default class CategoryEditDetails extends Component {
     }
   };
   stateHandle = (value) => {
-    this.setState({ categoryDetails: value });
+    this.setState({ authorDetails: value });
   };
-  getCategoryDetail = (id) => {
-    ArticleApi.getCategoryDetails(id)
+  getAuthorDetail = (id) => {
+    ArticleApi.getAuthorDetails(id)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
@@ -82,8 +85,8 @@ export default class CategoryEditDetails extends Component {
               : null,
           };
           this.setState({
-            categoryDetails: details,
-            category: response.data.data.view,
+            authorDetails: details,
+            author: response.data.data.view,
           });
         }
       })
@@ -103,7 +106,7 @@ export default class CategoryEditDetails extends Component {
     if (token === undefined) {
       Router.push("/");
     }
-    this.getCategoryDetail(this.props.id);
+    this.getAuthorDetail(this.props.id);
     this.setState({ id: this.props?.id });
   }
 
@@ -111,7 +114,7 @@ export default class CategoryEditDetails extends Component {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Category</title>
+          <title>{APP_NAME} - Author</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -121,10 +124,10 @@ export default class CategoryEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Catalog / Category / </span>Edit Category
+                  <span>Article / Author / </span>Edit Author
                 </div>
                 <div className="page-name">
-                  Edit Category Details 
+                  Edit Author Details 
                 </div>
               </div>
               <div className="col-md-7 btn-save">
@@ -139,7 +142,7 @@ export default class CategoryEditDetails extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    Router.push(`/article-category`);
+                    Router.push(`/article-author`);
                   }}
                 >
                   <span>Cancel </span>
@@ -148,8 +151,8 @@ export default class CategoryEditDetails extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-                <CategoryCreateComponent
-                  category={this.state.category}
+                <AuthorCreateComponent
+                  author={this.state.author}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                 />

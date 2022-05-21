@@ -4,18 +4,18 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import FlavorCreateComponent from "../../component/catalog/flavor/flavor-create";
+import CategoryCreateComponent from "../../component/articles/category/category-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import FlavorApi from "../../services/flavor";
+import ArticleApi from "../../services/articles";
 
-export default class FlavorCreate extends Component {
+export default class ArticleCategoryCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mode: "edit",
-      flavor: {},
-      flavorDetails: {
+      category: {},
+      categoryDetails: {
         sort_order: null,
         name: "",
         is_active: null,
@@ -24,24 +24,9 @@ export default class FlavorCreate extends Component {
   }
 
   validateData = () => {
-    if (
-      this.state.flavorDetails.name === "" &&
-      (this.state.flavorDetails.sort_order === "" ||
-        this.state.flavorDetails.sort_order === null)
-    ) {
-      toast.error("Please enter Display Order ");
+
+    if (this.state.categoryDetails.name === "" || this.state.categoryDetails?.name.replace(/\s/g, "").length <=0) {
       toast.error("Please enter name");
-      return false;
-    }
-    if (this.state.flavorDetails.name === "" || this.state.flavorDetails?.name.replace(/\s/g, "").length <=0) {
-      toast.error("Please enter name");
-      return false;
-    }
-    if (
-      this.state.flavorDetails.sort_order === "" ||
-      this.state.flavorDetails.sort_order === null
-    ) {
-      toast.error("Please enter Display Order ");
       return false;
     }
 
@@ -51,16 +36,15 @@ export default class FlavorCreate extends Component {
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name: this.state.flavorDetails.name,
-        sort_order: parseInt(this.state.flavorDetails.sort_order),
-        is_active: this.state.flavorDetails.is_active,
+        name: this.state.categoryDetails.name,
+        is_active: this.state.categoryDetails.is_active,
       };
-      FlavorApi.FlavorCreate(data)
+      ArticleApi.CategoryCreate(data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
-            this.setState({ flavor: response.data.data.Flavor });
+            this.setState({ category: response.data.data.added_category });
             toast.success(response.data.message);
-            Router.push(`/flavor`);
+            Router.push(`/article-category`);
           }
         })
         .catch((error) => {
@@ -75,7 +59,7 @@ export default class FlavorCreate extends Component {
     }
   };
   stateHandle = (value) => {
-    this.setState({ flavorDetails: value });
+    this.setState({ categoryDetails: value });
   };
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
@@ -88,7 +72,7 @@ export default class FlavorCreate extends Component {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Flavor</title>
+          <title>{APP_NAME} - Category</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -98,9 +82,9 @@ export default class FlavorCreate extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Catalog / Flavor / </span>Add A New Flavor
+                  <span>Article / Category / </span>Add A New Category
                 </div>
-                <div className="page-name">Add A New Flavor </div>
+                <div className="page-name">Add A New Category </div>
               </div>
               <div className="col-md-7 btn-save">
                 <div
@@ -114,7 +98,7 @@ export default class FlavorCreate extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    Router.push(`/flavor`);
+                    Router.push(`/article-category`);
                   }}
                 >
                   <span>Cancel </span>
@@ -123,7 +107,7 @@ export default class FlavorCreate extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-                <FlavorCreateComponent
+                <CategoryCreateComponent
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                 />

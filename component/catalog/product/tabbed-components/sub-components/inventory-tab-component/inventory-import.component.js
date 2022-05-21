@@ -107,10 +107,6 @@ export default function InventoryImportComponent(props) {
   };
 
   const AddProductQnt = () => {
-
-    { console.log(is_active, "is_active") }
-    { console.log(certificate_url, "certificate_url") }
-    { console.log(convertDateStringToDate(manufacture_date), "manufacture_date") }
     if (validateData()) {
 
       let data = {
@@ -126,12 +122,10 @@ export default function InventoryImportComponent(props) {
       if (data.is_active === "on") {
         data.is_active = true;
       }
-      { console.log(data, "data in API Add") }
 
 
       ProductApi.createInventory(id, data)
         .then((response) => {
-          { console.log(data, "data inside api") }
           if (response.data.httpStatusCode === 200) {
             toast.success(response.data.message);
 
@@ -149,7 +143,6 @@ export default function InventoryImportComponent(props) {
           }
         })
         .catch((error) => {
-          { console.log(error, "error") }
           toast.error(
             error?.response &&
               error?.response?.data &&

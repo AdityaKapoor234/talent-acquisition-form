@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import CategoryList from "../../component/articles/category/category-list";
+import AuthorList from "../../component/articles/author/author-list";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -14,10 +14,10 @@ import Box from "@mui/material/Box";
 import ArticlesApi from "../../services/articles";
 import { useRouter } from "next/router";
 
-export default function Category() {
+export default function Author() {
     const pathArr = useRouter();
-    const [category, setCategory] = useState([]);
-    const [totalcategory, setTotalCategory] = useState([]);
+    const [author, setAuthor] = useState([]);
+    const [totalAuthor, setTotalAuthor] = useState([]);
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
     );
@@ -32,11 +32,11 @@ export default function Category() {
         }
         if (event.key === "Enter") {
             Router.push({
-                pathname: "/article-category",
+                pathname: "/article-author",
                 query: router_query_object,
             });
             setCurrentPage(1)
-            categoryList(1, wordEntered);
+            authorList(1, wordEntered);
         }
     };
 
@@ -46,11 +46,11 @@ export default function Category() {
             router_query_object["q"] = wordEntered;
         }
         Router.push({
-            pathname: "/article-category",
+            pathname: "/article-author",
             query: router_query_object,
         });
         setCurrentPage(1)
-        categoryList(1, wordEntered);
+        authorList(1, wordEntered);
     };
 
     const handleFilter = (event) => {
@@ -58,24 +58,24 @@ export default function Category() {
         setWordEntered(searchWord);
 		if (event.target.value === "") {
 			Router.push({
-				pathname: "/article-category",
+				pathname: "/article-author",
 				query: "",
 			});
-			categoryList(1, "");
+			authorList(1, "");
 		}
       };
     
       let onPageChange = function (e, page) {
         setCurrentPage(page)
-        categoryList(page, wordEntered)
+        authorList(page, wordEntered)
     };
 
-    const categoryList = (page, search) => {
+    const authorList = (page, search) => {
         setIsLoader(true);
-        ArticlesApi.CategoryList(page, search)
+        ArticlesApi.AuthorList(page, search)
             .then((response) => {
-                setCategory(response.data.data.list);
-                setTotalCategory(response.data.data);
+                setAuthor(response.data.data.list);
+                setTotalAuthor(response.data.data);
                 setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
                 setIsLoader(false);
             })
@@ -96,12 +96,12 @@ export default function Category() {
         if (token === undefined) {
             Router.push("/");
         }
-        categoryList(currentPage, "");
+        authorList(currentPage, "");
     }, []);
     return (
         <div page-component="category-page">
             <Head>
-                <title>{APP_NAME} - Category</title>
+                <title>{APP_NAME} - Author</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -111,9 +111,9 @@ export default function Category() {
                     <div className="row border-box">
                         <div className="col-md-6">
                             <div className="hamburger">
-                                <span>Article / </span>Category
+                                <span>Article / </span>Author
                             </div>
-                            <div className="page-name">Category</div>
+                            <div className="page-name">Author</div>
                         </div>
                         <div className="col-md-4">
                             <div className="login-form ">
@@ -132,7 +132,7 @@ export default function Category() {
                             <div
                                 className="custom-btn "
                                 onClick={() => {
-                                    Router.push(`/article-category/create`);
+                                    Router.push(`/article-author/create`);
                                 }}
                             >
                                 <span>Add New </span>
@@ -153,8 +153,8 @@ export default function Category() {
                                         </div>
                                     </div>
                                 ) : (
-                                    // category && category.length === 0 ? <div className="not-found">No Data Found</div> :
-                                        <CategoryList category={category} />
+                                    // author && author.length === 0 ? <div className="not-found">No Data Found</div> :
+                                        <AuthorList author={author} />
                                 )
                             }
 
@@ -174,7 +174,7 @@ export default function Category() {
 									/>
 								</div>
 								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-									Total Category: {totalcategory.total}
+									Total Author: {totalAuthor.total}
 								</div>
 							</div>
 						</div>

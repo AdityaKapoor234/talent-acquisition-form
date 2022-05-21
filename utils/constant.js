@@ -205,3 +205,9 @@ export const DEALS_VIEW = `http://65.1.17.188:5000/manage/deals/{{id}}/view`;
 export const DEALS_EDIT = `http://65.1.17.188:5000/manage/deals/{{id}}`;
 export const DEALS_CREATE = `http://65.1.17.188:5000/manage/deals`;
 export const DEALS_DELETE = `http://65.1.17.188:5000/manage/deals/{{id}}/delete`;
+
+//ARTICLES
+export const TYPELIST  = `http://65.1.17.188:5000/manage/article/type?page={{page}}&q={{search}}`;
+export const GET_TYPE_DETAILS =`http://65.1.17.188:5000/manage/article/{{id}}/view`;
+export const GET_TYPE_EDIT =`http://65.1.17.188:5000/manage/article/{{id}}/type`;
+export const GET_TYPE_CREATE=`http://65.1.17.188:5000/manage/article/type`;

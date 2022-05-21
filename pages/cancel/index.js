@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
-import OrderList from "../../component/layouts/cancel/cancel-list";
+import OrderList from "../../component/sales/cancel/cancel-list";
 import XLSX from "xlsx";
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";

@@ -19,6 +19,9 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import ArticleIcon from '@mui/icons-material/Article';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
 import { toast } from 'react-toastify';
@@ -36,6 +39,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" ? true : false);
     const [tabCMS, setTabCMS] = useState(pathArr === "banner" || pathArr === "deals"|| pathArr === "trusted-health"  ? true : false);
+    const [tabArticle, setTabArticle] = useState(pathArr === "article-type" || pathArr === "category"|| pathArr === "content"  ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -170,7 +174,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 }
                                 <div className={tabAdmin ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabAdmin(!tabAdmin)}>
                                     <span>
-                                        {tabAdmin ? <AdminPanelSettingsOutlinedIcon className='outline-icon' /> : <AdminPanelSettingsOutlinedIcon className='outline-icon' />}
+                                        {tabAdmin ? <AdminPanelSettingsIcon className='outline-icon' /> : <AdminPanelSettingsOutlinedIcon className='outline-icon' />}
                                         user
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon' />
@@ -178,6 +182,20 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabAdmin &&
                                     <ul>
                                         <li className={categary === "admin" ? "sub_active" : ""} onClick={() => handleCategary("/admin", "admin")}>user</li>
+                                    </ul>
+                                }
+                                <div className={tabArticle ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabArticle(!tabArticle)}>
+                                    <span>
+                                        {tabArticle ? <ArticleIcon className='outline-icon' /> : <ArticleOutlinedIcon className='outline-icon' />}
+                                        Article
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabArticle &&
+                                    <ul>
+                                        <li className={categary === "article-type" ? "sub_active" : ""} onClick={() => handleCategary("/article-type", "article-type")}>Type</li>
+                                        <li className={categary === "category" ? "sub_active" : ""} onClick={() => handleCategary("/category", "category")}>Category</li>
+                                        <li className={categary === "content" ? "sub_active" : ""} onClick={() => handleCategary("/content", "content")}>Content</li>
                                     </ul>
                                 }
                                 <div className={tabCMS ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCMS(!tabCMS)}>

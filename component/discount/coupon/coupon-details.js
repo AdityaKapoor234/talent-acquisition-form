@@ -197,7 +197,6 @@ export default class CouponDetails extends Component {
                         </div>
                     </div>
                 </div>
-                {console.log(this.state.input, "this.state.coupon")}
                 {this.state.tab === 1 && (
                     <>
                         {this.state.mode === "edit" && (
@@ -387,7 +386,6 @@ export default class CouponDetails extends Component {
                                                 </div>
                                             </div>
 
-                                            {console.log(this.state.userType, "this.state.userType")}
 
                                             <div className="col-md-12 ">
                                                 <label className="expertise">Customer Type<span className="mandatory-star">*</span></label>
@@ -738,8 +736,6 @@ export default class CouponDetails extends Component {
 
                                                 </div>
                                             </div>
-
-                                            {console.log(this.state.userType, "this.state.userType")}
 
                                             <div className="col-md-12 ">
                                                 <label className="expertise">Customer Type<span className="mandatory-star">*</span></label>

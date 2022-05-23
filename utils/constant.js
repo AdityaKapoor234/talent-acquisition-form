@@ -212,3 +212,17 @@ export const COUPON_LIST = `http://65.1.17.188:5002/manage/coupon?page={{page}}&
 export const COUPON_VIEW = `http://65.1.17.188:5002/manage/coupon/{{id}}/view`;
 export const COUPON_EDIT = `http://65.1.17.188:5002/manage/coupon/{{id}}/edit`;
 export const COUPON_CREATE = `http://65.1.17.188:5002/manage/coupon`;
+
+//ARTICLES
+export const TYPELIST  = `http://65.1.17.188:5000/manage/article/type?page={{page}}&q={{search}}`;
+export const GET_TYPE_DETAILS =`http://65.1.17.188:5000/manage/article/{{id}}/view`;
+export const GET_TYPE_EDIT =`http://65.1.17.188:5000/manage/article/{{id}}/type`;
+export const GET_TYPE_CREATE=`http://65.1.17.188:5000/manage/article/type`;
+export const CATEGORY_LIST= `http://65.1.17.188:5000/manage/article/category?page={{page}}&q={{search}}`;
+export const GET_CATEGORY_DETAILS_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/category/view`;
+export const GET_CATEGORY_EDIT_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/category`;
+export const GET_CATEGORY_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article/category`;
+export const AUTHOR_LIST= `http://65.1.17.188:5000/manage/article/author?page={{page}}&q={{search}}`;
+export const GET_AUTHOR_DETAILS_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/author/view`;
+export const GET_AUTHOR_EDIT_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/author`;
+export const GET_AUTHOR_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article/author`;

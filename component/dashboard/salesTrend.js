@@ -59,10 +59,10 @@ export default class salesTrend extends Component {
                     <div className="col">
                         <Line
                             data={{
-                                labels: this.state.salesTrendLabel,
+                                labels: this.state.salesTrendLabel.reverse(),
                                 datasets: [
                                     {
-                                        data: this.state.salesTrendValues,
+                                        data: this.state.salesTrendValues.reverse(),
                                         fill: true,
                                         backgroundColor: [
                                             "#b2dafd",

@@ -18,6 +18,8 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
@@ -30,6 +32,7 @@ export default function DashboardLayoutComponent({ children }) {
 
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
+    const [tabDiscount, setDiscount] = useState(pathArr === "coupon" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" ? true : false);
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription"  ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
@@ -166,6 +169,18 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "customer-support-information" ? "sub_active" : ""} onClick={() => handleCategary("/customer-support-information", "customer-support-information")}>customer support info</li>
                                         {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
                                         <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>NewsLetter Subscribers</li>
+                                    </ul>
+                                }
+                                <div className={tabDiscount ? 'menu-btn active' : 'menu-btn'} onClick={() => setDiscount(!tabDiscount)}>
+                                    <span>
+                                        {tabDiscount ? <LocalOfferIcon className='outline-icon' /> : <LocalOfferOutlinedIcon className='outline-icon' />}
+                                        discount
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabDiscount &&
+                                    <ul>
+                                        <li className={categary === "coupon" ? "sub_active" : ""} onClick={() => handleCategary("/coupon", "coupon")}>coupon</li>
                                     </ul>
                                 }
                                 <div className={tabAdmin ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabAdmin(!tabAdmin)}>

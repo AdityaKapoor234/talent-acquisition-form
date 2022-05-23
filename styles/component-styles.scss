@@ -238,6 +238,11 @@
       margin-bottom: 0.5rem;
     }
   }
+  .radioRow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
   .pagination {
     width: calc(100% - 25px) !important;
     bottom: 1%;

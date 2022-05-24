@@ -206,6 +206,13 @@ export const DEALS_EDIT = `http://65.1.17.188:5000/manage/deals/{{id}}`;
 export const DEALS_CREATE = `http://65.1.17.188:5000/manage/deals`;
 export const DEALS_DELETE = `http://65.1.17.188:5000/manage/deals/{{id}}/delete`;
 
+
+//COUPON
+export const COUPON_LIST = `http://65.1.17.188:5002/manage/coupon?page={{page}}&q={{search}}`;
+export const COUPON_VIEW = `http://65.1.17.188:5002/manage/coupon/{{id}}/view`;
+export const COUPON_EDIT = `http://65.1.17.188:5002/manage/coupon/{{id}}/edit`;
+export const COUPON_CREATE = `http://65.1.17.188:5002/manage/coupon`;
+
 //ARTICLES
 export const TYPELIST  = `http://65.1.17.188:5000/manage/article/type?page={{page}}&q={{search}}`;
 export const GET_TYPE_DETAILS =`http://65.1.17.188:5000/manage/article/{{id}}/view`;

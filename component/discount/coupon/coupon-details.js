@@ -421,7 +421,7 @@ export default class CouponDetails extends Component {
                                                             disabled={this.state.mode === "view" ? true : false}
                                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                                             name="customer_type"
-                                                            value={this.state.input?.customer_type?.toLowerCase()}
+                                                            // value={this.state.input?.customer_type?.toLowerCase()}
                                                             onChange={this.handleRadio}
                                                         >
                                                             <div className="d-flex w-100 radioRow">
@@ -753,7 +753,7 @@ export default class CouponDetails extends Component {
                                                                                 value={value?.user_type}
                                                                                 disabled
                                                                                 // onChange={this.handleChange.bind(this)}
-                                                                                checked={this.state.input?.customer_type?.toLowerCase() === value?.user_type?.toLowerCase() ? true : false}
+                                                                                // checked={this.state.input?.customer_type?.toLowerCase() === value?.user_type?.toLowerCase() ? true : false}
                                                                                 name={value?.user_type}
                                                                             />
                                                                         }

@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import CouponCreateComponent from "../../../component/discount/coupon/coupon-details";
-import Router from "next/router";
-import Cookie from "js-cookie";
 import CouponApi from "../../../services/coupon";
 import CustomerApi from "../../../services/customer";
+import Router from "next/router";
+import Cookie from "js-cookie";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -28,13 +28,38 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function CouponViewDetails({ id }) {
-  const mode = "view";
-  const [coupon, setCoupon] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [userType, setUserType] = useState([]);
+export default class CouponViewDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: props?.id,
+      mode: "view",
+      open: false,
+      userType: [],
+      coupon: [],
+      couponDetails: {
+        name: "",
+        code: "",
+        description: "",
+        start_date: "",
+        end_date: "",
+        discount_type: "",
+        min_cart_amount: null,
+        max_cart_amount: null,
+        uses_per_coupon: null,
+        uses_per_customer: null,
+        coupon_value: null,
+        by_amount_or_percent: "",
+        customer_type: "",
+        is_active: false,
+      },
+    };
+  }
 
-  const CouponDetail = (id) => {
+  stateHandle = (value) => {
+    this.setState({ couponDetails: value });
+  };
+  getcouponDetails = (id) => {
     CouponApi.couponViewDetails(id)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
@@ -54,7 +79,10 @@ export default function CouponViewDetails({ id }) {
             customer_type: response.data.data.coupon?.customer_type,
             is_active: response.data.data.coupon?.is_active,
           };
-          setCoupon(details);
+          this.setState({
+            couponDetails: details,
+          });
+          this.setState({ coupon: response.data.data.coupon });
         }
       })
       .catch((error) => {
@@ -67,32 +95,14 @@ export default function CouponViewDetails({ id }) {
         );
       });
   };
-
-  const customerTypeDropdownDetail = () => {
-    CustomerApi.getCustomerTypeDropdownDetails()
-      .then((response) => {
-        setUserType(response.data.data.list)
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  }
-
-
-  //   const Delete = (id) => {
+  //   Delete = (id) => {
   //     let data = {};
   //     CouponApi.couponDelete(id, data)
   //       .then((response) => {
   //         if (response.data.httpStatusCode === 200) {
-  //           setCoupon(response.data.data?.expert);
-  //           toast.success(response.data.message);
+  //           this.setState({ coupon: response.data.data.coupon });
   //           Router.push("/coupon");
+  //           toast.success(response.data.message);
   //         }
   //       })
   //       .catch((error) => {
@@ -106,107 +116,130 @@ export default function CouponViewDetails({ id }) {
   //       });
   //   };
 
-  useEffect(() => {
+  customerTypeDropdownDetail = () => {
+    CustomerApi.getCustomerTypeDropdownDetails()
+      .then((response) => {
+        this.setState({ userType: response.data.data.list })
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+
+  componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    CouponDetail(id);
-    customerTypeDropdownDetail();
-  }, [id]);
-  return (
-    <div>
-      <Head>
-        <title>{APP_NAME} - Coupon</title>
-        <meta name="description" content="Trusted Brands. Better Health." />
-        <link rel="icon" href="/fitcart.ico" />
-      </Head>
+    this.getcouponDetails(this.props.id);
+    this.setState({ id: this.props?.id });
+    this.customerTypeDropdownDetail();
+  }
+  render() {
+    return (
+      <div>
+        <Head>
+          <title>{APP_NAME} - Coupon</title>
+          <meta name="description" content="Trusted Brands. Better Health." />
+          <link rel="icon" href="/fitcart.ico" />
+        </Head>
 
-      <main>
-        <DashboardLayoutComponent>
-          <div className="row border-box">
-            <div className="col-md-7">
-              <div className="hamburger">
-                <span>Discount / Coupon / </span>View Coupon
+        <main>
+          <DashboardLayoutComponent>
+            <div className="row border-box">
+              <div className="col-md-7">
+                <div className="hamburger">
+                  <span>Discount / Coupon /  </span>View Coupon
+                </div>
+                <div className="page-name">
+                  View Coupon  - {this.state.coupon?.name}
+                </div>
               </div>
-              <div className="page-name">
-                Coupon Details - {coupon?.name}
+              <div className="col-md-5 btn-save">
+                {/* <div
+                  className="Cancel-btn custom-btn"
+                  onClick={() => {
+                    this.setState({ open: true });
+                  }}
+                >
+                  <span>Delete </span>
+                </div> */}
+                <div
+                  className="Cancel-btn custom-btn"
+                  onClick={() => {
+                    Router.push(`/coupon`);
+                  }}
+                >
+                  <span>Cancel </span>
+                </div>
               </div>
             </div>
-            <div className="col-md-5 btn-save">
-              {/* <div
-                className="Cancel-btn custom-btn"
+            <div className="row">
+              <div className="col-m-12">
+                <CouponCreateComponent
+                  coupon={this.state.couponDetails}
+                  mode={this.state.mode}
+                  handle={this.stateHandle.bind(this)}
+                  userType={this.state.userType}
+                />
+              </div>
+            </div>
+          </DashboardLayoutComponent>
+          <Dialog
+            open={this.state.open}
+            onClose={() => this.setState({ open: false })}
+            maxWidth="sm"
+            fullWidth
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle style={{ color: "#012169" }}>
+              Confirm the action
+            </DialogTitle>
+            <Box position="absolute" top={0} right={0}>
+              <IconButton onClick={() => this.setState({ open: false })}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <DialogContent>
+              <Typography style={{ color: "#7e8f99" }}>
+                Are you sure you want to delete this pro?
+              </Typography>
+            </DialogContent>
+            <DialogActions style={{ marginBottom: "0.5rem" }}>
+              <Button
                 onClick={() => {
-                  setOpen(true);
+                  this.setState({ open: false });
                 }}
-              >
-                <span>Delete </span>
-              </div> */}
-              <div
-                className="Cancel-btn custom-btn"
-                onClick={() => {
-                  Router.push(`/coupon`);
+                style={{
+                  color: "#012169",
+                  background: "white",
+                  borderRadius: "0px",
                 }}
+                color="primary"
+                variant="contained"
               >
-                <span>Cancel </span>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-m-12">
-              <CouponCreateComponent
-                mode={mode}
-                coupon={coupon}
-                userType={userType}
-              />
-            </div>
-          </div>
-        </DashboardLayoutComponent>
-        <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
-          maxWidth="sm"
-          fullWidth
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle style={{ color: "#012169" }}>
-            Confirm the action
-          </DialogTitle>
-          <Box position="absolute" top={0} right={0}>
-            <IconButton onClick={() => setOpen(false)}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-          <DialogContent>
-            <Typography style={{ color: "#7e8f99" }}>
-              Are you sure you want to delete this pro?
-            </Typography>
-          </DialogContent>
-          <DialogActions style={{ marginBottom: "0.5rem" }}>
-            <Button
-              onClick={() => setOpen(false)}
-              style={{
-                color: "#012169",
-                background: "white",
-                borderRadius: "0px",
-              }}
-              color="primary"
-              variant="contained"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={() => Delete(id)}
-              style={{ background: "#f54a00", borderRadius: "0px" }}
-              color="secondary"
-              variant="contained"
-            >
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </main>
-    </div>
-  );
+                Cancel
+              </Button>
+              <Button
+                onClick={() => this.Delete(this.state.id)}
+                style={{ background: "#f54a00", borderRadius: "0px" }}
+                color="secondary"
+                variant="contained"
+              >
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </main>
+      </div>
+    );
+  }
 }

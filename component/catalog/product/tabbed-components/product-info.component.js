@@ -35,7 +35,8 @@ export default class ProductInfoComponent extends Component {
                 "specialty_diet": "",
                 "weight": null,
                 "weight_unit": "",
-                "status":"select"
+                "status":"select",
+                "hsn_code_id":""
             },
             id:props?.id,
             mode:props?.mode,
@@ -224,7 +225,7 @@ export default class ProductInfoComponent extends Component {
                 infoDetails:response.data.data
             })
             if(button === "continue"){
-                this.props?.tab("classification")
+                this.props?.tab("variant")
             }else if(button === "save"){
                 Router.push("/product")
             }

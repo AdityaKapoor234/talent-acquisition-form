@@ -13,18 +13,19 @@ import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-
+import CustomerApi from "../../services/customer";
+import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
-import EmailSupport from "../../component/email-support/email-support.component"
-import InquiryApi from "../../services/inquiry";
+import CouponLog from "../../component/coupon-log/coupon-log.component";
+import CouponApi from "../../services/coupon"
 
-export default function Email_Support() {
+export default function Coupon_Log() {
     const pathArr = useRouter();
-    const [emailSupport, setEmailSupport] = useState([]);
+    const [couponLog, setCouponLog] = useState([]);
     const [Page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
-    const [totalEmailSupport, setTotalEmailSupport] = useState([]);
+    const [totalCouponLog, setTotalCouponLog] = useState([]);
 	const [isLoader, setIsLoader] = useState(true);
     const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
@@ -37,11 +38,11 @@ export default function Email_Support() {
 		}
 		if (event.key === "Enter") {
 			Router.push({
-				pathname: "/email-support",
+				pathname: "/coupon-log",
 				query: router_query_object,
 			});
 			setCurrentPage(1)
-            getEmailSupport(1, wordEntered);
+            getCouponLogList(1, wordEntered);
 		}
 	};
 
@@ -52,11 +53,11 @@ export default function Email_Support() {
 		}
 		// if (event.key === "Enter") {
 		Router.push({
-			pathname: "/email-support",
+			pathname: "/coupon-log",
 			query: router_query_object,
 		});
 		setCurrentPage(1)
-        getEmailSupport(1, wordEntered);
+        getCouponLogList(1, wordEntered);
 		// }
 	};
 
@@ -65,25 +66,25 @@ export default function Email_Support() {
 		setWordEntered(searchWord);
 		if (event.target.value === "") {
 			Router.push({
-				pathname: "/email-support",
+				pathname: "/coupon-log",
 				query: "",
 			});
-            getEmailSupport(1, "");
+            getCouponLogList(1, "");
 		}
 	};
     let onPageChange = function (e, page) {
 		setCurrentPage(page)
-        getEmailSupport(page, wordEntered)
+        getCouponLogList(page, wordEntered)
 	};
 
 
-    const getEmailSupport = (page,search) => {
+    const getCouponLogList = (page,search) => {
 		setIsLoader(true);
-		InquiryApi.emailSupportList(page,search)
+		CouponApi.couponLog(page,search)
 			.then((response) => {
                 console.log(response)
-				setEmailSupport(response.data.data.list);
-				setTotalEmailSupport(response.data.data.total);
+				setCouponLog(response.data.data.list);
+				setTotalCouponLog(response.data.data.total);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
 				setIsLoader(false);
 			})
@@ -103,14 +104,14 @@ export default function Email_Support() {
 		if (token === undefined) {
 			Router.push("/");
 		}
-		getEmailSupport(currentPage, "");
+		getCouponLogList(currentPage, "");
 	}, []);
 
     return (
         <div>
             <div>
                 <Head>
-                    <title>{APP_NAME} - Email Support</title>
+                    <title>{APP_NAME} - Coupon Log</title>
                     <meta name="description" content="Trusted Brands. Better Health." />
                     <link rel="icon" href="/fitcart.ico" />
                 </Head>
@@ -120,9 +121,9 @@ export default function Email_Support() {
                         <div className="row border-box">
                             <div className="col-md-8">
                                 <div className="hamburger">
-                                    <span>Inquiry / </span>Email-Support
+                                    <span>Coustmer / </span>Coupon Log
                                 </div>
-                                <div className="page-name">Email-Support</div>
+                                <div className="page-name">Coupon Log</div>
                             </div>
                             <div className="col-md-4">
                                 <div className="login-form ">
@@ -154,7 +155,7 @@ export default function Email_Support() {
 									</div>
 								) : (
 									// advertiseWithUs && advertiseWithUs.length === 0 ? <div className="not-found">No Data Found</div> :
-									< EmailSupport list={emailSupport} />
+									< CouponLog list={couponLog} />
 								)
 							}
 
@@ -185,7 +186,7 @@ export default function Email_Support() {
                                         />
                                     </div>
                                     <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-                                        Total Email-Support: {totalEmailSupport}
+                                        Total Coupon-Log: {totalCouponLog}
                                     </div>
                                 </div>
                             </div>

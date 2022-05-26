@@ -5,11 +5,11 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Router from "next/router";
 
-export default class EmailSupport extends Component {
+export default class CouponLog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: props?.list,
+    list: props?.list,
     };
   }
 
@@ -55,12 +55,12 @@ export default class EmailSupport extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col-2 pe-1 ">Name</div>
+              <div className="col-2 pe-1">Coupon Code</div>
               {/* <div className="col text-center">Type</div> */}
-              <div className="col-4  text-center ">Email</div>
-              <div className="col-2  text-center ">Category</div>
-              <div className="col-2  text-center ">Description</div>
-              <div className="col-2 text-center ">View</div>
+              <div className="col-3 px-2 text-center">Order id</div>
+              <div className="col px-2 text-center">Customer</div>
+              <div className="col px-2 text-center">Date</div>
+              <div className="col-2 text-center ">Discount Amount</div>
             </div>
           </div>
         </div>
@@ -68,24 +68,24 @@ export default class EmailSupport extends Component {
 		this.state.list && this.state.list.length === 0 ? <div className="not-found">No Data Found</div> :
           this.state.list?.map((p, index) => {
           return (
-
             <div className="row" key={index}>
               <div className="col-md-12">
                 <div className="tableCell">
-                  <div className="tableBody  col-2 pe-1 elip-text" title={p?.name}>{p?.name}</div>
+                  <div className="tableBody pe-1 col-2 elip-text" title={p?.coupon_code}>{p?.coupon_code}</div>
                   {/* <div className="col text-center">{p?.type?p?.type:"General"}</div> */}
-                  <div className="tableBody  col-4 justify-content-center elip-text" title={p?.email}>
-                    {p?.email}
+                  <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.order_no}>
+                    {p?.order_no}
                   </div>
-                  <div className="col-2  text-center elip-text" title={p?.category}>{p?.category}</div>
-                  <div className="col-2  text-center elip-text" title={p?.customer_query}>{p?.customer_query}</div>
-                  <div className="col-2 text-center">
-                    <RemoveRedEyeIcon
+                  <div className="col px-2 text-center elip-text" title={p?.customer}>{p?.customer}</div>
+                  <div className="col px-2 text-center elip-text"></div>
+                  <div className="col-2 text-center" title={p?.discount}>
+                    {/* <RemoveRedEyeIcon
                       className="view-icon"
                       onClick={() => {
-                        Router.push(`/email-support/${p?.id}/view`);
+                        Router.push(`/bulk-buys/${p?.id}/view`);
                       }}
-                    />
+                    /> */}
+                    {p?.discount}
                   </div>
                 </div>
               </div>

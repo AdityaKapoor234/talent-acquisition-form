@@ -155,6 +155,8 @@ export const TRUSTED_HEALTH_DETAILS = `http://65.1.17.188:5001/manage/trusthealt
 export const TRUSTED_HEALTH_EDIT = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/edit`;
 export const TRUSTED_HEALTH_CREATE = `http://65.1.17.188:5001/manage/trusthealth/add`;
 export const TRUSTED_HEALTH_DELETE = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/delete`;
+export const EMAIL_SUPPORT_LIST ='http://65.1.17.188:5000/manage/email/support?page={{page}}&q={{search}}'
+export const EMAIL_SUPPORT_VIEW='http://65.1.17.188:5000/manage/email/support/{{id}}/view'
 
 //SPORTS
 export const SPORTS_LIST = `http://65.1.17.188:5001/manage/sports?page={{page}}&q={{search}}`;
@@ -212,6 +214,7 @@ export const COUPON_LIST = `http://65.1.17.188:5002/manage/coupon?page={{page}}&
 export const COUPON_VIEW = `http://65.1.17.188:5002/manage/coupon/{{id}}/view`;
 export const COUPON_EDIT = `http://65.1.17.188:5002/manage/coupon/{{id}}/edit`;
 export const COUPON_CREATE = `http://65.1.17.188:5002/manage/coupon`;
+export const COUPON_LOG ="http://65.1.17.188:5002/manage/coupon/logs?page={{page}}&q={{search}}"
 
 //ARTICLES
 export const TYPELIST  = `http://65.1.17.188:5000/manage/article/type?page={{page}}&q={{search}}`;

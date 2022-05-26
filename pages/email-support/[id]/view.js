@@ -22,13 +22,14 @@ export async function getServerSideProps(context) {
 export default function EmailSupportViews({ id }) {
     const mode = "view";
 
-    const [bulkbuysview, setBulkbuysview] = useState([]);
+    const [emailSupportView,  setEmailSupportView] = useState([]);
     // const [open, setOpen] = useState(false);
 
-    const bulkbuysviewDetail = (id) => {
-        InquiryApi.getBulkBuysViewDetails(id)
+    const getEmailSupportView = (id) => {
+        InquiryApi.getEmailSupportView(id)
             .then((response) => {
-            setBulkbuysview(response.data.data.bulk_buy_view);
+                console.log(response)
+            setEmailSupportView(response.data.data.email_support);
             })
             .catch((error) => {
                 toast.error(
@@ -47,7 +48,7 @@ export default function EmailSupportViews({ id }) {
         if (token === undefined) {
             Router.push("/");
         }
-        bulkbuysviewDetail(id);
+        getEmailSupportView(id);
     }, []);
     return (
         <div>
@@ -64,14 +65,14 @@ export default function EmailSupportViews({ id }) {
                             <div className="hamburger">
                                 <span>Inquiry /Email Sppourt/ </span>View Email Support
                             </div>
-                            <div className="page-name">Email Support Details -{bulkbuysview?.name} </div>
+                            <div className="page-name">Email Support Details -{emailSupportView?.name} </div>
                         </div>
                         <div className="col-md-7 btn-save">
                           
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
-                                    Router.push(`/bulk-buys`);
+                                    Router.push(`/email-support`);
                                 }}
                             >
                                 <span>Cancel </span>
@@ -80,7 +81,7 @@ export default function EmailSupportViews({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                           {bulkbuysview && <EmailSupportView bulkbuyview={bulkbuysview} mode={mode} />}
+                            <EmailSupportView view={emailSupportView} mode={mode} />
                         
                         </div>
                     </div>

@@ -8,17 +8,17 @@ export default class EmailSupportView extends Component {
         super(props);
         this.state = {
             tab: 1,
-            bulkbuyview: props?.bulkbuyview,
+            view: props?.view,
             mode: props?.mode,
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-            prevState.bulkbuyview !== nextProps.bulkbuyview ||
+            prevState.view !== nextProps.view ||
             prevState.mode !== nextProps.mode
         ) {
             return {
-                bulkbuyview: nextProps?.bulkbuyview,
+                view: nextProps?.view,
                 mode: nextProps?.mode,
             };
         }
@@ -41,7 +41,7 @@ export default class EmailSupportView extends Component {
                                     this.setState({ tab: 1 });
                                 }}
                             >
-                                Bulk Buys info
+                                Email Support info
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@ export default class EmailSupportView extends Component {
                                                 <label>Name<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.state.bulkbuyview?.name}
+                                                    value={this.state.view?.name}
                                                     readOnly={true}
                                                 />
                                             </div>
@@ -65,28 +65,28 @@ export default class EmailSupportView extends Component {
                                                 <label>Email<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.state.bulkbuyview?.email}
+                                                    value={this.state.view?.email}
                                                     readOnly={true}
                                                 />
                                             </div>
                                             <div className="login-form ">
-                                                <label>Contact No.<span className="mandatory-star">*</span></label>
+                                                <label>Category<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.state.bulkbuyview?.phone_no}
+                                                    value={this.state.view?.category}
                                                     readOnly={true}
                                                 />
                                             </div>
 
-                                            <div className="login-form ">
+                                            {/* <div className="login-form ">
                                                 <label>Address.<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
                                                     value={this.state.bulkbuyview?.address}
                                                     readOnly={true}
                                                 />
-                                            </div>
-
+                                            </div> */}
+{/* 
                                             <div className="login-form ">
                                                 <label>State.<span className="mandatory-star">*</span></label>
                                                 <input
@@ -94,8 +94,8 @@ export default class EmailSupportView extends Component {
                                                     value={this.state.bulkbuyview?.state}
                                                     readOnly={true}
                                                 />
-                                            </div>
-                                            <div>
+                                            </div> */}
+                                            {/* <div>
                                                 <span className="login-form">
                                                     <label>City.<span className="mandatory-star">*</span></label>
                                                     <input
@@ -113,34 +113,27 @@ export default class EmailSupportView extends Component {
                                                         readOnly={true}
                                                     />
                                                 </span>
-                                            </div>
+                                            </div> */}
                                             <div className="login-form ">
-                                                <label>Brief Description for Purchase<span className="mandatory-star">*</span></label>
+                                                <label>Brief Description <span className="mandatory-star">*</span></label>
                                                 <textarea
                                                     cols="100"
                                                     rows="5"
-                                                    value={this.state.bulkbuyview?.purchase_desc}
+                                                    value={this.state.view?.customer_query}
                                                     readOnly={true}
                                                 />
                                             </div>
 
-                                            <div className="login-form ">
-                                                <label>Products Order<span className="mandatory-star">*</span></label>
-                                                <input
-                                                    type="text"
-                                                    value={this.state.bulkbuyview?.order_product}
-                                                    readOnly={true}
-                                                />
-                                            </div>
+                                          
 
-                                            <div className="login-form ">
+                                            {/* <div className="login-form ">
                                                 <label>Quantity required<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
                                                     value={this.state.bulkbuyview?.quantity_required}
                                                     readOnly={true}
                                                 />
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>

@@ -5,7 +5,7 @@ const {API_BASE_URL_SPACE_SERVICE, API_BASE_URL_USER_SERVICE,API_BASE_URL_PROPOS
 export const APP_NAME = WEBSITE_NAME
 export const APP_TAGLINE = WEBSITE_TAGLINE
 export const APP_IMAGE = WEBSITE_IMAGE_URL
-export const APP_URL = WEBSITE_URL
+export const APP_URL = "http://65.1.17.188:2000"
 
 // Password Regex
 export const PASSWORD_REGEX = /^[a-zA-Z0-9.!#$%&'*+@/=?^_`():;,"<>{|}~-]{6,}$/
@@ -97,6 +97,11 @@ export const GET_INVENTORY_LIST =`http://65.1.17.188:5001/manage/inventory/{{id}
 export const CREATE_INVENTORY=`http://65.1.17.188:5001/manage/inventory/{{id}}`;
 export const GET_INVENTORY_DELETE=`http://65.1.17.188:5001/manage/inventory/{{id}}/delete`;
 export const GET_INVENTORY_UPADTE=`http://65.1.17.188:5001/manage/inventory/{{id}}/update`;
+//VARIENT
+export const GET_VARIANTS =`http://65.1.17.188:5001/manage/product/{{id}}/variants`;
+export const UPDATE_VARIANTS =`http://65.1.17.188:5001/manage/product/{{id}}/variants`;
+export const UPDATE_PRODUCT_VARIANT =`http://65.1.17.188:5001/manage/product/{{id}}/variant`;
+export const GET_PRODUCT_LIST = `http://65.1.17.188:5001/manage/product/search`;
 
 //QUERY
 export const QUERYLIST = `http://65.1.17.188:5000/manage/queries?page={{page}}&sort_by={{latest}}`;
@@ -155,6 +160,8 @@ export const TRUSTED_HEALTH_DETAILS = `http://65.1.17.188:5001/manage/trusthealt
 export const TRUSTED_HEALTH_EDIT = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/edit`;
 export const TRUSTED_HEALTH_CREATE = `http://65.1.17.188:5001/manage/trusthealth/add`;
 export const TRUSTED_HEALTH_DELETE = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/delete`;
+export const EMAIL_SUPPORT_LIST ='http://65.1.17.188:5000/manage/email/support?page={{page}}&q={{search}}'
+export const EMAIL_SUPPORT_VIEW='http://65.1.17.188:5000/manage/email/support/{{id}}/view'
 
 //SPORTS
 export const SPORTS_LIST = `http://65.1.17.188:5001/manage/sports?page={{page}}&q={{search}}`;
@@ -212,6 +219,7 @@ export const COUPON_LIST = `http://65.1.17.188:5002/manage/coupon?page={{page}}&
 export const COUPON_VIEW = `http://65.1.17.188:5002/manage/coupon/{{id}}/view`;
 export const COUPON_EDIT = `http://65.1.17.188:5002/manage/coupon/{{id}}/edit`;
 export const COUPON_CREATE = `http://65.1.17.188:5002/manage/coupon`;
+export const COUPON_LOG ="http://65.1.17.188:5002/manage/coupon/logs?page={{page}}&q={{search}}"
 
 //ARTICLES
 export const TYPELIST  = `http://65.1.17.188:5000/manage/article/type?page={{page}}&q={{search}}`;

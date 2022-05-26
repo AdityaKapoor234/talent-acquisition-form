@@ -9,6 +9,7 @@ import ProductCustomComponent from "./tabbed-components/product-custom.component
 import ProductSupplementsComponent from "./tabbed-components/product-supplements.component";
 import ProductCertificateComponent from "./tabbed-components/product-certificate.component";
 import ProductClassificationComponent from "./tabbed-components/product-classification.component";
+import ProductVariantComponent from "./tabbed-components/product-variant.component";
 
 const editor_tabs = [
   {
@@ -16,6 +17,12 @@ const editor_tabs = [
     show: true,
     label: "Info",
     key: "info",
+  },
+  {
+    id: 2,
+    show: true,
+    label: "Variants",
+    key: "variant",
   },
   {
     id: 9,
@@ -130,6 +137,16 @@ export default class ProductEditComponent extends Component {
                 id={this.state.id}
                 mode={this.state.mode}
                 tab={this.setTab.bind(this)}
+              />
+            </>
+          )}
+          {this.state.tab === "variant" && (
+            <>
+              <ProductVariantComponent
+                id={this.state.id}
+                mode={this.state.mode}
+                tab={this.setTab.bind(this)}
+                content={this.state.content}
               />
             </>
           )}

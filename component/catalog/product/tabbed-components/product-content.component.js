@@ -296,7 +296,7 @@ export default class ProductContentComponent extends Component {
                                 <small className="form-text text-danger" >{this.state.errors["does_not_contain"]}</small>
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Warning
+                                <label>Product Restrictions
                                     {/* <span className="mandatory-star">*</span> */}
                                 </label>
                                 <br />

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { COUPON_LIST, COUPON_VIEW, COUPON_EDIT, COUPON_CREATE, } from "../utils/constant";
+import { COUPON_LIST, COUPON_VIEW, COUPON_EDIT, COUPON_CREATE,COUPON_LOG } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class CouponApi {
@@ -46,6 +46,17 @@ export class CouponApi {
             }
         };
         return axios.post(`${COUPON_CREATE}`,data,httpOptions)
+    }
+
+    static couponLog(page, search) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${COUPON_LOG}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
     }
 
 }

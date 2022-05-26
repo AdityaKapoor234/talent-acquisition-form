@@ -18,11 +18,13 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
+import FindInPageOutlinedIcon from '@mui/icons-material/FindInPageOutlined';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ArticleIcon from '@mui/icons-material/Article';
+import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
@@ -36,6 +38,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
     const [tabDiscount, setDiscount] = useState(pathArr === "coupon" ? true : false);
+    const [tabHsnCode, setHsnCode] = useState(pathArr === "gst" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" ? true : false);
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription"  ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
@@ -187,6 +190,19 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "coupon" ? "sub_active" : ""} onClick={() => handleCategary("/coupon", "coupon")}>coupon</li>
                                     </ul>
                                 }
+                                                                <div className={tabHsnCode ? 'menu-btn active' : 'menu-btn'} onClick={() => setHsnCode(!tabHsnCode)}>
+                                    <span>
+                                        {tabHsnCode ? <PointOfSaleOutlinedIcon className='outline-icon' /> : <PointOfSaleOutlinedIcon className='outline-icon' />}
+                                        HSN Code
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabHsnCode &&
+                                    <ul>
+                                        <li className={categary === "gst" ? "sub_active" : ""} onClick={() => handleCategary("/gst", "gst")}>GST</li>
+                                    </ul>
+                                }
+
                                 <div className={tabAdmin ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabAdmin(!tabAdmin)}>
                                     <span>
                                         {tabAdmin ? <AdminPanelSettingsIcon className='outline-icon' /> : <AdminPanelSettingsOutlinedIcon className='outline-icon' />}
@@ -230,7 +246,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 }
                                 <div className={tabInquiry ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabInquiry(!tabInquiry)}>
                                     <span>
-                                        {tabInquiry ? <FindInPageIcon className='outline-icon' /> : <FindInPageIcon className='outline-icon' />}
+                                        {tabInquiry ? <FindInPageIcon className='outline-icon' /> : <FindInPageOutlinedIcon className='outline-icon' />}
                                         Inquiry
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon' />

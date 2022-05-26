@@ -39,7 +39,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" ? true : false);
     const [tabCMS, setTabCMS] = useState(pathArr === "banner" || pathArr === "deals"|| pathArr === "trusted-health"  ? true : false);
-    const [tabArticle, setTabArticle] = useState(pathArr === "article-type" || pathArr === "article-category"|| pathArr === "content" || pathArr === "article-author" ? true : false);
+    const [tabArticle, setTabArticle] = useState(pathArr === "article-type" || pathArr === "article-category"|| pathArr === "article-content" || pathArr === "article-author" ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -196,7 +196,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "article-type" ? "sub_active" : ""} onClick={() => handleCategary("/article-type", "article-type")}>Type</li>
                                         <li className={categary === "article-category" ? "sub_active" : ""} onClick={() => handleCategary("/article-category", "article-category")}>Category</li>
                                         <li className={categary === "article-author" ? "sub_active" : ""} onClick={() => handleCategary("/article-author", "article-author")}>Author</li>
-                                        <li className={categary === "content" ? "sub_active" : ""} onClick={() => handleCategary("/content", "content")}>Content</li>
+                                        <li className={categary === "article-content" ? "sub_active" : ""} onClick={() => handleCategary("/article-content", "article-content")}>Content</li>
                                     </ul>
                                 }
                                 <div className={tabCMS ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCMS(!tabCMS)}>

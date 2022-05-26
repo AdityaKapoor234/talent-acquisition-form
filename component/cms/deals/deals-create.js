@@ -189,7 +189,7 @@ export default class DealsCreate extends Component {
 													img={this.state.input?.icon_url}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_icon}
-													urlName="icon"
+													urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
 												/>
 											</div>
 											<div className="mt-4">
@@ -201,7 +201,7 @@ export default class DealsCreate extends Component {
 													img={this.state.input?.discount_image_url}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_lg}
-													urlName="icon"
+													urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
 												/>
 											</div>
 											<div className="signup-check mt-4">

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function photo({ label, accept, mode, img,name,setUrl,value,urlName}) {
+export default function photo({ label, accept, mode, img,name,setUrl,value,urlLink}) {
   const [image, setImage] = useState(img ? img : "");
   const [isLoader, setIsLoader] = useState(false);
 
@@ -15,7 +15,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlNa
       const formData = new FormData();
       formData.append("media", files[0]);
       uploadfile(
-        `http://65.1.17.188:5001/manage/category/photo/${urlName}`,
+        urlLink,
         formData,
         name
       );

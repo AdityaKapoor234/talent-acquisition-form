@@ -1,7 +1,8 @@
 import axios from "axios";
 import { TYPELIST,GET_TYPE_DETAILS,GET_TYPE_EDIT,GET_TYPE_CREATE,
     CATEGORY_LIST,GET_CATEGORY_DETAILS_ARTICLE,GET_CATEGORY_EDIT_ARTICLE,GET_CATEGORY_CREATE_ARTICLE,
-    AUTHOR_LIST,GET_AUTHOR_DETAILS_ARTICLE,GET_AUTHOR_EDIT_ARTICLE,GET_AUTHOR_CREATE_ARTICLE,} from "../utils/constant";
+    AUTHOR_LIST,GET_AUTHOR_DETAILS_ARTICLE,GET_AUTHOR_EDIT_ARTICLE,GET_AUTHOR_CREATE_ARTICLE,
+    CONTENT_LIST,GET_CONTENT_DETAILS_ARTICLE,GET_CONTENT_EDIT_ARTICLE,GET_CONTENT_CREATE_ARTICLE,} from "../utils/constant";
 import cookie from "js-cookie";
 
 export class ArticlesApi {
@@ -136,6 +137,50 @@ export class ArticlesApi {
             }
         };
         return axios.post(`${GET_AUTHOR_CREATE_ARTICLE}`,data,httpOptions)
+    }
+
+    static ContentList(page,search) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${CONTENT_LIST}`.replace('{{page}}', page).replace('{{search}}', search),httpOptions)
+    }
+
+    static getContentDetails(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_CONTENT_DETAILS_ARTICLE}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static ContentEdit(id,data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.post(`${GET_CONTENT_EDIT_ARTICLE}`.replace('{{id}}', id),data,httpOptions)
+    }
+
+    static ContentCreate(data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.post(`${GET_CONTENT_CREATE_ARTICLE}`,data,httpOptions)
     }
 
 }

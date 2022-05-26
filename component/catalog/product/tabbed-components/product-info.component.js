@@ -35,7 +35,8 @@ export default class ProductInfoComponent extends Component {
                 "specialty_diet": "",
                 "weight": null,
                 "weight_unit": "",
-                "status":"select"
+                "status":"select",
+                "hsn_code_id":""
             },
             id:props?.id,
             mode:props?.mode,

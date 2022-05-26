@@ -1,5 +1,8 @@
 import axios from "axios";
-import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO,GET_INVENTORY_UPADTE,GET_INVENTORY_DELETE,CREATE_INVENTORY, CONTENTLIST, CONTENT_LIST_EDIT,GET_PRICE,ADD_CLASSIFICTION,GET_CLASSIFICTION,GET_CERTIFICATE,ADD_CERTIFICATE,GET_INVENTORY_LIST } from "../utils/constant";
+import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO,GET_INVENTORY_UPADTE,
+    GET_INVENTORY_DELETE,CREATE_INVENTORY, CONTENTLIST, CONTENT_LIST_EDIT,
+    GET_PRICE,ADD_CLASSIFICTION,GET_CLASSIFICTION,GET_CERTIFICATE,ADD_CERTIFICATE,
+    GET_INVENTORY_LIST,GET_CATEGORY_INFO, GET_PRODUCT_LIST, GET_VARIANTS, UPDATE_VARIANTS } from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -190,6 +193,41 @@ export class ProductApi {
             }
         };
         return axios.post(`${CREATE_INVENTORY}`.replace('{{id}}',id),data,httpOptions)
+    }
+
+    //Vareint
+
+    static getVariants(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        return axios.get(`${GET_VARIANTS}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static updateVariants(id, payload) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        return axios.post(`${UPDATE_VARIANTS}`.replace('{{id}}', id),payload,httpOptions)
+    }
+    static getProducts(param) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        const url = `${GET_PRODUCT_LIST}?q=`+param
+        return axios.get(url, httpOptions)
     }
 
 

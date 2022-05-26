@@ -523,6 +523,18 @@
       filter: grayscale(0%);
     }
   }
+  .variant-preview{
+    min-height: 8rem;
+    border: 1px solid $clr-gray200;
+    margin: 0.5rem auto;
+    .not-selected{
+      text-align: center;
+      font-weight: 400;
+      font-size: 0.75rem;
+      margin-bottom: 0;
+      line-height: 8rem;
+    }
+  }
 }
 
 [data-component="address-view"] {
@@ -980,5 +992,53 @@
     .webVisi {
       display: none;
     }
+  }
+}
+//VAREINT
+.modal-box{
+  .header{
+    margin-bottom: 1rem;
+    .modal-title{
+      font-size: 1.5rem;
+    }
+  }
+  .footer{
+    margin-top: 0.5rem;
+  }
+}
+.box-radius-square{
+  border-radius: 0;
+}
+// [data-modal-box='variant-selector']{
+
+// }
+[data-component="product-selector"]{
+  .product-list-container{
+    height: 22rem;
+    overflow: auto;
+    .product-list-item{
+      &:hover{
+        background: $clr-gray200;
+      }
+      &.selected{
+        background:$clr-gray300;
+      }
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border: 1px solid $clr-gray300;
+      .name{
+        margin-bottom: 0;
+        font-weight: bold;
+      }
+    }
+  }
+}
+[data-component="product-variant-edit"]{
+  .product-list-item{
+    background: transparent;
+    border: 1px solid $clr-gray300;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
   }
 }

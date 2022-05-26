@@ -82,5 +82,19 @@ export class productInfoApi {
         return axios.get(`${GET_COUNTRY}`,httpOptions)
     }
 
+    static updateVariant(id,type,product_id, value) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${GET_INFO}`.replace('{{id}}', id).replace('{{type}}', type),{
+            'product_id': product_id,
+            'value': value
+        },httpOptions)
+    }
+
 }
 export default productInfoApi;

@@ -48,7 +48,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.title === "" ||
       this.state.contentDetails?.title === null ||
       this.state.contentDetails?.title === undefined
-      // this.state.contentDetails?.title.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the title");
       return false;
@@ -57,7 +56,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.slug === "" ||
       this.state.contentDetails?.slug === null ||
       this.state.contentDetails?.slug === undefined
-      // this.state.contentDetails?.slug.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the slug");
       return false;
@@ -66,25 +64,22 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.status === "select" ||
       this.state.contentDetails?.status === null ||
       this.state.contentDetails?.status === undefined
-      // this.state.contentDetails?.status.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the status");
       return false;
     }
-    if (
-      this.state.contentDetails?.feature_image === "" ||
-      this.state.contentDetails?.feature_image === null ||
-      this.state.contentDetails?.feature_image === undefined
-      // this.state.contentDetails?.feature_image.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the feature image");
-      // return false;
-    }
+    // if (
+    //   this.state.contentDetails?.feature_image === "" ||
+    //   this.state.contentDetails?.feature_image === null ||
+    //   this.state.contentDetails?.feature_image === undefined
+    // ) {
+    //   toast.error("Please enter the feature image");
+    //   // return false;
+    // }
     if (
       this.state.contentDetails?.meta_tags === "" ||
       this.state.contentDetails?.meta_tags === null ||
       this.state.contentDetails?.meta_tags === undefined
-      // this.state.contentDetails?.meta_tags.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the meta tags");
       return false;
@@ -93,7 +88,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.meta_title === "" ||
       this.state.contentDetails?.meta_title === null ||
       this.state.contentDetails?.meta_title === undefined
-      // this.state.contentDetails?.meta_title.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the meta title");
       return false;
@@ -102,7 +96,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.meta_description === "" ||
       this.state.contentDetails?.meta_description === null ||
       this.state.contentDetails?.meta_description === undefined
-      // this.state.contentDetails?.meta_description.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the meta description");
       return false;
@@ -111,7 +104,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.category_id === "select" ||
       this.state.contentDetails?.category_id === null ||
       this.state.contentDetails?.category_id === undefined
-      // this.state.contentDetails?.category_id.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the category");
       return false;
@@ -120,7 +112,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.type_id === "select" ||
       this.state.contentDetails?.type_id === null ||
       this.state.contentDetails?.type_id === undefined
-      // this.state.contentDetails?.type_id.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the type");
       return false;
@@ -129,7 +120,6 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.author_id === "select" ||
       this.state.contentDetails?.author_id === null ||
       this.state.contentDetails?.author_id === undefined
-      // this.state.contentDetails?.author_id.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the author");
       return false;
@@ -138,28 +128,14 @@ export default class ContentCreate extends Component {
       !this.state.contentDetails?.content || 
       this.state.contentDetails?.content ==="<p></p>\n" || 
       this.state.contentDetails?.content.replace(/&nbsp;/g, "").length <=8
-      // this.state.contentDetails?.content === "" ||
-      // this.state.contentDetails?.content === null ||
-      // this.state.contentDetails?.content === undefined
-      // this.state.contentDetails?.content.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the product label");
       return false;
     }
-    // if (
-    //   this.state.contentDetails?.published_at === "" ||
-    //   this.state.contentDetails?.published_at === null ||
-    //   this.state.contentDetails?.published_at === undefined
-      // this.state.contentDetails?.published_at.replace(/\s/g, "").length <= 0
-    // ) {
-    //   toast.error("Please enter the publish date");
-    //   return false;
-    // }
     if (
       this.state.contentDetails?.sort_order === "" ||
       this.state.contentDetails?.sort_order === null ||
       this.state.contentDetails?.sort_order === undefined
-      // this.state.contentDetails?.sort_order.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the display order");
       return false;

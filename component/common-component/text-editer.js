@@ -21,7 +21,6 @@ export default class ArticleEditor extends Component {
   constructor(props) {
     super(props);
 
-    // timeout = setTimeout(() => {
     this.state = {
       value: props?.value,
       mode: props?.mode,
@@ -30,7 +29,6 @@ export default class ArticleEditor extends Component {
       articleProd: props?.articleProd ? props?.articleProd : "",
 
     };
-    // }, 1000)
   }
 
   setValue = () => {

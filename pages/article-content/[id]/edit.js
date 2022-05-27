@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
   const { id } = context.query;
   return {
     props: {
-      id: id || null,
+      id: id || null
     },
   };
 }
@@ -88,7 +88,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.title === "" ||
       this.state.articleDetails?.title === null ||
       this.state.articleDetails?.title === undefined
-      // this.state.articleDetails?.title.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the title");
       return false;
@@ -97,7 +96,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.slug === "" ||
       this.state.articleDetails?.slug === null ||
       this.state.articleDetails?.slug === undefined
-      // this.state.articleDetails?.slug.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the slug");
       return false;
@@ -106,25 +104,22 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.status === "select" ||
       this.state.articleDetails?.status === null ||
       this.state.articleDetails?.status === undefined
-      // this.state.articleDetails?.status.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the status");
       return false;
     }
-    if (
-      this.state.articleDetails?.feature_image === "" ||
-      this.state.articleDetails?.feature_image === null ||
-      this.state.articleDetails?.feature_image === undefined
-      // this.state.articleDetails?.feature_image.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the feature image");
-      // return false;
-    }
+    // if (
+    //   this.state.articleDetails?.feature_image === "" ||
+    //   this.state.articleDetails?.feature_image === null ||
+    //   this.state.articleDetails?.feature_image === undefined
+    // ) {
+    //   toast.error("Please enter the feature image");
+    //   // return false;
+    // }
     if (
       this.state.articleDetails?.meta_tags === "" ||
       this.state.articleDetails?.meta_tags === null ||
       this.state.articleDetails?.meta_tags === undefined
-      // this.state.articleDetails?.meta_tags.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the meta tags");
       return false;
@@ -133,7 +128,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.meta_title === "" ||
       this.state.articleDetails?.meta_title === null ||
       this.state.articleDetails?.meta_title === undefined
-      // this.state.articleDetails?.meta_title.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the meta title");
       return false;
@@ -142,7 +136,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.meta_description === "" ||
       this.state.articleDetails?.meta_description === null ||
       this.state.articleDetails?.meta_description === undefined
-      // this.state.articleDetails?.meta_description.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the meta description");
       return false;
@@ -151,7 +144,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.category_id === "select" ||
       this.state.articleDetails?.category_id === null ||
       this.state.articleDetails?.category_id === undefined
-      // this.state.articleDetails?.category_id.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the category");
       return false;
@@ -160,7 +152,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.type_id === "select" ||
       this.state.articleDetails?.type_id === null ||
       this.state.articleDetails?.type_id === undefined
-      // this.state.articleDetails?.type_id.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the type");
       return false;
@@ -169,7 +160,6 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.author_id === "select" ||
       this.state.articleDetails?.author_id === null ||
       this.state.articleDetails?.author_id === undefined
-      // this.state.articleDetails?.author_id.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please select the author");
       return false;
@@ -178,28 +168,14 @@ export default class ArticleEditDetails extends Component {
       !this.state.articleDetails?.content || 
       this.state.articleDetails?.content ==="<p></p>\n" || 
       this.state.articleDetails?.content.replace(/&nbsp;/g, "").length <=8
-      // this.state.articleDetails?.content === "" ||
-      // this.state.articleDetails?.content === null ||
-      // this.state.articleDetails?.content === undefined
-      // this.state.articleDetails?.content.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the product label");
       return false;
     }
-    // if (
-    //   this.state.articleDetails?.published_at === "" ||
-    //   this.state.articleDetails?.published_at === null ||
-    //   this.state.articleDetails?.published_at === undefined
-      // this.state.articleDetails?.published_at.replace(/\s/g, "").length <= 0
-    // ) {
-    //   toast.error("Please enter the publish date");
-    //   return false;
-    // }
     if (
       this.state.articleDetails?.sort_order === "" ||
       this.state.articleDetails?.sort_order === null ||
       this.state.articleDetails?.sort_order === undefined
-      // this.state.articleDetails?.sort_order.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the display order");
       return false;
@@ -311,7 +287,9 @@ export default class ArticleEditDetails extends Component {
       Router.push("/");
     }
     this.getarticleDetails(this.props.id);
-    this.setState({ id: this.props?.id });
+    this.setState({ 
+        id: this.props?.id
+    });
   }
   render() {
     return (

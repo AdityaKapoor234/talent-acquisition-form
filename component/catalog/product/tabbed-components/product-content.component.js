@@ -225,7 +225,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.product_label}
                                     mode={this.state.mode}
                                     handleContent={this.handleLabel.bind(this)}
-
+                                    articleProd="edit"
                                     name="product_label"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["product_label"]}</small>
@@ -239,6 +239,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.short_description}
                                     mode={this.state.mode}
                                     handleContent={this.handleShortDescription.bind(this)}
+                                    articleProd="edit"
                                     name="short_description"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["short_description"]}</small>
@@ -252,6 +253,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.description}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullDescription.bind(this)}
+                                    articleProd="edit"
                                     name="description"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["description"]}</small>
@@ -265,6 +267,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.direction_of_use}
                                     mode={this.state.mode}
                                     handleContent={this.handleDirection.bind(this)}
+                                    articleProd="edit"
                                     name="direction_of_use"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["direction_of_use"]}</small>
@@ -278,6 +281,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.other_ingredients}
                                     mode={this.state.mode}
                                     handleContent={this.handleOtherIngredient.bind(this)}
+                                    articleProd="edit"
                                     name="other_ingredients"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["other_ingredients"]}</small>
@@ -291,6 +295,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.does_not_contain}
                                     mode={this.state.mode}
                                     handleContent={this.handleDoesNotContain.bind(this)}
+                                    articleProd="edit"
                                     name="does_not_contain"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["does_not_contain"]}</small>
@@ -304,6 +309,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.warning}
                                     mode={this.state.mode}
                                     handleContent={this.handleWarning.bind(this)}
+                                    articleProd="edit"
                                     name="warning"
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["warning"]}</small>
@@ -324,6 +330,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.product_label}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                             <div className="fc-form-group editor">
@@ -336,6 +343,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.short_description}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                             <div className="fc-form-group editor">
@@ -348,6 +356,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.description}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                             <div className="fc-form-group editor">
@@ -359,6 +368,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.direction_of_use}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                             <div className="fc-form-group editor">
@@ -370,6 +380,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.other_ingredients}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                             <div className="fc-form-group editor">
@@ -381,6 +392,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.does_not_contain}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                             <div className="fc-form-group editor">
@@ -392,6 +404,7 @@ export default class ProductContentComponent extends Component {
                                     value={this.state.content?.warning}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
                                 />
                             </div>
                         </div>

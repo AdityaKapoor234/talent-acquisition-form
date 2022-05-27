@@ -21,14 +21,16 @@ export default class ArticleEditor extends Component {
   constructor(props) {
     super(props);
 
+    // timeout = setTimeout(() => {
     this.state = {
       value: props?.value,
       mode: props?.mode,
-      editorState:
-        EditorState.createWithContent(
-          ContentState.createFromBlockArray(convertFromHTML(`${props?.value}`))
-        ) || EditorState.createEmpty(),
+      timeout: "",
+      editorState: "",
+      articleProd: props?.articleProd ? props?.articleProd : "",
+
     };
+    // }, 1000)
   }
 
   setValue = () => {
@@ -60,6 +62,16 @@ export default class ArticleEditor extends Component {
     this.props.handleContent.bind(this);
   };
 
+  componentDidMount(props) {
+    // this.state.timeout = setTimeout(() => {
+      this.setState({
+        editorState: EditorState.createWithContent(
+          ContentState.createFromBlockArray(convertFromHTML(`${this.state.value}`))
+        ) || EditorState.createEmpty(),
+      })
+    // }, 1000)
+  }
+
   render() {
     async function uploadImageCallBack(file) {
       const formData = new FormData();
@@ -75,9 +87,9 @@ export default class ArticleEditor extends Component {
         formData,
         headers
       );
-        return new Promise((resolve, reject) => {
-          resolve({ data: { link: data?.data?.data?.url } });
-        });
+      return new Promise((resolve, reject) => {
+        resolve({ data: { link: data?.data?.data?.url } });
+      });
     }
     this.setValue();
     const { editorState } = this.state;

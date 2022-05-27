@@ -2,7 +2,8 @@ import axios from "axios";
 import { TYPELIST,GET_TYPE_DETAILS,GET_TYPE_EDIT,GET_TYPE_CREATE,
     CATEGORY_LIST,GET_CATEGORY_DETAILS_ARTICLE,GET_CATEGORY_EDIT_ARTICLE,GET_CATEGORY_CREATE_ARTICLE,
     AUTHOR_LIST,GET_AUTHOR_DETAILS_ARTICLE,GET_AUTHOR_EDIT_ARTICLE,GET_AUTHOR_CREATE_ARTICLE,
-    CONTENT_LIST,GET_CONTENT_DETAILS_ARTICLE,GET_CONTENT_EDIT_ARTICLE,GET_CONTENT_CREATE_ARTICLE,} from "../utils/constant";
+    CONTENT_LIST,GET_CONTENT_DETAILS_ARTICLE,GET_CONTENT_EDIT_ARTICLE,GET_CONTENT_CREATE_ARTICLE,
+    GET_ALL_CATEGORY, GET_ALL_TYPE,GET_ALL_AUTHOR} from "../utils/constant";
 import cookie from "js-cookie";
 
 export class ArticlesApi {
@@ -183,5 +184,37 @@ export class ArticlesApi {
         return axios.post(`${GET_CONTENT_CREATE_ARTICLE}`,data,httpOptions)
     }
 
+    static AllCategory() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_ALL_CATEGORY}`,httpOptions)
+    }
+
+    static AllType() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_ALL_TYPE}`,httpOptions)
+    }
+
+    static AllAuthor() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_ALL_AUTHOR}`,httpOptions)
+    }
 }
 export default ArticlesApi;

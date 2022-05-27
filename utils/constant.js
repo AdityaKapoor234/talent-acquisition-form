@@ -235,3 +235,6 @@ export const CONTENT_LIST= `http://65.1.17.188:5000/manage/article?page={{page}}
 export const GET_CONTENT_DETAILS_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}`;
 export const GET_CONTENT_EDIT_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/edit`;
 export const GET_CONTENT_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article`;
+export const GET_ALL_CATEGORY =`http://65.1.17.188:5000/manage/article/category/all`;
+export const GET_ALL_TYPE=`http://65.1.17.188:5000/manage/article/type/all`;
+export const GET_ALL_AUTHOR =`http://65.1.17.188:5000/manage/article/author/all`;

@@ -44,36 +44,103 @@ export default class ContentCreate extends Component {
     };
   }
   validateData = () => {
+    if (
+      this.state.contentDetails?.title === "" ||
+      this.state.contentDetails?.title === null ||
+      this.state.contentDetails?.title === undefined
+    ) {
+      toast.error("Please enter the title");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.slug === "" ||
+      this.state.contentDetails?.slug === null ||
+      this.state.contentDetails?.slug === undefined
+    ) {
+      toast.error("Please enter the slug");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.status === "select" ||
+      this.state.contentDetails?.status === null ||
+      this.state.contentDetails?.status === undefined
+    ) {
+      toast.error("Please select the status");
+      return false;
+    }
     // if (
-    //   this.state.contentDetails?.name === "" ||
-    //   this.state.contentDetails?.name === null || 
-    //   this.state.contentDetails?.name.replace(/\s/g, "").length <=0
+    //   this.state.contentDetails?.feature_image === "" ||
+    //   this.state.contentDetails?.feature_image === null ||
+    //   this.state.contentDetails?.feature_image === undefined
     // ) {
-    //   toast.error("Please enter the name");
-    //   return false;
+    //   toast.error("Please enter the feature image");
+    //   // return false;
     // }
-    // if (
-    //   this.state.contentDetails?.full_banner_img === "" ||
-    //   this.state.contentDetails?.full_banner_img === null
-    // ) {
-    //   toast.error("Please upload full banner image");
-    //   return false;
-    // }
-    // if (
-    //   this.state.contentDetails?.description === "" ||
-    //   this.state.contentDetails?.description === null || 
-    //   this.state.contentDetails?.description.replace(/\s/g, "").length <=0
-    // ) {
-    //   toast.error("Please enter the full description");
-    //   return false;
-    // }
-    // if (
-    //   this.state.contentDetails?.sort_order === "" ||
-    //   this.state.contentDetails?.sort_order === null
-    // ) {
-    //   toast.error("Please enter Display Order ");
-    //   return false;
-    // }
+    if (
+      this.state.contentDetails?.meta_tags === "" ||
+      this.state.contentDetails?.meta_tags === null ||
+      this.state.contentDetails?.meta_tags === undefined
+    ) {
+      toast.error("Please enter the meta tags");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.meta_title === "" ||
+      this.state.contentDetails?.meta_title === null ||
+      this.state.contentDetails?.meta_title === undefined
+    ) {
+      toast.error("Please enter the meta title");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.meta_description === "" ||
+      this.state.contentDetails?.meta_description === null ||
+      this.state.contentDetails?.meta_description === undefined
+    ) {
+      toast.error("Please enter the meta description");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.category_id === "select" ||
+      this.state.contentDetails?.category_id === null ||
+      this.state.contentDetails?.category_id === undefined
+    ) {
+      toast.error("Please select the category");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.type_id === "select" ||
+      this.state.contentDetails?.type_id === null ||
+      this.state.contentDetails?.type_id === undefined
+    ) {
+      toast.error("Please select the type");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.author_id === "select" ||
+      this.state.contentDetails?.author_id === null ||
+      this.state.contentDetails?.author_id === undefined
+    ) {
+      toast.error("Please select the author");
+      return false;
+    }
+    if (
+      !this.state.contentDetails?.content || 
+      this.state.contentDetails?.content ==="<p></p>\n" || 
+      this.state.contentDetails?.content.replace(/&nbsp;/g, "").length <=8
+    ) {
+      toast.error("Please enter the product label");
+      return false;
+    }
+    if (
+      this.state.contentDetails?.sort_order === "" ||
+      this.state.contentDetails?.sort_order === null ||
+      this.state.contentDetails?.sort_order === undefined
+    ) {
+      toast.error("Please enter the display order");
+      return false;
+    }
+    
 
     return true;
   };
@@ -91,11 +158,11 @@ export default class ContentCreate extends Component {
         "meta_description": this.state.contentDetails?.meta_description,
         "category_id":this.state.contentDetails?.category_id ,
         "type_id": this.state.contentDetails?.type_id,
-        "is_show_on_home": this.state.contentDetails?.is_show_on_home,
+        "is_show_on_home": this.state.contentDetails?.is_show_on_home === "" ? false : this.state.contentDetails?.is_show_on_home,
         "sort_order": this.state.contentDetails?.sort_order
         
       };
-      ArticleApi.contentCreate(data)
+      ArticleApi.ContentCreate(data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
             this.setState({ content: response.data.data.content });

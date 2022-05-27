@@ -236,11 +236,15 @@ export const GET_AUTHOR_EDIT_ARTICLE =`http://65.1.17.188:5000/manage/article/{{
 export const GET_AUTHOR_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article/author`;
 export const CONTENT_LIST= `http://65.1.17.188:5000/manage/article?page={{page}}&q={{search}}`;
 export const GET_CONTENT_DETAILS_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}`;
-export const GET_CONTENT_EDIT_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/edit`;
-export const GET_CONTENT_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article`;
 export const GET_ALL_CATEGORY =`http://65.1.17.188:5000/manage/article/category/all`;
 export const GET_ALL_TYPE=`http://65.1.17.188:5000/manage/article/type/all`;
 export const GET_ALL_AUTHOR =`http://65.1.17.188:5000/manage/article/author/all`;
+
+export const GET_CONTENT_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article`;
+export const GET_CONTENT_EDIT_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/edit`;
+export const GET_CONTENT_DELETE_ARTICLE =`http://65.1.17.188:5000/manage/article/{{id}}/delete`;
+
+
 
 
 //GST

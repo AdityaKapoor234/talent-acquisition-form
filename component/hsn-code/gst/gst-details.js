@@ -188,42 +188,19 @@ export default class GstDetails extends Component {
                                 <div className="col">
                                     <div className="row mt-4">
                                         <div className="col-md-12">
-                                            <div className="login-form sort">
-                                                <label>HSN/SAC Code<span className="mandatory-star">*</span></label>
-                                                <div className="sort-by-select-wrapper">
-                                                    <Select
-                                                        disableUnderline
-                                                        variant="standard"
-                                                        disabled={this.state.mode === "view" ? true : false}
-                                                        autoWidth={false}
-                                                        IconComponent={ExpandMoreIcon}
-                                                        name="hsn_code"
-                                                        onChange={this.handleChange.bind(this)}
-                                                        className="sort-by-select"
-                                                        value={this.state.input?.hsn_code ? this.state.input?.hsn_code : "select"}
-                                                    >
-                                                        <MenuItem
-                                                            value="select"
-                                                            disabled
-                                                            className="field_toggle_checked"
-                                                        >
-                                                            Select HSN/SAC Code{" "}
-                                                        </MenuItem>
-
-
-                                                        {this.state.gstHsnCode?.map(value => {
-                                                            return (
-                                                                <MenuItem value={value?.hsn_code}>{value?.hsn_code}</MenuItem>
-                                                            )
-                                                        })}
-
-                                                        <MenuItem value="apply on cart">Apply to Cart</MenuItem>
-                                                        <MenuItem value="apply on product">Apply to Product</MenuItem>
-                                                        <MenuItem value="apply on category">Apply to Category</MenuItem>
-                                                    </Select>
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <div className="login-form ">
+                                                        <label>HSN/SAC Code<span className="mandatory-star">*</span></label>
+                                                        <input
+                                                            type="text"
+                                                            value={this.state.input?.hsn_code}
+                                                            name="hsn_code"
+                                                            onChange={this.handleChange.bind(this)}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-
                                             <div className="row">
                                                 <div className="col-md-4">
                                                     <div className="login-form ">

@@ -119,9 +119,9 @@ export default function GST() {
                     <div className="row border-box">
                         <div className="col-md-6">
                             <div className="hamburger">
-                                <span>HSN Code / </span>GST
+                                <span>Configurations / </span>HSN Master
                             </div>
-                            <div className="page-name">GST</div>
+                            <div className="page-name">HSN Master</div>
                         </div>
                         <div className="col-md-4">
                             <div className="login-form ">

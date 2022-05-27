@@ -185,11 +185,13 @@ export default class CouponEditDetails extends Component {
     if (
       this.state.couponDetails?.customer_type === "" ||
       this.state.couponDetails?.customer_type === null ||
-      this.state.couponDetails?.customer_type.replace(/\s/g, "").length <= 0
+      this.state.couponDetails?.customer_type === undefined
     ) {
       toast.error("Please enter the customer type");
       return false;
     }
+
+    
 
     return true;
   };

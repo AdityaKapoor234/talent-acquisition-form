@@ -246,7 +246,7 @@ export default class TrustedHealthDetails extends Component {
                                                     img={this.state.path}
                                                     setUrl={this.handlePhotoUrl.bind(this)}
                                                     value={this.state.img_sm}
-                                                    urlName="banner"
+                                                    urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
                                                 />
                                             </div>
                                             <div className="login-form mt-4">
@@ -313,7 +313,7 @@ export default class TrustedHealthDetails extends Component {
                                                     img={this.state.path}
                                                     // setUrl={this.handlePhotoUrl.bind(this)}
                                                     // value={this.state.img_sm}
-                                                    urlName="banner"
+                                                    urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
                                                 />
                                             </div>
                                             <div>

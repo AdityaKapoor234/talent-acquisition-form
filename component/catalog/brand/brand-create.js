@@ -146,7 +146,7 @@ export default class BrandCreate extends Component {
 													img={this.state.input?.icon_url}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_icon}
-													urlName="icon"
+													urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
 												/>
 											</div>
 											<div className="mt-4">
@@ -158,7 +158,7 @@ export default class BrandCreate extends Component {
 													img={this.state.input?.banner_url}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_lg}
-													urlName="full_banner"
+													urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner"
 												/>
 											</div>
 											<div className="mt-4">
@@ -170,7 +170,7 @@ export default class BrandCreate extends Component {
 													img={this.state.input?.banner_url_sm}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_sm}
-													urlName="full_banner_sm"
+													urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner_sm"
 												/>
 											</div>
                       <div className="signup-check mt-4">

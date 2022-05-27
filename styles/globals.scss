@@ -269,7 +269,8 @@ a {
   .editor-class {
     padding: 1rem;
     border: 1px solid $clr-gray200;
-    height: 10rem;
+    min-height: 15rem;
+    max-height: 50rem;
   }
   .toolbar-class {
     border: 1px solid $clr-gray200;

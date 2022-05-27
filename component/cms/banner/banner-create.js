@@ -161,7 +161,7 @@ export default class BannerCreate extends Component {
 											img={this.state.input.banner}
 											setUrl={this.handlePhotoUrl.bind(this)}
 											value={this.state.img_lg}
-											urlName="full_banner"
+											urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner"
 										/>
 									</div>
 									<div className="mt-4">
@@ -173,7 +173,7 @@ export default class BannerCreate extends Component {
 											img={this.state.input.banner_sm}
 											setUrl={this.handlePhotoUrl.bind(this)}
 											value={this.state.img_sm}
-											urlName="banner"
+											urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
 										/>
 									</div>
 									<div className="row mt-4">

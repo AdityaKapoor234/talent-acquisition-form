@@ -1,10 +1,10 @@
 import axios from "axios";
-import { COUPON_LIST, COUPON_VIEW, COUPON_EDIT, COUPON_CREATE,COUPON_LOG } from "../utils/constant";
+import { GST_LIST, GST_VIEW, GST_EDIT, GST_CREATE, GST_DROPDOWN, } from "../utils/constant";
 import cookie from "js-cookie";
 
-export class CouponApi {
+export class GstApi {
 
-    static couponList(page, search) {
+    static gstList(page, search) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -12,10 +12,10 @@ export class CouponApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.get(`${COUPON_LIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+        return axios.get(`${GST_LIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
     }
 
-    static couponViewDetails(id) {
+    static gstViewDetails(id) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -23,10 +23,10 @@ export class CouponApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.get(`${COUPON_VIEW}`.replace('{{id}}', id), httpOptions)
+        return axios.get(`${GST_VIEW}`.replace('{{id}}', id), httpOptions)
     }
 
-    static couponListEDIT(id, data) {
+    static gstHsnCodeDropdownDetails() {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -34,10 +34,21 @@ export class CouponApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.post(`${COUPON_EDIT}`.replace('{{id}}', id), data, httpOptions)
+        return axios.get(`${GST_DROPDOWN}`, httpOptions)
     }
 
-    static couponCreate(data) {
+    static gstListEDIT(id, data) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${GST_EDIT}`.replace('{{id}}', id), data, httpOptions)
+    }
+
+    static gstCreate(data) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -45,19 +56,8 @@ export class CouponApi {
                 'Authorization': `Bearer ${token} `          
             }
         };
-        return axios.post(`${COUPON_CREATE}`,data,httpOptions)
-    }
-
-    static couponLog(page, search) {
-        const token = cookie.get('access_token_admin');
-        const httpOptions = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token} `
-            }
-        };
-        return axios.get(`${COUPON_LOG}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+        return axios.post(`${GST_CREATE}`,data,httpOptions)
     }
 
 }
-export default CouponApi;
+export default GstApi;

@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
-import CouponCreateComponent from "../../../component/discount/coupon/coupon-details";
-import CouponApi from "../../../services/coupon";
+import GstCreateComponent from "../../../component/hsn-code/gst/gst-details";
+import GstApi from "../../../services/gst";
 import CustomerApi from "../../../services/customer";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -28,30 +28,25 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default class CouponEditDetails extends Component {
+export default class GstEditDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props?.id,
       mode: "edit",
       open: false,
-      userType: [],
-      coupon: [],
-      couponDetails: {
-        name: "",
-        code: "",
-        description: "",
-        start_date: "",
-        end_date: "",
-        discount_type: "",
-        min_cart_amount: null,
-        max_cart_amount: null,
-        uses_per_coupon: null,
-        uses_per_customer: null,
-        coupon_value: null,
-        by_amount_or_percent: "",
-        customer_type: "",
+      gstHsnCode: [],
+      gst: [],
+      is_all: false,
+      gstDetails: {
+        hsn_code: "",
+        category_name: "",
+        cgst: null,
+        sgst: null,
+        igst: null,
         is_active: false,
+        is_hsn_code: false,
+        is_category_name: false,
       },
     };
   }
@@ -86,139 +81,111 @@ export default class CouponEditDetails extends Component {
   };
 
   validateData = () => {
+    this.setState({ is_all: false });
+    this.setState({ is_hsn_code: false });
+    this.setState({ is_category_name: false });
+
     if (
-      this.state.couponDetails?.name === "" ||
-      this.state.couponDetails?.name === null ||
-      this.state.couponDetails?.name.replace(/\s/g, "").length <= 0
+      this.state.gstDetails?.hsn_code === "" ||
+      this.state.gstDetails?.hsn_code === null ||
+      this.state.gstDetails?.hsn_code === undefined
     ) {
-      toast.error("Please enter the name");
-      return false;
+      toast.error("Please enter the HSN Code");
+      this.state.is_all = true;
+      this.state.is_hsn_code = true;
+    }
+    if (this.state.gstDetails?.hsn_code !== undefined) {
+      if (this.state.gstDetails?.hsn_code.replace(/\s/g, "").length <= 0) {
+        if (this.state.is_hsn_code === false) {
+          toast.error("Please enter the HSN Code");
+          this.state.is_all = true;
+        }
+      }
     }
     if (
-      this.state.couponDetails?.code === "" ||
-      this.state.couponDetails?.code === null ||
-      this.state.couponDetails?.code.replace(/\s/g, "").length <= 0
+      this.state.gstDetails?.category_name === "" ||
+      this.state.gstDetails?.category_name === null ||
+      this.state.gstDetails?.category_name === undefined
     ) {
-      toast.error("Please enter the code");
-      return false;
+      toast.error("Please enter the category name");
+      this.state.is_all = true;
+      this.state.is_category_name = true;
+    }
+    if (this.state.gstDetails?.category_name !== undefined) {
+      if (this.state.gstDetails?.category_name.replace(/\s/g, "").length <= 0) {
+        if (this.state.is_category_name === false) {
+          toast.error("Please enter the category name");
+          this.state.is_all = true;
+        }
+      }
     }
     if (
-      this.state.couponDetails?.description === "" ||
-      this.state.couponDetails?.description === null ||
-      this.state.couponDetails?.description.replace(/\s/g, "").length <= 0
+      this.state.gstDetails?.cgst === "" ||
+      this.state.gstDetails?.cgst === null ||
+      this.state.gstDetails?.cgst === undefined
     ) {
-      toast.error("Please enter the description");
+      toast.error("Please enter the CGST");
+      this.state.is_all = true;
+    }
+    // if (this.state.gstDetails?.cgst !== undefined) {
+    //   if (this.state.gstDetails?.cgst.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter the CGST");
+    //     this.state.is_all=true;
+    //   }
+    // }
+    if (
+      this.state.gstDetails?.sgst === "" ||
+      this.state.gstDetails?.sgst === null ||
+      this.state.gstDetails?.sgst === undefined
+    ) {
+      toast.error("Please enter the SGST");
+      this.state.is_all = true;
+    }
+    // if (this.state.gstDetails?.sgst !== undefined) {
+    //   if (this.state.gstDetails?.sgst.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter the SGST");
+    //     this.state.is_all=true;
+    //   }
+    // }
+    if (
+      this.state.gstDetails?.igst === "" ||
+      this.state.gstDetails?.igst === null ||
+      this.state.gstDetails?.igst === undefined
+    ) {
+      toast.error("Please enter the IGST");
+      this.state.is_all = true;
+    }
+    // if (this.state.gstDetails?.igst !== undefined) {
+    //   if (this.state.gstDetails?.igst.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter the IGST");
+    //   this.state.is_all=true;
+    //   }
+    // }
+
+    if (this.state.is_all === true) {
       return false;
     }
-    if (
-      this.state.couponDetails?.start_date === "" ||
-      this.state.couponDetails?.start_date === null ||
-      this.state.couponDetails?.start_date.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the start date");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.end_date === "" ||
-      this.state.couponDetails?.end_date === null ||
-      this.state.couponDetails?.end_date.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the end date");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.discount_type === "select" ||
-      this.state.couponDetails?.discount_type === null ||
-      this.state.couponDetails?.discount_type.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the discount type");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.min_cart_amount === "" ||
-      this.state.couponDetails?.min_cart_amount === null
-      // this.state.couponDetails?.min_cart_amount.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the minimum cart amount");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.max_cart_amount === "" ||
-      this.state.couponDetails?.max_cart_amount === null
-      // this.state.couponDetails?.max_cart_amount.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the maximum cart amount");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.uses_per_coupon === "" ||
-      this.state.couponDetails?.uses_per_coupon === null
-      // this.state.couponDetails?.uses_per_coupon.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the uses per coupon");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.uses_per_customer === "" ||
-      this.state.couponDetails?.uses_per_customer === null
-      // this.state.couponDetails?.uses_per_customer.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the uses per customer");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.coupon_value === "" ||
-      this.state.couponDetails?.coupon_value === null
-      // this.state.couponDetails?.coupon_value.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the coupon value");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.by_amount_or_percent === "" ||
-      this.state.couponDetails?.by_amount_or_percent === null ||
-      this.state.couponDetails?.by_amount_or_percent.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please select either amount or percentage");
-      return false;
-    }
-    if (
-      this.state.couponDetails?.customer_type === "" ||
-      this.state.couponDetails?.customer_type === null ||
-      this.state.couponDetails?.customer_type === undefined
-    ) {
-      toast.error("Please enter the customer type");
-      return false;
+    else {
+      return true;
     }
 
-    
-
-    return true;
   };
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name: this.state.couponDetails?.name,
-        code: this.state.couponDetails?.code,
-        description: this.state.couponDetails?.description,
-        start_date: this.convertDateStringToDate(this.state.couponDetails?.start_date),
-        end_date: this.convertDateStringToDate(this.state.couponDetails?.end_date),
-        discount_type: this.state.couponDetails?.discount_type,
-        min_cart_amount: this.state.couponDetails?.min_cart_amount,
-        max_cart_amount: this.state.couponDetails?.max_cart_amount,
-        uses_per_coupon: this.state.couponDetails?.uses_per_coupon,
-        uses_per_customer: this.state.couponDetails?.uses_per_customer,
-        coupon_value: this.state.couponDetails?.coupon_value,
-        by_amount_or_percent: this.state.couponDetails?.by_amount_or_percent,
-        customer_type: this.state.couponDetails?.customer_type,
-        is_active: this.state.couponDetails?.is_active,
+        hsn_code: this.state.gstDetails?.hsn_code,
+        category_name: this.state.gstDetails?.category_name,
+        cgst: this.state.gstDetails?.cgst,
+        sgst: this.state.gstDetails?.sgst,
+        igst: this.state.gstDetails?.igst,
+        is_active: this.state.gstDetails?.is_active,
       };
-      CouponApi.couponListEDIT(this.props.id, data)
+      GstApi.gstListEDIT(this.props.id, data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
-            this.setState({ coupon: response.data.data.coupon });
+            this.setState({ gst: response.data.data.gst });
             toast.success(response.data.message);
-            Router.push(`/coupon`);
+            Router.push(`/gst`);
           }
         })
         .catch((error) => {
@@ -233,32 +200,24 @@ export default class CouponEditDetails extends Component {
     }
   };
   stateHandle = (value) => {
-    this.setState({ couponDetails: value });
+    this.setState({ gstDetails: value });
   };
-  getcouponDetails = (id) => {
-    CouponApi.couponViewDetails(id)
+  getGstDetails = (id) => {
+    GstApi.gstViewDetails(id)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
-            name: response.data.data.coupon?.name,
-            code: response.data.data.coupon?.code,
-            description: response.data.data.coupon?.description,
-            start_date: response.data.data.coupon?.start_date,
-            end_date: response.data.data.coupon?.end_date,
-            discount_type: response.data.data.coupon?.discount_type,
-            min_cart_amount: response.data.data.coupon?.min_cart_amount,
-            max_cart_amount: response.data.data.coupon?.max_cart_amount,
-            uses_per_coupon: response.data.data.coupon?.uses_per_coupon,
-            uses_per_customer: response.data.data.coupon?.uses_per_customer,
-            coupon_value: response.data.data.coupon?.coupon_value,
-            by_amount_or_percent: response.data.data.coupon?.by_amount_or_percent,
-            customer_type: response.data.data.coupon?.customer_type,
-            is_active: response.data.data.coupon?.is_active,
+            hsn_code: response.data.data.gst?.hsn_code,
+            category_name: response.data.data.gst?.category_name,
+            cgst: response.data.data.gst?.cgst,
+            sgst: response.data.data.gst?.sgst,
+            igst: response.data.data.gst?.igst,
+            is_active: response.data.data.gst?.is_active,
           };
           this.setState({
-            couponDetails: details,
+            gstDetails: details,
           });
-          this.setState({ coupon: response.data.data.coupon });
+          this.setState({ gst: response.data.data.gst });
         }
       })
       .catch((error) => {
@@ -273,11 +232,11 @@ export default class CouponEditDetails extends Component {
   };
   //   Delete = (id) => {
   //     let data = {};
-  //     CouponApi.couponDelete(id, data)
+  //     GstApi.gstDelete(id, data)
   //       .then((response) => {
   //         if (response.data.httpStatusCode === 200) {
-  //           this.setState({ coupon: response.data.data.coupon });
-  //           Router.push("/coupon");
+  //           this.setState({ gst: response.data.data.gst });
+  //           Router.push("/gst");
   //           toast.success(response.data.message);
   //         }
   //       })
@@ -292,10 +251,10 @@ export default class CouponEditDetails extends Component {
   //       });
   //   };
 
-  customerTypeDropdownDetail = () => {
-    CustomerApi.getCustomerTypeDropdownDetails()
+  gstHsnCodeDropdownDetails = () => {
+    GstApi.gstHsnCodeDropdownDetails()
       .then((response) => {
-        this.setState({ userType: response.data.data.list })
+        this.setState({ gstHsnCode: response.data.data.list })
       })
       .catch((error) => {
         toast.error(
@@ -314,15 +273,15 @@ export default class CouponEditDetails extends Component {
     if (token === undefined) {
       Router.push("/");
     }
-    this.getcouponDetails(this.props.id);
+    this.getGstDetails(this.props.id);
     this.setState({ id: this.props?.id });
-    this.customerTypeDropdownDetail();
+    this.gstHsnCodeDropdownDetails();
   }
   render() {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Coupon</title>
+          <title>{APP_NAME} - GST</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -332,10 +291,10 @@ export default class CouponEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-7">
                 <div className="hamburger">
-                  <span>Discount / Coupon /  </span>Edit Coupon
+                  <span>Configurations / HSN Master /  </span>Edit HSN Master
                 </div>
                 <div className="page-name">
-                  Edit Coupon  - {this.state.coupon?.name}
+                  Edit HSN Master  - {this.state.gst?.hsn_code}
                 </div>
               </div>
               <div className="col-md-5 btn-save">
@@ -358,7 +317,7 @@ export default class CouponEditDetails extends Component {
                 <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
-                    Router.push(`/coupon`);
+                    Router.push(`/gst`);
                   }}
                 >
                   <span>Cancel </span>
@@ -367,11 +326,11 @@ export default class CouponEditDetails extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-                <CouponCreateComponent
-                  coupon={this.state.couponDetails}
+                <GstCreateComponent
+                  gst={this.state.gstDetails}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
-                  userType={this.state.userType}
+                  gstHsnCode={this.state.gstHsnCode}
                 />
               </div>
             </div>
@@ -394,7 +353,7 @@ export default class CouponEditDetails extends Component {
             </Box>
             <DialogContent>
               <Typography style={{ color: "#7e8f99" }}>
-                Are you sure you want to delete this pro?
+                Are you sure you want to delete this HSN Code?
               </Typography>
             </DialogContent>
             <DialogActions style={{ marginBottom: "0.5rem" }}>

@@ -160,6 +160,8 @@ export const TRUSTED_HEALTH_DETAILS = `http://65.1.17.188:5001/manage/trusthealt
 export const TRUSTED_HEALTH_EDIT = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/edit`;
 export const TRUSTED_HEALTH_CREATE = `http://65.1.17.188:5001/manage/trusthealth/add`;
 export const TRUSTED_HEALTH_DELETE = `http://65.1.17.188:5001/manage/trusthealth/{{id}}/delete`;
+export const EMAIL_SUPPORT_LIST ='http://65.1.17.188:5000/manage/email/support?page={{page}}&q={{search}}'
+export const EMAIL_SUPPORT_VIEW='http://65.1.17.188:5000/manage/email/support/{{id}}/view'
 
 //SPORTS
 export const SPORTS_LIST = `http://65.1.17.188:5001/manage/sports?page={{page}}&q={{search}}`;
@@ -217,6 +219,7 @@ export const COUPON_LIST = `http://65.1.17.188:5002/manage/coupon?page={{page}}&
 export const COUPON_VIEW = `http://65.1.17.188:5002/manage/coupon/{{id}}/view`;
 export const COUPON_EDIT = `http://65.1.17.188:5002/manage/coupon/{{id}}/edit`;
 export const COUPON_CREATE = `http://65.1.17.188:5002/manage/coupon`;
+export const COUPON_LOG ="http://65.1.17.188:5002/manage/coupon/logs?page={{page}}&q={{search}}"
 
 //ARTICLES
 export const TYPELIST  = `http://65.1.17.188:5000/manage/article/type?page={{page}}&q={{search}}`;
@@ -238,3 +241,11 @@ export const GET_CONTENT_CREATE_ARTICLE=`http://65.1.17.188:5000/manage/article`
 export const GET_ALL_CATEGORY =`http://65.1.17.188:5000/manage/article/category/all`;
 export const GET_ALL_TYPE=`http://65.1.17.188:5000/manage/article/type/all`;
 export const GET_ALL_AUTHOR =`http://65.1.17.188:5000/manage/article/author/all`;
+
+
+//GST
+export const GST_LIST = `http://65.1.17.188:5002/manage/gst?page={{page}}&q={{search}}`;
+export const GST_VIEW = `http://65.1.17.188:5002/manage/gst/{{id}}/view`;
+export const GST_EDIT = `http://65.1.17.188:5002/manage/gst/2/edit`;
+export const GST_CREATE = `http://65.1.17.188:5002/manage/gst`;
+export const GST_DROPDOWN = `http://65.1.17.188:5002/manage/gst/all`;

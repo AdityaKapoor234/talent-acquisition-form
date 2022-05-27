@@ -118,7 +118,7 @@ export default class AuthorCreate extends Component {
                           img={this.state.input.avatar}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value="file-type"
-                          urlName="banner"
+                          urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
                         />
                       </div>
                       <div className="signup-check mt-4">

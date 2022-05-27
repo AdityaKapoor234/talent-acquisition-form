@@ -147,7 +147,7 @@ export default function AskTheProps(props) {
                           img={ask?.avatar_url}
                           setUrl={handlePhotoUrl.bind(this)}
                           value={imgIcon}
-                          urlName="avatar"
+                          urlLink="http://65.1.17.188:5001/manage/category/photo/avatar"
                         />
                       </div>}
                       

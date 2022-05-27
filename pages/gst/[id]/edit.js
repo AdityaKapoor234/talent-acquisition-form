@@ -45,6 +45,8 @@ export default class GstEditDetails extends Component {
         sgst: null,
         igst: null,
         is_active: false,
+        is_hsn_code: false,
+        is_category_name: false,
       },
     };
   }
@@ -80,6 +82,8 @@ export default class GstEditDetails extends Component {
 
   validateData = () => {
     this.setState({ is_all: false });
+    this.setState({ is_hsn_code: false });
+    this.setState({ is_category_name: false });
 
     if (
       this.state.gstDetails?.hsn_code === "" ||
@@ -88,11 +92,14 @@ export default class GstEditDetails extends Component {
     ) {
       toast.error("Please enter the HSN Code");
       this.state.is_all = true;
+      this.state.is_hsn_code = true;
     }
     if (this.state.gstDetails?.hsn_code !== undefined) {
       if (this.state.gstDetails?.hsn_code.replace(/\s/g, "").length <= 0) {
-        toast.error("Please enter the HSN Code");
-        this.state.is_all = true;
+        if (this.state.is_hsn_code === false) {
+          toast.error("Please enter the HSN Code");
+          this.state.is_all = true;
+        }
       }
     }
     if (
@@ -102,11 +109,14 @@ export default class GstEditDetails extends Component {
     ) {
       toast.error("Please enter the category name");
       this.state.is_all = true;
+      this.state.is_category_name = true;
     }
     if (this.state.gstDetails?.category_name !== undefined) {
       if (this.state.gstDetails?.category_name.replace(/\s/g, "").length <= 0) {
-        toast.error("Please enter the category name");
-        this.state.is_all = true;
+        if (this.state.is_category_name === false) {
+          toast.error("Please enter the category name");
+          this.state.is_all = true;
+        }
       }
     }
     if (
@@ -281,10 +291,10 @@ export default class GstEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-7">
                 <div className="hamburger">
-                  <span>HSN Code / GST /  </span>Edit GST
+                  <span>Configurations / HSN Master /  </span>Edit HSN Master
                 </div>
                 <div className="page-name">
-                  Edit GST  - {this.state.gst?.hsn_code}
+                  Edit HSN Master  - {this.state.gst?.hsn_code}
                 </div>
               </div>
               <div className="col-md-5 btn-save">

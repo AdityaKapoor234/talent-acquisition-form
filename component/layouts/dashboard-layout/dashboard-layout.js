@@ -194,13 +194,13 @@ export default function DashboardLayoutComponent({ children }) {
                                                                 <div className={tabHsnCode ? 'menu-btn active' : 'menu-btn'} onClick={() => setHsnCode(!tabHsnCode)}>
                                     <span>
                                         {tabHsnCode ? <PointOfSaleOutlinedIcon className='outline-icon' /> : <PointOfSaleOutlinedIcon className='outline-icon' />}
-                                        HSN Code
+                                        Configurations
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon' />
                                 </div>
                                 {tabHsnCode &&
                                     <ul>
-                                        <li className={categary === "gst" ? "sub_active" : ""} onClick={() => handleCategary("/gst", "gst")}>GST</li>
+                                        <li className={categary === "gst" ? "sub_active" : ""} onClick={() => handleCategary("/gst", "gst")}>HSN Master</li>
                                     </ul>
                                 }
 

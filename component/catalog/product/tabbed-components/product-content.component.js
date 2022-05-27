@@ -384,7 +384,7 @@ export default class ProductContentComponent extends Component {
                                 />
                             </div>
                             <div className="fc-form-group editor">
-                                <label>Warning
+                                <label>Product Restrictions
                                     {/* <span className="mandatory-star">*</span> */}
                                 </label>
                                 <br />

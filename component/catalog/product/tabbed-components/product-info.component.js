@@ -12,6 +12,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Router from "next/router";
+import GstApi from "../../../../services/gst";
 
 export default class ProductInfoComponent extends Component {
     constructor(props) {
@@ -36,10 +37,14 @@ export default class ProductInfoComponent extends Component {
                 "weight": null,
                 "weight_unit": "",
                 "status": "select",
-                "hsn_code_id": ""
+                "hsn_code_id": null,
+                "igst":"",
+                "cgst":"",
+                "sgst":""
             },
             id: props?.id,
             mode: props?.mode,
+            gst:[],
             errors: {},
             brand: [],
             flavor: [],
@@ -62,6 +67,17 @@ export default class ProductInfoComponent extends Component {
 
     handleChange = (event) => {
         let input = this.state.infoDetails;
+        input[event.target.name] = event.target.value;
+        this.setState({ infoDetails: input });
+    };
+    handleChangeGst = (event) => {
+        let input = this.state.infoDetails;
+        let gst = this.state.gst?.filter(val=>val?.id===parseInt(event.target.value));
+        if(gst?.length>0){
+            input["cgst"] = gst[0]?.cgst;
+            input['igst'] = gst[0]?.igst;
+            input['sgst'] = gst[0]?.sgst;
+        }
         input[event.target.name] = event.target.value;
         this.setState({ infoDetails: input });
     };
@@ -314,12 +330,26 @@ export default class ProductInfoComponent extends Component {
             .catch((error) => {
             });
     }
+    getGst=()=>{
+        GstApi.gstHsnCodeDropdownDetails()
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    console.log("ytty",response.data.data)
+                    this.setState({
+                        gst: response.data.data?.list
+                    })
+                }
+            })
+            .catch((error) => {
+            });
+    }
 
     componentDidMount() {
         this.getInfo(this.state.id)
         this.getBrands()
         this.getFlavors()
         this.getCountry()
+        this.getGst()
     }
 
     render() {
@@ -462,33 +492,52 @@ export default class ProductInfoComponent extends Component {
 
                             <div className="row">
                                 <div className="col-md-4">
-                                    <div className="fc-form-group">
+                                <div className="sort fc-select-form-group">
                                         <label>HSN/SAC Code</label>
-                                        <input
-                                            type="text"
-                                            name="hsn_code"
-                                            readOnly={this.state.mode === "view" ? true : false}
-                                            value={this.state.infoDetails?.hsn_code}
-                                            onChange={this.handleChange.bind(this)}
-                                        />
-                                        {/* <small className="form-text text-danger" >{this.state.errors["sku"]}</small> */}
+                                        <div className="sort-by-select-wrapper">
+                                            <Select
+                                                disableUnderline
+                                                disabled={this.state.mode === "view" ? true : false}
+                                                variant="standard"
+                                                autoWidth={true}
+                                                name="hsn_code_id"
+                                                onChange={this.handleChangeGst}
+                                                className="sort-by-select w-100"
+                                                value={this.state.infoDetails?.hsn_code_id}
+                                            >
+                                                <MenuItem
+                                                    value={""}
+                                                    disabled
+                                                    className="field_toggle_checked"
+                                                >
+                                                    Select HSN code{" "}
+                                                </MenuItem>
+                                                {this.state.gst?.map(val=>{return(
+                                                    <MenuItem value={val?.id}>{val?.hsn_code}</MenuItem>
+                                                )})}
+                                                
+                                            </Select>
+                                            {/* <small className="form-text text-danger" >{this.state.errors["status"]}</small> */}
+                                        </div>
+                                    </div>
+                                </div>
+                                {this.state.infoDetails?.hsn_code !== "" &&<>
+                                <div className="col-md-3">
+                                    <div className="fc-form-group d-flex align-items-center h-100">
+                                        <label>CGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.cgst)?.toFixed(2)}</span></label>
                                     </div>
                                 </div>
                                 <div className="col-md-3">
                                     <div className="fc-form-group d-flex align-items-center h-100">
-                                        <label>CGST: <span style={{ fontWeight: "400" }}>{this.state.infoDetails?.cgst}</span></label>
-                                    </div>
-                                </div>
-                                <div className="col-md-3">
-                                    <div className="fc-form-group d-flex align-items-center h-100">
-                                        <label>SGST: <span style={{ fontWeight: "400" }}>{this.state.infoDetails?.sgst}</span></label>
+                                        <label>SGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.sgst)?.toFixed(2)}</span></label>
                                     </div>
                                 </div>
                                 <div className="col-md-2">
                                     <div className="fc-form-group d-flex align-items-center h-100">
-                                        <label>IGST: <span style={{ fontWeight: "400" }}>{this.state.infoDetails?.igst}</span></label>
+                                        <label>IGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.igst)?.toFixed(2)}</span></label>
                                     </div>
                                 </div>
+                                </>}
                             </div>
 
 

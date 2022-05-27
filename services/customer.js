@@ -131,16 +131,16 @@ export class CustomerApi {
         return axios.get(`${SHOPPING_CART_LIST}`.replace('{{id}}', id), httpOptions)
     }
 
-    static CustomerTypeAdd(data) {
-        const  token = cookie.get('access_token_admin');
-        const httpOptions = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token} `
-            }
-        };
-        return axios.post(`${ADD_CUSTOMER_TYPE}`, data, httpOptions)
-    }
+    // static CustomerTypeAdd(data) {
+    //     const  token = cookie.get('access_token_admin');
+    //     const httpOptions = {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${token} `
+    //         }
+    //     };
+    //     return axios.post(`${ADD_CUSTOMER_TYPE}`, data, httpOptions)
+    // }
 
     static CustomerType(page, search) {
         const token = cookie.get('access_token_admin');

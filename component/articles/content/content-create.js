@@ -17,6 +17,7 @@ export default class ContentCreate extends Component {
 			errors: {},
 			category: [],
 			content: props?.content,
+			timeout: "",
 			author: [],
 			type: [],
 			img_sm: "file-input-sm",
@@ -433,7 +434,6 @@ export default class ContentCreate extends Component {
 													value={this.state.input?.content}
 													mode={this.state.mode}
 													handleContent={this.handleLabel.bind(this)}
-													articleProd="view"
 													name="content"
 												/>
 												<small className="form-text text-danger">
@@ -450,7 +450,7 @@ export default class ContentCreate extends Component {
 													type="number"
 													min="0"
 													name="sort_order"
-													value={this.state.input.sort_order}
+													value={this.state.input?.sort_order}
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
@@ -471,8 +471,252 @@ export default class ContentCreate extends Component {
 							</div>
 						)}
 						{this.state.mode === "view" && (
-							<>
-							</>
+							<div className="row sticky-scroll scroll">
+								<div className="col">
+									<div className="row mt-4">
+										<div className="col-md-4">
+											<div className="login-form ">
+												<label>
+													Title<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="text"
+													name="title"
+													value={this.state.input.title}
+													readOnly
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													Slug<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="text"
+													name="slug"
+													value={this.state.input.slug}
+													readOnly
+												/>
+											</div>
+											<div className="sort">
+												<label>
+													Status<span className="mandatory-star">*</span>
+												</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														disabled={this.state.mode === "view" ? true : false}
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="status"
+														onChange={this.handleChange}
+														className="sort-by-select"
+														value={this.state.input?.status}
+													>
+														<MenuItem
+															value={"select"}
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Status{" "}
+														</MenuItem>
+														<MenuItem value={"draft"}>Draft</MenuItem>
+														<MenuItem value={"published"}>
+															Published
+														</MenuItem>
+													</Select>
+												</div>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Feature image"}
+													accept=".jpg,.jpeg,.png"
+													img={this.state.input.feature_image}
+												/>
+											</div>
+											<div className="login-form">
+												<label>
+													Meta Tags<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="text"
+													name="meta_tags"
+													value={this.state.input.meta_tags}
+													readOnly
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													Meta Title<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="text"
+													name="meta_title"
+													value={this.state.input?.meta_title}
+													readOnly
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													Meta Description
+													<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="text"
+													name="meta_description"
+													value={this.state.input?.meta_description}
+													readOnly
+												/>
+											</div>
+											<div className="sort">
+												<label>
+													Category<span className="mandatory-star">*</span>
+												</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														disabled={this.state.mode === "view" ? true : false}
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="category_id"
+														onChange={this.handleChange}
+														className="sort-by-select"
+														value={this.state.input?.category_id}
+													>
+														<MenuItem
+															value="select"
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Category{" "}
+														</MenuItem>
+														{this.state.category?.map((value) => {
+															return (
+																<MenuItem value={value?.id}>
+																	{value?.name}
+																</MenuItem>
+															);
+														})}
+													</Select>
+												</div>
+											</div>
+											<div className="sort mt-4">
+												<label>
+													Type<span className="mandatory-star">*</span>
+												</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														disabled={this.state.mode === "view" ? true : false}
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="type_id"
+														onChange={this.handleChange}
+														className="sort-by-select"
+														value={this.state.input?.type_id}
+													>
+														<MenuItem
+															value="select"
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Type{" "}
+														</MenuItem>
+														{this.state.type?.map((value) => {
+															return (
+																<MenuItem value={value?.id}>
+																	{value?.name}
+																</MenuItem>
+															);
+														})}
+													</Select>
+												</div>
+											</div>
+											<div className="sort mt-4">
+												<label>
+													Author<span className="mandatory-star">*</span>
+												</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														disabled={this.state.mode === "view" ? true : false}
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="author_id"
+														onChange={this.handleChange}
+														className="sort-by-select"
+														value={this.state.input?.author_id}
+													>
+														<MenuItem
+															value="select"
+															disabled
+															className="field_toggle_checked"
+														>
+															Select author{" "}
+														</MenuItem>
+														{this.state.author?.map((value) => {
+															return (
+																<MenuItem value={value?.id}>
+																	{value?.name}
+																</MenuItem>
+															);
+														})}
+													</Select>
+												</div>
+											</div>
+										</div>
+										<div className="col-md-12">
+											<div className="fc-form-group editor">
+												<label>
+													Product Label
+													<span className="mandatory-star">*</span>
+												</label>
+												<br />
+												<ArticleEditor
+													value={this.state.input?.content}
+													mode={this.state.mode}
+													handleContent={this.handleLabel.bind(this)}
+													name="content"
+												/>
+												<small className="form-text text-danger">
+													{this.state.errors["content"]}
+												</small>
+											</div>
+
+										</div>
+										<div className="col-md-4">
+											<div className="login-form ">
+												<label>
+													Display Order<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="number"
+													min="0"
+													name="sort_order"
+													value={this.state.input?.sort_order}
+													readOnly
+												/>
+											</div>
+											<div className="signup-check ">
+												<Checkbox
+													size="small"
+													disabled={this.state.mode === "view" ? true : false}
+													style={{ color: "#012169" }}
+													checked={this.state.input.is_show_on_home}
+													name="is_show_on_home"
+													onChange={this.handleCheck.bind(this)}
+												/>
+												<label>Show on Home</label>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
 						)}
 					</>
 				)}

@@ -169,7 +169,7 @@ export default class ArticleEditDetails extends Component {
       this.state.articleDetails?.content ==="<p></p>\n" || 
       this.state.articleDetails?.content.replace(/&nbsp;/g, "").length <=8
     ) {
-      toast.error("Please enter the product label");
+      toast.error("Please enter the content");
       return false;
     }
     if (
@@ -367,7 +367,7 @@ export default class ArticleEditDetails extends Component {
             </Box>
             <DialogContent>
               <Typography style={{ color: "#7e8f99" }}>
-                Are you sure you want to delete this pro?
+                Are you sure you want to delete this content?
               </Typography>
             </DialogContent>
             <DialogActions style={{ marginBottom: "0.5rem" }}>

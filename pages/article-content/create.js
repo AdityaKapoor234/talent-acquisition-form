@@ -129,7 +129,7 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.content ==="<p></p>\n" || 
       this.state.contentDetails?.content.replace(/&nbsp;/g, "").length <=8
     ) {
-      toast.error("Please enter the product label");
+      toast.error("Please enter the content");
       return false;
     }
     if (

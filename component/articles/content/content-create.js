@@ -425,7 +425,7 @@ export default class ContentCreate extends Component {
 										<div className="col-md-12">
 											<div className="fc-form-group editor">
 												<label>
-													Product Label
+													content
 													<span className="mandatory-star">*</span>
 												</label>
 												<br />
@@ -671,7 +671,7 @@ export default class ContentCreate extends Component {
 										<div className="col-md-12">
 											<div className="fc-form-group editor">
 												<label>
-													Product Label
+													content
 													<span className="mandatory-star">*</span>
 												</label>
 												<br />

@@ -21,7 +21,7 @@ export default class ArticleEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props?.value,
+      value: props?.value ? props?.value : "",
       mode: props?.mode,
       timeout: "",
       editorState: "",
@@ -51,9 +51,9 @@ export default class ArticleEditor extends Component {
       this.state.value !== undefined ||
       !this.state.value
     ) {
-      if (
-        this.state.mode === "edit"
-      ) {
+      // if (
+      //   this.state.mode === "edit"
+      // ) {
         this.setState({
           editorState: EditorState.createWithContent(
             ContentState.createFromBlockArray(
@@ -63,7 +63,7 @@ export default class ArticleEditor extends Component {
         })
         // this.state.editorState = EditorState.createWithContent(ContentState.createFromText(`${this.state.value}`));
         // this.state.editorState=EditorState.createWithContent(convertFromRaw(JSON.parse(post.this.state.value)))
-      }
+      // }
     }
   };
 
@@ -84,8 +84,9 @@ export default class ArticleEditor extends Component {
           ContentState.createFromBlockArray(convertFromHTML(`${this.state.value}`))
         ) || EditorState.createEmpty(),
       })
+      this.setValue();
     }, 1000)
-    this.setValue();
+    
   }
 
   render() {

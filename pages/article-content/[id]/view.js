@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default class ArticleEditDetails extends Component {
+export default class ArticleViewDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -291,7 +291,7 @@ export default class ArticleEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Article / Content /  </span>Edit Content
+                  <span>Article / Content /  </span>View Content
                 </div>
                 <div className="page-name">
                   Edit Content  - {this.state.content?.title}

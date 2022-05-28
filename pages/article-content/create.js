@@ -39,7 +39,8 @@ export default class ContentCreate extends Component {
         category_id: null,
         type_id: null,
         is_show_on_home: false,
-        sort_order: null
+        sort_order: null,
+        video_url:null
       },
     };
   }
@@ -100,14 +101,14 @@ export default class ContentCreate extends Component {
       toast.error("Please enter the meta description");
       return false;
     }
-    if (
-      this.state.contentDetails?.category_id === "select" ||
-      this.state.contentDetails?.category_id === null ||
-      this.state.contentDetails?.category_id === undefined
-    ) {
-      toast.error("Please select the category");
-      return false;
-    }
+    // if (
+    //   this.state.contentDetails?.category_id === "select" ||
+    //   this.state.contentDetails?.category_id === null ||
+    //   this.state.contentDetails?.category_id === undefined
+    // ) {
+    //   toast.error("Please select the category");
+    //   return false;
+    // }
     if (
       this.state.contentDetails?.type_id === "select" ||
       this.state.contentDetails?.type_id === null ||
@@ -116,14 +117,14 @@ export default class ContentCreate extends Component {
       toast.error("Please select the type");
       return false;
     }
-    if (
-      this.state.contentDetails?.author_id === "select" ||
-      this.state.contentDetails?.author_id === null ||
-      this.state.contentDetails?.author_id === undefined
-    ) {
-      toast.error("Please select the author");
-      return false;
-    }
+    // if (
+    //   this.state.contentDetails?.author_id === "select" ||
+    //   this.state.contentDetails?.author_id === null ||
+    //   this.state.contentDetails?.author_id === undefined
+    // ) {
+    //   toast.error("Please select the author");
+    //   return false;
+    // }
     if (
       !this.state.contentDetails?.content || 
       this.state.contentDetails?.content ==="<p></p>\n" || 
@@ -159,7 +160,8 @@ export default class ContentCreate extends Component {
         "category_id":this.state.contentDetails?.category_id ,
         "type_id": this.state.contentDetails?.type_id,
         "is_show_on_home": this.state.contentDetails?.is_show_on_home? this.state.contentDetails?.is_show_on_home:false,
-        "sort_order": this.state.contentDetails?.sort_order
+        "sort_order": this.state.contentDetails?.sort_order,
+        "video_url":this.state.contentDetails?.video_url,
         
       };
       ArticleApi.ContentCreate(data)

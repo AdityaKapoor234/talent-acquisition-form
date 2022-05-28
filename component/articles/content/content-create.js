@@ -45,6 +45,7 @@ export default class ContentCreate extends Component {
 					? props?.content?.category_id
 					: "select",
 				type_id: props?.content?.type_id ? props?.content?.type_id : "select",
+				video_url: props?.content?.video_url ? props?.content?.video_url : null,
 				is_show_on_home: props?.content?.is_show_on_home
 					? props?.content?.is_show_on_home
 					: false,
@@ -91,6 +92,7 @@ export default class ContentCreate extends Component {
 					type_id: nextProps?.content?.type_id
 						? nextProps?.content?.type_id
 						: null,
+					video_url: nextProps?.content?.video_url ? nextProps?.content?.video_url:null,
 					is_show_on_home: nextProps?.content?.is_show_on_home
 						? nextProps?.content?.is_show_on_home
 						: false,
@@ -327,7 +329,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort">
 												<label>
-													Category<span className="mandatory-star">*</span>
+													Category
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -391,7 +393,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort mt-4">
 												<label>
-													Author<span className="mandatory-star">*</span>
+													Author
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -420,6 +422,17 @@ export default class ContentCreate extends Component {
 														})}
 													</Select>
 												</div>
+											</div>
+											<div className="login-form mt-4">
+												<label>
+													Youtube Url
+												</label>
+												<input
+													type="text"
+													name="video_url"
+													value={this.state.input?.video_url}
+													onChange={this.handleChange.bind(this)}
+												/>
 											</div>
 										</div>
 										<div className="col-md-12">
@@ -570,7 +583,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort">
 												<label>
-													Category<span className="mandatory-star">*</span>
+													Category
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -636,7 +649,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort mt-4">
 												<label>
-													Author<span className="mandatory-star">*</span>
+													Author
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -666,6 +679,18 @@ export default class ContentCreate extends Component {
 														})}
 													</Select>
 												</div>
+											</div>
+											<div className="login-form mt-4">
+												<label>
+													Youtube Url
+												</label>
+												<input
+													type="text"
+													name="video_url"
+													value={this.state.input?.video_url}
+													onChange={this.handleChange.bind(this)}
+													readOnly
+												/>
 											</div>
 										</div>
 										<div className="col-md-12">

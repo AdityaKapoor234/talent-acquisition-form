@@ -139,6 +139,7 @@ export default class ArticleEditor extends Component {
             link: { inDropdown: true },
             history: { inDropdown: true },
             image: {
+              className: "content-image",
               uploadCallback: uploadImageCallBack,
               alt: { present: true, mandatory: true },
             },

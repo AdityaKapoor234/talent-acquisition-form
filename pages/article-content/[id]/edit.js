@@ -50,6 +50,7 @@ export default class ArticleEditDetails extends Component {
         type_id: null,
         is_show_on_home: false,
         sort_order: null,
+        video_url:null
       },
     };
   }
@@ -140,14 +141,14 @@ export default class ArticleEditDetails extends Component {
       toast.error("Please enter the meta description");
       return false;
     }
-    if (
-      this.state.articleDetails?.category_id === "select" ||
-      this.state.articleDetails?.category_id === null ||
-      this.state.articleDetails?.category_id === undefined
-    ) {
-      toast.error("Please select the category");
-      return false;
-    }
+    // if (
+    //   this.state.articleDetails?.category_id === "select" ||
+    //   this.state.articleDetails?.category_id === null ||
+    //   this.state.articleDetails?.category_id === undefined
+    // ) {
+    //   toast.error("Please select the category");
+    //   return false;
+    // }
     if (
       this.state.articleDetails?.type_id === "select" ||
       this.state.articleDetails?.type_id === null ||
@@ -156,14 +157,14 @@ export default class ArticleEditDetails extends Component {
       toast.error("Please select the type");
       return false;
     }
-    if (
-      this.state.articleDetails?.author_id === "select" ||
-      this.state.articleDetails?.author_id === null ||
-      this.state.articleDetails?.author_id === undefined
-    ) {
-      toast.error("Please select the author");
-      return false;
-    }
+    // if (
+    //   this.state.articleDetails?.author_id === "select" ||
+    //   this.state.articleDetails?.author_id === null ||
+    //   this.state.articleDetails?.author_id === undefined
+    // ) {
+    //   toast.error("Please select the author");
+    //   return false;
+    // }
     if (
       !this.state.articleDetails?.content || 
       this.state.articleDetails?.content ==="<p></p>\n" || 
@@ -200,6 +201,7 @@ export default class ArticleEditDetails extends Component {
         type_id: this.state.articleDetails?.type_id,
         is_show_on_home: this.state.articleDetails?.is_show_on_home,
         sort_order: this.state.articleDetails?.sort_order,
+        video_url:this.state.articleDetails?.video_url
       };
       ArticleApi.ContentEdit(this.props.id, data)
         .then((response) => {
@@ -242,6 +244,7 @@ export default class ArticleEditDetails extends Component {
             type_id: response.data.data.type_id,
             is_show_on_home: response.data.data.is_show_on_home,
             sort_order: response.data.data.sort_order,
+            video_url:response.data.data.video_url
           };
           this.setState({
             articleDetails: details,

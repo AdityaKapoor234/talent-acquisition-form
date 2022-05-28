@@ -28,7 +28,6 @@ export default function EmailSupportViews({ id }) {
     const getEmailSupportView = (id) => {
         InquiryApi.getEmailSupportView(id)
             .then((response) => {
-                console.log(response)
             setEmailSupportView(response.data.data.email_support);
             })
             .catch((error) => {

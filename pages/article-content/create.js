@@ -158,7 +158,7 @@ export default class ContentCreate extends Component {
         "meta_description": this.state.contentDetails?.meta_description,
         "category_id":this.state.contentDetails?.category_id ,
         "type_id": this.state.contentDetails?.type_id,
-        "is_show_on_home": this.state.contentDetails?.is_show_on_home === "" ? false : this.state.contentDetails?.is_show_on_home,
+        "is_show_on_home": this.state.contentDetails?.is_show_on_home? this.state.contentDetails?.is_show_on_home:false,
         "sort_order": this.state.contentDetails?.sort_order
         
       };

@@ -228,7 +228,6 @@ export default class ContentCreate extends Component {
 								<div className="col">
 									<div className="row mt-4">
 										<div className="col-md-4">
-                      {console.log("yuyuy",this.state.input)}
 											<div className="login-form ">
 												<label>
 													Title<span className="mandatory-star">*</span>

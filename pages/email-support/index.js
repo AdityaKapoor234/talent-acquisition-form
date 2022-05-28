@@ -81,7 +81,6 @@ export default function Email_Support() {
 		setIsLoader(true);
 		InquiryApi.emailSupportList(page,search)
 			.then((response) => {
-                console.log(response)
 				setEmailSupport(response.data.data.list);
 				setTotalEmailSupport(response.data.data.total);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

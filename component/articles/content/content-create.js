@@ -47,10 +47,10 @@ export default class ContentCreate extends Component {
 				type_id: props?.content?.type_id ? props?.content?.type_id : "select",
 				is_show_on_home: props?.content?.is_show_on_home
 					? props?.content?.is_show_on_home
-					: "",
+					: false,
 				sort_order: props?.content?.sort_order
-					? props?.content?.props?.sort_order
-					: "",
+					? props?.content?.sort_order
+					: null,
 			},
 		};
 	}
@@ -93,10 +93,10 @@ export default class ContentCreate extends Component {
 						: null,
 					is_show_on_home: nextProps?.content?.is_show_on_home
 						? nextProps?.content?.is_show_on_home
-						: "",
+						: false,
 					sort_order: nextProps?.content?.sort_order
-						? nextProps?.content?.nextProps?.sort_order
-						: "",
+						? nextProps?.content?.sort_order
+						: null,
 				},
 			};
 		}
@@ -121,13 +121,9 @@ export default class ContentCreate extends Component {
 				input[event.target.name] = event.target.value;
 				this.setState({ input });
 				this.props?.handle(input);
+
 			}
 		}
-
-		// let input = this.state.input;
-		// input[event.target.name] = event.target.value;
-		// this.setState({ input });
-		// this.props?.handle(input);
 	};
 	handleCheck = (event) => {
 		let input = this.state.input;
@@ -232,6 +228,7 @@ export default class ContentCreate extends Component {
 								<div className="col">
 									<div className="row mt-4">
 										<div className="col-md-4">
+                      {console.log("yuyuy",this.state.input)}
 											<div className="login-form ">
 												<label>
 													Title<span className="mandatory-star">*</span>
@@ -292,7 +289,7 @@ export default class ContentCreate extends Component {
 													img={this.state.input.feature_image}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value="file-input-icon"
-													urlLink="http://65.1.17.188:5000/user/full_banner_sm"
+													urlLink="http://65.1.17.188:5001/manage/category/photo/feature_image"
 												/>
 											</div>
 											<div className="login-form mt-4">

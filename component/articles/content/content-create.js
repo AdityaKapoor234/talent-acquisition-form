@@ -110,19 +110,19 @@ export default class ContentCreate extends Component {
 			this.props?.handle(input);
 		}
 		if (event.target.name === "title") {
-			if (input["title"] !== "") {
+			// if (input["title"] !== "") {
 				input["slug"] = event.target.value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 				input[event.target.name] = event.target.value;
 				this.setState({ input });
 				this.props?.handle(input);
-			}
-			else {
-				input["slug"] = "";
-				input[event.target.name] = event.target.value;
-				this.setState({ input });
-				this.props?.handle(input);
+			// }
+			// else {
+			// 	input["slug"] = "";
+			// 	input[event.target.name] = event.target.value;
+			// 	this.setState({ input });
+			// 	this.props?.handle(input);
 
-			}
+			// }
 		}
 	};
 	handleCheck = (event) => {

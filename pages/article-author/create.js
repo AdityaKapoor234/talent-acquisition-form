@@ -19,7 +19,7 @@ export default class ArticleAuthorCreate extends Component {
         name: "",
         avatar: "",
         bio:"",
-        is_active: null,
+        is_active:false,
       },
     };
   }
@@ -40,7 +40,7 @@ export default class ArticleAuthorCreate extends Component {
         name: this.state.authorDetails.name,
         avatar: this.state.authorDetails.avatar,
         bio: this.state.authorDetails.bio,
-        // is_active: this.state.authorDetails.is_active,
+        is_active: this.state.authorDetails.is_active,
       };
       ArticleApi.AuthorCreate(data)
         .then((response) => {

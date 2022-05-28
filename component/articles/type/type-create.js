@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
+import FormGroup from "@mui/material/FormGroup";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default class TypeCreate extends Component {
   constructor(props) {
@@ -16,10 +20,12 @@ export default class TypeCreate extends Component {
         name: props?.type?.name ? props.type?.name : "",
         sort_order: props?.type?.sort_order ? props.type?.sort_order : "",
         is_active: props?.type?.is_active ? props?.type?.is_active : false,
-        label: props?.type?.label ? props?.type?.label:"",
-        description:props?.type?.description? props?.type?.description:"",
-        banner_sm_url:props?.type?.banner_sm_url? props?.type?.banner_sm_url:"",
-        banner_url:props?.type?.banner_url? props?.type?.banner_url:"",
+        label: props?.type?.label ? props?.type?.label : "",
+        description: props?.type?.description ? props?.type?.description : "",
+        banner_sm_url: props?.type?.banner_sm_url
+          ? props?.type?.banner_sm_url
+          : "",
+        banner_url: props?.type?.banner_url ? props?.type?.banner_url : "",
       },
     };
   }
@@ -33,15 +39,23 @@ export default class TypeCreate extends Component {
         type: nextProps?.type,
         mode: nextProps?.mode,
         input: {
-         is_active: nextProps?.type?.is_active
+          is_active: nextProps?.type?.is_active
             ? nextProps?.type?.is_active
             : false,
           name: nextProps?.type?.name ? nextProps.type?.name : "",
-          sort_order: nextProps?.type?.sort_order? nextProps.type?.sort_order : "",
-          label: nextProps?.type?.label ? nextProps?.type?.label:"",
-          description:nextProps?.type?.description?nextProps?.type?.description:"",
-          banner_sm_url:nextProps?.type?.banner_sm_url? nextProps?.type?.banner_sm_url:"",
-          banner_url:nextProps?.type?.banner_url? nextProps?.type?.banner_url:"",
+          sort_order: nextProps?.type?.sort_order
+            ? nextProps.type?.sort_order
+            : "",
+          label: nextProps?.type?.label ? nextProps?.type?.label : "",
+          description: nextProps?.type?.description
+            ? nextProps?.type?.description
+            : "",
+          banner_sm_url: nextProps?.type?.banner_sm_url
+            ? nextProps?.type?.banner_sm_url
+            : "",
+          banner_url: nextProps?.type?.banner_url
+            ? nextProps?.type?.banner_url
+            : "",
         },
       };
     }
@@ -49,9 +63,9 @@ export default class TypeCreate extends Component {
   }
   handleChange = (event) => {
     let input = this.state.input;
-    if(event.target.name === "sort_order"){
+    if (event.target.name === "sort_order") {
       input[event.target.name] = event.target.value.replace(/[^\d]/, "");
-    }else{
+    } else {
       input[event.target.name] = event.target.value;
     }
     this.setState({ input });
@@ -108,27 +122,64 @@ export default class TypeCreate extends Component {
                         />
                       </div>
                       <div className="login-form ">
-												<label>
-													Description
-												</label>
-												<textarea
-													name="description"
-													cols="100"
-													rows="5"
-													value={this.state.input?.description}
-													onChange={this.handleChange.bind(this)}
-												/>
-											</div>
-                      <div className="login-form ">
-                        <label>
-                          Label
-                        </label>
-                        <input
-                          type="text"
-                          name="label"
-                          value={this.state.input.label}
+                        <label>Description</label>
+                        <textarea
+                          name="description"
+                          cols="100"
+                          rows="5"
+                          value={this.state.input?.description}
                           onChange={this.handleChange.bind(this)}
                         />
+                      </div>
+                      <div className="login-form ">
+                        <label>Content Type<span className="mandatory-star">*</span></label>
+                        <div className="login-form">
+                          <div className="d-flex">
+                            <RadioGroup
+                              row
+                              disabled={
+                                this.state.mode === "view" ? true : false
+                              }
+                              aria-labelledby="demo-controlled-radio-buttons-group"
+                              name="label"
+                              value={this.state.input?.label}
+                              onChange={this.handleChange}
+                            >
+                              <div className="d-flex">
+                                <FormControlLabel
+                                  value="video"
+                                  control={
+                                    <Radio
+                                      disabled={
+                                        this.state.mode === "view"
+                                          ? true
+                                          : false
+                                      }
+                                      size={"small"}
+                                      style={{ color: "#012169" }}
+                                    />
+                                  }
+                                  label="Video"
+                                />
+                                <FormControlLabel
+                                  value="content"
+                                  control={
+                                    <Radio
+                                      disabled={
+                                        this.state.mode === "view"
+                                          ? true
+                                          : false
+                                      }
+                                      size={"small"}
+                                      style={{ color: "#012169" }}
+                                    />
+                                  }
+                                  label="Content"
+                                />
+                              </div>
+                            </RadioGroup>
+                          </div>
+                        </div>
                       </div>
                       <div className="login-form ">
                         <label>
@@ -207,15 +258,54 @@ export default class TypeCreate extends Component {
                         />
                       </div>
                       <div className="login-form ">
-                        <label>
-                          Label
-                        </label>
-                        <input
-                          type="text"
-                          name="label"
-                          value={this.state.input.label}
-                          onChange={this.handleChange.bind(this)}
-                        />
+                        <label>Content Type<span className="mandatory-star">*</span></label>
+                        <div className="login-form">
+                          <div className="d-flex">
+                            <RadioGroup
+                              row
+                              disabled={
+                                this.state.mode === "view" ? true : false
+                              }
+                              aria-labelledby="demo-controlled-radio-buttons-group"
+                              name="label"
+                              value={this.state.input?.label}
+                              onChange={this.handleChange}
+                            >
+                              <div className="d-flex">
+                                <FormControlLabel
+                                  value="video"
+                                  control={
+                                    <Radio
+                                      disabled={
+                                        this.state.mode === "view"
+                                          ? true
+                                          : false
+                                      }
+                                      size={"small"}
+                                      style={{ color: "#012169" }}
+                                    />
+                                  }
+                                  label="Video"
+                                />
+                                <FormControlLabel
+                                  value="content"
+                                  control={
+                                    <Radio
+                                      disabled={
+                                        this.state.mode === "view"
+                                          ? true
+                                          : false
+                                      }
+                                      size={"small"}
+                                      style={{ color: "#012169" }}
+                                    />
+                                  }
+                                  label="Content"
+                                />
+                              </div>
+                            </RadioGroup>
+                          </div>
+                        </div>
                       </div>
                       <div className="login-form ">
                         <label>

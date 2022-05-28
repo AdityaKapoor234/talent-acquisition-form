@@ -16,14 +16,14 @@ export default class ContentList extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-          prevState.content !== nextProps.content
+            prevState.content !== nextProps.content
         ) {
-          return {
-            content: nextProps?.content
-          };
+            return {
+                content: nextProps?.content
+            };
         }
         return null;
-      }
+    }
 
     render() {
         return (
@@ -35,47 +35,53 @@ export default class ContentList extends Component {
                             <div className="col text-center">Type</div>
                             <div className="col text-center">Category</div>
                             <div className="col text-center">Status</div>
-                            <div className="col-1 text-end">Edit</div>
+                            <div className="col-1 text-end">Action</div>
                         </div>
                     </div>
                 </div>
                 {
-                this.state.content && this.state.content.length === 0 ? <div className="not-found">No Data Found</div> :
-                    this.state.content?.map((p, index) => {
-                    return (
-                        <div className="row" key={index}>
-                            <div className="col-md-12">
-                                <div className="tableCell">
-                                    <div className="tableBody pe-1 col elip-text" title={p?.title}>{p?.title}</div>
-                                    <div className="col text-center" title={p?.type}>{p?.type}</div>
-                                    <div className="col text-center" title={p?.category}>{p?.category}</div>
-                                    <div className="col text-center">
-                                        {p?.status === "draft" &&(
-                                            <BlockOutlinedIcon className="draft"/>
-                                        ) }
-                                        {p?.status === "published" &&(
-                                            <CheckCircleOutlineOutlinedIcon className="check-icon"/>
-                                        ) }
-                                        {p?.status === "out_of_stock" &&(
-                                            <ProductionQuantityLimitsIcon className="out"/>
-                                        ) }
-                                        {p?.status === "archived" &&(
-                                            <CancelOutlinedIcon className="cancel-icon" />
-                                        ) }
-                                    </div>
-                                    <div className="col-1 text-end">
-                                        <EditOutlinedIcon
-                                            className="edit-icon"
-                                            onClick={() => {
-                                                Router.push(`/article-content/${p?.id}/edit`);
-                                            }}
-                                        />
+                    this.state.content && this.state.content.length === 0 ? <div className="not-found">No Data Found</div> :
+                        this.state.content?.map((p, index) => {
+                            return (
+                                <div className="row" key={index}>
+                                    <div className="col-md-12">
+                                        <div className="tableCell">
+                                            <div className="tableBody pe-1 col elip-text" title={p?.title}>{p?.title}</div>
+                                            <div className="col text-center" title={p?.type}>{p?.type}</div>
+                                            <div className="col text-center" title={p?.category}>{p?.category}</div>
+                                            <div className="col text-center">
+                                                {p?.status === "draft" && (
+                                                    <BlockOutlinedIcon className="draft" />
+                                                )}
+                                                {p?.status === "published" && (
+                                                    <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                                                )}
+                                                {p?.status === "out_of_stock" && (
+                                                    <ProductionQuantityLimitsIcon className="out" />
+                                                )}
+                                                {p?.status === "archived" && (
+                                                    <CancelOutlinedIcon className="cancel-icon" />
+                                                )}
+                                            </div>
+                                            <div className="col-1 text-end">
+                                                <RemoveRedEyeIcon
+                                                    className="view-icon"
+                                                    onClick={() => {
+                                                        Router.push(`/article-content/${p?.id}/view`);
+                                                    }}
+                                                />
+                                                <EditOutlinedIcon
+                                                    className="edit-icon"
+                                                    onClick={() => {
+                                                        Router.push(`/article-content/${p?.id}/edit`);
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    );
-                })}
+                            );
+                        })}
             </div>
         );
     }

@@ -20,18 +20,29 @@ import draftToHtml from "draftjs-to-html";
 export default class ArticleEditor extends Component {
   constructor(props) {
     super(props);
-
-    // timeout = setTimeout(() => {
     this.state = {
       value: props?.value,
       mode: props?.mode,
       timeout: "",
       editorState: "",
       articleProd: props?.articleProd ? props?.articleProd : "",
-
     };
-    // }, 1000)
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      prevState.value !== nextProps.value ||
+      prevState.mode !== nextProps.mode
+    ) {
+      return {
+        value: nextProps?.value,
+        mode: nextProps?.mode,
+        articleProd: nextProps?.articleProd,
+      };
+    }
+    return null;
+  }
+
 
   setValue = () => {
     if (
@@ -40,12 +51,16 @@ export default class ArticleEditor extends Component {
       this.state.value !== undefined ||
       !this.state.value
     ) {
-      if (this.state.mode === "view") {
-        this.state.editorState = EditorState.createWithContent(
-          ContentState.createFromBlockArray(
-            convertFromHTML(`${this.state.value}`)
+      if (
+        this.state.mode === "edit"
+      ) {
+        this.setState({
+          editorState: EditorState.createWithContent(
+            ContentState.createFromBlockArray(
+              convertFromHTML(`${this.state.value}`)
+            )
           )
-        );
+        })
         // this.state.editorState = EditorState.createWithContent(ContentState.createFromText(`${this.state.value}`));
         // this.state.editorState=EditorState.createWithContent(convertFromRaw(JSON.parse(post.this.state.value)))
       }
@@ -63,13 +78,14 @@ export default class ArticleEditor extends Component {
   };
 
   componentDidMount(props) {
-    // this.state.timeout = setTimeout(() => {
+    this.state.timeout = setTimeout(() => {
       this.setState({
         editorState: EditorState.createWithContent(
           ContentState.createFromBlockArray(convertFromHTML(`${this.state.value}`))
         ) || EditorState.createEmpty(),
       })
-    // }, 1000)
+    }, 1000)
+    this.setValue();
   }
 
   render() {
@@ -91,12 +107,12 @@ export default class ArticleEditor extends Component {
         resolve({ data: { link: data?.data?.data?.url } });
       });
     }
-    this.setValue();
     const { editorState } = this.state;
     return (
       <>
         <Editor
           editorState={editorState}
+          readOnly= {this.state.mode === "view" ? true : false}
           toolbarClassName="toolbar-class"
           wrapperClassName="wrapper-class"
           editorClassName="editor-class"

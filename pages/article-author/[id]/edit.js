@@ -30,7 +30,7 @@ export default class AuthorEditDetails extends Component {
         name: "",
         avatar: "",
         bio:"",
-        is_active: null,
+        is_active:false,
       },
     };
   }
@@ -49,7 +49,7 @@ export default class AuthorEditDetails extends Component {
         name: this.state.authorDetails.name,
         avatar: this.state.authorDetails.avatar,
         bio: this.state.authorDetails.bio,
-        // is_active: this.state.authorDetails.is_active,
+        is_active: this.state.authorDetails.is_active,
       };
       ArticleApi.AuthorEdit(this.props.id, data)
         .then((response) => {
@@ -77,12 +77,14 @@ export default class AuthorEditDetails extends Component {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
-            name: response.data.data.view.name
-              ? response.data.data.view.name
+            name: response.data.data.view?.name
+              ? response.data.data.view?.name
               : "",
+            avatar: response.data.data.view?.avatar,
+            bio: response.data.data.view?.bio,
             is_active: response.data.data.view.is_active
               ? response.data.data.view.is_active
-              : null,
+              : false,
           };
           this.setState({
             authorDetails: details,

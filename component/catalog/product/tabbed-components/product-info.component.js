@@ -334,7 +334,6 @@ export default class ProductInfoComponent extends Component {
         GstApi.gstHsnCodeDropdownDetails()
             .then((response) => {
                 if (response.data.httpStatusCode === 200) {
-                    console.log("ytty",response.data.data)
                     this.setState({
                         gst: response.data.data?.list
                     })

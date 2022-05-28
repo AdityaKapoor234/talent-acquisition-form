@@ -82,7 +82,6 @@ export default function Coupon_Log() {
 		setIsLoader(true);
 		CouponApi.couponLog(page,search)
 			.then((response) => {
-                console.log(response)
 				setCouponLog(response.data.data.list);
 				setTotalCouponLog(response.data.data.total);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

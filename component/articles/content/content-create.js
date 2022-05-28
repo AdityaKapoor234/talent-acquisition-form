@@ -110,19 +110,19 @@ export default class ContentCreate extends Component {
 			this.props?.handle(input);
 		}
 		if (event.target.name === "title") {
-			if (input["title"] !== "") {
+			// if (input["title"] !== "") {
 				input["slug"] = event.target.value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 				input[event.target.name] = event.target.value;
 				this.setState({ input });
 				this.props?.handle(input);
-			}
-			else {
-				input["slug"] = "";
-				input[event.target.name] = event.target.value;
-				this.setState({ input });
-				this.props?.handle(input);
+			// }
+			// else {
+			// 	input["slug"] = "";
+			// 	input[event.target.name] = event.target.value;
+			// 	this.setState({ input });
+			// 	this.props?.handle(input);
 
-			}
+			// }
 		}
 	};
 	handleCheck = (event) => {
@@ -228,7 +228,6 @@ export default class ContentCreate extends Component {
 								<div className="col">
 									<div className="row mt-4">
 										<div className="col-md-4">
-                      {console.log("yuyuy",this.state.input)}
 											<div className="login-form ">
 												<label>
 													Title<span className="mandatory-star">*</span>
@@ -426,7 +425,7 @@ export default class ContentCreate extends Component {
 										<div className="col-md-12">
 											<div className="fc-form-group editor">
 												<label>
-													Product Label
+													content
 													<span className="mandatory-star">*</span>
 												</label>
 												<br />
@@ -672,7 +671,7 @@ export default class ContentCreate extends Component {
 										<div className="col-md-12">
 											<div className="fc-form-group editor">
 												<label>
-													Product Label
+													content
 													<span className="mandatory-star">*</span>
 												</label>
 												<br />

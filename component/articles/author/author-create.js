@@ -97,7 +97,7 @@ export default class AuthorCreate extends Component {
                       </div>
                       <div className="login-form ">
                         <label>
-                          Bio<span className="mandatory-star">*</span>
+                          Bio
                         </label>
                         <br />
                         <textarea

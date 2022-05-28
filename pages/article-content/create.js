@@ -129,7 +129,7 @@ export default class ContentCreate extends Component {
       this.state.contentDetails?.content ==="<p></p>\n" || 
       this.state.contentDetails?.content.replace(/&nbsp;/g, "").length <=8
     ) {
-      toast.error("Please enter the product label");
+      toast.error("Please enter the content");
       return false;
     }
     if (
@@ -158,7 +158,7 @@ export default class ContentCreate extends Component {
         "meta_description": this.state.contentDetails?.meta_description,
         "category_id":this.state.contentDetails?.category_id ,
         "type_id": this.state.contentDetails?.type_id,
-        "is_show_on_home": this.state.contentDetails?.is_show_on_home === "" ? false : this.state.contentDetails?.is_show_on_home,
+        "is_show_on_home": this.state.contentDetails?.is_show_on_home? this.state.contentDetails?.is_show_on_home:false,
         "sort_order": this.state.contentDetails?.sort_order
         
       };

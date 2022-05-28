@@ -345,7 +345,7 @@ export default class ArticleViewDetails extends Component {
             </Box>
             <DialogContent>
               <Typography style={{ color: "#7e8f99" }}>
-                Are you sure you want to delete this pro?
+                Are you sure you want to delete this content?
               </Typography>
             </DialogContent>
             <DialogActions style={{ marginBottom: "0.5rem" }}>

@@ -61,6 +61,10 @@ export default class TypeEditDetails extends Component {
       toast.error("Please enter name");
       return false;
     }
+    if (this.state.TypeDetails.label === "" || this.state.TypeDetails?.label.replace(/\s/g, "").length <=0) {
+      toast.error("Please Choose one option");
+      return false;
+    }
     if (this.state.TypeDetails.description === "" || this.state.TypeDetails?.description.replace(/\s/g, "").length <=0) {
       toast.error("Please enter description");
       return false;

@@ -30,6 +30,7 @@ export default class AskTheProsCreate extends Component {
       askTheProsDetails: {
         name: "",
         email: "",
+        description: "",
         avatar_url: null,
         is_active: false,
         experience: "",
@@ -52,8 +53,22 @@ export default class AskTheProsCreate extends Component {
       toast.error("Please enter the name");
       return false;
     }
-    if (this.state.askTheProsDetails?.email === ""||
-    this.state.askTheProsDetails?.email === null) {
+    if (
+      this.state.askTheProsDetails?.description === "" ||
+      this.state.askTheProsDetails?.description === null ||
+      this.state.askTheProsDetails?.description === undefined
+    ) {
+      toast.error("Please enter the description");
+      return false;
+    }
+    if (this.state.askTheProsDetails?.description !== undefined) {
+      if (this.state.askTheProsDetails?.description.replace(/\s/g, "").length <= 0) {
+        toast.error("Please enter the description");
+        return false;
+      }
+    }
+    if (this.state.askTheProsDetails?.email === "" ||
+      this.state.askTheProsDetails?.email === null) {
       toast.error("Please enter email address");
       return false;
     }
@@ -75,18 +90,19 @@ export default class AskTheProsCreate extends Component {
       toast.error("Please enter experience");
       return false;
     }
-    
+
     return true;
   };
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name:this.state.askTheProsDetails?.name,
-        email:this.state.askTheProsDetails?.email,
+        name: this.state.askTheProsDetails?.name,
+        email: this.state.askTheProsDetails?.email,
+        description: this.state.askTheProsDetails?.description,
         avatar_url: this.state.askTheProsDetails?.avatar_url,
         is_active: this.state.askTheProsDetails?.is_active,
-        experience:this.state.askTheProsDetails?.experience,
-        expertises:this.state.askTheProsDetails?.expertises,
+        experience: this.state.askTheProsDetails?.experience,
+        expertises: this.state.askTheProsDetails?.expertises,
       };
       AskTheProsApi.AskTheProsCreate(data)
         .then((response) => {
@@ -122,7 +138,7 @@ export default class AskTheProsCreate extends Component {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Ask The Pros</title>
+          <title>{APP_NAME} - Trust The Pros</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -132,9 +148,9 @@ export default class AskTheProsCreate extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                  <span>Ask The Pros / Ask The Pros / </span>Add New Ask The Pros
+                  <span>Trust The Pros / Trust The Pros / </span>Add New Trust The Pros
                 </div>
-                <div className="page-name">Add New Ask The Pros</div>
+                <div className="page-name">Add New Trust The Pros</div>
               </div>
               <div className="col-md-7 btn-save">
                 <div

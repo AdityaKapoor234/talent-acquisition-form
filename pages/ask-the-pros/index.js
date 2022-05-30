@@ -104,7 +104,7 @@ export default function AskThePros() {
   return (
     <div page-component="category-page">
       <Head>
-        <title>{APP_NAME} - Ask The Pros</title>
+        <title>{APP_NAME} - Trust The Pros</title>
         <meta name="description" content="Trusted Brands. Better Health." />
         <link rel="icon" href="/fitcart.ico" />
       </Head>
@@ -114,9 +114,9 @@ export default function AskThePros() {
           <div className="row border-box">
             <div className="col-md-6">
               <div className="hamburger">
-                <span>Ask The Pros / </span>Ask The Pros
+                <span>Trust The Pros / </span>Trust The Pros
               </div>
-              <div className="page-name">Ask The Pros</div>
+              <div className="page-name">Trust The Pros</div>
             </div>
             <div className="col-md-4">
               <div className="login-form ">

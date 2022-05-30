@@ -152,13 +152,13 @@ export default function DashboardLayoutComponent({ children }) {
                                 <div className={tabAskthePros ? 'menu-btn active' : 'menu-btn'} onClick={() => setAskthePros(!tabAskthePros)}>
                                     <span>
                                         {tabAskthePros ? <GroupsIcon className='outline-icon' /> : <GroupsOutlinedIcon className='outline-icon' />}
-                                        ask the pros
+                                        trust the pros
                                     </span>
                                     <ArrowDropDownIcon className='drop-icon' />
                                 </div>
                                 {tabAskthePros &&
                                     <ul>
-                                        <li className={categary === "ask-the-pros" ? "sub_active" : ""} onClick={() => handleCategary("/ask-the-pros", "ask-the-pros")}>ask the pros</li>
+                                        <li className={categary === "ask-the-pros" ? "sub_active" : ""} onClick={() => handleCategary("/ask-the-pros", "ask-the-pros")}>trust the pros</li>
                                         <li className={categary === "query" ? "sub_active" : ""} onClick={() => handleCategary("/query", "query")}>query</li>
                                     </ul>
                                 }

@@ -31,6 +31,16 @@ export default function AskTheProsViewDetails({ id }) {
   const mode = "view";
   const [askThePros, setAskThePros] = useState([]);
   const [open, setOpen] = useState(false);
+  const [isLoader, setIsLoader] = useState(true);
+  const [trustTheProsRefferalCode, setTrustTheProsRefferalCode] = useState([]);
+  const [totalAskTheProsRefferalCode, setTotalAskTheProsRefferalCode] = useState([]);
+  const [totalPageRefferalCode, setTotalPageRefferalCode] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [trustTheProsRefferalCodeDropdown, setTrustTheProsRefferalCodeDropdown] = useState([]);
+  const [trustTheProsTotalPoints, setTrustTheProsTotalPoints] = useState({});
+
+  
+
 
   const AskTheProsDetail = (id) => {
     AskTheProsApi.getAskTheProsDetails(id)
@@ -39,6 +49,9 @@ export default function AskTheProsViewDetails({ id }) {
           let details = {
             name:response.data.data.expert?.name,
             email:response.data.data.expert?.email,
+            description:response.data.data.expert?.description,
+            coupon_code: response.data.data.expert?.coupon_code,
+            coupon_code_id: response.data.data.expert?.coupon_code_id,
             avatar_url: response.data.data.expert?.avatar_url,
             is_active: response.data.data.expert?.is_active,
             experience:response.data.data.expert?.experience,
@@ -78,17 +91,85 @@ export default function AskTheProsViewDetails({ id }) {
       });
   };
 
+  const trustTheProsRefferCodeList = (id, page) => {
+    setIsLoader(true);
+    AskTheProsApi.AskTheProsRefferalCodeList(id, page)
+      .then((response) => {
+        setTrustTheProsRefferalCode(response.data.data.list);
+        setTotalAskTheProsRefferalCode(response.data.data);
+        setTotalPageRefferalCode(Math.ceil(response.data.data.total / response.data.data.page_size));
+        setIsLoader(false);
+      })
+      .catch((error) => {
+        setIsLoader(false);
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  const trustTheProsRefferCodeDropdownList = () => {
+    setIsLoader(true);
+    AskTheProsApi.AskTheProsRefferalCodeDropdownList()
+      .then((response) => {
+        setTrustTheProsRefferalCodeDropdown(response.data.data.list);
+        setIsLoader(false);
+      })
+      .catch((error) => {
+        setIsLoader(false);
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  const trustTheProsTotalPoint = (id) => {
+    setIsLoader(true);
+    AskTheProsApi.AskTheProsRefferalCodeTotalPoints(id)
+      .then((response) => {
+        setTrustTheProsTotalPoints(response.data.data.total);
+        setIsLoader(false);
+      })
+      .catch((error) => {
+        setIsLoader(false);
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  const RefferalCodePagination = (value) => {
+    setCurrentPage(value)
+    trustTheProsRefferCodeList(id,currentPage);
+  }
+
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
     AskTheProsDetail(id);
+    trustTheProsRefferCodeList(id,currentPage);
+    trustTheProsRefferCodeDropdownList();
+    trustTheProsTotalPoint(id);
+
   }, [id]);
   return (
     <div>
       <Head>
-        <title>{APP_NAME} - Ask The Pros</title>
+        <title>{APP_NAME} - Trust The Pros</title>
         <meta name="description" content="Trusted Brands. Better Health." />
         <link rel="icon" href="/fitcart.ico" />
       </Head>
@@ -98,10 +179,10 @@ export default function AskTheProsViewDetails({ id }) {
           <div className="row border-box">
             <div className="col-md-5">
               <div className="hamburger">
-                <span>Ask The Pros / Ask The Pros / </span>View Ask The Pros
+                <span>Trust The Pros / Trust The Pros / </span>View Trust The Pros
               </div>
               <div className="page-name">
-                Ask The Pros Details - {askThePros?.name}
+                Trust The Pros Details - {askThePros?.name}
               </div>
             </div>
             <div className="col-md-7 btn-save">
@@ -128,6 +209,13 @@ export default function AskTheProsViewDetails({ id }) {
               <AskTheProsCreateComponent
                 mode={mode}
                 askThePros={askThePros}
+                trustTheProsRefferalCode= {trustTheProsRefferalCode}
+                totalAskTheProsRefferalCode= {totalAskTheProsRefferalCode}
+                totalPageRefferalCode= {totalPageRefferalCode}
+                currentPage= {currentPage}
+                trustTheProsRefferalCodeDropdown= {trustTheProsRefferalCodeDropdown}
+                trustTheProsTotalPoints= {trustTheProsTotalPoints}
+                RefferalCodePagination={RefferalCodePagination.bind(this)}
               />
             </div>
           </div>

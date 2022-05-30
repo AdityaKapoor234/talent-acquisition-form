@@ -12,6 +12,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -38,13 +39,30 @@ export default class AskTheProsEditDetails extends Component {
       askTheProsDetails: {
         name: "",
         email: "",
+        description: "",
         avatar_url: null,
         is_active: false,
         experience: "",
         expertises: [],
       },
+      isLoader: true,
+      trustTheProsRefferalCode: [],
+      totalAskTheProsRefferalCode: [],
+      totalPageRefferalCode: null,
+      currentPage: 1,
+      trustTheProsRefferalCodeDropdown: [],
+      trustTheProsTotalPoints: {},
+      proffesionalReferralCodeId: "",
+      proffesionalReferralCode: "",
+  
     };
   }
+
+  RefferalCodePagination = (value) => {
+    this.setState({ currentPage: value })
+    this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
+  }
+
   ValidateEmail = (mail) => {
     return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
       mail
@@ -58,6 +76,14 @@ export default class AskTheProsEditDetails extends Component {
       this.state.askTheProsDetails?.name.replace(/\s/g, "").length <=0
     ) {
       toast.error("Please enter the name");
+      return false;
+    }
+    if (
+      this.state.askTheProsDetails?.description === "" ||
+      this.state.askTheProsDetails?.description === null ||
+      this.state.askTheProsDetails?.description.replace(/\s/g, "").length <=0
+    ) {
+      toast.error("Please enter the description");
       return false;
     }
     if (this.state.askTheProsDetails?.email === ""||
@@ -93,6 +119,7 @@ export default class AskTheProsEditDetails extends Component {
       let data = {
         name:this.state.askTheProsDetails?.name,
         email:this.state.askTheProsDetails?.email,
+        description:this.state.askTheProsDetails?.description,
         avatar_url: this.state.askTheProsDetails?.avatar_url,
         is_active: this.state.askTheProsDetails?.is_active,
         experience:this.state.askTheProsDetails?.experience,
@@ -127,6 +154,9 @@ export default class AskTheProsEditDetails extends Component {
           let details = {
             name:response.data.data.expert?.name,
             email:response.data.data.expert?.email,
+            description:response.data.data.expert?.description,
+            coupon_code: response.data.data.expert?.coupon_code,
+            coupon_code_id: response.data.data.expert?.coupon_code_id,
             avatar_url: response.data.data.expert?.avatar_url,
             is_active: response.data.data.expert?.is_active,
             experience:response.data.data.expert?.experience,
@@ -167,6 +197,97 @@ export default class AskTheProsEditDetails extends Component {
         );
       });
   };
+
+  trustTheProsRefferCodeList = (id, page) => {
+    this.setState({isLoader: true});
+    AskTheProsApi.AskTheProsRefferalCodeList(id, page)
+      .then((response) => {
+        this.setState({trustTheProsRefferalCode: response.data.data.list}); 
+        this.setState({totalAskTheProsRefferalCode: response.data.data});
+        this.setState({totalPageRefferalCode: Math.ceil(response.data.data.total / response.data.data.page_size)});
+        this.setState({isLoader: false});
+      })
+      .catch((error) => {
+        this.setState({isLoader: false});
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  trustTheProsRefferCodeDropdownList = () => {
+    this.setState({isLoader: true});
+    AskTheProsApi.AskTheProsRefferalCodeDropdownList()
+      .then((response) => {
+        this.setState({trustTheProsRefferalCodeDropdown: response.data.data.list}); 
+        this.setState({isLoader: false});
+      })
+      .catch((error) => {
+        this.setState({isLoader: false});
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  trustTheProsTotalPoints = (id) => {
+    this.setState({isLoader: true});
+    AskTheProsApi.AskTheProsRefferalCodeTotalPoints(id)
+      .then((response) => {
+        this.setState({trustTheProsTotalPoints: response.data.data.total}); 
+        this.setState({isLoader: false});
+      })
+      .catch((error) => {
+        this.setState({isLoader: false});
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  setProfessionalReferralCode = (value) => {
+    this.setState({ proffesionalReferralCodeId: value.id });
+    this.setState({ proffesionalReferralCode: value.code });
+    // console.log(value.coupon_code_id,"proffesionalReferralCodeId")
+    // console.log(value.coupon_code,"proffesionalReferralCode")
+    console.log(value,"proffesionalReferralCode")
+  }
+
+  trustTheProsRefferalCodeEdit = () => {
+    let data = {
+      coupon_code_id: this.state.proffesionalReferralCodeId,
+      coupon: this.state.proffesionalReferralCode,
+      need_changes : true,
+    }
+    AskTheProsApi.AskTheProsRefferalCodeEdit(this.props?.id,data)
+      .then((response) => {
+        toast.success(response.data.message);
+        Router.push(`/ask-the-pros`);        
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+
   
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
@@ -175,12 +296,15 @@ export default class AskTheProsEditDetails extends Component {
     }
     this. getAskTheProsDetails(this.props.id);
     this.setState({ id: this.props?.id });
+    this.trustTheProsRefferCodeList(this.props.id,this.state.currentPage);
+    this.trustTheProsRefferCodeDropdownList();
+    this.trustTheProsTotalPoints(this.props.id);
   }
   render() {
     return (
       <div>
         <Head>
-          <title>{APP_NAME} - Ask The Pros</title>
+          <title>{APP_NAME} - Trust The Pros</title>
           <meta name="description" content="Trusted Brands. Better Health." />
           <link rel="icon" href="/fitcart.ico" />
         </Head>
@@ -190,10 +314,10 @@ export default class AskTheProsEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                <span>Ask The Pros / Ask The Pros /  </span>Edit Ask The Pros 
+                <span>Trust The Pros / Trust The Pros /  </span>Edit Trust The Pros 
                 </div>
                 <div className="page-name">
-                Edit Ask The Pros  - {this.state.askTheProsDetails?.name}
+                Edit Trust The Pros  - {this.state.askTheProsDetails?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">
@@ -229,6 +353,15 @@ export default class AskTheProsEditDetails extends Component {
                   askThePros={this.state.askTheProsDetails}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
+                  trustTheProsRefferalCode= {this.state.trustTheProsRefferalCode}
+                  totalAskTheProsRefferalCode= {this.state.totalAskTheProsRefferalCode}
+                  totalPageRefferalCode= {this.state.totalPageRefferalCode}
+                  currentPage= {this.state.currentPage}
+                  trustTheProsRefferalCodeDropdown= {this.state.trustTheProsRefferalCodeDropdown}
+                  trustTheProsTotalPoints= {this.state.trustTheProsTotalPoints}
+                  setProfessionalReferralCode={this.setProfessionalReferralCode.bind(this)}
+                  trustTheProsRefferalCodeEdit={this.trustTheProsRefferalCodeEdit.bind(this)}
+                  RefferalCodePagination={this.RefferalCodePagination.bind(this)}
                 />
               </div>
             </div>

@@ -40,7 +40,8 @@ export default class ContentCreate extends Component {
         type_id: null,
         is_show_on_home: false,
         sort_order: null,
-        video_url:null
+        video_url:null,
+        short_description:null
       },
     };
   }
@@ -162,6 +163,7 @@ export default class ContentCreate extends Component {
         "is_show_on_home": this.state.contentDetails?.is_show_on_home? this.state.contentDetails?.is_show_on_home:false,
         "sort_order": this.state.contentDetails?.sort_order,
         "video_url":this.state.contentDetails?.video_url,
+        "short_description":this.state.contentDetails?.short_description
         
       };
       ArticleApi.ContentCreate(data)

@@ -50,7 +50,8 @@ export default class ArticleEditDetails extends Component {
         type_id: null,
         is_show_on_home: false,
         sort_order: null,
-        video_url:null
+        video_url:null,
+        short_description:""
       },
     };
   }
@@ -201,7 +202,8 @@ export default class ArticleEditDetails extends Component {
         type_id: this.state.articleDetails?.type_id,
         is_show_on_home: this.state.articleDetails?.is_show_on_home,
         sort_order: this.state.articleDetails?.sort_order,
-        video_url:this.state.articleDetails?.video_url
+        video_url:this.state.articleDetails?.video_url,
+        short_description:this.state.articleDetails?.short_description
       };
       ArticleApi.ContentEdit(this.props.id, data)
         .then((response) => {
@@ -244,7 +246,8 @@ export default class ArticleEditDetails extends Component {
             type_id: response.data.data.type_id,
             is_show_on_home: response.data.data.is_show_on_home,
             sort_order: response.data.data.sort_order,
-            video_url:response.data.data.video_url
+            video_url:response.data.data.video_url,
+            short_description:response.data.data?.short_description
           };
           this.setState({
             articleDetails: details,

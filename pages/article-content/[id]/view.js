@@ -50,6 +50,7 @@ export default class ArticleViewDetails extends Component {
         type_id: null,
         is_show_on_home: false,
         sort_order: null,
+        short_description:null
       },
     };
   }
@@ -230,6 +231,7 @@ export default class ArticleViewDetails extends Component {
             type_id: response.data.data.type_id,
             is_show_on_home: response.data.data.is_show_on_home,
             sort_order: response.data.data.sort_order,
+            short_description:response.data.data?.short_description
           };
           this.setState({
             articleDetails: details,

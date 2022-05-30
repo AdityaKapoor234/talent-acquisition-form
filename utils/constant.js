@@ -71,6 +71,10 @@ export const GET_ASKTHEPROS_CREATE = `http://65.1.17.188:5000/manage/expert`;
 export const GET_ASKTHEPROS_EDIT = `http://65.1.17.188:5000/manage/expert/{{id}}`;
 export const GET_ASKTHEPROS_DELETE = `http://65.1.17.188:5000/manage/expert/{{id}}/delete`;
 export const GET_EXPERTISE =`http://65.1.17.188:5000/expertise`;
+export const ASK_THE_PROS_REFFRAL_CODE_LIST = `http://65.1.17.188:5002/manage/expert/reward/{{id}}?page={{page}}`;
+export const ASK_THE_PROS_CODE_DROPDOWN_LIST = `http://65.1.17.188:5002/manage/coupon/all`;
+export const ASK_THE_PROS_REFFRAL_CODE_EDIT = `http://65.1.17.188:5000/manage/expert/{{id}}/set_coupon`;
+export const ASK_THE_PROS_REFFRAL_CODE_TOTAL_POINTS = `http://65.1.17.188:5002/manage/expert/reward/{{id}}/total_point`;
 
 //DASHBOARD
 export const GET_DASHBOARD_ORDER_STATS = `http://65.1.17.188:5002/manage/order/stats`;

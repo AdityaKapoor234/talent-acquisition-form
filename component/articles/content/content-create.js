@@ -45,6 +45,7 @@ export default class ContentCreate extends Component {
 					? props?.content?.category_id
 					: "select",
 				type_id: props?.content?.type_id ? props?.content?.type_id : "select",
+				short_description:props?.content?.short_description ? props?.content?.short_description :"",
 				video_url: props?.content?.video_url ? props?.content?.video_url : null,
 				is_show_on_home: props?.content?.is_show_on_home
 					? props?.content?.is_show_on_home
@@ -93,6 +94,7 @@ export default class ContentCreate extends Component {
 						? nextProps?.content?.type_id
 						: null,
 					video_url: nextProps?.content?.video_url ? nextProps?.content?.video_url:null,
+					short_description:nextProps?.content?.short_description ? nextProps?.content?.short_description:"",
 					is_show_on_home: nextProps?.content?.is_show_on_home
 						? nextProps?.content?.is_show_on_home
 						: false,
@@ -434,6 +436,17 @@ export default class ContentCreate extends Component {
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
+											<div className="login-form mt-3">
+												<label>Short Description</label>
+												<br />
+												<textarea
+												name="short_description"
+												cols="100"
+												rows="5"
+												value={this.state.input.short_description}
+												onChange={this.handleChange.bind(this)}
+												></textarea>
+											</div>
 										</div>
 										<div className="col-md-12">
 											<div className="fc-form-group editor">
@@ -691,6 +704,17 @@ export default class ContentCreate extends Component {
 													onChange={this.handleChange.bind(this)}
 													readOnly
 												/>
+											</div>
+											<div className="login-form mt-3">
+												<label>Short Description</label>
+												<br />
+												<textarea
+												name="short_description"
+												cols="100"
+												rows="5"
+												value={this.state.input.short_description}
+												readOnly
+												></textarea>
 											</div>
 										</div>
 										<div className="col-md-12">

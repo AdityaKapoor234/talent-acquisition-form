@@ -83,6 +83,7 @@ export default class CouponViewDetails extends Component {
             couponDetails: details,
           });
           this.setState({ coupon: response.data.data.coupon });
+          this.customerTypeDropdownDetail(response.data.data.coupon?.customer_type);
         }
       })
       .catch((error) => {
@@ -119,7 +120,15 @@ export default class CouponViewDetails extends Component {
   customerTypeDropdownDetail = () => {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {
-        this.setState({ userType: response.data.data.list })
+        let list = response.data.data.list;
+        for (let i in list) {
+          if (model.indexOf(list[i].user_type) >= 0) {
+            list[i]["select"] = true;
+          }else{
+            list[i]["select"] = false;
+          }
+        }
+        this.setState({ userType:list })
       })
       .catch((error) => {
         toast.error(
@@ -140,7 +149,6 @@ export default class CouponViewDetails extends Component {
     }
     this.getcouponDetails(this.props.id);
     this.setState({ id: this.props?.id });
-    this.customerTypeDropdownDetail();
   }
   render() {
     return (

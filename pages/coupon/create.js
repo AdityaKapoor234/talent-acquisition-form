@@ -237,7 +237,11 @@ export default class CouponCreate extends Component {
   customerTypeDropdownDetail = () => {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {
-        this.setState({ userType: response.data.data.list })
+        let list = response.data.data.list;
+        for (let i in list) {
+            list[i]["select"] = false;
+        }
+        this.setState({ userType: list })
       })
       .catch((error) => {
         toast.error(

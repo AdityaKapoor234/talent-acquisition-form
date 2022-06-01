@@ -259,6 +259,7 @@ export default class CouponEditDetails extends Component {
             couponDetails: details,
           });
           this.setState({ coupon: response.data.data.coupon });
+          this.customerTypeDropdownDetail(response.data.data.coupon?.customer_type);
         }
       })
       .catch((error) => {
@@ -271,31 +272,21 @@ export default class CouponEditDetails extends Component {
         );
       });
   };
-  //   Delete = (id) => {
-  //     let data = {};
-  //     CouponApi.couponDelete(id, data)
-  //       .then((response) => {
-  //         if (response.data.httpStatusCode === 200) {
-  //           this.setState({ coupon: response.data.data.coupon });
-  //           Router.push("/coupon");
-  //           toast.success(response.data.message);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         toast.error(
-  //           error?.response &&
-  //             error?.response?.data &&
-  //             error?.response?.data?.message
-  //             ? error.response.data.message
-  //             : "Unable to process your request, please try after sometime"
-  //         );
-  //       });
-  //   };
 
-  customerTypeDropdownDetail = () => {
+  customerTypeDropdownDetail = (model) => {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {
-        this.setState({ userType: response.data.data.list })
+        let list = response.data.data.list;
+        {console.log("tete",model)}
+        for (let i in list) {
+          console.log("tewt",model.indexOf(list[i].user_type))
+          if (model.indexOf(list[i].user_type) >= 0) {
+            list[i]["select"] = true;
+          }else{
+            list[i]["select"] = false;
+          }
+        }
+        this.setState({ userType:list })
       })
       .catch((error) => {
         toast.error(
@@ -316,7 +307,6 @@ export default class CouponEditDetails extends Component {
     }
     this.getcouponDetails(this.props.id);
     this.setState({ id: this.props?.id });
-    this.customerTypeDropdownDetail();
   }
   render() {
     return (

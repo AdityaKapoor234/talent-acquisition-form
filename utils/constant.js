@@ -257,3 +257,10 @@ export const GST_VIEW = `http://65.1.17.188:5002/manage/gst/{{id}}/view`;
 export const GST_EDIT = `http://65.1.17.188:5002/manage/gst/2/edit`;
 export const GST_CREATE = `http://65.1.17.188:5002/manage/gst`;
 export const GST_DROPDOWN = `http://65.1.17.188:5002/manage/gst/all`;
+
+
+//CERTIFICATION
+export const CERTIFICATION_LIST = `http://65.1.17.188:5001/manage/certification?page={{page}}&q={{search}}`;
+export const CERTIFICATION_VIEW = `http://65.1.17.188:5001/manage/certification/{{id}}`;
+export const CERTIFICATION_EDIT = `http://65.1.17.188:5001/manage/certification/{{id}}`;
+export const CERTIFICATION_CREATE = `http://65.1.17.188:5001/manage/certification`;

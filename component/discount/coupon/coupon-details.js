@@ -71,7 +71,7 @@ export default class CouponDetails extends Component {
   }
   handleChangeDiet = (event) => {
     let list = this.state.userType;
-    let objIndex = list?.findIndex((obj => obj.user_type === event?.target?.value));
+    let objIndex = list?.findIndex((obj => obj.key === event?.target?.value));
     if(list[objIndex]){
       list[objIndex]["select"] = event?.target?.checked;
     }
@@ -79,7 +79,7 @@ export default class CouponDetails extends Component {
         userType:list
     })
     let input = this.state.input;
-    input["customer_type"] = list?.filter(val=>val?.select === true)?.map(val=>val?.user_type)
+    input["customer_type"] = list?.filter(val=>val?.select === true)?.map(val=>val?.key)
     this.props?.handle(input);
   }
   handleChange = (event) => {
@@ -422,7 +422,7 @@ export default class CouponDetails extends Component {
                                           this.state.mode === "view" ? true : false
                                         }
                                         checked={val?.select}
-                                        value={val?.user_type}
+                                        value={val?.key}
                                         onChange={this.handleChangeDiet}
                                       />
                                     }

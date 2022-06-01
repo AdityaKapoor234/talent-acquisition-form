@@ -277,10 +277,8 @@ export default class CouponEditDetails extends Component {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {
         let list = response.data.data.list;
-        {console.log("tete",model)}
         for (let i in list) {
-          console.log("tewt",model.indexOf(list[i].user_type))
-          if (model.indexOf(list[i].user_type) >= 0) {
+          if (model.indexOf(list[i].key) >= 0) {
             list[i]["select"] = true;
           }else{
             list[i]["select"] = false;

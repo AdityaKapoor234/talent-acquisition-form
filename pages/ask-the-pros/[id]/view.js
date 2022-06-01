@@ -152,7 +152,7 @@ export default function AskTheProsViewDetails({ id }) {
 
   const RefferalCodePagination = (value) => {
     setCurrentPage(value)
-    trustTheProsRefferCodeList(id,currentPage);
+    // trustTheProsRefferCodeList(id,currentPage);
   }
 
   useEffect(() => {
@@ -208,6 +208,7 @@ export default function AskTheProsViewDetails({ id }) {
             <div className="col-m-12">
               <AskTheProsCreateComponent
                 mode={mode}
+                id={id}
                 askThePros={askThePros}
                 trustTheProsRefferalCode= {trustTheProsRefferalCode}
                 totalAskTheProsRefferalCode= {totalAskTheProsRefferalCode}
@@ -216,6 +217,7 @@ export default function AskTheProsViewDetails({ id }) {
                 trustTheProsRefferalCodeDropdown= {trustTheProsRefferalCodeDropdown}
                 trustTheProsTotalPoints= {trustTheProsTotalPoints}
                 RefferalCodePagination={RefferalCodePagination.bind(this)}
+                trustTheProsRefferCodeList={trustTheProsRefferCodeList.bind(this)}
               />
             </div>
           </div>

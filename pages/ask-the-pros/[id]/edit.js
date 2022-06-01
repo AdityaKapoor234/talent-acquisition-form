@@ -60,7 +60,7 @@ export default class AskTheProsEditDetails extends Component {
 
   RefferalCodePagination = (value) => {
     this.setState({ currentPage: value })
-    this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
+    // this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
   }
 
   ValidateEmail = (mail) => {
@@ -260,9 +260,6 @@ export default class AskTheProsEditDetails extends Component {
   setProfessionalReferralCode = (value) => {
     this.setState({ proffesionalReferralCodeId: value.id });
     this.setState({ proffesionalReferralCode: value.code });
-    // console.log(value.coupon_code_id,"proffesionalReferralCodeId")
-    // console.log(value.coupon_code,"proffesionalReferralCode")
-    console.log(value,"proffesionalReferralCode")
   }
 
   trustTheProsRefferalCodeEdit = () => {
@@ -352,6 +349,7 @@ export default class AskTheProsEditDetails extends Component {
               <AskTheProsCreateComponent
                   askThePros={this.state.askTheProsDetails}
                   mode={this.state.mode}
+                  id={this.state.id}
                   handle={this.stateHandle.bind(this)}
                   trustTheProsRefferalCode= {this.state.trustTheProsRefferalCode}
                   totalAskTheProsRefferalCode= {this.state.totalAskTheProsRefferalCode}
@@ -362,6 +360,7 @@ export default class AskTheProsEditDetails extends Component {
                   setProfessionalReferralCode={this.setProfessionalReferralCode.bind(this)}
                   trustTheProsRefferalCodeEdit={this.trustTheProsRefferalCodeEdit.bind(this)}
                   RefferalCodePagination={this.RefferalCodePagination.bind(this)}
+                  trustTheProsRefferCodeList={this.trustTheProsRefferCodeList.bind(this)}
                 />
               </div>
             </div>

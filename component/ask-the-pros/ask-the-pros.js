@@ -28,6 +28,7 @@ export default function AskTheProps(props) {
 	const [ask, setAsk] = useState({});
 	const [imgIcon, setImgIcon] = useState("file-input");
 	const [mode, setMode] = useState();
+	const [id, setId] = useState();
 	const [expert, setExpert] = useState([]);
 	const [trustTheProsRefferalCode, setTrustTheProsRefferalCode] = useState([]);
 	const [totalAskTheProsRefferalCode, setTotalAskTheProsRefferalCode] = useState([]);
@@ -141,12 +142,14 @@ export default function AskTheProps(props) {
 
 	const onPageChange = function (e, page) {
 		props?.RefferalCodePagination(page)
+		props?.trustTheProsRefferCodeList(id,page)
 	};
 
 
 	useEffect(() => {
 		setAsk(props?.askThePros)
 		setMode(props?.mode)
+		setId(props?.id)
 		getExpert(props?.askThePros?.expertises)
 
 		setTrustTheProsRefferalCode(props?.trustTheProsRefferalCode)
@@ -397,15 +400,24 @@ export default function AskTheProps(props) {
 													autoWidth={false}
 													IconComponent={ExpandMoreIcon}
 													name="refferal_code"
+													label={trustTheProsRefferalCodeDropdownValue.id}
 													onChange={handleProsRefferalCodeChange}
-													// onChange={(event) => {
+													// onChange={handleProsRefferalCodeChange,child}
+													// onChange={(event,child) => {
+														// setTrustTheProsRefferalCodeDropdown(event.target.value);
 													// 	setOpenProRefferalCode(true)
 													// 	props?.setProfessionalReferralCode(event.target.value)
-													// }
-													// }
+													// 	console.log(event.target.label,"labelId")
+													// 	console.log(child.props?.label)
+													// 	setTrustTheProsRefferalCodeDropdownValue(event.target.value)
+													// }}
 													className="sort-by-select w-50"
 													value={trustTheProsRefferalCodeDropdownValue}
+													// value={(e) => {trustTheProsRefferalCodeDropdownValue?.code === e.target.value?.code ? true : false}}
+													// value={(e) => {trustTheProsRefferalCodeDropdownValue}}
+													// value={(e) => {trustTheProsRefferalCodeDropdownValue === e.target.value ? true : false}}
 												>
+													{console.log(trustTheProsRefferalCodeDropdownValue,"trustTheProsRefferalCodeDropdownValue")}
 													<MenuItem
 														value="select"
 														disabled
@@ -418,6 +430,7 @@ export default function AskTheProps(props) {
 															<MenuItem
 																value={value}
 															>
+																{console.log(value,"value")}
 																{value?.code}
 															</MenuItem>
 														)

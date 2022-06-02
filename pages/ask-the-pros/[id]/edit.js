@@ -46,21 +46,23 @@ export default class AskTheProsEditDetails extends Component {
         expertises: [],
       },
       isLoader: true,
+      codeDropdownList:[],
+      codeSubmit:null,
+      trustTheProsTotalPoints: {},
       trustTheProsRefferalCode: [],
       totalAskTheProsRefferalCode: [],
       totalPageRefferalCode: null,
       currentPage: 1,
-      trustTheProsRefferalCodeDropdown: [],
-      trustTheProsTotalPoints: {},
-      proffesionalReferralCodeId: "",
-      proffesionalReferralCode: "",
+      // trustTheProsRefferalCodeDropdown: [],
+      // proffesionalReferralCodeId: "",
+      // proffesionalReferralCode: "",
   
     };
   }
 
   RefferalCodePagination = (value) => {
     this.setState({ currentPage: value })
-    // this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
+    this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
   }
 
   ValidateEmail = (mail) => {
@@ -125,6 +127,9 @@ export default class AskTheProsEditDetails extends Component {
         experience:this.state.askTheProsDetails?.experience,
         expertises:this.state.askTheProsDetails?.expertises,
       };
+      if(this.state.codeSubmit !==null){
+        AskTheProsApi.AskTheProsRefferalCodeEdit(this.props?.id,this.state.codeSubmit)
+      }
       AskTheProsApi.AskTheProsEdit(this.props.id, data)
         .then((response) => {
           if (response.data.httpStatusCode === 200) {
@@ -199,16 +204,14 @@ export default class AskTheProsEditDetails extends Component {
   };
 
   trustTheProsRefferCodeList = (id, page) => {
-    this.setState({isLoader: true});
     AskTheProsApi.AskTheProsRefferalCodeList(id, page)
       .then((response) => {
         this.setState({trustTheProsRefferalCode: response.data.data.list}); 
         this.setState({totalAskTheProsRefferalCode: response.data.data});
         this.setState({totalPageRefferalCode: Math.ceil(response.data.data.total / response.data.data.page_size)});
-        this.setState({isLoader: false});
+
       })
       .catch((error) => {
-        this.setState({isLoader: false});
         toast.error(
           error?.response &&
             error?.response?.data &&
@@ -219,15 +222,12 @@ export default class AskTheProsEditDetails extends Component {
       });
   }
 
-  trustTheProsRefferCodeDropdownList = () => {
-    this.setState({isLoader: true});
+  codeList = () => {
     AskTheProsApi.AskTheProsRefferalCodeDropdownList()
       .then((response) => {
-        this.setState({trustTheProsRefferalCodeDropdown: response.data.data.list}); 
-        this.setState({isLoader: false});
+        this.setState({codeDropdownList: response.data.data.list}); 
       })
       .catch((error) => {
-        this.setState({isLoader: false});
         toast.error(
           error?.response &&
             error?.response?.data &&
@@ -239,50 +239,25 @@ export default class AskTheProsEditDetails extends Component {
   }
 
   trustTheProsTotalPoints = (id) => {
-    this.setState({isLoader: true});
     AskTheProsApi.AskTheProsRefferalCodeTotalPoints(id)
       .then((response) => {
+        console.log("totls",response.data.data)
         this.setState({trustTheProsTotalPoints: response.data.data.total}); 
-        this.setState({isLoader: false});
       })
       .catch((error) => {
-        this.setState({isLoader: false});
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
       });
   }
 
-  setProfessionalReferralCode = (value) => {
-    this.setState({ proffesionalReferralCodeId: value.id });
-    this.setState({ proffesionalReferralCode: value.code });
-  }
+  // setProfessionalReferralCode = (value) => {
+  //   this.setState({ proffesionalReferralCodeId: value.id });
+  //   this.setState({ proffesionalReferralCode: value.code });
+  // }
 
-  trustTheProsRefferalCodeEdit = () => {
-    let data = {
-      coupon_code_id: this.state.proffesionalReferralCodeId,
-      coupon: this.state.proffesionalReferralCode,
-      need_changes : true,
-    }
-    AskTheProsApi.AskTheProsRefferalCodeEdit(this.props?.id,data)
-      .then((response) => {
-        toast.success(response.data.message);
-        Router.push(`/ask-the-pros`);        
-      })
-      .catch((error) => {
-        toast.error(
-          error?.response &&
-            error?.response?.data &&
-            error?.response?.data?.message
-            ? error.response.data.message
-            : "Unable to process your request, please try after sometime"
-        );
-      });
-  }
+  // trustTheProsRefferalCodeEdit = () => {
+  //   AskTheProsApi.AskTheProsRefferalCodeEdit(this.props?.id,this.state.codeSubmit)
+  //     .then((response) => {      
+  //     })
+  // }
 
 
   
@@ -294,7 +269,7 @@ export default class AskTheProsEditDetails extends Component {
     this. getAskTheProsDetails(this.props.id);
     this.setState({ id: this.props?.id });
     this.trustTheProsRefferCodeList(this.props.id,this.state.currentPage);
-    this.trustTheProsRefferCodeDropdownList();
+    this.codeList();
     this.trustTheProsTotalPoints(this.props.id);
   }
   render() {
@@ -345,20 +320,24 @@ export default class AskTheProsEditDetails extends Component {
               </div>
             </div>
             <div className="row">
+              {console.log("testss",this.state.codeSubmit)}
               <div className="col-m-12">
               <AskTheProsCreateComponent
                   askThePros={this.state.askTheProsDetails}
                   mode={this.state.mode}
                   id={this.state.id}
                   handle={this.stateHandle.bind(this)}
+                  codeDropdownList={this.state.codeDropdownList}
+                  codeHandle={(value)=>this.setState({codeSubmit:value})}
+                  trustTheProsTotalPoints= {this.state.trustTheProsTotalPoints}
                   trustTheProsRefferalCode= {this.state.trustTheProsRefferalCode}
                   totalAskTheProsRefferalCode= {this.state.totalAskTheProsRefferalCode}
                   totalPageRefferalCode= {this.state.totalPageRefferalCode}
                   currentPage= {this.state.currentPage}
-                  trustTheProsRefferalCodeDropdown= {this.state.trustTheProsRefferalCodeDropdown}
-                  trustTheProsTotalPoints= {this.state.trustTheProsTotalPoints}
-                  setProfessionalReferralCode={this.setProfessionalReferralCode.bind(this)}
-                  trustTheProsRefferalCodeEdit={this.trustTheProsRefferalCodeEdit.bind(this)}
+                  // trustTheProsRefferalCodeDropdown= {this.state.trustTheProsRefferalCodeDropdown}
+                  // trustTheProsTotalPoints= {this.state.trustTheProsTotalPoints}
+                  // setProfessionalReferralCode={this.setProfessionalReferralCode.bind(this)}
+                  // trustTheProsRefferalCodeEdit={this.trustTheProsRefferalCodeEdit.bind(this)}
                   RefferalCodePagination={this.RefferalCodePagination.bind(this)}
                   trustTheProsRefferCodeList={this.trustTheProsRefferCodeList.bind(this)}
                 />

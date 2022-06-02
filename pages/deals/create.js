@@ -25,6 +25,7 @@ export default class DealsCreate extends Component {
         url: "",
         icon_url: "",
         is_active: false,
+        discount_image_url:"",
       },
     };
   }
@@ -77,6 +78,10 @@ export default class DealsCreate extends Component {
       toast.error("Please enter url");
       this.state.is_all = true;
     }
+    if (this.state.dealsDetails.discount_image_url === "" || this.state.dealsDetails.discount_image_url === null || this.state.dealsDetails.discount_image_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter discount image");
+      this.state.is_all = true;
+    }
     if (this.state.dealsDetails.icon_url === "" || this.state.dealsDetails.icon_url === null || this.state.dealsDetails.icon_url.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter icon");
       this.state.is_all = true;
@@ -100,6 +105,7 @@ export default class DealsCreate extends Component {
         color_code: this.state.dealsDetails.color_code,
         url: this.state.dealsDetails.url,
         icon_url: this.state.dealsDetails.icon_url,
+        discount_image_url: this.state.dealsDetails.discount_image_url,
         is_active: this.state.dealsDetails.is_active,
       };
       DealsApi.dealsCreate(data)

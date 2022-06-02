@@ -23,7 +23,7 @@ export default class AskTheProsCreate extends Component {
     super(props);
     this.state = {
       id: props?.id,
-      mode: "edit",
+      mode: "create",
       asktheProps: {},
       expertise: [],
       open: false,

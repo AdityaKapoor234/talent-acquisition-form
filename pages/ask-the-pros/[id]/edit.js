@@ -62,7 +62,7 @@ export default class AskTheProsEditDetails extends Component {
 
   RefferalCodePagination = (value) => {
     this.setState({ currentPage: value })
-    this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
+    // this.trustTheProsRefferCodeList(this.state.id,this.state.currentPage);
   }
 
   ValidateEmail = (mail) => {

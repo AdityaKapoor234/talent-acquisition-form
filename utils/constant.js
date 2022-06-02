@@ -263,4 +263,4 @@ export const GST_DROPDOWN = `http://65.1.17.188:5002/manage/gst/all`;
 export const CERTIFICATION_LIST = `http://65.1.17.188:5001/manage/certification/?page={{page}}&q={{search}}`;
 export const CERTIFICATION_VIEW = `http://65.1.17.188:5001/manage/certification/{{id}}`;
 export const CERTIFICATION_EDIT = `http://65.1.17.188:5001/manage/certification/{{id}}`;
-export const CERTIFICATION_CREATE = `http://65.1.17.188:5001/manage/certification/`;
+export const CERTIFICATION_CREATE = `http://65.1.17.188:5001/manage/certification`;

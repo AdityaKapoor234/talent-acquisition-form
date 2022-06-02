@@ -254,7 +254,7 @@ export const GET_CONTENT_DELETE_ARTICLE =`http://65.1.17.188:5000/manage/article
 //GST
 export const GST_LIST = `http://65.1.17.188:5002/manage/gst?page={{page}}&q={{search}}`;
 export const GST_VIEW = `http://65.1.17.188:5002/manage/gst/{{id}}/view`;
-export const GST_EDIT = `http://65.1.17.188:5002/manage/gst/2/edit`;
+export const GST_EDIT = `http://65.1.17.188:5002/manage/gst/{{id}}/edit`;
 export const GST_CREATE = `http://65.1.17.188:5002/manage/gst`;
 export const GST_DROPDOWN = `http://65.1.17.188:5002/manage/gst/all`;
 

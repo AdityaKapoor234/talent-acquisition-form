@@ -123,7 +123,7 @@ export default class EmailSupportView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div>
-
+{console.log("tets",this.state.view)}
                                           
 
                                             {/* <div className="login-form ">

@@ -33,10 +33,10 @@ export default class certificationList extends Component {
                     <div className="col-md-12">
                         <div className="tableRow">
                             <div className="col-2 pe-1">Icon</div>
-                            <div className="col px-2 text-center">Name</div>
-                            <div className="col-2 px-2 text-center">Display Order</div>
-                            <div className="col-2 text-center">Trusted Health</div>
-                            <div className="col-1 text-center">Active</div>
+                            <div className="col text-center">Name</div>
+                            <div className="col text-center">Display Order</div>
+                            {/* <div className="col-2 text-center">Trusted Health</div> */}
+                            <div className="col text-center">Active</div>
                             <div className="col-1 text-end">Action</div>
                         </div>
                     </div>
@@ -56,16 +56,16 @@ export default class certificationList extends Component {
                                                     img={p?.path}
                                                 />
                                             </div>
-                                            <div className="col px-2 text-center" title={p?.name}>{p?.name}</div>
-                                            <div className="col-2 px-2 text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
-                                            <div className="col text-center">
+                                            <div className="col text-center" title={p?.name}>{p?.name}</div>
+                                            <div className="col text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
+                                            {/* <div className="col text-center">
                                                 {p?.is_trust_health === true ? (
                                                     <CheckCircleOutlineOutlinedIcon className="check-icon" />
                                                 ) : (
                                                     <CancelOutlinedIcon className="cancel-icon" />
                                                 )}
-                                            </div>
-                                            <div className="col-1 text-center">
+                                            </div> */}
+                                            <div className="col text-center">
                                                 {p?.is_active === true ? (
                                                     <CheckCircleOutlineOutlinedIcon className="check-icon" />
                                                 ) : (

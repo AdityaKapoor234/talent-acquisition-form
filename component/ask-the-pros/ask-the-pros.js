@@ -489,7 +489,7 @@ export default function AskTheProps(props) {
               </div>
             </>
           )}
-		{mode === "edit" && (
+		{/* {mode === "edit" && ( */}
           <div data-component="CustomerComponent">
 						<div className='mb-2 mt-2'>
 							<div className="row">
@@ -523,7 +523,8 @@ export default function AskTheProps(props) {
 										);
 									})}
 						</div>
-					</div>)}
+					</div>
+          {/* )} */}
 					{
 						totalPageRefferalCode > 1 ?
 							<div className="row">

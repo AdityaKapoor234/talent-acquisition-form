@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Photo from "../common-component/photo";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 export default class EmailSupportView extends Component {
     constructor(props) {
@@ -57,7 +60,7 @@ export default class EmailSupportView extends Component {
                                                 <label>Name<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.state.view?.name}
+                                                    value={this.state.view?.email_support?.name}
                                                     readOnly={true}
                                                 />
                                             </div>
@@ -65,7 +68,7 @@ export default class EmailSupportView extends Component {
                                                 <label>Email<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.state.view?.email}
+                                                    value={this.state.view?.email_support?.email}
                                                     readOnly={true}
                                                 />
                                             </div>
@@ -73,7 +76,7 @@ export default class EmailSupportView extends Component {
                                                 <label>Category<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.state.view?.category}
+                                                    value={this.state.view?.email_support?.category}
                                                     readOnly={true}
                                                 />
                                             </div>
@@ -86,7 +89,7 @@ export default class EmailSupportView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div> */}
-{/* 
+                                            {/* 
                                             <div className="login-form ">
                                                 <label>State.<span className="mandatory-star">*</span></label>
                                                 <input
@@ -119,12 +122,68 @@ export default class EmailSupportView extends Component {
                                                 <textarea
                                                     cols="100"
                                                     rows="5"
-                                                    value={this.state.view?.customer_query}
+                                                    value={this.state.view?.email_support?.customer_query}
                                                     readOnly={true}
                                                 />
                                             </div>
-{console.log("tets",this.state.view)}
-                                          
+                                        </div>
+                                    </div>
+
+                                    <div className="row mt-4">
+                                        <div className="col-md-12">
+
+                                            <div className="login-form ">
+
+                                                {
+                                                    this.state.view?.screen_shots?.length > 0 ?
+                                                        <>
+                                                            <label>Screenshots <span className="mandatory-star">*</span></label>
+                                                            {/* <ImageList 
+                                                            sx={{ width: 700, height: 700 }} 
+                                                            cols={1} 
+                                                            rowHeight={164}
+                                                            > */}
+                                                            <div className="row">
+                                                                {this.state.view?.screen_shots?.map(elem => {
+                                                                    return (
+                                                                        <>
+
+
+                                                                            {/* <ImageListItem key={elem}> */}
+                                                                            {/* <img
+                                                                                    src={`${elem?.images_url}`}
+                                                                                    srcSet={`${elem?.images_url}`}
+                                                                                    alt={item.title}
+                                                                                    loading="lazy"
+                                                                                /> */}
+                                                                            {/* </ImageListItem> */}
+
+                                                                            <div className="col-6">
+                                                                                <img 
+                                                                                src={elem?.images_url} 
+                                                                                className="img-fluid mb-3"
+                                                                                style={{ width: "auto", height: "400px" }} 
+                                                                                 />
+                                                                            </div>
+                                                                            {/* <Photo
+                                                                            mode={this.state.mode}
+                                                                            label={""}
+                                                                            accept=".jpg,.jpeg,.png"
+                                                                            img={elem?.images_url}
+                                                                        /> */}
+                                                                        </>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                            {/* </ImageList> */}
+                                                        </>
+                                                        :
+                                                        <div className="login-form ">
+                                                            <label>No Screenshots Available</label>
+                                                        </div>
+                                                }
+                                            </div>
+
 
                                             {/* <div className="login-form ">
                                                 <label>Quantity required<span className="mandatory-star">*</span></label>
@@ -140,7 +199,8 @@ export default class EmailSupportView extends Component {
                             </div>
                         )}
                     </>
-                )}
+                )
+                }
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
-
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class ReviewCreate extends Component {
     constructor(props) {
@@ -181,7 +181,7 @@ export default class ReviewCreate extends Component {
                                                     img={this.state.input?.img_urls}
                                                     setUrl={this.handlePhotoUrl.bind(this)}
                                                     value={this.state.img_icon}
-                                                    urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
+                                                    urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
                                                 />
                                             </div> */}
                                             <div className="login-form ">

@@ -16,7 +16,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlNa
       const formData = new FormData();
       formData.append("media", files[0]);
       uploadfile(
-        `http://65.1.17.188:5001/manage/product/certificate/pdf`,
+        `${PRODUCT_SERVICE}/manage/product/certificate/pdf`,
         formData,
         name
       );

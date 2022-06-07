@@ -37,7 +37,7 @@ export default class ProductPhotoComponent extends Component {
             },
             };
             axios
-            .put( `http://65.1.17.188:5001/manage/category/photo/product_photo`, formData, headers)
+            .put( `${PRODUCT_SERVICE}/manage/category/photo/product_photo`, formData, headers)
             .then((response) => {
                 let photo = this.state.photos;
                 photo.push({

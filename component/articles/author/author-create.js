@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class AuthorCreate extends Component {
   constructor(props) {
@@ -118,7 +119,7 @@ export default class AuthorCreate extends Component {
                           img={this.state.input.avatar}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value="file-type"
-                          urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
                         />
                       </div>
                       <div className="signup-check mt-4">

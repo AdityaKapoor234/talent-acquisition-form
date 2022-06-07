@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArticleApi from "../../../services/articles";
 import { toast } from "react-toastify";
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class ContentCreate extends Component {
 	constructor(props) {
@@ -292,7 +293,7 @@ export default class ContentCreate extends Component {
 													img={this.state.input.feature_image}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value="file-input-icon"
-													urlLink="http://65.1.17.188:5001/manage/category/photo/feature_image"
+													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/feature_image`}
 												/>
 											</div>
 											<div className="login-form mt-4">

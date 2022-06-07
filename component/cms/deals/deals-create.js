@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class DealsCreate extends Component {
 	constructor(props) {
@@ -189,7 +189,7 @@ export default class DealsCreate extends Component {
 													img={this.state.input?.icon_url}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_icon}
-													urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
+													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
 												/>
 											</div>
 											<div className="mt-4">
@@ -201,7 +201,7 @@ export default class DealsCreate extends Component {
 													img={this.state.input?.discount_image_url}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_lg}
-													urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
+													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
 												/>
 											</div>
 											<div className="signup-check mt-4">

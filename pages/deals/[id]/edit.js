@@ -75,7 +75,7 @@ export default class DealsEditDetails extends Component {
 };
 
   urlPatternValidation = (URL) => {
-    const regex = new RegExp('(http?://)');    
+    const regex = new RegExp('(https?://)');    
     return regex.test(URL);
   };
 

@@ -12,6 +12,7 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
 import BannerApi from "../../../services/banner";
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class BannerCreate extends Component {
 	constructor(props) {
@@ -161,7 +162,7 @@ export default class BannerCreate extends Component {
 											img={this.state.input.banner}
 											setUrl={this.handlePhotoUrl.bind(this)}
 											value={this.state.img_lg}
-											urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner"
+											urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner`}
 										/>
 									</div>
 									<div className="mt-4">
@@ -173,7 +174,7 @@ export default class BannerCreate extends Component {
 											img={this.state.input.banner_sm}
 											setUrl={this.handlePhotoUrl.bind(this)}
 											value={this.state.img_sm}
-											urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
+											urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
 										/>
 									</div>
 									<div className="row mt-4">

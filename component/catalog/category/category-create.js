@@ -12,6 +12,7 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
 import CategoryApi from "../../../services/category";
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class CategoryCreate extends Component {
   constructor(props) {
@@ -218,7 +219,7 @@ export default class CategoryCreate extends Component {
                           img={this.state.input.banner_img}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_icon}
-                          urlLink="http://65.1.17.188:5001/manage/category/photo/icon"
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
                         />
                       </div>
                       <div className="mt-4">
@@ -230,7 +231,7 @@ export default class CategoryCreate extends Component {
                           img={this.state.input.full_banner_img}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_lg}
-                          urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner"
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner`}
                         />
                       </div>
                       <div className="mt-4">
@@ -242,7 +243,7 @@ export default class CategoryCreate extends Component {
                           img={this.state.input.full_banner_img_sm}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_sm}
-                          urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
                         />
                       </div>
                       <div className="signup-check mt-4">

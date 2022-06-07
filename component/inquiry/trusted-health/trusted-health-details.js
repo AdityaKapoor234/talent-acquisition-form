@@ -14,6 +14,7 @@ import Photo from "../../common-component/photo";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class TrustedHealthDetails extends Component {
     constructor(props) {
@@ -246,7 +247,7 @@ export default class TrustedHealthDetails extends Component {
                                                     img={this.state.path}
                                                     setUrl={this.handlePhotoUrl.bind(this)}
                                                     value={this.state.img_sm}
-                                                    urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
+                                                    urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
                                                 />
                                             </div>
                                             <div className="login-form mt-4">
@@ -313,7 +314,7 @@ export default class TrustedHealthDetails extends Component {
                                                     img={this.state.path}
                                                     // setUrl={this.handlePhotoUrl.bind(this)}
                                                     // value={this.state.img_sm}
-                                                    urlLink="http://65.1.17.188:5001/manage/category/photo/banner"
+                                                    urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
                                                 />
                                             </div>
                                             <div>

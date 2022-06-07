@@ -12,7 +12,7 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo";
 import CertificationApi from "../../../services/certification";
-
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 export default class CertificationCreate extends Component {
     constructor(props) {
         super(props);
@@ -127,7 +127,7 @@ export default class CertificationCreate extends Component {
                                             img={this.state.input.path}
                                             setUrl={this.handlePhotoUrl.bind(this)}
                                             value={this.state.img_lg}
-                                            urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner"
+                                            urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner`}
                                         />
                                     </div>
                                     <div className="row mt-4">

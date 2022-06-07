@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pagination from "@mui/material/Pagination";
-
+import {PRODUCT_SERVICE} from "../../utils/constant";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -268,7 +268,7 @@ export default function AskTheProps(props) {
                         img={ask?.avatar_url}
                         setUrl={handlePhotoUrl.bind(this)}
                         value={imgIcon}
-                        urlLink="http://65.1.17.188:5001/manage/category/photo/avatar"
+                        urlLink={`${PRODUCT_SERVICE}/manage/category/photo/avatar`}
                       />
                     </div>
                   )}

@@ -16,6 +16,7 @@ const Editor = dynamic(
 );
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
+import {PRODUCT_SERVICE} from "../../utils/constant";
 
 export default class ArticleEditor extends Component {
   constructor(props) {
@@ -100,7 +101,7 @@ export default class ArticleEditor extends Component {
         },
       };
       const data = await axios.put(
-        "http://65.1.17.188:5001/manage/category/photo/banner",
+        `${PRODUCT_SERVICE}/manage/category/photo/banner`,
         formData,
         headers
       );

@@ -5,6 +5,7 @@ import FormGroup from "@mui/material/FormGroup";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class TypeCreate extends Component {
   constructor(props) {
@@ -202,7 +203,7 @@ export default class TypeCreate extends Component {
                           img={this.state.input.banner_sm_url}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_sm}
-                          urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner_sm"
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner_sm`}
                         />
                       </div>
                       <div className="mt-4">
@@ -214,7 +215,7 @@ export default class TypeCreate extends Component {
                           img={this.state.input.banner_url}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_lg}
-                          urlLink="http://65.1.17.188:5001/manage/category/photo/full_banner"
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner`}
                         />
                       </div>
                       <div className="signup-check mt-4">

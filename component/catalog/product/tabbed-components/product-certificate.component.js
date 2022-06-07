@@ -33,7 +33,7 @@ export default class ProductCertificateComponent extends Component {
             },
             };
             axios
-            .put( `http://65.1.17.188:5001/manage/product/certificate/pdf`, formData, headers)
+            .put( `${PRODUCT_SERVICE}/manage/product/certificate/pdf`, formData, headers)
             .then((response) => {
                 this.setState({
                     isLoader:false,

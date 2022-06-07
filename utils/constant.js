@@ -264,3 +264,11 @@ export const CERTIFICATION_LIST = `http://65.1.17.188:5001/manage/certification/
 export const CERTIFICATION_VIEW = `http://65.1.17.188:5001/manage/certification/{{id}}`;
 export const CERTIFICATION_EDIT = `http://65.1.17.188:5001/manage/certification/{{id}}`;
 export const CERTIFICATION_CREATE = `http://65.1.17.188:5001/manage/certification`;
+
+
+//REVIEW
+export const REVIEW_LIST = `http://65.1.17.188:5001/manage/review/156?page={{page}}&sort_by={{search}}`;
+export const REVIEW_VIEW = `http://65.1.17.188:5001/manage/review/{{id}}/view`;
+export const REVIEW_EDIT = `http://65.1.17.188:5001/manage/review/{{id}}/edit`;
+export const REVIEW_CREATE = `http://65.1.17.188:5001/manage/review/{{id}}/add`;
+

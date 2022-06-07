@@ -147,8 +147,6 @@ export default class EmailSupportView extends Component {
                                                                 {this.state.view?.screen_shots?.map(elem => {
                                                                     return (
                                                                         <>
-
-
                                                                             {/* <ImageListItem key={elem}> */}
                                                                             {/* <img
                                                                                     src={`${elem?.images_url}`}
@@ -157,7 +155,6 @@ export default class EmailSupportView extends Component {
                                                                                     loading="lazy"
                                                                                 /> */}
                                                                             {/* </ImageListItem> */}
-
                                                                             <div className="col-6">
                                                                                 <img 
                                                                                 src={elem?.images_url} 

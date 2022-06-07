@@ -5,8 +5,6 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
 import ProductList from "../../component/catalog/product-review/product-review-list";
-import XLSX from "xlsx";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Pagination from "@mui/material/Pagination";
 import Router from "next/router";
 import Cookie from "js-cookie";
@@ -20,7 +18,6 @@ export default function Product() {
 
     const pathArr = useRouter();
     const [product, setProduct] = useState([]);
-    const [productExcel, setProductExcel] = useState([]);
     const [totalProducts, setTotalProduct] = useState([]);
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
@@ -36,7 +33,7 @@ export default function Product() {
         }
         if (event.key === "Enter") {
             Router.push({
-                pathname: "/product",
+                pathname: "/product-review",
                 query: router_query_object,
             });
             setCurrentPage(1)
@@ -50,7 +47,7 @@ export default function Product() {
             router_query_object["q"] = wordEntered;
         }
         Router.push({
-            pathname: "/product",
+            pathname: "/product-review",
             query: router_query_object,
         });
         setCurrentPage(1)
@@ -62,7 +59,7 @@ export default function Product() {
         setWordEntered(searchWord);
         if (event.target.value === "") {
             Router.push({
-                pathname: "/product",
+                pathname: "/product-review",
                 query: "",
             });
             productList(1, "");
@@ -110,7 +107,7 @@ export default function Product() {
     return (
         <div>
             <Head>
-                <title>{APP_NAME} - Product</title>
+                <title>{APP_NAME} - Product Review</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
                 <link rel="icon" href="/fitcart.ico" />
             </Head>
@@ -120,9 +117,9 @@ export default function Product() {
                     <div className="row border-box">
                         <div className="col-md-8">
                             <div className="hamburger">
-                                <span>Catalog / </span>Product
+                                <span>Catalog / </span>Product Review
                             </div>
-                            <div className="page-name">Product</div>
+                            <div className="page-name">Product Review</div>
                         </div>
                         <div className="col-md-4">
                             <div className="login-form ">

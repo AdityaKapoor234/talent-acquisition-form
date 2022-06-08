@@ -11,7 +11,6 @@ import Router from "next/router";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
-import {PRODUCT_SERVICE} from "../../../../utils/constant"
 
 export default class ProductPhotoComponent extends Component {
     constructor(props) {

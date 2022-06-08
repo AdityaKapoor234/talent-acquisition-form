@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import { toast } from "react-toastify";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
-import { PRODUCT_SERVICE } from "../../../utils/constant";
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
-import cookie from "js-cookie";
-import axios from "axios";
+import {PRODUCT_SERVICE} from "../../../utils/constant";
 
 export default class ReviewCreate extends Component {
     constructor(props) {
@@ -14,8 +9,6 @@ export default class ReviewCreate extends Component {
         this.state = {
             tab: 1,
             mode: props?.mode,
-            createMode: props?.createMode,
-            changePic: false,
             review: props?.review,
             img_sm: "file-input-sm",
             img_lg: "file-input-lg",
@@ -24,7 +17,7 @@ export default class ReviewCreate extends Component {
                 rating: props?.review?.rating ? props.review?.rating : "",
                 review_title: props?.review?.review_title ? props.review?.review_title : "",
                 review: props?.review?.review ? props.review?.review : "",
-                images: props?.review?.images ? props.review?.images : [],
+                img_urls: props?.review?.img_urls ? props.review?.img_urls : [],
                 user_id: props?.review?.user_id ? props.review?.user_id : null,
                 product_id: props?.review?.product_id ? props.review?.product_id : null,
                 is_verified: props?.review?.is_verified ? props.review?.is_verified : false,
@@ -42,13 +35,11 @@ export default class ReviewCreate extends Component {
             return {
                 review: nextProps?.review,
                 mode: nextProps?.mode,
-                createMode: nextProps?.createMode,
-                changePic: false,
                 input: {
                     rating: nextProps?.review?.rating ? nextProps.review?.rating : "",
                     review_title: nextProps?.review?.review_title ? nextProps.review?.review_title : "",
                     review: nextProps?.review?.review ? nextProps.review?.review : "",
-                    images: nextProps?.review?.images ? nextProps.review?.images : [],
+                    img_urls: nextProps?.review?.img_urls ? nextProps.review?.img_urls : [],
                     user_id: nextProps?.review?.user_id ? nextProps.review?.user_id : null,
                     product_id: nextProps?.review?.product_id ? nextProps.review?.product_id : null,
                     is_verified: nextProps?.review?.is_verified ? nextProps.review?.is_verified : false,
@@ -61,70 +52,25 @@ export default class ReviewCreate extends Component {
     }
     handleChange = (event) => {
         let input = this.state.input;
-        // if (event.target.name === "rating") {
-        //     input[event.target.name] = event.target.value.replace(/[^\d]/, "");
-        // } else {
-        input[event.target.name] = event.target.value;
-        // }
+        if (event.target.name === "rating") {
+            input[event.target.name] = event.target.value.replace(/[^\d]/, "");
+        } else {
+            input[event.target.name] = event.target.value;
+        }
         this.setState({ input });
         this.props?.handle(input);
     };
-    // handleCheck = (event) => {
-    //     let input = this.state.input;
-    //     input[event.target.name] = event.target.checked;
-    //     this.setState({ input });
-    //     this.props?.handle(input);
-    // };
-    // handlePhotoUrl = (name, url) => {
-    //     let input = this.state.input;
-    //     input[name] = url;
-    //     input[name] = [];
-    //     input[name].push(url);
-    //     this.setState({ input });
-    //     this.props?.handle(input);
-
-    // };
-
-    uploadFile = ({ target: { files } }) => {
-        if (files?.length > 0) {
-            if (this.state.input.images?.length < 6) {
-                const formData = new FormData();
-                formData.append("media", files[0]);
-                const token = cookie.get("access_token_admin");
-                const headers = {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                };
-                axios
-                    .put(`${PRODUCT_SERVICE}/manage/category/photo/icon`, formData, headers)
-                    .then((response) => {
-                        let input = this.state.input;
-                        // input["images"] = [];
-                        input["images"].push(
-                            response.data.data?.url
-                        )
-
-                        this.setState({ input });
-                        this.props?.handle(input);
-
-                    })
-                    .catch((error) => {
-                        this.setState({ isLoader: false })
-                        toast.error(error);
-                    });
-            }
-            else {
-                toast.error("Not more than 6 files can be uploaded");
-            }
-        }
-    }
-
     handleCheck = (event) => {
-        let list = this.state.input.images
-        let objIndex = list.findIndex((obj => obj.id === parseInt(event?.target?.value)));
-        list[objIndex]["images"] = event?.target?.checked;
-        this.setState({ input: { images: list } })
+        let input = this.state.input;
+        input[event.target.name] = event.target.checked;
+        this.setState({ input });
+        this.props?.handle(input);
+    };
+    handlePhotoUrl = (name, url) => {
+        let input = this.state.input;
+        input[name] = url;
+        this.setState({ input });
+        this.props?.handle(input);
     };
 
     convertDateStringToDate = (dateStr) => {
@@ -149,9 +95,6 @@ export default class ReviewCreate extends Component {
         return str;
     };
 
-    // componentDidMount(){
-    //     this.setState({changePic: false})
-    // }
 
     render() {
         return (
@@ -181,6 +124,17 @@ export default class ReviewCreate extends Component {
                                         <div className="col-md-4">
                                             <div className="login-form ">
                                                 <label>
+                                                    User Name<span className="mandatory-star">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="user_name"
+                                                    value={this.state.input.user_name}
+                                                    onChange={this.handleChange.bind(this)}
+                                                />
+                                            </div>
+                                            <div className="login-form ">
+                                                <label>
                                                     Review Title<span className="mandatory-star">*</span>
                                                 </label>
                                                 <input
@@ -206,61 +160,51 @@ export default class ReviewCreate extends Component {
                                                 <label>
                                                     Rating<span className="mandatory-star">*</span>
                                                 </label>
-                                                <br />
-                                                <Rating
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    max="5"
                                                     name="rating"
                                                     value={this.state.input?.rating}
-                                                    precision={0.5}
-                                                    // readOnly
-                                                    size="large"
-                                                    icon={<StarIcon sx={{ color: "#ffcb45" }} fontSize="inherit" />}
-                                                    emptyIcon={<StarIcon fontSize="inherit" />}
-                                                    onChange={(event, newValue) => {
-                                                        let input = this.state.input;
-                                                        input["rating"] = newValue;
-                                                        this.setState({ input });
-                                                        this.props?.handle(input);
-                                                    }}
+                                                    onChange={this.handleChange.bind(this)}
                                                 />
                                             </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="row">
-                                        <div className="col-md-12">
-
-                                            <div className="login-form">
+                                            {/* <div className="mt-4">
                                                 <label>
                                                     Images
                                                 </label>
-                                                {this.state.changePic === false ?
-                                                    <>
-                                                        {this.state.input["images"] = []}
-                                                        {this.setState({ changePic: true })}
-                                                    </>
-                                                    :
-                                                    ""
-                                                }
-                                                <div data-component="product-photo-edit" className='product-tabbed-editor'>
-                                                    <div className='photo-upload-list d-flex flex-wrap'>
-                                                        {
-                                                            this.state.input.images.map((p, i) => {
-                                                                return <div key={i} className='photo-upload-box'>
-                                                                    <div className='preview-img' style={{ backgroundImage: 'url(' + p + ')' }}>
-                                                                    </div>
-                                                                </div>
-                                                            })
-                                                        }
-
-                                                        <div className='photo-upload-box photo-uplaod'>
-                                                            <input id="img" type="file" accept={".png,.jpg,.jpeg"} onChange={this.uploadFile} style={{ display: "none" }} />
-                                                            <label for="img" className="file" >Choose File</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <Photo
+                                                    mode={this.state.mode}
+                                                    label={""}
+                                                    accept=".jpg,.jpeg,.png"
+                                                    name="img_urls"
+                                                    img={this.state.input?.img_urls}
+                                                    setUrl={this.handlePhotoUrl.bind(this)}
+                                                    value={this.state.img_icon}
+                                                    urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
+                                                />
+                                            </div> */}
+                                            <div className="login-form ">
+                                                <label>
+                                                    Review Date<span className="mandatory-star">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="published_at"
+                                                    value={this.state.input.published_at ? this.convertDateStringToDate(this.state.input.published_at) : ""}
+                                                    onChange={this.handleChange.bind(this)}
+                                                />
                                             </div>
-
+                                            <div className="signup-check mt-4">
+                                                <Checkbox
+                                                    size="small"
+                                                    style={{ color: "#012169" }}
+                                                    checked={this.state.input?.is_verified}
+                                                    name="is_verified"
+                                                    onChange={this.handleCheck.bind(this)}
+                                                />
+                                                <label>Verified</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -307,75 +251,26 @@ export default class ReviewCreate extends Component {
                                                 <label>
                                                     Rating<span className="mandatory-star">*</span>
                                                 </label>
-                                                <br />
-                                                <Rating
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    max="5"
                                                     name="rating"
                                                     value={this.state.input?.rating}
-                                                    precision={0.5}
-                                                    size="large"
-                                                    readonly
-                                                    icon={<StarIcon sx={{ color: "#ffcb45" }} fontSize="inherit" />}
-                                                    emptyIcon={<StarIcon fontSize="inherit" />}
+                                                    readOnly={true}
                                                 />
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            {
-                                                this.state.input?.images?.length > 0 ?
-                                                    <div className="login-form">
-                                                        {
-                                                            this.state.input?.images?.length > 0 ?
-                                                                <>
-                                                                    <label>
-                                                                        Images
-                                                                    </label>
-                                                                    <div className="row">
-                                                                        {
-                                                                            this.state.input?.images?.map(elem => {
-                                                                                return (
-                                                                                    <>
-                                                                                        {/* <img src="/images/product5.png" alt="img-fluid" /> */}
-                                                                                        <div className="col-6">
-                                                                                            <img
-                                                                                                src={elem?.images}
-                                                                                                className="mb-3"
-                                                                                                style={{ width: "auto", height: "300px" }}
-                                                                                            />
-                                                                                        </div>
-                                                                                        {/* <Photo
-                                                                            mode={this.state.mode}
-                                                                            label={""}
-                                                                            accept=".jpg,.jpeg,.png"
-                                                                            img={elem?.images}
-                                                                        /> */}
-                                                                                    </>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-
-                                                                </>
-                                                                :
-                                                                <div className="login-form ">
-                                                                    <label>
-                                                                        No Images
-                                                                    </label>
-                                                                </div>
-                                                        }
-                                                    </div>
-
-                                                    :
-                                                    ""
-                                            }
-
-                                        </div>
-                                    </div>
-                                    <div className="row mt-4">
-                                        <div className="col-md-4">
-
+                                            {/* <div className="mt-4">
+                                                <label>
+                                                    Images
+                                                </label>
+                                                <Photo
+                                                    mode={this.state.mode}
+                                                    label={""}
+                                                    accept=".jpg,.jpeg,.png"
+                                                    img={this.state.input?.img_urls}
+                                                />
+                                            </div> */}
                                             <div className="login-form ">
                                                 <label>
                                                     Review Date<span className="mandatory-star">*</span>
@@ -407,4 +302,3 @@ export default class ReviewCreate extends Component {
         );
     }
 }
-

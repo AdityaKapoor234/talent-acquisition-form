@@ -4,8 +4,6 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Router from "next/router";
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
 
 export default class ReviewList extends Component {
     constructor(props) {
@@ -64,7 +62,7 @@ export default class ReviewList extends Component {
                     </div>
                 </div>
                 {
-                    this.state.review?.product_review && this.state.review?.total === 0 ? <div className="not-found">No Data Found</div> :
+                    this.state.review && this.state.review.length === 0 ? <div className="not-found">No Data Found</div> :
                         this.state.review?.product_review?.rating_detials?.map((p, index) => {
                             return (
                                 <div className="row" key={index}>
@@ -72,22 +70,7 @@ export default class ReviewList extends Component {
                                         <div className="tableCell">
                                             <div className="tableBody pe-1 col elip-text" title={p?.user_name}>{p?.user_name}</div>
                                             <div className="col px-2 text-center elip-text" title={p?.review_title}>{p?.review_title}</div>
-                                            <div className="col px-2 text-center elip-text" title={p?.rating}>
-                                                <Rating
-                                                    name="simple-controlled"
-                                                    value={p?.rating}
-                                                    precision={0.5}
-                                                    readOnly
-                                                    size="small"
-                                                    icon={<StarIcon sx={{ color: "#ffcb45" }} fontSize="inherit" />}
-                                                    emptyIcon={<StarIcon fontSize="inherit" />}
-
-                                                // onChange={(event, newValue) => {
-                                                //     setValue(newValue);
-                                                // }}
-                                                />
-
-                                            </div>
+                                            <div className="col px-2 text-center elip-text" title={p?.rating}>{p?.rating}</div>
                                             <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.published_at)}>{this.convertDateStringToDate(p?.published_at)}</div>
 
                                             <div className="col-1 text-center">
@@ -101,13 +84,13 @@ export default class ReviewList extends Component {
                                                 <RemoveRedEyeIcon
                                                     className="edit-icon"
                                                     onClick={() => {
-                                                        Router.push(`/product-review/${p?.id}/view2`);
+                                                        Router.push(`/review/${p?.id}/view`);
                                                     }}
                                                 />
                                                 <EditOutlinedIcon
                                                     className="edit-icon"
                                                     onClick={() => {
-                                                        Router.push(`/product-review/${p?.id}/edit`);
+                                                        Router.push(`/review/${p?.id}/edit`);
                                                     }}
                                                 />
                                             </div>
@@ -120,4 +103,3 @@ export default class ReviewList extends Component {
         );
     }
 }
-

@@ -23,6 +23,7 @@ export default class ArticleEditor extends Component {
     super(props);
     this.state = {
       value: props?.value ? props?.value : "",
+      // value: "<img src='https://m.media-amazon.com/images/I/31aucJOZCuL.jpg' alt='undefined' style={{height: '10rem';width: '10rem'}}/>",
       mode: props?.mode,
       timeout: "",
       editorState: "",
@@ -112,6 +113,7 @@ export default class ArticleEditor extends Component {
     const { editorState } = this.state;
     return (
       <>
+      {/* {this.state.value} */}
         <Editor
           editorState={editorState}
           readOnly= {this.state.mode === "view" ? true : false}
@@ -139,11 +141,33 @@ export default class ArticleEditor extends Component {
             textAlign: { inDropdown: true },
             link: { inDropdown: true },
             history: { inDropdown: true },
-            image: {
-              className: "content-image",
-              uploadCallback: uploadImageCallBack,
-              alt: { present: true, mandatory: true },
+            // image: {
+            //   className: "content-image",
+            //   uploadCallback: uploadImageCallBack,
+            //   alt: { present: true, mandatory: true },
+            // },
+            fontFamily: {
+              options: ['Arial', 'Georgia', 'Castellar', 'Graphik', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana',],
+              inDropdown: true
             },
+            colorPicker: {
+              inDropdown: true,
+              colors: ['#dfe9f0', '#dbeaf6', '#e1e5ee', '#646d80',
+                '#fafafa', '#7e8f99', '#012169', '#f54a00', '#f76e33',
+                '#ecf1f5', '#a1c5e1', '#eaeaea', '#404040', '#60ff8c',],
+            },
+            image: {
+              inDropdown: true,
+              className: "content-image",
+              
+              inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+              uploadCallback: uploadImageCallBack,
+              alt: { present: false, mandatory: false },
+              defaultSize: {
+                height: 'auto',
+                width: 'auto',
+              },
+            },          
           }}
         />
       </>

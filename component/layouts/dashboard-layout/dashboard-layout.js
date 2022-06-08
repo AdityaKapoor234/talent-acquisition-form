@@ -147,7 +147,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         {/* <li className={categary=== "inventory" ? "sub_active":""} onClick={()=> handleCategary("#","inventory")}>inventory</li> */}
                                         <li className={categary === "flavor" ? "sub_active" : ""} onClick={() => handleCategary("/flavor", "flavor")}>flavor</li>
                                         <li className={categary === "bulk-edit-product" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-edit-product", "bulk-edit-product")}>Bulk Edit Product</li>
-                                        <li className={categary === "product-review" ? "sub_active" : ""} onClick={() => handleCategary("/product-review", "product-review")}>review</li>
+                                        <li className={categary === "product-review" ? "sub_active" : ""} onClick={() => handleCategary("/product-review", "product-review")}>product review</li>
                                     </ul>
                                 }
                                 <div className={tabAskthePros ? 'menu-btn active' : 'menu-btn'} onClick={() => setAskthePros(!tabAskthePros)}>

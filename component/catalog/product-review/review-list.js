@@ -154,7 +154,7 @@ export default class ProductReviewList extends Component {
                                     onChange={this.handleFilter}
                                     onKeyPress={this.handleKeyPress}
                                 />
-                                <SearchIcon className="search-icon point-but" onClick={this.handleClickPress} />
+                                <SearchIcon className="search-icon point-but" onClick={this.handleClickPress} style={{top: "10.25rem"}} />
                             </div>
                         </div>
                         <div className="col-md-2 btn-save">

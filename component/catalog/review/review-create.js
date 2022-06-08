@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
 import { PRODUCT_SERVICE } from "../../../utils/constant";
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
+import cookie from "js-cookie";
+import axios from "axios";
 
 export default class ReviewCreate extends Component {
     constructor(props) {
@@ -65,27 +68,66 @@ export default class ReviewCreate extends Component {
         this.setState({ input });
         this.props?.handle(input);
     };
+    // handleCheck = (event) => {
+    //     let input = this.state.input;
+    //     input[event.target.name] = event.target.checked;
+    //     this.setState({ input });
+    //     this.props?.handle(input);
+    // };
+    // handlePhotoUrl = (name, url) => {
+    //     let input = this.state.input;
+    //     input[name] = url;
+    //     input[name] = [];
+    //     input[name].push(url);
+    //     this.setState({ input });
+    //     this.props?.handle(input);
+
+    // };
+
+    uploadFile = ({ target: { files } }) => {
+        if (files?.length > 0) {
+            const formData = new FormData();
+            formData.append("media", files[0]);
+            const token = cookie.get("access_token_admin");
+            const headers = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            axios
+                .put(`${PRODUCT_SERVICE}/manage/category/photo/icon`, formData, headers)
+                .then((response) => {
+                    // let photo = this.state.photos;
+                    let input = this.state.input;
+                    // input["images"] = [];
+                    input["images"].push(
+                        response.data.data?.url
+                        // {
+                        // response.data.data?.url
+                        // "id": 0,
+                        // "is_primary": false,
+                        // "path": response.data.data?.url,
+                        // "sort_order": null,
+                        // "removed": false
+                    // }
+                    )
+                    
+                    this.setState({ input });
+                    this.props?.handle(input);
+
+                })
+                .catch((error) => {
+                    this.setState({ isLoader: false })
+                    toast.error(error);
+                });
+        }
+    }
+
     handleCheck = (event) => {
-        let input = this.state.input;
-        input[event.target.name] = event.target.checked;
-        this.setState({ input });
-        this.props?.handle(input);
-    };
-    handlePhotoUrl = (name, url) => {
-        let input = this.state.input;
-        // input[name] = url;
-        input[name] = [];
-        input[name].push(url);
-        this.setState({ input });
-        this.props?.handle(input);
-
-
-
-        // let input = this.state.input?.images;
-        // let d={"images": url}
-        // input.push(d);
-        // this.setState({ input });
-        // this.props?.handle(input);
+        let list = this.state.input.images
+        let objIndex = list.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+        list[objIndex]["images"] = event?.target?.checked;
+        this.setState({ input: { images: list } })
     };
 
     convertDateStringToDate = (dateStr) => {
@@ -191,25 +233,45 @@ export default class ReviewCreate extends Component {
                                                             this.state.input?.images?.map(elem => {
                                                                 return (
                                                                     <> */}
-                                                {/* {
-                                                    this.state.input?.images?.map(e => {
-                                                        return (
-                                                            <>
-                                                                <Photo
-                                                                    mode={this.state.mode}
-                                                                    label={"Images"}
-                                                                    accept=".jpg,.jpeg,.png"
-                                                                    name="images"
-                                                                    img={e?.images}
-                                                                    setUrl={this.handlePhotoUrl.bind(this)}
-                                                                    value={this.state.img_icon}
-                                                                    urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
-                                                                />
-                                                            </>
-                                                        )
-                                                    })
-                                                } */}
-                                                <Photo
+
+                                                <div data-component="product-photo-edit" className='product-tabbed-editor'>
+                                                    <div className='photo-upload-list d-flex flex-wrap'>
+                                                        {
+                                                            this.state.input.images.map((p, i) => {
+                                                                return <div key={i} className='photo-upload-box'>
+                                                                    <div className='preview-img' style={{ backgroundImage: 'url(' + p + ')' }}>
+                                                                        {/* <img
+                                                                            src={p?.images}
+                                                                            className="mb-3"
+                                                                            style={{ width: "auto", height: "300px" }}
+                                                                        /> */}
+
+                                                                        {/* <div className="d-flex checkbox"> */}
+                                                                        {/* <Checkbox
+                                                                                size="small"
+                                                                                style={{ color: "#012169" }}
+                                                                                disabled={this.state?.mode === "view" ? true : false}
+                                                                                checked={p?.is_primary === true ? true : false}
+                                                                                name="is_primary"
+                                                                                value={p?.id}
+                                                                                onChange={this.handleCheck.bind(this)}
+                                                                            />
+                                                                            {this.state?.mode === "view" ? < DeleteIcon className="delete-icon" />
+                                                                                : < DeleteIcon className="delete-icon" onClick={() => { this.delete(p?.id) }} />} */}
+                                                                        {/* </div> */}
+                                                                    </div>
+                                                                </div>
+                                                            })
+                                                        }
+
+                                                        <div className='photo-upload-box photo-uplaod'>
+                                                            <input id="img" type="file" accept={".png,.jpg,.jpeg"} onChange={this.uploadFile} style={{ display: "none" }} />
+                                                            <label for="img" className="file" >Choose File</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* <Photo
                                                     mode={this.state.mode}
                                                     label={"Images"}
                                                     accept=".jpg,.jpeg,.png"
@@ -218,7 +280,7 @@ export default class ReviewCreate extends Component {
                                                     setUrl={this.handlePhotoUrl.bind(this)}
                                                     value={this.state.img_icon}
                                                     urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
-                                                />
+                                                /> */}
                                                 {/* </>
                                                                 )
                                                             })

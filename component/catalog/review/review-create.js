@@ -43,6 +43,7 @@ export default class ReviewCreate extends Component {
                 review: nextProps?.review,
                 mode: nextProps?.mode,
                 createMode: nextProps?.createMode,
+                changePic: false,
                 input: {
                     rating: nextProps?.review?.rating ? nextProps.review?.rating : "",
                     review_title: nextProps?.review?.review_title ? nextProps.review?.review_title : "",
@@ -102,7 +103,7 @@ export default class ReviewCreate extends Component {
                     input["images"].push(
                         response.data.data?.url
                     )
-                    
+
                     this.setState({ input });
                     this.props?.handle(input);
 
@@ -143,10 +144,9 @@ export default class ReviewCreate extends Component {
         return str;
     };
 
-    componentDidMount(){
-        // let input = this.state.input;
-        this.state.input["images"] = [];
-    }
+    // componentDidMount(){
+    //     this.setState({changePic: false})
+    // }
 
 
     render() {
@@ -219,42 +219,22 @@ export default class ReviewCreate extends Component {
                                                     }}
                                                 />
                                             </div>
-                                            {/* {
-                                                this.state.input?.images?.length > 0 ? */}
                                             <div className="login-form">
-                                                {/* <label>
-                                                    Images
-                                                </label> */}
-                                                {/* {
-                                                            this.state.input?.images?.map(elem => {
-                                                                return (
-                                                                    <> */}
 
+                                                {this.state.changePic === false ?
+                                                    <>
+                                                        {this.state.input["images"] = []}
+                                                        {this.setState({ changePic: true })}
+                                                    </>
+                                                    :
+                                                    ""
+                                                }
                                                 <div data-component="product-photo-edit" className='product-tabbed-editor'>
                                                     <div className='photo-upload-list d-flex flex-wrap'>
                                                         {
                                                             this.state.input.images.map((p, i) => {
                                                                 return <div key={i} className='photo-upload-box'>
                                                                     <div className='preview-img' style={{ backgroundImage: 'url(' + p + ')' }}>
-                                                                        {/* <img
-                                                                            src={p?.images}
-                                                                            className="mb-3"
-                                                                            style={{ width: "auto", height: "300px" }}
-                                                                        /> */}
-
-                                                                        {/* <div className="d-flex checkbox"> */}
-                                                                        {/* <Checkbox
-                                                                                size="small"
-                                                                                style={{ color: "#012169" }}
-                                                                                disabled={this.state?.mode === "view" ? true : false}
-                                                                                checked={p?.is_primary === true ? true : false}
-                                                                                name="is_primary"
-                                                                                value={p?.id}
-                                                                                onChange={this.handleCheck.bind(this)}
-                                                                            />
-                                                                            {this.state?.mode === "view" ? < DeleteIcon className="delete-icon" />
-                                                                                : < DeleteIcon className="delete-icon" onClick={() => { this.delete(p?.id) }} />} */}
-                                                                        {/* </div> */}
                                                                     </div>
                                                                 </div>
                                                             })
@@ -266,26 +246,8 @@ export default class ReviewCreate extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                {/* <Photo
-                                                    mode={this.state.mode}
-                                                    label={"Images"}
-                                                    accept=".jpg,.jpeg,.png"
-                                                    name="images"
-                                                    img={this.state.input?.images}
-                                                    setUrl={this.handlePhotoUrl.bind(this)}
-                                                    value={this.state.img_icon}
-                                                    urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
-                                                /> */}
-                                                {/* </>
-                                                                )
-                                                            })
-                                                        } */}
                                             </div>
 
-                                            {/* :
-                                                    ""
-                                            } */}
                                         </div>
                                     </div>
                                 </div>

@@ -185,22 +185,15 @@ export default class ReviewCreateDetails extends Component {
                 >
                   <span>Delete </span>
                 </div> */}
-                                {/* <Link to={{ pathname: '/nextpath', state: { prevPath: location.pathname } }}> */}
                                     <div
                                         className="Cancel-btn custom-btn"
                                       onClick={() => {
-                                        Router.push(`/product-review`);
-                                    // Router.History.goBack();
-                                    // browserHistory.push()
-                                    // history.goBack();
-                                    // this.state.history.goBack();
-                                    
+                                        Router.push(`/product-review`);                                    
                                       }}
                                     >
 
                                         <span>Cancel</span>
                                     </div>
-                                {/* </Link> */}
                             </div>
                         </div>
                         <div className="row">

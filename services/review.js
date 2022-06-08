@@ -4,7 +4,7 @@ import cookie from "js-cookie";
 
 export class ReviewApi {
 
-    static reviewList(id, page, search) {
+    static reviewList(page, search) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -12,7 +12,7 @@ export class ReviewApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.get(`${REVIEW_LIST}`.replace('{{id}}', id).replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+        return axios.get(`${REVIEW_LIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
     }
 
     static reviewViewDetails(id) {

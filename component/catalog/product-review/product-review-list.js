@@ -38,7 +38,7 @@ export default class ProductList extends Component {
                             <div className="col-2 px-2 text-center">Stock Quantity</div>
                             <div className="col-1 text-center">Status</div>
                             <div className="col-1 text-end">View</div>
-                            {/* <div className="col-1 text-end">Edit</div> */}
+                            <div className="col-1 text-end">Edit</div>
                         
                         </div>
                     </div>
@@ -72,18 +72,18 @@ export default class ProductList extends Component {
                                         <RemoveRedEyeIcon
                                             className="edit-icon"
                                             onClick={() => {
-                                                Router.push(`/product-review/${p?.id}/view`);
+                                                Router.push(`/product/${p?.id}/view`);
                                             }}
                                         />
                                     </div>
-                                    {/* <div className="col-1 text-end">
+                                    <div className="col-1 text-end">
                                         <EditOutlinedIcon
                                             className="edit-icon"
                                             onClick={() => {
                                                 Router.push(`/product/${p?.id}/edit`);
                                             }}
                                             />
-                                    </div> */}
+                                    </div>
                                     
                                     </div>
                                 </div>

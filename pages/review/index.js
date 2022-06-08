@@ -100,14 +100,20 @@ export default function Review() {
   }, []);
   return (
     <div page-component="category-page">
+      <Head>
+        <title>{APP_NAME} - Review</title>
+        <meta name="description" content="Trusted Brands. Better Health." />
+        <link rel="icon" href="/fitcart.ico" />
+      </Head>
 
       <main>
-          <div className="row border-box mt-3">
+        <DashboardLayoutComponent>
+          <div className="row border-box">
             <div className="col-md-6">
               <div className="hamburger">
-                {/* <span>Catalog / </span>Review */}
+                <span>Catalog / </span>Review
               </div>
-              {/* <div className="page-name">Review</div> */}
+              <div className="page-name">Review</div>
             </div>
             <div className="col-md-4">
               <div className="login-form ">
@@ -186,6 +192,7 @@ export default function Review() {
             </div>
           </div>
 
+        </DashboardLayoutComponent>
       </main>
     </div>
   );

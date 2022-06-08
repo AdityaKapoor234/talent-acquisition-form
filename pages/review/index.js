@@ -100,69 +100,62 @@ export default function Review() {
   }, []);
   return (
     <div page-component="category-page">
-      <Head>
-        <title>{APP_NAME} - Review</title>
-        <meta name="description" content="Trusted Brands. Better Health." />
-        <link rel="icon" href="/fitcart.ico" />
-      </Head>
 
       <main>
-        <DashboardLayoutComponent>
-          <div className="row border-box">
-            <div className="col-md-6">
-              <div className="hamburger">
-                <span>Catalog / </span>Review
-              </div>
-              <div className="page-name">Review</div>
+        <div className="row border-box mt-3">
+          <div className="col-md-6">
+            <div className="hamburger">
+              {/* <span>Catalog / </span>Review */}
             </div>
-            <div className="col-md-4">
-              <div className="login-form ">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="search-box"
-                  value={wordEntered}
-                  onChange={handleFilter}
-                  onKeyPress={handleKeyPress}
-                />
-                <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
-              </div>
-            </div>
-            <div className="col-md-2 btn-save">
-              <div
-                className="custom-btn "
-                onClick={() => {
-                  Router.push(`/review/create`);
-                }}
-              >
-                <span>Add New </span>
-              </div>
+            {/* <div className="page-name">Review</div> */}
+          </div>
+          <div className="col-md-4">
+            <div className="login-form ">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="search-box"
+                value={wordEntered}
+                onChange={handleFilter}
+                onKeyPress={handleKeyPress}
+              />
+              <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
             </div>
           </div>
-          <div className="row sticky-scroll scroll">
-            <div className="col-md-12 ">
-              {
-                isLoader ? (
-                  <div className="row justify-content-center">
-                    <div className="col-md-12 loader-cart">
-                      <Box sx={{ display: "flex" }}>
-                        <CircularProgress
-                          style={{ color: "#F54A00" }}
-                        />
-                      </Box>
-                    </div>
+          <div className="col-md-2 btn-save">
+            <div
+              className="custom-btn "
+              onClick={() => {
+                Router.push(`/review/create`);
+              }}
+            >
+              <span>Add New </span>
+            </div>
+          </div>
+        </div>
+        <div className="row sticky-scroll scroll">
+          <div className="col-md-12 ">
+            {
+              isLoader ? (
+                <div className="row justify-content-center">
+                  <div className="col-md-12 loader-cart">
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress
+                        style={{ color: "#F54A00" }}
+                      />
+                    </Box>
                   </div>
-                ) : (
-                  // review && review.length === 0 ? <div className="not-found">No Data Found</div> :
-                    <ReviewList review={review} />
-                )
-              }
+                </div>
+              ) : (
+                // review && review.length === 0 ? <div className="not-found">No Data Found</div> :
+                <ReviewList review={review} />
+              )
+            }
 
 
-
-            </div>
           </div>
-          {/* <div className="row">
+        </div>
+        {/* <div className="row">
                         <div className="col-md-12">
                             <div className="pagiantion-category">
                                 <Pagination
@@ -174,25 +167,24 @@ export default function Review() {
                             </div>
                         </div>
                     </div> */}
-          <div className="row">
-            <div className="col-md-12 justify-content-between d-flex position-relative">
-              <div className="pagiantion-category">
-                <div>
-                  <Pagination
-                    className="pagination pagi"
-                    page={currentPage}
-                    count={totalPage}
-                    onChange={onPageChange}
-                  />
-                </div>
-                <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-                  Total Review: {totalReview.total}
-                </div>
+        <div className="row">
+          <div className="col-md-12 justify-content-between d-flex position-relative">
+            <div className="pagiantion-category">
+              <div>
+                <Pagination
+                  className="pagination pagi"
+                  page={currentPage}
+                  count={totalPage}
+                  onChange={onPageChange}
+                />
+              </div>
+              <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                Total Review: {totalReview.total}
               </div>
             </div>
           </div>
+        </div>
 
-        </DashboardLayoutComponent>
       </main>
     </div>
   );

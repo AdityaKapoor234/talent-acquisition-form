@@ -97,19 +97,10 @@ export default class ReviewCreate extends Component {
             axios
                 .put(`${PRODUCT_SERVICE}/manage/category/photo/icon`, formData, headers)
                 .then((response) => {
-                    // let photo = this.state.photos;
                     let input = this.state.input;
                     // input["images"] = [];
                     input["images"].push(
                         response.data.data?.url
-                        // {
-                        // response.data.data?.url
-                        // "id": 0,
-                        // "is_primary": false,
-                        // "path": response.data.data?.url,
-                        // "sort_order": null,
-                        // "removed": false
-                    // }
                     )
                     
                     this.setState({ input });
@@ -151,6 +142,11 @@ export default class ReviewCreate extends Component {
             date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
         return str;
     };
+
+    componentDidMount(){
+        // let input = this.state.input;
+        this.state.input["images"] = [];
+    }
 
 
     render() {

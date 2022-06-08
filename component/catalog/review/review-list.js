@@ -64,7 +64,7 @@ export default class ReviewList extends Component {
                     </div>
                 </div>
                 {
-                    this.state.review && this.state.review.length === 0 ? <div className="not-found">No Data Found</div> :
+                    this.state.review?.product_review && this.state.review?.total === 0 ? <div className="not-found">No Data Found</div> :
                         this.state.review?.product_review?.rating_detials?.map((p, index) => {
                             return (
                                 <div className="row" key={index}>

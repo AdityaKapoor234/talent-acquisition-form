@@ -87,31 +87,36 @@ export default class ReviewCreate extends Component {
 
     uploadFile = ({ target: { files } }) => {
         if (files?.length > 0) {
-            const formData = new FormData();
-            formData.append("media", files[0]);
-            const token = cookie.get("access_token_admin");
-            const headers = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-            axios
-                .put(`${PRODUCT_SERVICE}/manage/category/photo/icon`, formData, headers)
-                .then((response) => {
-                    let input = this.state.input;
-                    // input["images"] = [];
-                    input["images"].push(
-                        response.data.data?.url
-                    )
-
-                    this.setState({ input });
-                    this.props?.handle(input);
-
-                })
-                .catch((error) => {
-                    this.setState({ isLoader: false })
-                    toast.error(error);
-                });
+            if (this.state.input.images?.length < 6) {
+                const formData = new FormData();
+                formData.append("media", files[0]);
+                const token = cookie.get("access_token_admin");
+                const headers = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                };
+                axios
+                    .put(`${PRODUCT_SERVICE}/manage/category/photo/icon`, formData, headers)
+                    .then((response) => {
+                        let input = this.state.input;
+                        // input["images"] = [];
+                        input["images"].push(
+                            response.data.data?.url
+                        )
+    
+                        this.setState({ input });
+                        this.props?.handle(input);
+    
+                    })
+                    .catch((error) => {
+                        this.setState({ isLoader: false })
+                        toast.error(error);
+                    });    
+            }
+            else {
+                toast.error("Not more than 6 files can be uploaded");
+            }
         }
     }
 

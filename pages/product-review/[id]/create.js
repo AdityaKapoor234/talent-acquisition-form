@@ -188,7 +188,8 @@ export default class ReviewCreateDetails extends Component {
                                     <div
                                         className="Cancel-btn custom-btn"
                                       onClick={() => {
-                                        Router.push(`/product-review`);                                    
+                                        Router.push(`/product-review`);
+                                    
                                       }}
                                     >
 
@@ -212,4 +213,3 @@ export default class ReviewCreateDetails extends Component {
         );
     }
 }
-

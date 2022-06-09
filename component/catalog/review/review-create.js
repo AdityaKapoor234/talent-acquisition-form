@@ -104,15 +104,15 @@ export default class ReviewCreate extends Component {
                         input["images"].push(
                             response.data.data?.url
                         )
-    
+
                         this.setState({ input });
                         this.props?.handle(input);
-    
+
                     })
                     .catch((error) => {
                         this.setState({ isLoader: false })
                         toast.error(error);
-                    });    
+                    });
             }
             else {
                 toast.error("Not more than 6 files can be uploaded");
@@ -223,6 +223,13 @@ export default class ReviewCreate extends Component {
                                                     }}
                                                 />
                                             </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="row">
+                                        <div className="col-md-12">
+
                                             <div className="login-form">
 
                                                 {this.state.changePic === false ?

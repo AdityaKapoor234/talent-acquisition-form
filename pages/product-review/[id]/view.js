@@ -17,55 +17,58 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import ProductApi from "../../../services/product";
 
 export async function getServerSideProps(context) {
-  const { id } = context.query;
-  return {
-    props: {
-      id: id || null,
-    },
-  };
+    const { id } = context.query;
+    return {
+        props: {
+            id: id || null,
+        },
+    };
 }
 
 export default class ReviewViewDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: props?.id,
-      mode: "view",
-    };
-  }
-
-  componentDidMount() {
-    const token = Cookie.get("access_token_admin");
-    if (token === undefined) {
-      Router.push("/");
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: props?.id,
+            mode: "view",
+            product: [],
+        };
     }
-    this.setState({ id: this.props?.id });
-  }
 
-  render() {
-    return (
-      <div>
-        <Head>
-          <title>{APP_NAME} - Product Review</title>
-          <meta name="description" content="Trusted Brands. Better Health." />
-          <link rel="icon" href="/fitcart.ico" />
-        </Head>
 
-        <main>
-          <DashboardLayoutComponent>
-            <div className="row border-box">
-              <div className="col-md-5">
-                <div className="hamburger">
-                  <span>Catalog / Product Review / </span>View Product Review
-                </div>
-                <div className="page-name">
-                    View Product Review Details - {this.state.review?.name}
-                </div>
-              </div>
-              <div className="col-md-7 btn-save">
-                {/* <div
+    componentDidMount() {
+        const token = Cookie.get("access_token_admin");
+        if (token === undefined) {
+            Router.push("/");
+        }
+        this.setState({ id: this.props?.id });
+    }
+
+    render() {
+        return (
+            <div>
+                <Head>
+                    <title>{APP_NAME} - Product Review</title>
+                    <meta name="description" content="Trusted Brands. Better Health." />
+                    <link rel="icon" href="/fitcart.ico" />
+                </Head>
+
+                <main>
+                    <DashboardLayoutComponent>
+                        <div className="row border-box">
+                            <div className="col-md-5">
+                                <div className="hamburger">
+                                    <span>Catalog / Product Review / </span>View Product Review
+                                </div>
+                                <div className="page-name">
+                                    View Product Review Details
+                                </div>
+                            </div>
+                            <div className="col-md-7 btn-save">
+                                {/* <div
                   className="custom-btn "
                   onClick={() => {
                     this.OnSave();
@@ -73,7 +76,7 @@ export default class ReviewViewDetails extends Component {
                 >
                   <span>Save </span>
                 </div> */}
-                {/* <div
+                                {/* <div
                   className="Cancel-btn custom-btn"
                   onClick={() => {
                     this.setState({ open: true });
@@ -81,27 +84,27 @@ export default class ReviewViewDetails extends Component {
                 >
                   <span>Delete </span>
                 </div> */}
-                <div
-                  className="Cancel-btn custom-btn"
-                  onClick={() => {
-                    Router.push(`/review`);
-                  }}
-                >
-                  <span>Cancel </span>
-                </div>
-              </div>
+                                <div
+                                    className="Cancel-btn custom-btn"
+                                    onClick={() => {
+                                        Router.push(`/product-review`);
+                                    }}
+                                >
+                                    <span>Cancel </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-m-12">
+                                <ReviewCreateComponent
+                                    id={this.state.id}
+                                />
+                            </div>
+                        </div>
+                    </DashboardLayoutComponent>
+                </main>
             </div>
-            <div className="row">
-              <div className="col-m-12">
-                <ReviewCreateComponent
-                  id={this.state.id}
-                />
-              </div>
-            </div>
-          </DashboardLayoutComponent>
-        </main>
-      </div>
-    );
-  }
+        );
+    }
 }
 

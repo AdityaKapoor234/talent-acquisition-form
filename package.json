@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build:qa": "cp env/.env.qa .env && next build",
+    "build:qa": "export NODE_OPTIONS=--max_old_space_size=2048 && cp env/.env.qa .env && next build",
     "build:prod": "cp env/.env.production .env && next build",
     "start": "next start -p $PORT"
   },

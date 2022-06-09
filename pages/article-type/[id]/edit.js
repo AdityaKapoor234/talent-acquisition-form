@@ -40,6 +40,7 @@ export default class TypeEditDetails extends Component {
         name: "",
         description:"",
         label:"",
+        bg_img:"",
         banner_sm_url:"",
         banner_url:"",
         is_active: null,
@@ -88,6 +89,7 @@ export default class TypeEditDetails extends Component {
         is_active: this.state.TypeDetails.is_active,
         description: this.state.TypeDetails.description,
         label:this.state.TypeDetails.label,
+        bg_img:this.state.TypeDetails.bg_img,
         banner_sm_url:this.state.TypeDetails.banner_sm_url,
         banner_url:this.state.TypeDetails.banner_url
       };
@@ -128,6 +130,7 @@ export default class TypeEditDetails extends Component {
               : null,
             description: response.data.data.view?.description ?response.data.data.view?.description:"",
             label:response.data.data.view?.label? response.data.data.view?.label:"",
+            bg_img:response.data.data.view?.bg_img? response.data.data.view?.bg_img:"",
             banner_sm_url:response.data.data.view?.banner_sm_url? response.data.data.view?.banner_sm_url:"",
             banner_url:response.data.data.view?.banner_url? response.data.data.view?.banner_url:""
           };

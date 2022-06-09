@@ -5,7 +5,7 @@ import FormGroup from "@mui/material/FormGroup";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {PRODUCT_SERVICE} from "../../../utils/constant";
+import { PRODUCT_SERVICE } from "../../../utils/constant";
 
 export default class TypeCreate extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ export default class TypeCreate extends Component {
           ? props?.type?.banner_sm_url
           : "",
         banner_url: props?.type?.banner_url ? props?.type?.banner_url : "",
+        bg_img: props?.type?.bg_img ? props?.type?.bg_img : "",
       },
     };
   }
@@ -56,6 +57,9 @@ export default class TypeCreate extends Component {
             : "",
           banner_url: nextProps?.type?.banner_url
             ? nextProps?.type?.banner_url
+            : "",
+            bg_img: nextProps?.type?.bg_img
+            ? nextProps?.type?.bg_img
             : "",
         },
       };
@@ -197,6 +201,18 @@ export default class TypeCreate extends Component {
                       <div className="mt-4">
                         <Photo
                           mode={this.state.mode}
+                          label={"Icon"}
+                          accept=".jpg,.jpeg,.png"
+                          name="bg_img"
+                          img={this.state.input.bg_img}
+                          setUrl={this.handlePhotoUrl.bind(this)}
+                          value={this.state.img_icon}
+                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <Photo
+                          mode={this.state.mode}
                           label={"Short Banner Image"}
                           accept=".jpg,.jpeg,.png"
                           name="banner_sm_url"
@@ -317,6 +333,14 @@ export default class TypeCreate extends Component {
                           min="0"
                           readOnly={true}
                           value={this.state.input?.sort_order}
+                        />
+                      </div>
+                      <div className="">
+                        <Photo
+                          mode={this.state.mode}
+                          label={"Icon"}
+                          accept=".jpg,.jpeg,.png"
+                          img={this.state.input.bg_img}
                         />
                       </div>
                       <div className="">

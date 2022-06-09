@@ -20,6 +20,7 @@ export default class TypeCreate extends Component {
         name: "",
         description:"",
         label:"",
+        bg_img:"",
         banner_sm_url:"",
         banner_url:"",
         is_active: null,
@@ -68,6 +69,7 @@ export default class TypeCreate extends Component {
         is_active: this.state.TypeDetails.is_active,
         description: this.state.TypeDetails.description,
         label:this.state.TypeDetails.label,
+        bg_img:this.state.TypeDetails.bg_img,
         banner_sm_url:this.state.TypeDetails.banner_sm_url,
         banner_url:this.state.TypeDetails.banner_url
       };

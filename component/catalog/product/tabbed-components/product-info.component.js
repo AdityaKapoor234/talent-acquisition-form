@@ -512,7 +512,9 @@ export default class ProductInfoComponent extends Component {
                                                     Select HSN code{" "}
                                                 </MenuItem>
                                                 {this.state.gst?.map(val=>{return(
-                                                    <MenuItem value={val?.id}>{val?.hsn_code}</MenuItem>
+                                                    <MenuItem value={val?.id}>
+                                                        {val?.hsn_code}-CGST({val?.cgst}%)-SGST({val?.sgst}%)-IGST({val?.igst}%)
+                                                    </MenuItem>
                                                 )})}
                                                 
                                             </Select>

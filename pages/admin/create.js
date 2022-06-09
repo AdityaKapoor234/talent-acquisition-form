@@ -9,6 +9,7 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import AdminApi from "../../services/admin";
 
+
 export async function getServerSideProps(context) {
     const { id } = context.query;
     return {

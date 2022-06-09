@@ -271,7 +271,7 @@ export const CERTIFICATION_CREATE = `${PRODUCT_SERVICE}/manage/certification`;
 
 
 //REVIEW
-export const REVIEW_LIST = `${PRODUCT_SERVICE}/manage/review/156?page={{page}}&sort_by={{search}}`;
+export const REVIEW_LIST = `${PRODUCT_SERVICE}/manage/review/{{id}}?page={{page}}&sort_by={{search}}`;
 export const REVIEW_VIEW = `${PRODUCT_SERVICE}/manage/review/{{id}}/view`;
 export const REVIEW_EDIT = `${PRODUCT_SERVICE}/manage/review/{{id}}/edit`;
 export const REVIEW_CREATE = `${PRODUCT_SERVICE}/manage/review/{{id}}/add`;

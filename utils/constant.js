@@ -276,3 +276,27 @@ export const REVIEW_VIEW = `${PRODUCT_SERVICE}/manage/review/{{id}}/view`;
 export const REVIEW_EDIT = `${PRODUCT_SERVICE}/manage/review/{{id}}/edit`;
 export const REVIEW_CREATE = `${PRODUCT_SERVICE}/manage/review/{{id}}/add`;
 
+
+//TESTIMONIAL
+export const TESTIMONIAL_LIST = `${USER_SERVICE}/manage/testimonial?page={{page}}&q={{search}}`;
+export const TESTIMONIAL_VIEW = `${USER_SERVICE}/manage/testimonial/{{id}}/view`;
+export const TESTIMONIAL_EDIT = `${USER_SERVICE}/manage/testimonial/{{id}}/edit`;
+export const TESTIMONIAL_CREATE = `${USER_SERVICE}/manage/testimonial/add`;
+export const TESTIMONIAL_DELETE = `${USER_SERVICE}/manage/testimonial/{{id}}/delete`;
+
+
+//TESTIMONIAL CATEGORY
+export const TESTIMONIAL_CATEGORY_LIST = `${USER_SERVICE}/manage/testimonial/category?page={{page}}&q={{search}}`;
+export const TESTIMONIAL_CATEGORY_VIEW = `${USER_SERVICE}/manage/testimonial/category/{{id}}/view`;
+export const TESTIMONIAL_CATEGORY_EDIT = `${USER_SERVICE}/manage/testimonial/category/{{id}}/edit`;
+export const TESTIMONIAL_CATEGORY_CREATE = `${USER_SERVICE}/manage/testimonial/category/add`;
+export const TESTIMONIAL_CATEGORY_DELETE = `${USER_SERVICE}/manage/testimonial/category/{{id}}/delete`;
+
+
+//TESTIMONIAL GALLERY
+export const TESTIMONIAL_GALLERY_LIST = `${USER_SERVICE}/manage/testimonial/gallery?page={{page}}&q={{search}}`;
+export const TESTIMONIAL_GALLERY_VIEW = `${USER_SERVICE}/manage/testimonial/gallery/{{id}}/view`;
+export const TESTIMONIAL_GALLERY_EDIT = `${USER_SERVICE}/manage/testimonial/gallery/{{id}}/edit`;
+export const TESTIMONIAL_GALLERY_CREATE = `${USER_SERVICE}/manage/testimonial/gallery/add`;
+export const TESTIMONIAL_GALLERY_DELETE = `${USER_SERVICE}/manage/testimonial/gallery/{{id}}/delete`;
+

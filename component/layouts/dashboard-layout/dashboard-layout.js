@@ -26,6 +26,8 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ArticleIcon from '@mui/icons-material/Article';
 import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
 import { toast } from 'react-toastify';
@@ -39,13 +41,14 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
     const [tabDiscount, setDiscount] = useState(pathArr === "coupon" ? true : false);
     const [tabHsnCode, setHsnCode] = useState(pathArr === "gst" ? true : false);
+    const [tabTestimonial, setTestimonail] = useState(pathArr === "testimonial" || pathArr === "testimonial-category" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" || pathArr === "product-review" ? true : false);
-    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription"  ? true : false || pathArr === "coupon-log"  ? true : false);
+    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription" ? true : false || pathArr === "coupon-log" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "email-support" ? true : false);
-    const [tabCMS, setTabCMS] = useState(pathArr === "banner" || pathArr === "deals" || pathArr === "trusted-health" || pathArr === "certification"  ? true : false);
-    const [tabArticle, setTabArticle] = useState(pathArr === "article-type" || pathArr === "article-category"|| pathArr === "article-content" || pathArr === "article-author" ? true : false);
+    const [tabCMS, setTabCMS] = useState(pathArr === "banner" || pathArr === "deals" || pathArr === "trusted-health" || pathArr === "certification" || pathArr === "testimonial-gallery" ? true : false);
+    const [tabArticle, setTabArticle] = useState(pathArr === "article-type" || pathArr === "article-category" || pathArr === "article-content" || pathArr === "article-author" ? true : false);
     const [categary, setCategary] = useState(pathArr);
     const [logout, setLogout] = useState(false);
     const [email, setEmail] = useState("admin@fitcart.com");
@@ -173,7 +176,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabCustomer &&
                                     <ul>
                                         <li className={categary === "customer" ? "sub_active" : ""} onClick={() => handleCategary("/customer", "customer")}>customer</li>
-                                        <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("/customer-type","customer-type")}>customer type</li>
+                                        <li className={categary === "customer-type" ? "sub_active" : ""} onClick={() => handleCategary("/customer-type", "customer-type")}>customer type</li>
                                         <li className={categary === "customer-support-information" ? "sub_active" : ""} onClick={() => handleCategary("/customer-support-information", "customer-support-information")}>customer support info</li>
                                         {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
                                         <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>NewsLetter Subscribers</li>
@@ -192,7 +195,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "coupon" ? "sub_active" : ""} onClick={() => handleCategary("/coupon", "coupon")}>coupon</li>
                                     </ul>
                                 }
-                                                                <div className={tabHsnCode ? 'menu-btn active' : 'menu-btn'} onClick={() => setHsnCode(!tabHsnCode)}>
+                                <div className={tabHsnCode ? 'menu-btn active' : 'menu-btn'} onClick={() => setHsnCode(!tabHsnCode)}>
                                     <span>
                                         {tabHsnCode ? <PointOfSaleOutlinedIcon className='outline-icon' /> : <PointOfSaleOutlinedIcon className='outline-icon' />}
                                         Configurations
@@ -202,6 +205,20 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabHsnCode &&
                                     <ul>
                                         <li className={categary === "gst" ? "sub_active" : ""} onClick={() => handleCategary("/gst", "gst")}>HSN Master</li>
+                                    </ul>
+                                }
+
+                                <div className={tabTestimonial ? 'menu-btn active' : 'menu-btn'} onClick={() => setTestimonail(!tabTestimonial)}>
+                                    <span>
+                                        {tabTestimonial ? <FactCheckIcon className='outline-icon' /> : <FactCheckOutlinedIcon className='outline-icon' />}
+                                        Testimonial
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabTestimonial &&
+                                    <ul>
+                                        {/* <li className={categary === "testimonial" ? "sub_active" : ""} onClick={() => handleCategary("/testimonial", "testimonial")}>Testimonial</li> */}
+                                        <li className={categary === "testimonial-category" ? "sub_active" : ""} onClick={() => handleCategary("/testimonial-category", "testimonial-category")}>Category</li>
                                     </ul>
                                 }
 
@@ -245,6 +262,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "deals" ? "sub_active" : ""} onClick={() => handleCategary("/deals", "deals")}>deals</li>
                                         <li className={categary === "trusted-health" ? "sub_active" : ""} onClick={() => handleCategary("/trusted-health", "trusted-health")}>Trusted Health</li>
                                         <li className={categary === "certification" ? "sub_active" : ""} onClick={() => handleCategary("/certification", "certification")}>Certification</li>
+                                        <li className={categary === "testimonial-gallery" ? "sub_active" : ""} onClick={() => handleCategary("/testimonial-gallery", "testimonial-gallery")}>Gallery</li>
                                     </ul>
                                 }
                                 <div className={tabInquiry ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabInquiry(!tabInquiry)}>
@@ -266,7 +284,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         {/* <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>Subscription</li> */}
                                         {/* <li className={categary === "trusted-health" ? "sub_active" : ""} onClick={() => handleCategary("/trusted-health", "trusted-health")}>Trusted Health</li> */}
                                     </ul>
-                                    
+
                                 }
 
                             </div>

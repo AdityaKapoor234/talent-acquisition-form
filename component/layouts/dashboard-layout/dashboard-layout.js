@@ -217,7 +217,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 </div>
                                 {tabTestimonial &&
                                     <ul>
-                                        {/* <li className={categary === "testimonial" ? "sub_active" : ""} onClick={() => handleCategary("/testimonial", "testimonial")}>Testimonial</li> */}
+                                        <li className={categary === "testimonial" ? "sub_active" : ""} onClick={() => handleCategary("/testimonial", "testimonial")}>Testimonial</li>
                                         <li className={categary === "testimonial-category" ? "sub_active" : ""} onClick={() => handleCategary("/testimonial-category", "testimonial-category")}>Category</li>
                                     </ul>
                                 }

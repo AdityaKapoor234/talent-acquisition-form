@@ -38,6 +38,7 @@ export default class TestimonialGalleryEditDetails extends Component {
             testimonialGalleryDetails: {
                 name: "",
                 img_url: "",
+                is_active: false,
             },
         };
     }
@@ -83,6 +84,7 @@ export default class TestimonialGalleryEditDetails extends Component {
             let data = {
                 name: this.state.testimonialGalleryDetails?.name,
                 img_url: this.state.testimonialGalleryDetails?.img_url,
+                is_active: this.state.testimonialGalleryDetails.is_active,
             };
             TestimonialGalleryApi.testimonialGalleryListEDIT(this.props.id, data)
                 .then((response) => {
@@ -113,6 +115,7 @@ export default class TestimonialGalleryEditDetails extends Component {
                     let details = {
                         name: response.data.data.view?.name,
                         img_url: response.data.data.view?.img_url,
+                        is_active: response.data.data.view?.is_active,
                     };
                     this.setState({
                         testimonialGalleryDetails: details,

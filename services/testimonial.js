@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TESTIMONIAL_LIST, TESTIMONIAL_VIEW, TESTIMONIAL_EDIT, TESTIMONIAL_CREATE, TESTIMONIAL_DELETE } from "../utils/constant";
+import { TESTIMONIAL_LIST, TESTIMONIAL_VIEW, TESTIMONIAL_EDIT, TESTIMONIAL_CREATE, TESTIMONIAL_DELETE, TESTIMONIAL_DROPDOWN_CATEGORY } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class TestimonialAPI {
@@ -57,6 +57,17 @@ export class TestimonialAPI {
             }
         };
         return axios.post(`${TESTIMONIAL_DELETE}`.replace('{{id}}', id),data,httpOptions)
+    }
+
+    static testimonialDropdownCategory() {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${TESTIMONIAL_DROPDOWN_CATEGORY}`, httpOptions)
     }
 }
 export default TestimonialAPI;

@@ -32,8 +32,8 @@ export default class TestimonialGalleryList extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tableRow">
-                            <div className="col-2 pe-1">Image</div>
-                            <div className="col text-center">Title</div>
+                            <div className="col pe-1">Title</div>
+                            <div className="col text-center">Active</div>
                             <div className="col-1 text-center">View</div>
                             <div className="col-1 text-end">Edit</div>
                         </div>
@@ -46,15 +46,22 @@ export default class TestimonialGalleryList extends Component {
                                 <div className="row" key={index}>
                                     <div className="col-md-12">
                                         <div className="tableCell">
-                                            <div className="tableBody pe-1 col-2 elip-text">
+                                            {/* <div className="tableBody pe-1 col-2 elip-text">
                                                 <Photo
                                                     mode={"view"}
                                                     label={"Icon"}
                                                     accept=".jpg,.jpeg,.png"
                                                     img={p?.img_url}
                                                 />
+                                            </div> */}
+                                            <div className="tableBody pe-1 col elip-text" title={p?.name}>{p?.name}</div>
+                                            <div className="col text-center">
+                                                {p?.is_active === true ? (
+                                                    <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                                                ) : (
+                                                    <CancelOutlinedIcon className="cancel-icon" />
+                                                )}
                                             </div>
-                                            <div className="col px-2 text-center" title={p?.name}>{p?.name}</div>
                                             <div className="col-1 text-center">
                                                 <RemoveRedEyeIcon
                                                     className="edit-icon"

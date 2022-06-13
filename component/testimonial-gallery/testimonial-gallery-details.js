@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../common-component/photo";
-import {PRODUCT_SERVICE} from "../../utils/constant";
+import { PRODUCT_SERVICE } from "../../utils/constant";
 
 export default class TestimonialGalleryCreate extends Component {
 	constructor(props) {
@@ -19,12 +19,14 @@ export default class TestimonialGalleryCreate extends Component {
 			tab: 1,
 			testimonialGallery: props?.testimonialGallery,
 			mode: props?.mode,
+			createMode: props?.createMode,
 			img_sm: "file-input-sm",
 			img_lg: "file-input-lg",
 			img_icon: "file-input-icon",
 			input: {
 				name: props?.testimonialGallery?.name,
 				img_url: props?.testimonialGallery?.img_url,
+				is_active: props?.testimonialGallery?.is_active,
 			},
 		};
 	}
@@ -37,9 +39,11 @@ export default class TestimonialGalleryCreate extends Component {
 			return {
 				testimonialGallery: nextProps?.testimonialGallery,
 				mode: nextProps?.mode,
+				createMode: nextProps?.createMode,
 				input: {
 					name: nextProps?.testimonialGallery?.name,
 					img_url: nextProps?.testimonialGallery?.img_url,
+					is_active: nextProps?.testimonialGallery?.is_active,
 				},
 			};
 		}
@@ -107,7 +111,7 @@ export default class TestimonialGalleryCreate extends Component {
 											</div>
 										</div>
 									</div>
-									<div className="mt-4">
+									<div className="">
 										<Photo
 											mode={this.state.mode}
 											label={"Image"}
@@ -115,10 +119,26 @@ export default class TestimonialGalleryCreate extends Component {
 											name="img_url"
 											img={this.state.input?.img_url}
 											setUrl={this.handlePhotoUrl.bind(this)}
-											value={this.state.img_icon}
+											value={this.state?.img_icon}
 											urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
 										/>
 									</div>
+									{
+										this.state.createMode !== "create" ?
+											<div className="signup-check mt-4">
+												<Checkbox
+													size="small"
+													style={{ color: "#012169" }}
+													checked={this.state.input?.is_active}
+													name="is_active"
+													onChange={this.handleCheck.bind(this)}
+												/>
+												<label>Active</label>
+											</div>
+											:
+											""
+									}
+
 								</div>
 							</div>
 						)}
@@ -139,7 +159,7 @@ export default class TestimonialGalleryCreate extends Component {
 											</div>
 										</div>
 									</div>
-									<div className="mt-4">
+									<div className="">
 										<Photo
 											mode={this.state.mode}
 											label={"Image "}
@@ -147,6 +167,16 @@ export default class TestimonialGalleryCreate extends Component {
 											img={this.state?.input?.img_url}
 										/>
 									</div>
+									<div className="login-form ">
+										<Checkbox
+											size="small"
+											disabled
+											style={{ color: "#012169" }}
+											checked={this.state.input.is_active}
+										/>
+										<label>Active</label>
+									</div>
+
 								</div>
 							</div>
 						)}

@@ -18,6 +18,7 @@ export default function Testimonial() {
   const pathArr = useRouter();
   const [testimonial, setTestimonial] = useState([]);
   const [totalTestimonial, setTotalTestimonial] = useState([]);
+  const [testimonialCategoryDropdown, setTestimonialCategoryDropdown] = useState([]);
   const [wordEntered, setWordEntered] = useState(
     pathArr.query?.q ? pathArr.query?.q : ""
   );
@@ -90,6 +91,24 @@ export default function Testimonial() {
         );
       });
   };
+  const gettestimonialDropdownCategory = () => {
+    TestimonialApi.testimonialDropdownCategory()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setTestimonialCategoryDropdown(response.data.data.list)
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
 
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
@@ -97,6 +116,7 @@ export default function Testimonial() {
       Router.push("/");
     }
     testimonialList(currentPage, "");
+    gettestimonialDropdownCategory();
   }, []);
   return (
     <div page-component="category-page">
@@ -154,7 +174,7 @@ export default function Testimonial() {
                   </div>
                 ) : (
                   // testimonial && testimonial.length === 0 ? <div className="not-found">No Data Found</div> :
-                    <TestimonialList testimonial={testimonial} />
+                    <TestimonialList testimonial={testimonial} testimonialCategoryDropdown={testimonialCategoryDropdown} />
                 )
               }
 

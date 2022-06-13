@@ -231,6 +231,10 @@ export default class ReviewCreate extends Component {
                                         <div className="col-md-12">
 
                                             <div className="login-form">
+                                            <label>
+                                                Images
+                                            </label>
+
 
                                                 {this.state.changePic === false ?
                                                     <>
@@ -320,7 +324,7 @@ export default class ReviewCreate extends Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-md-12">
+                                        <div className="col-md-12 login-form">
                                             {
                                                 this.state.input?.images?.length > 0 ?
                                                     <div className="login-form">

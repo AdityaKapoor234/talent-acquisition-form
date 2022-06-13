@@ -11,6 +11,7 @@ export default class TestimonialCreate extends Component {
 			tab: 1,
 			mode: props?.mode,
 			testimonial: props?.testimonial,
+			testimonialCategoryDropdown: props?.testimonialCategoryDropdown,
 			img_sm: "file-input-sm",
 			img_lg: "file-input-lg",
 			img_icon: "file-input-icon",
@@ -19,7 +20,7 @@ export default class TestimonialCreate extends Component {
 				designation: props?.testimonial?.designation ? props?.testimonial?.designation : "",
 				content: props?.testimonial?.content ? props.testimonial?.content : "",
 				video_url: props?.testimonial?.video_url ? props.testimonial?.video_url : "",
-				category_id: props?.testimonial?.category_id ? props.testimonial?.category_id : "",
+				category_id: props?.testimonial?.category_id ? props.testimonial?.category_id : "select",
 				sort_order: props?.testimonial?.sort_order ? props.testimonial?.sort_order : "",
 				is_active: props?.testimonial?.is_active ? props?.testimonial?.is_active : false,
 			},
@@ -29,18 +30,20 @@ export default class TestimonialCreate extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (
 			prevState.testimonial !== nextProps.testimonial ||
+			prevState.testimonialCategoryDropdown !== nextProps.testimonialCategoryDropdown ||
 			prevState.mode !== nextProps.mode
 		) {
 			return {
 				testimonial: nextProps?.testimonial,
+				testimonialCategoryDropdown: nextProps?.testimonialCategoryDropdown,
 				mode: nextProps?.mode,
 				input: {
 					name: nextProps?.testimonial?.name ? nextProps.testimonial?.name : "",
 					designation: nextProps?.testimonial?.designation ? nextProps.testimonial?.designation : "",
 					content: nextProps?.testimonial?.content ? nextProps.testimonial?.content : "",
 					video_url: nextProps?.testimonial?.video_url ? nextProps.testimonial?.video_url : "",
-					category_id: nextProps?.testimonial?.category_id ? nextProps.testimonial?.category_id : "",
-					sort_order: nextProps?.testimonial?.sort_order ? nextProps.testimonial?.sort_order : "",
+					category_id: nextProps?.testimonial?.category_id ? nextProps.testimonial?.category_id : "select",
+					sort_order: nextProps?.testimonial?.sort_order ? nextProps.testimonial?.sort_order : null,
 					is_active: nextProps?.testimonial?.is_active ? nextProps?.testimonial?.is_active : false,
 				},
 			};
@@ -164,13 +167,13 @@ export default class TestimonialCreate extends Component {
 														>
 															Select Category{" "}
 														</MenuItem>
-														<MenuItem value="1 Month">1 Month</MenuItem>
-														<MenuItem value="2 Months">2 Months</MenuItem>
-														<MenuItem value="3 Months">3 Months</MenuItem>
-														<MenuItem value="4 Months">4 Months</MenuItem>
-														<MenuItem value="5 Months">5 Months</MenuItem>
-														<MenuItem value="6 Months">6 Months</MenuItem>
-														<MenuItem value="7 Months">7 Months</MenuItem>
+														{
+															this.state.testimonialCategoryDropdown.map(elem=> {
+																return (
+																	<MenuItem value={elem?.id}>{elem?.name}</MenuItem>
+																)
+															})
+														}
 													</Select>
 												</div>
 											</div>
@@ -270,6 +273,14 @@ export default class TestimonialCreate extends Component {
 														>
 															Select Category{" "}
 														</MenuItem>
+														{
+															this.state.testimonialCategoryDropdown.map( elem=> {
+																return (
+																	<MenuItem value={elem?.id}>{elem?.name}</MenuItem>
+																)
+															})
+														}
+
 														<MenuItem value="1 Month">1 Month</MenuItem>
 														<MenuItem value="2 Months">2 Months</MenuItem>
 														<MenuItem value="3 Months">3 Months</MenuItem>

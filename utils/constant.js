@@ -283,6 +283,7 @@ export const TESTIMONIAL_VIEW = `${USER_SERVICE}/manage/testimonial/{{id}}/view`
 export const TESTIMONIAL_EDIT = `${USER_SERVICE}/manage/testimonial/{{id}}/edit`;
 export const TESTIMONIAL_CREATE = `${USER_SERVICE}/manage/testimonial/add`;
 export const TESTIMONIAL_DELETE = `${USER_SERVICE}/manage/testimonial/{{id}}/delete`;
+export const TESTIMONIAL_DROPDOWN_CATEGORY = `${USER_SERVICE}/manage/testimonial/category/all`;
 
 
 //TESTIMONIAL CATEGORY

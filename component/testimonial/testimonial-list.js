@@ -10,15 +10,18 @@ export default class TestimonialList extends Component {
         super(props);
         this.state = {
             testimonial: props?.testimonial,
+            testimonialCategoryDropdown: props?.testimonialCategoryDropdown,
         };
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-            prevState.testimonial !== nextProps.testimonial
+            prevState.testimonial !== nextProps.testimonial ||
+            prevState.testimonialCategoryDropdown !== nextProps.testimonialCategoryDropdown
         ) {
             return {
-                testimonial: nextProps?.testimonial
+                testimonial: nextProps?.testimonial,
+                testimonialCategoryDropdown: nextProps?.testimonialCategoryDropdown,
             };
         }
         return null;
@@ -32,7 +35,7 @@ export default class TestimonialList extends Component {
                         <div className="tableRow">
                             <div className="col pe-1">Name</div>
                             <div className="col px-2 text-center">Designation</div>
-                            {/* <div className="col px-2 text-center">Category</div> */}
+                            <div className="col px-2 text-center">Category</div>
                             <div className="col-2 px-2 text-center">Display Order</div>
                             <div className="col-1 text-center">Active</div>
                             <div className="col-1 text-end">Action</div>
@@ -48,7 +51,11 @@ export default class TestimonialList extends Component {
                                         <div className="tableCell">
                                             <div className="tableBody pe-1 col elip-text" title={p?.name}>{p?.name}</div>
                                             <div className="col px-2 text-center elip-text" title={p?.designation}>{p?.designation}</div>
-                                            {/* <div className="col px-2 text-center elip-text" title={p?.category}>{p?.category}</div> */}
+                                            <div className="col px-2 text-center elip-text" title={this.state.testimonialCategoryDropdown?.filter(val=>val.id===p?.category_id)?.map(val => val?.name)}>
+                                                {
+                                                    this.state.testimonialCategoryDropdown?.filter(val=>val.id===p?.category_id)?.map(val => val?.name)
+                                                }
+                                            </div>
                                             <div className="col-2 px-2 text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
                                             <div className="col-1 text-center">
                                                 {p?.is_active === true ? (

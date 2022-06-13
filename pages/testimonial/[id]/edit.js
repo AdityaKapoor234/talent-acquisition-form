@@ -34,6 +34,7 @@ export default class TestimonialEditDetails extends Component {
       id: props?.id,
       mode: "edit",
       testimonial: {},
+      testimonialCategoryDropdown: [],
       open: false,
       testimonialDetails: {
         name: "",
@@ -97,13 +98,13 @@ export default class TestimonialEditDetails extends Component {
     }
 
 
-    if (this.state.testimonialDetails.category_id === "" || this.state.testimonialDetails.category_id === null || this.state.testimonialDetails.category_id === undefined) {
+    if (this.state.testimonialDetails.category_id === "select" || this.state.testimonialDetails.category_id === null || this.state.testimonialDetails.category_id === undefined) {
       toast.error("Please enter category");
       return false;
     }
 
 
-    if (this.state.testimonialDetails.sort_order === "" || this.state.testimonialDetails.sort_order === null || this.state.testimonialDetails.sort_order === undefined) {
+    if (this.state.testimonialDetails.sort_order === null || this.state.testimonialDetails.sort_order === null || this.state.testimonialDetails.sort_order === undefined) {
       toast.error("Please enter display order ");
       return false;
     }
@@ -193,6 +194,24 @@ export default class TestimonialEditDetails extends Component {
         );
       });
   };
+  gettestimonialDropdownCategory = () => {
+    TestimonialApi.testimonialDropdownCategory()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ testimonialCategoryDropdown: response.data.data.list })
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
@@ -200,6 +219,7 @@ export default class TestimonialEditDetails extends Component {
     }
     this.gettestimonialDetails(this.props.id);
     this.setState({ id: this.props?.id });
+    this.gettestimonialDropdownCategory();
   }
 
   render() {
@@ -253,6 +273,7 @@ export default class TestimonialEditDetails extends Component {
               <div className="col-m-12">
                 <TestimonialCreateComponent
                   testimonial={this.state.testimonial}
+                  testimonialCategoryDropdown={this.state.testimonialCategoryDropdown}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                 />

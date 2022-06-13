@@ -34,6 +34,7 @@ export default class TestimonialViewDetails extends Component {
       id: props?.id,
       mode: "view",
       testimonial: {},
+      testimonialCategoryDropdown: [],
       open: false,
     };
   }
@@ -75,6 +76,24 @@ export default class TestimonialViewDetails extends Component {
         );
       });
   };
+  gettestimonialDropdownCategory = () => {
+    TestimonialApi.testimonialDropdownCategory()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ testimonialCategoryDropdown: response.data.data.list })
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
@@ -82,6 +101,7 @@ export default class TestimonialViewDetails extends Component {
     }
     this.gettestimonialDetails(this.props.id);
     this.setState({ id: this.props?.id });
+    this.gettestimonialDropdownCategory();
   }
 
   render() {
@@ -135,6 +155,7 @@ export default class TestimonialViewDetails extends Component {
               <div className="col-m-12">
                 <TestimonialCreateComponent
                   testimonial={this.state.testimonial}
+                  testimonialCategoryDropdown={this.state.testimonialCategoryDropdown}
                   mode={this.state.mode}
                 />
               </div>

@@ -73,6 +73,7 @@ export default class TestimonialGalleryEditDetails extends Component {
             let data = {
                 name: this.state.testimonialGalleryDetails?.name,
                 img_url: this.state.testimonialGalleryDetails?.img_url,
+                is_active: true,
             };
             TestimonialGalleryApi.testimonialGalleryCreate(data)
                 .then((response) => {
@@ -155,6 +156,7 @@ export default class TestimonialGalleryEditDetails extends Component {
                                 <TestimonialGalleryCreateComponent
                                     testimonialGallery={this.state.testimonialGallery}
                                     mode={this.state.mode}
+                                    createMode="create"
                                     handle={this.stateHandle.bind(this)}
                                 />
                             </div>

@@ -407,7 +407,6 @@ export default class CouponDetails extends Component {
                         <label className="expertise">
                           Customer Type<span className="mandatory-star">*</span>
                         </label>
-                        {console.log("tete",this.state.userType)}
                         <div className="signup-check multiselect">
                           {this.state.userType?.map((val) => {
                             return (

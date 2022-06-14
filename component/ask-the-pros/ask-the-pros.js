@@ -397,7 +397,6 @@ export default function AskTheProps(props) {
                   </div>}
                 </div>
               </div>
-			  {console.log("tetet",trustTheProsTotalPoints)}
             </>
           )}
           {mode === "edit" && (
@@ -408,7 +407,6 @@ export default function AskTheProps(props) {
                     <label>
                       Pro Refferal Code<span className="mandatory-star">*</span>
                     </label>
-					{console.log("teteye",codeId)}
                     <div className="sort-by-select-wrapper">
                       <Select
                         disableUnderline

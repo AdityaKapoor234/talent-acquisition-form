@@ -553,12 +553,12 @@ export default class ProductInfoComponent extends Component {
                                 < InfoCategory mode={this.state.mode} details={this.state.infoDetails?.categories} handle={this.categoryHandle.bind(this)} />
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <div className='section-heading'>Product Variant</div>
                             <div className='mt-2'>
                                 <mark className='font-sm'><small>TODO: Product variant selector</small></mark>
                             </div>
-                        </div>
+                        </div> */}
                         <div>
                             <div className='section-heading'>Certifications</div>
                             <div className='mt-2'>

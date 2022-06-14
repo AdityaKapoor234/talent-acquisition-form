@@ -241,7 +241,6 @@ export default class AskTheProsEditDetails extends Component {
   trustTheProsTotalPoints = (id) => {
     AskTheProsApi.AskTheProsRefferalCodeTotalPoints(id)
       .then((response) => {
-        console.log("totls",response.data.data)
         this.setState({trustTheProsTotalPoints: response.data.data.total}); 
       })
       .catch((error) => {
@@ -320,7 +319,6 @@ export default class AskTheProsEditDetails extends Component {
               </div>
             </div>
             <div className="row">
-              {console.log("testss",this.state.codeSubmit)}
               <div className="col-m-12">
               <AskTheProsCreateComponent
                   askThePros={this.state.askTheProsDetails}

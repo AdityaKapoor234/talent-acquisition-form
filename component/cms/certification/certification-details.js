@@ -161,7 +161,6 @@ export default class CertificationCreate extends Component {
                                                     readonly="readonly"
                                                     value={this.state.input?.name}
                                                 />
-                                                {console.log(this.state.input,"this.state.input")}
                                             </div>
                                         </div>
                                     </div>

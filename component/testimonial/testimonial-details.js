@@ -4,7 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../common-component/photo"
-import {PRODUCT_SERVICE} from "../../utils/constant";
+import { PRODUCT_SERVICE } from "../../utils/constant";
 
 export default class TestimonialCreate extends Component {
 	constructor(props) {
@@ -12,6 +12,7 @@ export default class TestimonialCreate extends Component {
 		this.state = {
 			tab: 1,
 			mode: props?.mode,
+			createMode: props?.createMode,
 			testimonial: props?.testimonial,
 			testimonialCategoryDropdown: props?.testimonialCategoryDropdown,
 			img_sm: "file-input-sm",
@@ -40,6 +41,7 @@ export default class TestimonialCreate extends Component {
 				testimonial: nextProps?.testimonial,
 				testimonialCategoryDropdown: nextProps?.testimonialCategoryDropdown,
 				mode: nextProps?.mode,
+				createMode: nextProps?.createMode,
 				input: {
 					name: nextProps?.testimonial?.name ? nextProps.testimonial?.name : "",
 					designation: nextProps?.testimonial?.designation ? nextProps.testimonial?.designation : "",
@@ -185,7 +187,7 @@ export default class TestimonialCreate extends Component {
 															Select Category{" "}
 														</MenuItem>
 														{
-															this.state.testimonialCategoryDropdown.map(elem=> {
+															this.state.testimonialCategoryDropdown.map(elem => {
 																return (
 																	<MenuItem value={elem?.id}>{elem?.name}</MenuItem>
 																)
@@ -206,16 +208,22 @@ export default class TestimonialCreate extends Component {
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
-											<div className="signup-check mt-4">
-												<Checkbox
-													size="small"
-													style={{ color: "#012169" }}
-													checked={this.state.input?.is_active}
-													name="is_active"
-													onChange={this.handleCheck.bind(this)}
-												/>
-												<label>Active</label>
-											</div>
+											{
+												this.state.createMode === "create" ?
+													""
+													:
+													<div className="signup-check mt-4">
+														<Checkbox
+															size="small"
+															style={{ color: "#012169" }}
+															checked={this.state.input?.is_active}
+															name="is_active"
+															onChange={this.handleCheck.bind(this)}
+														/>
+														<label>Active</label>
+													</div>
+											}
+
 										</div>
 									</div>
 								</div>
@@ -300,7 +308,7 @@ export default class TestimonialCreate extends Component {
 															Select Category{" "}
 														</MenuItem>
 														{
-															this.state.testimonialCategoryDropdown.map( elem=> {
+															this.state.testimonialCategoryDropdown.map(elem => {
 																return (
 																	<MenuItem value={elem?.id}>{elem?.name}</MenuItem>
 																)

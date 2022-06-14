@@ -23,6 +23,8 @@ export default function CancelViewDetails({ id }) {
     const mode = "view";
 
     const [order, setOrder] = useState([]);
+    const [invoice, setInvoice] = useState("");
+
 
     const orderDetail = (id) => {
         OrderApi
@@ -41,12 +43,30 @@ export default function CancelViewDetails({ id }) {
             });
     }
 
+    const orderInvoice = (id) => {
+        OrderApi.getOrderInvoice(id)
+            .then((response) => {
+                setInvoice(response.data.data.pdf)
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
         orderDetail(id)
+        orderInvoice(id)
     }, [id]);
     return (
         <div>
@@ -79,7 +99,7 @@ export default function CancelViewDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <OrderDetail order={order} mode={mode} />
+                            <OrderDetail order={order} invoice={invoice} mode={mode} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

@@ -24,6 +24,7 @@ export default function OrderEditDetails({ id }) {
     const mode = "edit";
 
     const [order, setOrder] = useState([]);
+    const [invoice, setInvoice] = useState("");
     const [active, setActive] = useState(false);
     const [orderStatus, setOrderStatus] = useState("");
     const [error, setError] = useState("");
@@ -89,12 +90,30 @@ export default function OrderEditDetails({ id }) {
             });
     }
 
+    const orderInvoice = (id) => {
+        OrderApi.getOrderInvoice(id)
+            .then((response) => {
+                setInvoice(response.data.data.pdf)
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
         orderDetail(id)
+        orderInvoice(id)
     }, [id]);
     return (
         <div>
@@ -134,7 +153,7 @@ export default function OrderEditDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)}/>
+                            <OrderDetails order={order} invoice={invoice} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)}/>
                         </div>
                     </div>
                 </DashboardLayoutComponent>

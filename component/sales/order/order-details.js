@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+import Router from "next/router";
 import Checkbox from "@mui/material/Checkbox";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -24,6 +26,7 @@ export default class OrderDetails extends Component {
             error: props?.error,
             open: false,
             status: props?.order?.order?.status ? props?.order?.order?.status : "0",
+            invoice: props?.invoice ? props?.invoice : "",
         };
     }
     handleChange = (event) => {
@@ -55,11 +58,13 @@ export default class OrderDetails extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
             prevState.order !== nextProps.order ||
+            prevState.invoice !== nextProps.invoice ||
             prevState.mode !== nextProps.mode ||
             prevState.error !== nextProps.error
         ) {
             return {
                 order: nextProps?.order,
+                invoice: nextProps?.invoice,
                 mode: nextProps?.mode,
                 error: nextProps?.error,
                 status: nextProps?.order?.order?.status,
@@ -92,6 +97,7 @@ export default class OrderDetails extends Component {
             date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
         return str;
     };
+
 
     render() {
         return (
@@ -231,12 +237,18 @@ export default class OrderDetails extends Component {
                                                         ""
                                                 }
 
-                                                {/* <div
-                                                    className="custom-btn d-flex justify-content-center"
-                                                    style={{ width: "fit-content" }}
-                                                >
-                                                    <span>Download Invoice</span>
-                                                </div> */}
+                                                {
+                                                    this.state.invoice === "" ?
+                                                        ""
+                                                        :
+                                                        <div
+                                                            className="custom-btn d-flex justify-content-center"
+                                                            style={{ width: "fit-content" }}
+                                                            onClick={() => { Router.push(this.state.invoice) }}
+                                                        >
+                                                            <span>Download Invoice</span>
+                                                        </div>
+                                                }
 
                                                 <div></div>
                                             </div>
@@ -447,6 +459,20 @@ export default class OrderDetails extends Component {
                                                         <span className="orderInfo">Coupon Code:&nbsp;</span>
                                                         <span className="orderInfoVal elip-text" title={this.state.order?.coupon_code}>{this.state.order?.coupon_code}</span>
                                                     </span> : ""}
+
+                                                {
+                                                    this.state.invoice === "" ?
+                                                        ""
+                                                        :
+                                                        <div
+                                                            className="custom-btn d-flex justify-content-center"
+                                                            style={{ width: "fit-content" }}
+                                                            onClick={() => { Router.push(this.state.invoice) }}
+                                                        >
+                                                            <span>Download Invoice</span>
+                                                        </div>
+                                                }
+
 
                                             </div>
                                         </div>

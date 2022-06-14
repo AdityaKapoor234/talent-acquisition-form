@@ -26,7 +26,7 @@ export default class TestimonialGalleryCreate extends Component {
 			input: {
 				name: props?.testimonialGallery?.name,
 				img_url: props?.testimonialGallery?.img_url,
-				is_active: props?.testimonialGallery?.is_active,
+				is_active: props?.testimonialGallery?.is_active ? props?.testimonialGallery?.is_active : false,
 			},
 		};
 	}
@@ -43,7 +43,7 @@ export default class TestimonialGalleryCreate extends Component {
 				input: {
 					name: nextProps?.testimonialGallery?.name,
 					img_url: nextProps?.testimonialGallery?.img_url,
-					is_active: nextProps?.testimonialGallery?.is_active,
+					is_active: nextProps?.testimonialGallery?.is_active ? nextProps?.testimonialGallery?.is_active : false,
 				},
 			};
 		}

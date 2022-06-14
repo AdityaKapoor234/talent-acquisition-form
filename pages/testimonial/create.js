@@ -31,6 +31,7 @@ export default class TestimonialEditDetails extends Component {
         name: "",
         designation: "",
         content: "",
+        image_url: "",
         video_url: "",
         category_id: null,
         sort_order: null,
@@ -76,6 +77,17 @@ export default class TestimonialEditDetails extends Component {
       }
     }
 
+    if (this.state.testimonialDetails.image_url === "" || this.state.testimonialDetails.image_url === null || this.state.testimonialDetails.image_url === undefined) {
+      toast.error("Please enter image");
+      return false;
+    }
+    if (this.state.testimonialDetails.image_url !== undefined) {
+      if (this.state.testimonialDetails.image_url.replace(/\s/g, "").length <= 0) {
+        toast.error("Please enter image");
+        return false;
+      }
+    }
+
 
     if (this.state.testimonialDetails.video_url === "" || this.state.testimonialDetails.video_url === null || this.state.testimonialDetails.video_url === undefined) {
       toast.error("Please enter video url");
@@ -110,6 +122,7 @@ export default class TestimonialEditDetails extends Component {
         name: this.state.testimonialDetails.name,
         designation: this.state.testimonialDetails.designation,
         content: this.state.testimonialDetails.content,
+        image_url: this.state.testimonialDetails.image_url,
         video_url: this.state.testimonialDetails.video_url,
         category_id: parseInt(this.state.testimonialDetails.category_id),
         sort_order: parseInt(this.state.testimonialDetails.sort_order),

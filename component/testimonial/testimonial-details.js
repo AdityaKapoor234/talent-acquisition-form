@@ -3,6 +3,8 @@ import Checkbox from "@mui/material/Checkbox";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Photo from "../common-component/photo"
+import {PRODUCT_SERVICE} from "../../utils/constant";
 
 export default class TestimonialCreate extends Component {
 	constructor(props) {
@@ -19,6 +21,7 @@ export default class TestimonialCreate extends Component {
 				name: props?.testimonial?.name ? props.testimonial?.name : "",
 				designation: props?.testimonial?.designation ? props?.testimonial?.designation : "",
 				content: props?.testimonial?.content ? props.testimonial?.content : "",
+				image_url: props?.testimonial?.image_url ? props.testimonial?.image_url : "",
 				video_url: props?.testimonial?.video_url ? props.testimonial?.video_url : "",
 				category_id: props?.testimonial?.category_id ? props.testimonial?.category_id : "select",
 				sort_order: props?.testimonial?.sort_order ? props.testimonial?.sort_order : "",
@@ -41,6 +44,7 @@ export default class TestimonialCreate extends Component {
 					name: nextProps?.testimonial?.name ? nextProps.testimonial?.name : "",
 					designation: nextProps?.testimonial?.designation ? nextProps.testimonial?.designation : "",
 					content: nextProps?.testimonial?.content ? nextProps.testimonial?.content : "",
+					image_url: nextProps?.testimonial?.image_url ? nextProps.testimonial?.image_url : "",
 					video_url: nextProps?.testimonial?.video_url ? nextProps.testimonial?.video_url : "",
 					category_id: nextProps?.testimonial?.category_id ? nextProps.testimonial?.category_id : "select",
 					sort_order: nextProps?.testimonial?.sort_order ? nextProps.testimonial?.sort_order : null,
@@ -134,6 +138,19 @@ export default class TestimonialCreate extends Component {
 												/>
 											</div>
 											<div className="login-form ">
+												<Photo
+													mode={this.state.mode}
+													label={"Icon"}
+													accept=".jpg,.jpeg,.png"
+													name="image_url"
+													img={this.state.input?.image_url}
+													setUrl={this.handlePhotoUrl.bind(this)}
+													value={this.state.img_icon}
+													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
+												/>
+											</div>
+
+											<div className="login-form mt-4">
 												<label>
 													Video URL<span className="mandatory-star">*</span>
 												</label>
@@ -240,6 +257,15 @@ export default class TestimonialCreate extends Component {
 													value={this.state.input?.content}
 												/>
 											</div>
+											<div className="login-form">
+												<Photo
+													mode={this.state.mode}
+													label={"Image"}
+													accept=".jpg,.jpeg,.png"
+													img={this.state.input?.image_url}
+												/>
+											</div>
+
 											<div className="login-form ">
 												<label>
 													Video URL<span className="mandatory-star">*</span>

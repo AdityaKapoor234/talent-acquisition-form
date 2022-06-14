@@ -24,6 +24,7 @@ export default class TestimonialEditDetails extends Component {
     super(props);
     this.state = {
       mode: "edit",
+      createMode: "create",
       testimonial: {},
       testimonialCategoryDropdown: [],
       open: false,
@@ -126,7 +127,7 @@ export default class TestimonialEditDetails extends Component {
         video_url: this.state.testimonialDetails.video_url,
         category_id: parseInt(this.state.testimonialDetails.category_id),
         sort_order: parseInt(this.state.testimonialDetails.sort_order),
-        is_active: this.state.testimonialDetails.is_active,
+        is_active: true,
       };
       TestimonialApi.testimonialCreate(data)
         .then((response) => {
@@ -229,6 +230,7 @@ export default class TestimonialEditDetails extends Component {
                   testimonial={this.state.testimonial}
                   testimonialCategoryDropdown={this.state.testimonialCategoryDropdown}
                   mode={this.state.mode}
+                  createMode={this.state.createMode}
                   handle={this.stateHandle.bind(this)}
                 />
               </div>

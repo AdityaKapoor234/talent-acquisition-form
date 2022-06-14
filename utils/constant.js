@@ -91,6 +91,7 @@ export const GET_DASHBOARD_TOP_SOLD = `${ORDER_SERVICE}/manage/order/top-sold/pr
 export const ORDERSLIST = `${ORDER_SERVICE}/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
 export const GET_ORDER_DETAILS = `${ORDER_SERVICE}/manage/order/{{id}}`;
 export const ADD_ORDER_STATUS = `${ORDER_SERVICE}/manage/order/{{id}}/status`;
+export const GET_ORDER_INVOICE = `${ORDER_SERVICE}/manage/order/{{id}}/invoice`;
 
 //PRODUCT
 export const GET_INGREDIENT = `${PRODUCT_SERVICE}/manage/ingredient/all`;

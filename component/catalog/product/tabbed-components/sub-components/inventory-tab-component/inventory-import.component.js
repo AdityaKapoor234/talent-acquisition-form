@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Pagination from "@mui/material/Pagination";
 
 export default function InventoryImportComponent(props) {
   const [isEdit, setIsEdit] = useState(false);
@@ -25,6 +26,10 @@ export default function InventoryImportComponent(props) {
   const [open, setOpen] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [inventoryId, setInventoryId] = useState();
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState([]);
+
   const [inventory, setInventory] = useState([]);
   const [active, setActive] = useState();
   const [input, setInput] = useState({
@@ -58,7 +63,7 @@ export default function InventoryImportComponent(props) {
   };
 
   function validateData() {
-    let isValid =true;
+    let isValid = true;
     setIsUpcCode(false);
     setIsBatchNumber(false);
     setIsCount(false);
@@ -70,32 +75,32 @@ export default function InventoryImportComponent(props) {
     if (upc_code === "" || upc_code === null || upc_code.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter upc code");
       setIsUpcCode(true);
-      isValid =false;
+      isValid = false;
     }
     if (batch_number === "" || batch_number === null || batch_number.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter batch number");
       setIsBatchNumber(true);
-      isValid =false;
+      isValid = false;
     }
     if (count === "" || count === null || count.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter quantity");
       setIsCount(true);
-      isValid =false;
+      isValid = false;
     }
     if (manufacture_date === "" || manufacture_date === null || manufacture_date.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter manufacturing date");
       setIsManufactureDate(true);
-      isValid =false;
+      isValid = false;
     }
     if (expire_date === "" || expire_date === null || expire_date.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter expiry date");
       setIsExpireDate(true);
-      isValid =false;
+      isValid = false;
     }
     if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter certific ate");
       setIsCertificateUrl(true);
-      isValid =false;
+      isValid = false;
     }
 
     return isValid;
@@ -132,7 +137,7 @@ export default function InventoryImportComponent(props) {
             // window.location.reload(false);
             setIsEdit(false);
             getInventoryList(id, 1);
-            
+
             setUpcCode(null);
             setBatchNumber(null);
             setCount(null);
@@ -212,6 +217,8 @@ export default function InventoryImportComponent(props) {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           setList(response.data.data?.list);
+          setTotal(response.data.data);
+          setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
         }
       })
       .catch((error) => {
@@ -280,12 +287,18 @@ export default function InventoryImportComponent(props) {
       });
   }
 
+  let onPageChange = function (e, page) {
+    setCurrentPage(page)
+    getInventoryList(id, page);
+  };
+
   useEffect(() => {
     getInventoryList(id, 1);
   }, []);
 
   useEffect(() => {
     setId(props?.id);
+    setCurrentPage(1);
 
     setUpcCode(null);
     setBatchNumber(null);
@@ -351,6 +364,7 @@ export default function InventoryImportComponent(props) {
             </div>
           </div>
           <div className="row">
+            {console.log(list, "list")}
             {list?.map((val) => {
               return (
                 <div className="col-md-12">
@@ -395,8 +409,27 @@ export default function InventoryImportComponent(props) {
           </div>
 
 
+          <div className="row">
+            <div className="col-md-12 justify-content-between d-flex position-relative">
+              <div className="pagiantion-category">
+                <div>
+                  <Pagination
+                    className="pagination pagi"
+                    page={currentPage}
+                    count={totalPage}
+                    onChange={onPageChange}
+                  />
+                </div>
+                <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                  Total Inventories: {total.total}
+                </div>
+              </div>
+            </div>
+          </div>
 
-          
+
+
+
         </div>
       )}
       {isEdit && (
@@ -438,7 +471,8 @@ export default function InventoryImportComponent(props) {
                 <input
                   type="number"
                   name="count"
-                  min={0}                  value={count}
+                  min={0}
+                  value={count}
                   onChange={(e) => { setCount(e.target.value) }}
                 />
                 {is_count === true ? <small className="form-text text-danger" >Please Enter Quantity</small> : ""}

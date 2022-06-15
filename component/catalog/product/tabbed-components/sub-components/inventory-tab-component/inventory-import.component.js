@@ -404,7 +404,7 @@ export default function InventoryImportComponent(props) {
                   UPC Code<span className="mandatory-star">*</span>
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="upc_code"
                   value={upc_code}
                   onChange={(e) => { setUpcCode(e.target.value) }}
@@ -418,7 +418,7 @@ export default function InventoryImportComponent(props) {
                   Batch Number<span className="mandatory-star">*</span>
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="batch_number"
                   value={batch_number}
                   onChange={(e) => { setBatchNumber(e.target.value) }}

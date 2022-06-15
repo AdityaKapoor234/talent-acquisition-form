@@ -364,7 +364,6 @@ export default function InventoryImportComponent(props) {
             </div>
           </div>
           <div className="row">
-            {console.log(list, "list")}
             {list?.map((val) => {
               return (
                 <div className="col-md-12">
@@ -409,7 +408,7 @@ export default function InventoryImportComponent(props) {
           </div>
 
 
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-md-12 justify-content-between d-flex position-relative">
               <div className="pagiantion-category">
                 <div>

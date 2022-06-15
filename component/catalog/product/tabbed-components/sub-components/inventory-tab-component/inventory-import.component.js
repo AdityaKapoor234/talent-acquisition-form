@@ -131,6 +131,7 @@ export default function InventoryImportComponent(props) {
 
             // window.location.reload(false);
             setIsEdit(false);
+            getInventoryList(id, 1);
             
             setUpcCode(null);
             setBatchNumber(null);

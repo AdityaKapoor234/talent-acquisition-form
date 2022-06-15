@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { PRODUCT_SERVICE } from "../../utils/constant";
 
 export default function photo({ label, accept, mode, img,name,setUrl,value,urlName}) {
   const [image, setImage] = useState(img ? img : "");

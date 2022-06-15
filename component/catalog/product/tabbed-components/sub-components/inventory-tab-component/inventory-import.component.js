@@ -65,7 +65,7 @@ export default function InventoryImportComponent(props) {
     setIsManufactureDate(false);
     setIsExpireDate(false);
     setIsCertificateUrl(false);
-    setIsActive(false);
+    // setIsActive(false);
 
     if (upc_code === "" || upc_code === null || upc_code.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter upc code");
@@ -111,7 +111,7 @@ export default function InventoryImportComponent(props) {
 
       let data = {
         upc_code: upc_code,
-        batch_number: parseInt(batch_number),
+        batch_number: batch_number,
         count: parseInt(count),
         manufacture_date: convertDateStringToDateAPI(manufacture_date),
         expire_date: convertDateStringToDateAPI(expire_date),
@@ -362,7 +362,7 @@ export default function InventoryImportComponent(props) {
                       {val?.batch_number ? val?.batch_number : "-"}
                     </div>
                     <div className="col text-center">
-                      {val?.batch_number ? val?.count : "-"}
+                      {val?.count ? val?.count : "-"}
                     </div>
                     <div className="col text-center">
                       {convertDateStringToDateAPI(val?.manufacture_date)}
@@ -393,6 +393,10 @@ export default function InventoryImportComponent(props) {
               );
             })}
           </div>
+
+
+
+          
         </div>
       )}
       {isEdit && (
@@ -434,7 +438,7 @@ export default function InventoryImportComponent(props) {
                 <input
                   type="number"
                   name="count"
-                  value={count}
+                  min={0}                  value={count}
                   onChange={(e) => { setCount(e.target.value) }}
                 />
                 {is_count === true ? <small className="form-text text-danger" >Please Enter Quantity</small> : ""}

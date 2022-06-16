@@ -364,67 +364,79 @@ export default function InventoryImportComponent(props) {
             </div>
           </div>
           <div className="row">
-            {list?.map((val) => {
-              return (
-                <div className="col-md-12">
-                  <div className="tableCell">
-                    <div className="tableBody col">
-                      {val?.upc_code ? val?.upc_code : "-"}
+            {
+              list?.length > 0 ?
+                list?.map((val) => {
+                  return (
+                    <div className="col-md-12">
+                      <div className="tableCell">
+                        <div className="tableBody col">
+                          {val?.upc_code ? val?.upc_code : "-"}
+                        </div>
+                        <div className="col text-center">
+                          {val?.batch_number ? val?.batch_number : "-"}
+                        </div>
+                        <div className="col text-center">
+                          {val?.count ? val?.count : "-"}
+                        </div>
+                        <div className="col text-center">
+                          {convertDateStringToDateAPI(val?.manufacture_date)}
+                        </div>
+                        <div className="col text-center">
+                          {convertDateStringToDateAPI(val?.expire_date)}
+                        </div>
+                        <div className="col-1 text-center">
+                          {val?.is_active ? (
+                            <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                          ) : (
+                            <CancelOutlinedIcon className="cancel-icon" />
+                          )}
+                        </div>
+                        <div className="col-1 text-center">
+                          <DeleteIcon className="delete-icon" onClick={() => DialogOpen(val?.id)} />
+                        </div>
+                        <div className="col-1 text-end">
+                          <EditOutlinedIcon
+                            className="edit-icon"
+                            onClick={() => {
+                              activeOpen(val?.id, val?.is_active)
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="col text-center">
-                      {val?.batch_number ? val?.batch_number : "-"}
-                    </div>
-                    <div className="col text-center">
-                      {val?.count ? val?.count : "-"}
-                    </div>
-                    <div className="col text-center">
-                      {convertDateStringToDateAPI(val?.manufacture_date)}
-                    </div>
-                    <div className="col text-center">
-                      {convertDateStringToDateAPI(val?.expire_date)}
-                    </div>
-                    <div className="col-1 text-center">
-                      {val?.is_active ? (
-                        <CheckCircleOutlineOutlinedIcon className="check-icon" />
-                      ) : (
-                        <CancelOutlinedIcon className="cancel-icon" />
-                      )}
-                    </div>
-                    <div className="col-1 text-center">
-                      <DeleteIcon className="delete-icon" onClick={() => DialogOpen(val?.id)} />
-                    </div>
-                    <div className="col-1 text-end">
-                      <EditOutlinedIcon
-                        className="edit-icon"
-                        onClick={() => {
-                          activeOpen(val?.id, val?.is_active)
-                        }}
+                  );
+                })
+                :
+                <>
+                  <div className="not-found">No Data Found</div>
+                </>
+            }
+          </div>
+
+
+          {
+            totalPage > 0 ?
+              <div className="row mt-5">
+                <div className="col-md-12 justify-content-between d-flex position-relative">
+                  <div className="pagiantion-category">
+                    <div>
+                      <Pagination
+                        className="pagination pagi"
+                        page={currentPage}
+                        count={totalPage}
+                        onChange={onPageChange}
                       />
+                    </div>
+                    <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                      Total Inventories: {total.total}
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-
-
-          <div className="row mt-5">
-            <div className="col-md-12 justify-content-between d-flex position-relative">
-              <div className="pagiantion-category">
-                <div>
-                  <Pagination
-                    className="pagination pagi"
-                    page={currentPage}
-                    count={totalPage}
-                    onChange={onPageChange}
-                  />
-                </div>
-                <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-                  Total Inventories: {total.total}
-                </div>
               </div>
-            </div>
-          </div>
+              :
+              ""
+          }
 
 
 

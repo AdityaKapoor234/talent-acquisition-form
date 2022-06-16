@@ -113,6 +113,7 @@ export default class AuthorCreate extends Component {
                       <div className="mt-4">
                         <Photo
                           mode={this.state.mode}
+                          size="250x250"
                           label={"Avatar"}
                           accept=".jpg,.jpeg,.png"
                           name="avatar"

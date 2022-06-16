@@ -204,6 +204,7 @@ export default class TypeCreate extends Component {
                           label={"Icon"}
                           accept=".jpg,.jpeg,.png"
                           name="bg_img"
+                          size="900x300"
                           img={this.state.input.bg_img}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_icon}
@@ -216,6 +217,7 @@ export default class TypeCreate extends Component {
                           label={"Short Banner Image"}
                           accept=".jpg,.jpeg,.png"
                           name="banner_sm_url"
+                          size="800x250"
                           img={this.state.input.banner_sm_url}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_sm}
@@ -228,6 +230,7 @@ export default class TypeCreate extends Component {
                           label={"Full Banner image"}
                           accept=".jpg,.jpeg,.png"
                           name="banner_url"
+                          size="1400x350"
                           img={this.state.input.banner_url}
                           setUrl={this.handlePhotoUrl.bind(this)}
                           value={this.state.img_lg}

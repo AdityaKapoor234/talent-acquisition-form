@@ -5,23 +5,43 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import InfoIcon from "@mui/icons-material/Info";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 
-export default function photo({ label, accept, mode, img,name,setUrl,value,urlLink}) {
+export default function photo({
+  label,
+  accept,
+  mode,
+  img,
+  name,
+  setUrl,
+  value,
+  urlLink,
+  size
+}) {
   const [image, setImage] = useState(img ? img : "");
   const [isLoader, setIsLoader] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   function uploadFile({ target: { files } }) {
     if (files?.length > 0) {
       const formData = new FormData();
       formData.append("media", files[0]);
-      uploadfile(
-        urlLink,
-        formData,
-        name
-      );
+      uploadfile(urlLink, formData, name);
     }
-  };
-  const uploadfile = (url, image,names) => {
+  }
+  const uploadfile = (url, image, names) => {
     setIsLoader(true);
     const token = cookie.get("access_token_admin");
     const headers = {
@@ -34,7 +54,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlLi
       .then((response) => {
         setIsLoader(false);
         setImage(response.data.data?.url);
-        setUrl(names,response.data.data?.url)
+        setUrl(names, response.data.data?.url);
       })
       .catch((error) => {
         setIsLoader(false);
@@ -53,7 +73,38 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlLi
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <div className="label">{label}<span className="mandatory-star">*</span></div>
+      <div className="label">
+        {label}
+        <span className="mandatory-star">*</span>
+        {size && <InfoIcon
+          className="info-icon"
+          aria-owns={open ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+        />}
+
+        <Popover
+          id="mouse-over-popover"
+          sx={{
+            pointerEvents: "none",
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+          <Typography sx={{ p: 1 }}>{size}</Typography>
+        </Popover>
+      </div>
       <div className="photo-box">
         <div className="photo-image" style={{ background: `url(${image})` }}>
           {image === "" && mode === "edit" ? (

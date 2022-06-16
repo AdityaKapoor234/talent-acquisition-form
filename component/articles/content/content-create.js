@@ -293,6 +293,7 @@ export default class ContentCreate extends Component {
 													img={this.state.input.feature_image}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value="file-input-icon"
+													size="800x800"
 													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/feature_image`}
 												/>
 											</div>

@@ -71,6 +71,7 @@ export default class salesTrend extends Component {
                                         borderWidth: 3,
                                         borderColor: "#4ba6f2",
                                         hoverBorderWidth: 3,
+                                        label: " ₹",
                                     }],
                             }}
                             options={{
@@ -81,7 +82,17 @@ export default class salesTrend extends Component {
                                     legend: {
                                         display: false,
                                     },
-                                },                                
+                                },
+                                scales: {
+                                    y: {
+                                        ticks: {
+                                            // Include a rupees sign in the ticks
+                                            callback: function (value, index, ticks) {
+                                                return '₹ ' + value;
+                                            }
+                                        }
+                                    }
+                                },
                             }}
                             className="barChart"
                         />

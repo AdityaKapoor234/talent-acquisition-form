@@ -8,7 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { PRODUCT_SERVICE } from "../../utils/constant";
 
-export default function photo({ label, accept, mode, img,name,setUrl,value,urlName}) {
+export default function photo({ label, accept, mode, img, name, setUrl, value, urlName }) {
   const [image, setImage] = useState(img ? img : "");
   const [isLoader, setIsLoader] = useState(false);
 
@@ -23,7 +23,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlNa
       );
     }
   };
-  const uploadfile = (url, image,names) => {
+  const uploadfile = (url, image, names) => {
     setIsLoader(true);
     const token = cookie.get("access_token_admin");
     const headers = {
@@ -36,7 +36,7 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlNa
       .then((response) => {
         setIsLoader(false);
         setImage(response.data.data?.url);
-        setUrl(names,response.data.data?.url)
+        setUrl(names, response.data.data?.url)
       })
       .catch((error) => {
         setIsLoader(false);
@@ -65,7 +65,10 @@ export default function photo({ label, accept, mode, img,name,setUrl,value,urlNa
               <label>No file Chosen</label>
             </>
           ) : (
-            <PictureAsPdfIcon className="image-icon" />
+            <>
+              <PictureAsPdfIcon className="image-icon" />
+              <label>File Selected</label>
+            </>
           )}
         </div>
         {mode === "edit" && (

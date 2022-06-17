@@ -6,6 +6,7 @@ import { APP_NAME } from "../../utils/constant";
 import DashboardLayoutComponent from "../../component/layouts/dashboard-layout/dashboard-layout";
 import SubscriptionList from "../../component/inquiry/subscription/subscription-list";
 import Pagination from "@mui/material/Pagination";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Router from "next/router";
 import Cookie from "js-cookie";
 import SearchIcon from "@mui/icons-material/Search";
@@ -19,6 +20,7 @@ export default function Subscription() {
 
 	const pathArr = useRouter();
 	const [subscription, setSubscription] = useState([]);
+	const [subscriptionExcel, setSubscriptionExcel] = useState([]);
 	const [totalSubscription, setTotalSubscription] = useState([]);
 	const [wordEntered, setWordEntered] = useState(
 		pathArr.query?.q ? pathArr.query?.q : ""
@@ -95,90 +97,136 @@ export default function Subscription() {
 			});
 	};
 
+	const subscriptionExcelList = () => {
+		setIsLoader(true);
+		InquiryApi.subscriptionExcelList()
+			.then((response) => {
+				setSubscriptionExcel(response.data.data.subscriber);
+				setIsLoader(false);
+			})
+			.catch((error) => {
+				setIsLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+			});
+	};
+
+	const handleOnExport = () => {
+		var XLSX = require("xlsx");
+		var wb = XLSX.utils.book_new();
+		var ws = XLSX.utils.json_to_sheet(subscriptionExcel);
+
+		XLSX.utils.book_append_sheet(wb, ws, "SubscriptionList");
+
+		XLSX.writeFile(wb, "Subscription List.xlsx");
+	};
+
+
+
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
 			Router.push("/");
 		}
 		subscriptionList(currentPage, "");
+		subscriptionExcelList();
 	}, []);
 
 
 	return (
 		<>
-			<Head>
-				<title>{APP_NAME} -NewsLetter Subscribers</title>
-				<meta name="description" content="Trusted Brands. Better Health." />
-				<link rel="icon" href="/fitcart.ico" />
-			</Head>
+			<div page-component="category-page">
+				<Head>
+					<title>{APP_NAME} -NewsLetter Subscribers</title>
+					<meta name="description" content="Trusted Brands. Better Health." />
+					<link rel="icon" href="/fitcart.ico" />
+				</Head>
 
-			<main>
-				<DashboardLayoutComponent>
-					<div className="row border-box">
-						<div className="col-md-8">
+				<main>
+					<DashboardLayoutComponent>
+						<div className="row border-box">
+							<div className="col-md-6">
 							<div className="hamburger">
-								<span>Customer / </span>NewsLetter Subscribers
+									<span>Customer / </span>NewsLetter Subscribers
+								</div>
+								<div className="page-name">NewsLetter Subscribers</div>
 							</div>
-							<div className="page-name">NewsLetter Subscribers</div>
-						</div>
-						<div className="col-md-4">
-							<div className="login-form ">
+							<div className="col-md-4">
+								<div className="login-form ">
 								<input
-									type="text"
-									placeholder="Search..."
-									className="search-box"
-									value={wordEntered}
-									onChange={handleFilter}
-									onKeyPress={handleKeyPress}
-								/>
-								<span onClick={handleClickPress}>
-									<SearchIcon className="search-icon point-but" />
-								</span>
-							</div>
-						</div>
-					</div>
-					<div className="row sticky-scroll scroll">
-						<div className="col-md-12 ">
-							{
-								isLoader ? (
-									<div className="row justify-content-center">
-										<div className="col-md-12 loader-cart">
-											<Box sx={{ display: "flex" }}>
-												<CircularProgress
-													style={{ color: "#F54A00" }}
-												/>
-											</Box>
-										</div>
-									</div>
-								) : (
-									<SubscriptionList subscription={subscription} subscriptionList={subscriptionList} currentPage={currentPage}/>
-								)
-							}
-
-
-
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-md-12 justify-content-between d-flex position-relative">
-							<div className="pagiantion-category">
-								<div>
-									<Pagination
-										className="pagination pagi"
-										page={currentPage}
-										count={totalPage}
-										onChange={onPageChange}
+										type="text"
+										placeholder="Search..."
+										className="search-box"
+										value={wordEntered}
+										onChange={handleFilter}
+										onKeyPress={handleKeyPress}
 									/>
+									<span onClick={handleClickPress}>
+										<SearchIcon className="search-icon point-but" />
+									</span>
 								</div>
-								<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-									Total Subscriptions: {totalSubscription}
+							</div>
+							<div className="col-md-2 btn-save">
+								<div className="custom-btn ">
+									<span
+										onClick={handleOnExport}
+										className="d-flex"
+									>
+										Download&nbsp;<FileDownloadIcon />
+									</span>
 								</div>
 							</div>
 						</div>
-					</div>
-				</DashboardLayoutComponent>
-			</main>
-			{/* </div> */}
+
+
+						<div className="row sticky-scroll scroll">
+							<div className="col-md-12 ">
+								{
+									isLoader ? (
+										<div className="row justify-content-center">
+											<div className="col-md-12 loader-cart">
+												<Box sx={{ display: "flex" }}>
+													<CircularProgress
+														style={{ color: "#F54A00" }}
+													/>
+												</Box>
+											</div>
+										</div>
+									) : (
+										<SubscriptionList subscription={subscription} subscriptionList={subscriptionList} currentPage={currentPage} />
+									)
+								}
+
+
+
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-md-12 justify-content-between d-flex position-relative">
+								<div className="pagiantion-category">
+									<div>
+										<Pagination
+											className="pagination pagi"
+											page={currentPage}
+											count={totalPage}
+											onChange={onPageChange}
+										/>
+									</div>
+									<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+										Total Subscriptions: {totalSubscription}
+									</div>
+								</div>
+							</div>
+						</div>
+					</DashboardLayoutComponent>
+				</main>
+				{/* </div> */}
+			</div>
 		</>
 	);
 }

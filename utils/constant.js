@@ -142,6 +142,7 @@ export const ADMIN_LIST_EDIT = `${USER_SERVICE}/admin/{{id}}/edit`;
 export const CUSTOMER_EXCEL_LIST = `${USER_SERVICE}/customer/all`;
 export const ORDER_EXCEL_LIST = `${ORDER_SERVICE}/manage/order/all`;
 export const PRODUCT_EXCEL_LIST = `${PRODUCT_SERVICE}/manage/product/all`;
+export const SUBSCRIPTION_EXCEL_LIST = `${USER_SERVICE}/manage/subscribe/all`;
 
 //WISHLIST
 export const WISH_LIST = `${PRODUCT_SERVICE}/manage/wishlist/{{id}}?page={{page}}`;

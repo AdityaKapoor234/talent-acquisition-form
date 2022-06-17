@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS,GET_BULK_BUY_LIST,GET_Bulk_BUY_VIEW_DETAILS, FEEDBACK_LIST, GET_FEEDBACK_DETAILS,SUBSCRIPTION_LIST, SUBSCRIPTION_LIST_EDIT, TRUSTED_HEALTH_LIST, TRUSTED_HEALTH_DETAILS, TRUSTED_HEALTH_EDIT, TRUSTED_HEALTH_CREATE, TRUSTED_HEALTH_DELETE, GET_AFFILIATE_MARKETING_LIST, GET_AFFILIATE_MARKETING_VIEW_DETAILS,EMAIL_SUPPORT_LIST,EMAIL_SUPPORT_VIEW  } from "../utils/constant";
+import { ADVERTISE_WITH_US_LIST, GET_ADVERTISE_WITH_US_DETAILS, SELL_ON_FITCART_LIST, GET_SELL_ON_FITCART_DETAILS, MARKETING_AND_SPONSORSHIP_LIST, GET_MARKETING_AND_SPONSORSHIP_DETAILS,GET_BULK_BUY_LIST,GET_Bulk_BUY_VIEW_DETAILS, FEEDBACK_LIST, GET_FEEDBACK_DETAILS,SUBSCRIPTION_LIST, SUBSCRIPTION_LIST_EDIT, SUBSCRIPTION_EXCEL_LIST, TRUSTED_HEALTH_LIST, TRUSTED_HEALTH_DETAILS, TRUSTED_HEALTH_EDIT, TRUSTED_HEALTH_CREATE, TRUSTED_HEALTH_DELETE, GET_AFFILIATE_MARKETING_LIST, GET_AFFILIATE_MARKETING_VIEW_DETAILS,EMAIL_SUPPORT_LIST,EMAIL_SUPPORT_VIEW  } from "../utils/constant";
 
 import cookie from "js-cookie";
 import Email_Support from "../pages/email-support";
@@ -139,6 +139,18 @@ export class InquiryApi {
         return axios.post(`${SUBSCRIPTION_LIST_EDIT}`.replace('{{id}}', id), data, httpOptions)
        
     }
+
+    static subscriptionExcelList() {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${SUBSCRIPTION_EXCEL_LIST}`, httpOptions)
+    }
+    
 
     static trustedHealthList(page, search) {
         const token = cookie.get('access_token_admin');

@@ -78,14 +78,14 @@ export default class CouponLog extends Component {
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.customer}>{p?.customer}</div>
                   <div className="col px-2 text-center elip-text"></div>
-                  <div className="col-2 text-center" title={p?.discount}>
+                  <div className="col-2 text-center" title={p?.dicount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>
                     {/* <RemoveRedEyeIcon
                       className="view-icon"
                       onClick={() => {
                         Router.push(`/bulk-buys/${p?.id}/view`);
                       }}
                     /> */}
-                    {p?.discount}
+                    ₹&nbsp;{p?.dicount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}
                   </div>
                 </div>
               </div>

@@ -1042,3 +1042,97 @@
     margin-top: 0.25rem;
   }
 }
+
+[data-component="CustomerWallet"]{
+  .fitpointsCircle {
+    background: rgba(219, 234, 246, 0.6);
+    color: $clr-dark-blue;
+    font-weight: 600;
+    font-size: 24px;
+    width: 12.5rem;
+    height: 12.5rem;
+    border-radius: 50%;
+    align-items: center;
+    align-content: center;
+    display: grid;
+
+    .fitpointsCircleHead {
+      font-weight: 700;
+      font-size: 48px;
+      color: $clr-dark-blue;
+    }
+  }
+
+  .fitpointsCircleBanner {
+    color: #838383;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .borderBoxPurple {
+    background-image: url("/images/Ellipse1976.png");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+
+  .borderBoxYellow {
+    background-image: url("/images/Ellipse1977.png");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+
+  .borderBoxCircle {
+    background: #DBEAF6;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: grid;
+  }
+
+  .borderBoxMargin {
+    width: 49%;
+  }
+
+  .borderBox {
+    border: 2px solid $clr-gray200  !important;
+    outline: none;
+
+    .borderBoxInfo {
+      color: #333333;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .borderBoxInfoVal {
+      color: #012169;
+      font-weight: 500;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .borderBoxHighlight {
+      color: #F54A00;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+  @media  (max-width:765px) {
+   .img{
+    display: flex;
+    justify-content: center;
+   }
+    }
+
+    .accordionHeading {
+      font-weight: 500;
+      font-size: 16px;
+      color: #012169;
+    }
+    
+  }
+

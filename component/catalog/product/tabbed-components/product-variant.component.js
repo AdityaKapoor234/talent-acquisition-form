@@ -207,7 +207,7 @@ export default class ProductVariantComponent extends Component {
             <div className='variant-preview'>
               {
                 this.state.variants && this.state.variants.sizes && <div>
-                  { this.state.variants.sizes.length === 0 && <p className='not-selected'>No size variant available</p>}
+                  { this.state.variants.sizes.length === 0 && <p className='not-selected'>No Size variant available</p>}
                   { this.state.variants.sizes.length !== 0 &&
                     <div className='mt-1 pt-1 border-1'>
                       <small>Existing Size Variant Group</small>
@@ -238,7 +238,7 @@ export default class ProductVariantComponent extends Component {
 
             </div>
             <div className=''>
-              <button className='btn btn-primary btn-sm mt-2' onClick={this.openVariantSelector.bind(this, 'size')}>Select Parent Product</button>
+              <button className='btn btn-primary btn-sm mt-2' onClick={this.openVariantSelector.bind(this, 'size')}>Select Size Variant</button>
             </div>
           </div>
           <div className='col-md-6'>
@@ -246,7 +246,7 @@ export default class ProductVariantComponent extends Component {
             <div className='variant-preview'>
               {
                 this.state.variants && this.state.variants.flavors && <div>
-                  { this.state.variants.flavors.length === 0 && <p className='not-selected'>No size variant available</p>}
+                  { this.state.variants.flavors.length === 0 && <p className='not-selected'>No Flavor variant available</p>}
                   { this.state.variants.flavors.length !== 0 &&
                   <div className='mt-1 pt-1 border-1'>
                     <small>Existing Flavor Variant Group</small>
@@ -277,7 +277,7 @@ export default class ProductVariantComponent extends Component {
 
             </div>
             <div className=''>
-              <button className='btn btn-primary btn-sm mt-2' onClick={this.openVariantSelector.bind(this, 'flavor')}>Select Parent Product</button>
+              <button className='btn btn-primary btn-sm mt-2' onClick={this.openVariantSelector.bind(this, 'flavor')}>Select Flavor Variant</button>
             </div>
           </div>
         </div>

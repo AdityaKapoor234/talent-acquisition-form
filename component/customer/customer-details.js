@@ -308,6 +308,17 @@ export default class CustomerDetails extends Component {
 										>
 											shopping cart Info
 										</div>
+
+										<div
+											className={
+												this.state.tab === 6 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ tab: 6 });
+											}}
+										>
+											customer wallet
+										</div>
 									</>
 									:
 									""
@@ -1002,6 +1013,165 @@ export default class CustomerDetails extends Component {
 						</>
 					)
 				}
+
+{
+					this.state.tab === 6 && (
+						<>
+
+						<div data-Component="CustomerWallet">
+						<div className="justify-content-center d-flex w-100 mt-3">
+                                                        <div className="fitpointsCircle text-center align-items-center">
+                                                            <div className="fitpointsCircleHead">
+                                                                4000
+                                                            </div>
+                                                            Points
+                                                        </div>
+                                                    </div>
+
+													<div className="fitpointsCircleBanner justify-content-center d-flex w-100 mt-3 mb-2">
+                                                        Total Wallet Balance
+                                                    </div>
+
+													<div className="">
+                                                        <div className=" justify-content-between d-flex">
+                                                            <div className=" borderBox borderBoxPurple borderBoxMargin mt-3">
+                                                                <div className="row align-items-center align-content-center justify-content-center">
+                                                                    <div className="col-md-2 col-12 py-2 img">
+                                                                        <div className="borderBoxCircle img">
+                                                                            <img src="/images/VectorGift.png" className="img-fluid" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-9 col-12 py-2 img">
+                                                                        <div className="borderBoxInfo">
+                                                                            FitPRO Reward:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
+                                                                        </div>
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <div className=" borderBox borderBoxYellow borderBoxMargin mt-3">
+                                                                <div className="row align-items-center align-content-center justify-content-center">
+                                                                    <div className="col-md-2 col-12 py-2  img">
+                                                                        <div className="borderBoxCircle">
+                                                                            <img src="/images/announce1.svg" className="img-fluid" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-9 col-12 py-2 img">
+                                                                        <div className="borderBoxInfo">
+                                                                            Referral Points:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
+                                                                        </div>
+                                                                      
+                                                                     
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                         
+
+
+                                                           
+
+
+
+
+
+
+
+                                                        </div>
+                                                    </div>
+													<div>
+														<div className="text-center mt-3 accordionHeading">Wallet Transaction History</div>
+													</div>
+
+						</div>
+							<div data-component="CustomerComponent">
+								<div className="row">
+									<div className="col-md-12">
+										<div className="tableRow">
+											<div className="col-md-6">Discription</div>
+											<div className="col-md-3 text-center">Credit/Debit(Points)</div>
+											<div className="col-md-3 text-center">Total</div>
+											{/* <div className="col-3 text-center">Shipment Method</div> */}
+											{/* <div className="col text-center">Total</div> */}
+											{/* <div className="col-1 text-center">Active</div> */}
+											{/* <div className="col-1 text-end">View</div> */}
+										</div>
+									</div>
+								</div>
+								<div className="sticky-scroll scroll">
+									{this.state.orders?.length === 0 && (
+										<div className="error-message">No Reward Info</div>
+									)}
+									{this.state.orders?.map((p) => {
+										return (
+											<div className="row">
+												<div className="col-md-12">
+													<div className="tableCell">
+														<div className="tableBody col">{p?.order_number}</div>
+														<div className="col text-center">
+															{this.convertDateStringToDate(p?.created_at)}
+														</div>
+														<div className="tableBody col justify-content-center">
+															{p?.status}
+														</div>
+														{/* <div className="col-3 text-center">COD</div> */}
+														<div className="col text-center">
+															₹{" "}
+															{p?.total
+																?.toFixed(2)
+																.toString()
+																.replace(
+																	/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
+																	","
+																)}
+														</div>
+														{/* <div className="col-1 text-center">
+                            <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                          </div> */}
+														<div className="col-1 text-end">
+															<RemoveRedEyeIcon
+																className="view-icon"
+																onClick={() => {
+																	Router.push(`/order/${p?.order_number}/view`);
+																}}
+															/>
+														</div>
+													</div>
+												</div>
+											</div>
+										);
+									})}
+								</div>
+							</div>
+							{this.state.orderTotal > 1 && (
+								<div className="row">
+									<div className="col-md-12 justify-content-between d-flex position-relative">
+										<div className="pagiantion-category">
+											<div>
+												<Pagination
+													className="pagination pagi"
+													page={this.state.currentPage}
+													count={this.state.orderTotal}
+													onChange={this.onPageChange}
+												/>
+											</div>
+											<div
+												className="position-absolute totalCount"
+												style={{ right: 23, bottom: 5 }}
+											>
+												Total Orders: {this.state.orders?.length}
+											</div>
+										</div>
+									</div>
+								</div>
+							)}
+						</>
+					)
+				}
+	
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}

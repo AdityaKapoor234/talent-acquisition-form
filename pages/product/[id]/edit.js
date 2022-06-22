@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import ProductApi from "../../../services/product";
 import Router from "next/router";
 import Cookie from "js-cookie";
+import ProductInfoApi from "../../../services/product-info";
 
 export async function getServerSideProps(context) {
     const { id } = context.query;
@@ -26,6 +27,8 @@ export default function ProductEditCompo({ id }) {
     const [productId, setProductId] = useState(id)
     const [content, setContent] = useState([]);
     const [isLoader, setIsLoader] = useState(true);
+    const [infoDetails,setInfoDetails]=useState();
+    const [flavour,setFlavour]=useState();
 
 
     const contentList = (id) => {
@@ -48,6 +51,40 @@ export default function ProductEditCompo({ id }) {
     };
 
 
+   const getInfo = (id) => {
+        ProductInfoApi.getInfo(id)
+            .then((response) => {
+               setInfoDetails(response.data.data);
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+   const getFlavors = () => {
+        ProductInfoApi.getFlavor()
+            .then((response) => {
+                setFlavour(response.data.data.list)
+               
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime1"
+                );
+            });
+    }
+
+
     useEffect(() => {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
@@ -55,6 +92,8 @@ export default function ProductEditCompo({ id }) {
         }
         setProductId(id)
         contentList(id);
+        getInfo(id);
+        getFlavors()
     }, [id]);
     return (
         <div>
@@ -67,13 +106,15 @@ export default function ProductEditCompo({ id }) {
             <main>
                 <DashboardLayoutComponent>
                     <div className="row border-box">
-                        <div className="col-md-4">
+                        <div className="col-md-6">
+                    
                             <div className="hamburger">
                                 <span>Catalog / Product / </span>Edit Product
                             </div>
-                            <div className="page-name">Edit Product Details</div>
+                            <div className="page-name">{infoDetails?.name} {flavour?.filter(elem => elem.id === infoDetails?.flavor_id)?.map(elem => elem?.name)}  -{productId}</div>
+                           
                         </div>
-                        <div className="col-md-8 btn-save">
+                        <div className="col-md-6 btn-save">
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

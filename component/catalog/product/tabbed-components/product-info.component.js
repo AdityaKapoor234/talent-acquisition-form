@@ -19,28 +19,31 @@ export default class ProductInfoComponent extends Component {
         super(props);
         this.state = {
             infoDetails: {
-                "brand_id": 0,
-                "categories": [],
-                "certifications": [],
-                "flavor_id": 0,
-                "gender": "",
-                "is_vegetarian": null,
-                "name": "",
-                "origin_country_id": "select",
-                "product_form": "",
-                "recommended_age": "",
-                "serving_count": null,
-                "serving_size": null,
-                "serving_size_unit": "",
-                "sku": "",
-                "specialty_diet": "",
-                "weight": null,
-                "weight_unit": "",
-                "status": "select",
-                "hsn_code_id": null,
-                "igst":"",
-                "cgst":"",
-                "sgst":""
+                brand_id: 0,
+                categories: [],
+                certifications: [],
+                flavor_id: 0,
+                gender: "",
+                is_vegetarian: null,
+                name: "",
+                origin_country_id: "select",
+                product_form: "",
+                recommended_age: "",
+                serving_count: null,
+                serving_size: null,
+                serving_size_unit: "",
+                sku: "",
+                specialty_diet: "",
+                weight: null,
+                weight_unit: "",
+                status: "select",
+                hsn_code_id: null,
+                igst:"",
+                cgst:"",
+                sgst:"",
+                height:null,
+                breadth:null,
+                length:null
             },
             id: props?.id,
             mode: props?.mode,
@@ -67,7 +70,14 @@ export default class ProductInfoComponent extends Component {
 
     handleChange = (event) => {
         let input = this.state.infoDetails;
-        input[event.target.name] = event.target.value;
+
+        if (event.target.name === "height" || event.target.name === "breadth" || event.target.name === "length") {
+            input[event.target.name] = parseInt(event.target.value);
+        }
+        else{
+            input[event.target.name] = event.target.value;
+        }
+        
         this.setState({ infoDetails: input });
     };
     handleChangeGst = (event) => {
@@ -600,6 +610,59 @@ export default class ProductInfoComponent extends Component {
                                                 onChange={this.handleChange.bind(this)}
                                             />
                                             <small className="form-text text-danger" >{this.state.errors["weight_unit"]}</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div className="row">
+                                    <div className="col-md-4">
+                                        <div className="fc-form-group">
+                                            <label>Height
+                                                {/* <span className="mandatory-star">*</span> */}
+                                            </label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                name="height"
+                                                readOnly={this.state.mode === "view" ? true : false}
+                                                value={this.state.infoDetails?.height}
+                                                onChange={this.handleChange.bind(this)}
+                                            />
+                                            <small className="form-text text-danger" >{this.state.errors["height"]}</small>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="fc-form-group">
+                                            <label>Width
+                                                {/* <span className="mandatory-star">*</span> */}
+                                            </label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                name="breadth"
+                                                readOnly={this.state.mode === "view" ? true : false}
+                                                value={this.state.infoDetails?.breadth}
+                                                onChange={this.handleChange.bind(this)}
+                                            />
+                                            <small className="form-text text-danger" >{this.state.errors["breadth"]}</small>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-4">
+                                        <div className="fc-form-group">
+                                            <label>Length
+                                                {/* <span className="mandatory-star">*</span> */}
+                                            </label>
+                                            <input
+                                                 type="number"
+                                                 min="0"
+                                                name="length"
+                                                readOnly={this.state.mode === "view" ? true : false}
+                                                value={this.state.infoDetails?.length}
+                                                onChange={this.handleChange.bind(this)}
+                                            />
+                                            <small className="form-text text-danger" >{this.state.errors["length"]}</small>
                                         </div>
                                     </div>
                                 </div>

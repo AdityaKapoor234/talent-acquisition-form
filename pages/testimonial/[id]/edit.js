@@ -98,16 +98,16 @@ export default class TestimonialEditDetails extends Component {
     }
 
 
-    if (this.state.testimonialDetails.video_url === "" || this.state.testimonialDetails.video_url === null || this.state.testimonialDetails.video_url === undefined) {
-      toast.error("Please enter video url");
-      return false;
-    }
-    if (this.state.testimonialDetails.video_url !== undefined) {
-      if (this.state.testimonialDetails.video_url.replace(/\s/g, "").length <= 0) {
-        toast.error("Please enter video url");
-        return false;
-      }
-    }
+    // if (this.state.testimonialDetails.video_url === "" || this.state.testimonialDetails.video_url === null || this.state.testimonialDetails.video_url === undefined) {
+    //   toast.error("Please enter video url");
+    //   return false;
+    // }
+    // if (this.state.testimonialDetails.video_url !== undefined) {
+    //   if (this.state.testimonialDetails.video_url.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter video url");
+    //     return false;
+    //   }
+    // }
 
 
     if (this.state.testimonialDetails.category_id === "select" || this.state.testimonialDetails.category_id === null || this.state.testimonialDetails.category_id === undefined) {

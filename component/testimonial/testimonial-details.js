@@ -154,7 +154,7 @@ export default class TestimonialCreate extends Component {
 
 											<div className="login-form mt-4">
 												<label>
-													Video URL<span className="mandatory-star">*</span>
+													Video Embedded URL
 												</label>
 												<input
 													type="text"
@@ -165,7 +165,7 @@ export default class TestimonialCreate extends Component {
 											</div>
 											<div className="login-form sort">
 												<label>
-													Experience<span className="mandatory-star">*</span>
+													Category<span className="mandatory-star">*</span>
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -276,7 +276,7 @@ export default class TestimonialCreate extends Component {
 
 											<div className="login-form ">
 												<label>
-													Video URL<span className="mandatory-star">*</span>
+													Video Embedded URL
 												</label>
 												<input
 													type="text"
@@ -286,7 +286,7 @@ export default class TestimonialCreate extends Component {
 											</div>
 											<div className="login-form sort">
 												<label>
-													Experience<span className="mandatory-star">*</span>
+													Category<span className="mandatory-star">*</span>
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select

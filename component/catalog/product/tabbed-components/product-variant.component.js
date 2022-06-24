@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal";
 import ProductSelector from "../product-selector";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import {APP_URL} from "../../../../utils/constant";
+import { APP_URL } from "../../../../utils/constant";
 import ProductVariantListItem from "../product-variant-list-item";
 const style = {
   position: 'absolute',
@@ -33,7 +33,7 @@ export default class ProductVariantComponent extends Component {
           flavor: {}
         }
       },
-      id:props?.id,
+      id: props?.id,
       variants: {}
     };
   }
@@ -70,32 +70,32 @@ export default class ProductVariantComponent extends Component {
 
   updateVariants = (id) => {
     let payload = {}
-    if(this.state.variantSelectorConfig.selected.size && this.state.variantSelectorConfig.selected.size.id){
+    if (this.state.variantSelectorConfig.selected.size && this.state.variantSelectorConfig.selected.size.id) {
       payload.size = this.state.variantSelectorConfig.selected.size.id
-    }else{
+    } else {
       payload.size = 0
     }
-    if(this.state.variantSelectorConfig.selected.flavor && this.state.variantSelectorConfig.selected.flavor.id){
+    if (this.state.variantSelectorConfig.selected.flavor && this.state.variantSelectorConfig.selected.flavor.id) {
       payload.flavor = this.state.variantSelectorConfig.selected.flavor.id
-    }else{
+    } else {
       payload.flavor = 0
     }
     ProductApi.updateVariants(id, payload)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-          
+
           toast.success("Update variants successfully");
-          if (response.data && response.data.data){
-            this.setState({ 
-              variants: response.data.data, 
+          if (response.data && response.data.data) {
+            this.setState({
+              variants: response.data.data,
               variantSelectorConfig: {
                 show: false,
                 selected: {
                   size: {},
                   flavor: {}
                 }
-              } 
-            });            
+              }
+            });
           }
 
           /*if (button === "continue") {
@@ -117,10 +117,84 @@ export default class ProductVariantComponent extends Component {
       });
   };
 
+  removeVariantSize = () => {
+    this.removeVariants(this.state.id, "size")
+  }
+
+  removeVariantFlavor = () => {
+    this.removeVariants(this.state.id, "flavor")
+  }
+
+
+  removeVariants = (id, remove) => {
+
+    let payload = {}
+
+    if (remove === "size") {
+
+      payload.size = -1
+
+      if (this.state.variantSelectorConfig.selected.flavor && this.state.variantSelectorConfig.selected.flavor.id) {
+        payload.flavor = this.state.variantSelectorConfig.selected.flavor.id
+      } else {
+        payload.flavor = 0
+      }
+    }
+    else {
+      
+      if (this.state.variantSelectorConfig.selected.size && this.state.variantSelectorConfig.selected.size.id) {
+        payload.size = this.state.variantSelectorConfig.selected.size.id
+      } else {
+        payload.size = 0
+      }
+
+      payload.flavor = -1
+    }
+
+
+
+    ProductApi.updateVariants(id, payload)
+    .then((response) => {
+      if (response.data.httpStatusCode === 200) {
+
+        // toast.success("Update variants successfully");
+        if (response.data && response.data.data) {
+          this.setState({
+            variants: response.data.data,
+            variantSelectorConfig: {
+              show: false,
+              selected: {
+                size: {},
+                flavor: {}
+              }
+            }
+          });
+        }
+      }
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+
+
+
+
+
+
+  };
+
+
+
   onSave() {
-    if(this.state.variantSelectorConfig.selected.size.id || this.state.variantSelectorConfig.selected.flavor.id){
+    if (this.state.variantSelectorConfig.selected.size.id || this.state.variantSelectorConfig.selected.flavor.id) {
       this.updateVariants(this.state.id, "save");
-    }else{
+    } else {
       toast.error("Select variants to save");
     }
 
@@ -166,10 +240,10 @@ export default class ProductVariantComponent extends Component {
     this.setState({ prices });
   };
 
-  variantSelected=(product)=> {
+  variantSelected = (product) => {
     ;
     let variantSelectorConfig = this.state.variantSelectorConfig
-    if(!variantSelectorConfig.type){
+    if (!variantSelectorConfig.type) {
       return
     }
     variantSelectorConfig.selected[variantSelectorConfig.type] = {
@@ -207,19 +281,19 @@ export default class ProductVariantComponent extends Component {
             <div className='variant-preview'>
               {
                 this.state.variants && this.state.variants.sizes && <div>
-                  { this.state.variants.sizes.length === 0 && <p className='not-selected'>No Size variant available</p>}
-                  { this.state.variants.sizes.length !== 0 &&
+                  {this.state.variants.sizes.length === 0 && <p className='not-selected'>No Size variant available</p>}
+                  {this.state.variants.sizes.length !== 0 &&
                     <div className='mt-1 pt-1 border-1'>
                       <small>Existing Size Variant Group</small>
                       {
-                        this.state.variants.sizes.filter((x)=>{
+                        this.state.variants.sizes.filter((x) => {
                           return x.product && x.product.id && x.product.id !== parseInt(this.state.id)
-                        }).map((v, i)=>{
-                          return <ProductVariantListItem product={v.product} />
+                        }).map((v, i) => {
+                          return <ProductVariantListItem product={v.product} removeVariant={this.removeVariantSize.bind(this)} />
                         })
                       }
                       {
-                        this.state.variants.sizes.filter((x)=>{
+                        this.state.variants.sizes.filter((x) => {
                           return x.product && x.product.id && x.product.id !== parseInt(this.state.id)
                         }).length === 0 && <p><strong>None assigned</strong></p>
                       }
@@ -230,7 +304,7 @@ export default class ProductVariantComponent extends Component {
               {
                 this.state.variantSelectorConfig.selected.size && this.state.variantSelectorConfig.selected.size.id && <div className='mt-1 pt-1 border-1'>
                   <small>Selected Variant Group</small>
-                  <ProductVariantListItem product={this.state.variantSelectorConfig.selected.size} />
+                  <ProductVariantListItem product={this.state.variantSelectorConfig.selected.size} removeVariant={this.removeVariantSize.bind(this)} />
                 </div>
               }
 
@@ -246,30 +320,30 @@ export default class ProductVariantComponent extends Component {
             <div className='variant-preview'>
               {
                 this.state.variants && this.state.variants.flavors && <div>
-                  { this.state.variants.flavors.length === 0 && <p className='not-selected'>No Flavor variant available</p>}
-                  { this.state.variants.flavors.length !== 0 &&
-                  <div className='mt-1 pt-1 border-1'>
-                    <small>Existing Flavor Variant Group</small>
-                    {
-                      this.state.variants.flavors.filter((x)=>{
-                        return x.product && x.product.id && x.product.id !== parseInt(this.state.id)
-                      }).map((v, i)=>{
-                        return <ProductVariantListItem product={v.product} />
-                      })
-                    }
-                    {
-                        this.state.variants.flavors.filter((x)=>{
+                  {this.state.variants.flavors.length === 0 && <p className='not-selected'>No Flavor variant available</p>}
+                  {this.state.variants.flavors.length !== 0 &&
+                    <div className='mt-1 pt-1 border-1'>
+                      <small>Existing Flavor Variant Group</small>
+                      {
+                        this.state.variants.flavors.filter((x) => {
+                          return x.product && x.product.id && x.product.id !== parseInt(this.state.id)
+                        }).map((v, i) => {
+                          return <ProductVariantListItem product={v.product} removeVariant={this.removeVariantFlavor.bind(this)} />
+                        })
+                      }
+                      {
+                        this.state.variants.flavors.filter((x) => {
                           return x.product && x.product.id && x.product.id !== parseInt(this.state.id)
                         }).length === 0 && <p><strong>None assigned</strong></p>
                       }
-                  </div>
+                    </div>
                   }
                 </div>
               }
               {
                 this.state.variantSelectorConfig.selected.flavor && this.state.variantSelectorConfig.selected.flavor.id && <div className='mt-1 pt-1 border-1'>
                   <small>Selected Variant Group</small>
-                  <ProductVariantListItem product={this.state.variantSelectorConfig.selected.flavor} />
+                  <ProductVariantListItem product={this.state.variantSelectorConfig.selected.flavor} removeVariant={this.removeVariantFlavor.bind(this)} />
                 </div>
               }
 
@@ -285,17 +359,17 @@ export default class ProductVariantComponent extends Component {
 
 
         <Modal
-            open={this.state.variantSelectorConfig.show}
-            onClose={this.handleVariantSelectorClose.bind(this)}
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
+          open={this.state.variantSelectorConfig.show}
+          onClose={this.handleVariantSelectorClose.bind(this)}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
         >
           <Box data-modal-box='variant-selector' sx={{ ...style, width: 500 }} className='modal-box'>
             <div className='header'>
               <h2 className="modal-title">Select {this.state.variantSelectorConfig.type} variant</h2>
             </div>
             <div className='body'>
-              <ProductSelector onSelect={this.variantSelected}/>
+              <ProductSelector onSelect={this.variantSelected} />
             </div>
 
           </Box>

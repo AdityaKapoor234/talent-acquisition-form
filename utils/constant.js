@@ -33,6 +33,8 @@ export const CUSTOMER_TYPE_EDIT=`${USER_SERVICE}/customer/type/dropdown/edit/{{i
 export const CUSTOMER_TYPE_ADD = `${USER_SERVICE}/customer/type/dropdown/add`;
 export const CUSTOMER_TYPE_DELETE=`${USER_SERVICE}/customer/type/dropdown/delete/{{id}}`
 
+export const CUSTOMER_WALLET=`${USER_SERVICE}/manage/wallet/{{id}}`;
+export const CUSTOMER_WALLET_TRANSACTION =`${USER_SERVICE}/manage/wallet/376/transation?page={{page}}&{{id}}`;
 
 
 //Category

@@ -28,13 +28,14 @@ export default function ProductEditCompo({ id }) {
     const [content, setContent] = useState([]);
     const [isLoader, setIsLoader] = useState(true);
     const [infoDetails,setInfoDetails]=useState();
-    const [flavour,setFlavour]=useState();
+    // const [flavour,setFlavour]=useState();
 
 
     const contentList = (id) => {
         setIsLoader(true);
         ProductApi.ContentList(id)
             .then((response) => {
+                console.log(response,"test")
                 setContent(response.data.data);
                 setIsLoader(false);
             })
@@ -55,6 +56,7 @@ export default function ProductEditCompo({ id }) {
         ProductInfoApi.getInfo(id)
             .then((response) => {
                setInfoDetails(response.data.data);
+               console.log(response,"filter")
             })
             .catch((error) => {
                 toast.error(
@@ -67,22 +69,23 @@ export default function ProductEditCompo({ id }) {
             });
     }
 
-   const getFlavors = () => {
-        ProductInfoApi.getFlavor()
-            .then((response) => {
-                setFlavour(response.data.data.list)
+//    const getFlavors = () => {
+//         ProductInfoApi.getFlavor()
+//             .then((response) => {
+//                 setFlavour(response.data.data.list)
+//                 console.log(response,"test2")
                
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime1"
-                );
-            });
-    }
+//             })
+//             .catch((error) => {
+//                 toast.error(
+//                     error?.response &&
+//                         error?.response?.data &&
+//                         error?.response?.data?.message
+//                         ? error.response.data.message
+//                         : "Unable to process your request, please try after sometime1"
+//                 );
+//             });
+//     }
 
 
     useEffect(() => {
@@ -93,7 +96,7 @@ export default function ProductEditCompo({ id }) {
         setProductId(id)
         contentList(id);
         getInfo(id);
-        getFlavors()
+        // getFlavors()
     }, [id]);
     return (
         <div>
@@ -106,15 +109,17 @@ export default function ProductEditCompo({ id }) {
             <main>
                 <DashboardLayoutComponent>
                     <div className="row border-box">
-                        <div className="col-md-6">
+                        <div className="col-md-8">
                     
                             <div className="hamburger">
                                 <span>Catalog / Product / </span>Edit Product
                             </div>
-                            <div className="page-name">{infoDetails?.name} {flavour?.filter(elem => elem.id === infoDetails?.flavor_id)?.map(elem => elem?.name)}  -{productId}</div>
+                            <div className="page-name">{infoDetails?.name}
+                            {/* {flavour?.filter(elem => elem.id === infoDetails?.flavor_id)?.map(elem => elem?.name)} */}
+                              -{productId} -{infoDetails?.weight}{infoDetails?.weight_unit}</div>
                            
                         </div>
-                        <div className="col-md-6 btn-save">
+                        <div className="col-md-4 btn-save">
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

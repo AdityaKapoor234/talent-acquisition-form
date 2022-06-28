@@ -116,7 +116,7 @@ export default class CustomerDetails extends Component {
 	};
 	onPageWallet = (e,page) => {
 		this.setState({currentWalletPage:page});
-		this.customerWalletTransaction(page,this.state.id)
+		this.props.customerWalletTransactionList(page,this.state.id)
 
 	}
 
@@ -235,24 +235,6 @@ export default class CustomerDetails extends Component {
 	};
 
 
-	customerWalletTransaction =(page,id)=>{
-		CustomerApi.getCustomerWalletTransaction(page,id)
-		.then((response) => {
-		  this.setState({customerWalletTransaction: response.data.data.transation});
-		  this.setState({customerWalletTotalTransaction: response.data.data})
-
-		  
-		})
-		.catch((error) => {
-		  toast.error(
-			error?.response &&
-			  error?.response?.data &&
-			  error?.response?.data?.message
-			  ? error.response.data.message
-			  : "Unable to process your request, please try after sometime"
-		  );
-		});
-	  }
 
 	// getCustomerType = () => {
 	//   CustomerApi.CustomerType()
@@ -281,7 +263,6 @@ export default class CustomerDetails extends Component {
 		if (this.state.mode !== "create") {
 			this.getAddresses(this.state.id, 1);
 			this.getOrder(this.state.id, 1);
-			 this.customerWalletTransaction(this.state.currentWalletPage,this.state.id);
 		}
 		// this.getCustomerType();
 	}

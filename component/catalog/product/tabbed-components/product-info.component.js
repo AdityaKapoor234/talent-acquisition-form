@@ -481,7 +481,7 @@ export default class ProductInfoComponent extends Component {
                                             >
                                                 <MenuItem
                                                     value={0}
-                                                    disabled
+                                                    // disabled
                                                     className="field_toggle_checked"
                                                 >
                                                     Select Flavor{" "}
@@ -587,7 +587,7 @@ export default class ProductInfoComponent extends Component {
                                                 {/* <span className="mandatory-star">*</span> */}
                                             </label>
                                             <input
-                                                type="number"
+                                                type="string"
                                                 min="0"
                                                 name="weight"
                                                 readOnly={this.state.mode === "view" ? true : false}

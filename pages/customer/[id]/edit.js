@@ -233,10 +233,10 @@ export default class CustomerEditDetails extends Component {
     });
   }
 
-  customerWalletTransaction =(page,id)=>{
+  customerWalletTransactionList =(page,id)=>{
     CustomerApi.getCustomerWalletTransaction(page,id)
     .then((response) => {
-      console.log(response)
+      // console.log(response)
       this.setState({customerWalletTransaction: response.data.data.transation});
       this.setState({customerWalletTotalTransaction: response.data.data})
       
@@ -267,7 +267,7 @@ export default class CustomerEditDetails extends Component {
     this.customerTypeDropdownDetail();
     this.shoppingCartDetail(this.state.id);
     this.customerWallet(this.state.id);
-    this.customerWalletTransaction(this.state.page,this.state.id);
+    this.customerWalletTransactionList(this.state.page,this.state.id);
   }
   render() {
     return (
@@ -324,6 +324,7 @@ export default class CustomerEditDetails extends Component {
                   customerWallet={this.state.customerWallet} 
                   customerWalletTransaction={this.state.customerWalletTransaction}
                   customerWalletTotalTransaction={this.state.customerWalletTotalTransaction} 
+                  customerWalletTransactionList={this.customerWalletTransactionList.bind(this)}
                 />
               </div>
             </div>

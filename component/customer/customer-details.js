@@ -1179,6 +1179,7 @@ export default class CustomerDetails extends Component {
 						</>
 					)
 				}
+
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}

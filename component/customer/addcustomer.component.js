@@ -74,7 +74,7 @@ export default class AddCustomer extends Component {
 										<input
 											type="text"
 											name="user_type"
-											value={this.state.input?.user_type}
+										    value={this.state.input?.user_type}
 											onChange={this.handleChange.bind(this)}
 										/>
 									</div>

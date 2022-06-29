@@ -89,6 +89,7 @@ export default function Customer() {
 		setIsLoader(true);
 		CustomerApi.CustomerList(page, search)
 			.then((response) => {
+				console.log(response,"test")
 				setCustomer(response.data.data.list);
 				setTotalCustomer(response.data.data);
 				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));

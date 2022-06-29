@@ -7,6 +7,8 @@ import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import cookie from "js-cookie";
 import axios from "axios";
+// import Gallery from 'react-grid-gallery';
+import Gallery from 'react-grid-gallery';
 
 export default class ReviewCreate extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ export default class ReviewCreate extends Component {
             img_sm: "file-input-sm",
             img_lg: "file-input-lg",
             img_icon: "file-input-icon",
+            images: [],
             input: {
                 rating: props?.review?.rating ? props.review?.rating : "",
                 review_title: props?.review?.review_title ? props.review?.review_title : "",
@@ -148,6 +151,25 @@ export default class ReviewCreate extends Component {
             date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
         return str;
     };
+
+    galleryImageList = (pic) => {
+        this.state.images = [];
+        pic?.map(img => {
+            return (
+                <>
+                    {
+                        this.state.images?.push({
+                            "src": img?.images,
+                            "thumbnail": img?.images,
+                            // "thumbnailWidth": 50,
+                            // "thumbnailHeight": 100,
+                        })
+                    }
+                </>
+            )
+        })
+    }
+
 
     // componentDidMount(){
     //     this.setState({changePic: false})
@@ -324,7 +346,7 @@ export default class ReviewCreate extends Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-md-12 login-form">
+                                        <div className="col-md-12">
                                             {
                                                 this.state.input?.images?.length > 0 ?
                                                     <div className="login-form">
@@ -335,11 +357,17 @@ export default class ReviewCreate extends Component {
                                                                         Images
                                                                     </label>
                                                                     <div className="row">
-                                                                        {
+
+                                                                    {this.galleryImageList(this.state.input?.images)}
+
+                                                                    <Gallery images={this.state?.images?.slice(0, 10)} enableImageSelection={false} />
+
+                                                                        {/* {
                                                                             this.state.input?.images?.map(elem => {
                                                                                 return (
                                                                                     <>
-                                                                                        {/* <img src="/images/product5.png" alt="img-fluid" /> */}
+
+
                                                                                         <div className="col-6">
                                                                                             <img
                                                                                                 src={elem?.images}
@@ -347,16 +375,10 @@ export default class ReviewCreate extends Component {
                                                                                                 style={{ width: "auto", height: "300px" }}
                                                                                             />
                                                                                         </div>
-                                                                                        {/* <Photo
-                                                                            mode={this.state.mode}
-                                                                            label={""}
-                                                                            accept=".jpg,.jpeg,.png"
-                                                                            img={elem?.images}
-                                                                        /> */}
                                                                                     </>
                                                                                 )
                                                                             })
-                                                                        }
+                                                                        } */}
                                                                     </div>
 
                                                                 </>

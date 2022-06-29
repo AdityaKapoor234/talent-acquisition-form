@@ -43,10 +43,6 @@ export default class CustomerDetails extends Component {
 			totalWishListPage: props?.totalWishListPage,
 			shoppingCart: props?.shoppingCart,
 			shoppingCartTotal: props?.shoppingCartTotal,
-			customerWallet: props?.customerWallet,
-			customerWalletTransaction:props?.customerWalletTransaction,
-			customerWalletTotalTransaction:props?.customerWalletTotalTransaction,
-			currentWalletPage:1,
 			id: props?.id,
 			idAddress: [],
 			add_address: false,
@@ -107,18 +103,12 @@ export default class CustomerDetails extends Component {
 	onPageChange = (e, page) => {
 		this.setState({ currentPage: page });
 		this.getOrder(this.state.id, page);
-
 	};
 
 	onPageChangeAddress = (e, page) => {
 		this.setState({ currentPageAddress: page });
 		this.getAddress(this.state.id, page);
 	};
-	onPageWallet = (e,page) => {
-		this.setState({currentWalletPage:page});
-		this.props.customerWalletTransactionList(page,this.state.id)
-
-	}
 
 	closeAddress = () => {
 		this.setState({ add_address: false });
@@ -134,9 +124,6 @@ export default class CustomerDetails extends Component {
 			prevState.totalWishListPage !== nextProps.totalWishListPage ||
 			prevState.shoppingCart !== nextProps.shoppingCart ||
 			prevState.shoppingCartTotal !== nextProps.shoppingCartTotal ||
-			prevState.customerWalletTransaction !== nextProps.customerWalletTransaction ||
-			prevState.customerWallet !== nextProps.customerWallet ||
-			prevState.customerWalletTotalTransaction !== nextProps.customerWalletTotalTransaction ||
 
 			prevState.userType !== nextProps.userType ||
 			prevState.id !== nextProps.id
@@ -158,9 +145,6 @@ export default class CustomerDetails extends Component {
 				shoppingCart: nextProps?.shoppingCart,
 				shoppingCartTotal: nextProps?.shoppingCartTotal,
 				id: nextProps?.id,
-				customerWalletTransaction:nextProps?.customerWalletTransaction,
-				customerWallet:nextProps?.customerWallet,
-				customerWalletTotalTransaction:nextProps?.customerWalletTotalTransaction,
 				active: nextProps?.customer?.is_active ? nextProps?.customer?.is_active : false,
 			};
 		}
@@ -233,8 +217,6 @@ export default class CustomerDetails extends Component {
 				);
 			});
 	};
-
-
 
 	// getCustomerType = () => {
 	//   CustomerApi.CustomerType()
@@ -326,6 +308,7 @@ export default class CustomerDetails extends Component {
 										>
 											shopping cart Info
 										</div>
+
 										<div
 											className={
 												this.state.tab === 6 ? `sub-tab active-tab` : "sub-tab"
@@ -334,7 +317,7 @@ export default class CustomerDetails extends Component {
 												this.setState({ tab: 6 });
 											}}
 										>
-											 Wallet
+											customer wallet
 										</div>
 									</>
 									:
@@ -372,7 +355,11 @@ export default class CustomerDetails extends Component {
 												</MenuItem>
 												{this.state.userType?.map((value) => {
 													return (
-														<MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+														<MenuItem value={value?.key}>
+															<div className="text-capitalize">
+																{value?.key}
+															</div>
+														</MenuItem>
 													);
 												})}
 											</Select>
@@ -453,7 +440,11 @@ export default class CustomerDetails extends Component {
 												</MenuItem>
 												{this.state.userType?.map((value) => {
 													return (
-														<MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+														<MenuItem value={value?.key}>
+															<div className="text-capitalize">
+																{value?.key}
+															</div>
+														</MenuItem>
 													);
 												})}
 											</Select>
@@ -1034,82 +1025,76 @@ export default class CustomerDetails extends Component {
 				{
 					this.state.tab === 6 && (
 						<>
-							{this.state.customerWallet === "" || this.state.customerWallet === null || this.state.customerWallet === undefined ?
-								<div className="no-data-found">NO Reward Info</div> :
-								<div>
-									<div data-Component="CustomerWallet">
-										<div className="justify-content-center d-flex w-100 mt-3">
-											<div className="fitpointsCircle text-center align-items-center">
-												<div className="fitpointsCircleHead">
-													{this.state.customerWallet.total}
+
+							<div data-Component="CustomerWallet">
+								<div className="justify-content-center d-flex w-100 mt-3">
+									<div className="fitpointsCircle text-center align-items-center">
+										<div className="fitpointsCircleHead">
+											4000
+										</div>
+										Points
+									</div>
+								</div>
+
+								<div className="fitpointsCircleBanner justify-content-center d-flex w-100 mt-3 mb-2">
+									Total Wallet Balance
+								</div>
+
+								<div className="">
+									<div className=" justify-content-between d-flex">
+										<div className=" borderBox borderBoxPurple borderBoxMargin mt-3">
+											<div className="row align-items-center align-content-center justify-content-center">
+												<div className="col-md-2 col-12 py-2 img">
+													<div className="borderBoxCircle img">
+														<img src="/images/VectorGift.png" className="img-fluid" />
+													</div>
 												</div>
-												Points
+												<div className="col-md-9 col-12 py-2 img">
+													<div className="borderBoxInfo">
+														FitPRO Reward:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
+													</div>
+
+												</div>
 											</div>
 										</div>
 
-										<div className="fitpointsCircleBanner justify-content-center d-flex w-100 mt-3 mb-2">
-											Total Wallet Balance
-										</div>
 
-										<div className="">
-											<div className=" justify-content-between d-flex">
-												<div className=" borderBox borderBoxPurple borderBoxMargin mt-3">
-													<div className="row align-items-center align-content-center justify-content-center">
-														<div className="col-md-2 col-12 py-2 img">
-															<div className="borderBoxCircle img">
-																<img src="/images/VectorGift.png" className="img-fluid" />
-															</div>
-														</div>
-														<div className="col-md-9 col-12 py-2 img">
-															<div className="borderBoxInfo">
-																FitPRO Reward:&nbsp;<span className="borderBoxInfoVal">{this.state.customerWallet.fitcart_reward}</span>
-															</div>
 
-														</div>
+										<div className=" borderBox borderBoxYellow borderBoxMargin mt-3">
+											<div className="row align-items-center align-content-center justify-content-center">
+												<div className="col-md-2 col-12 py-2  img">
+													<div className="borderBoxCircle">
+														<img src="/images/announce1.svg" className="img-fluid" />
 													</div>
 												</div>
-
-
-
-												<div className=" borderBox borderBoxYellow borderBoxMargin mt-3">
-													<div className="row align-items-center align-content-center justify-content-center">
-														<div className="col-md-2 col-12 py-2  img">
-															<div className="borderBoxCircle">
-																<img src="/images/announce1.svg" className="img-fluid" />
-															</div>
-														</div>
-														<div className="col-md-9 col-12 py-2 img">
-															<div className="borderBoxInfo">
-																Referral Points:&nbsp;<span className="borderBoxInfoVal">{this.state.customerWallet.referral_point}</span>
-															</div>
-
-
-														</div>
+												<div className="col-md-9 col-12 py-2 img">
+													<div className="borderBoxInfo">
+														Referral Points:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
 													</div>
+
+
 												</div>
-
-
-
-
-
-
-
-
-
-
-
-
 											</div>
 										</div>
-										<div>
-											<div className="text-center mt-3 accordionHeading">Wallet Transaction History</div>
-										</div>
+
+
+
+
+
+
+
+
+
+
+
 
 									</div>
 								</div>
-							}
+								<div>
+									<div className="text-center mt-3 accordionHeading">Wallet Transaction History</div>
+								</div>
 
-
+							</div>
 							<div data-component="CustomerComponent">
 								<div className="row">
 									<div className="col-md-12">
@@ -1125,23 +1110,23 @@ export default class CustomerDetails extends Component {
 									</div>
 								</div>
 								<div className="sticky-scroll scroll">
-									{this.state.customerWalletTransaction?.length === 0 && (
+									{this.state.orders?.length === 0 && (
 										<div className="error-message">No Reward Info</div>
 									)}
-									{this.state.customerWalletTransaction?.map((p) => {
+									{this.state.orders?.map((p) => {
 										return (
 											<div className="row">
 												<div className="col-md-12">
 													<div className="tableCell">
-														<div className="tableBody col-md-6">{p?.remark}</div>
-														<div className=" tableBody col-md-3 text-center justify-content-center">
-															{p?.credit_debit}
+														<div className="tableBody col">{p?.order_number}</div>
+														<div className="col text-center">
+															{this.convertDateStringToDate(p?.created_at)}
 														</div>
-														<div className="tableBody col-md-3 text-center justify-content-center">
-															{p?.total}
+														<div className="tableBody col justify-content-center">
+															{p?.status}
 														</div>
 														{/* <div className="col-3 text-center">COD</div> */}
-														{/* <div className="col text-center">
+														<div className="col text-center">
 															₹{" "}
 															{p?.total
 																?.toFixed(2)
@@ -1150,18 +1135,18 @@ export default class CustomerDetails extends Component {
 																	/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
 																	","
 																)}
-														</div> */}
+														</div>
 														{/* <div className="col-1 text-center">
                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
                           </div> */}
-														{/* <div className="col-1 text-end">
+														<div className="col-1 text-end">
 															<RemoveRedEyeIcon
 																className="view-icon"
 																onClick={() => {
 																	Router.push(`/order/${p?.order_number}/view`);
 																}}
 															/>
-														</div> */}
+														</div>
 													</div>
 												</div>
 											</div>
@@ -1169,28 +1154,28 @@ export default class CustomerDetails extends Component {
 									})}
 								</div>
 							</div>
-							{/* {this.state.customerWalletTransaction > 1 && ( */}
+							{this.state.orderTotal > 1 && (
 								<div className="row">
 									<div className="col-md-12 justify-content-between d-flex position-relative">
 										<div className="pagiantion-category">
 											<div>
 												<Pagination
 													className="pagination pagi"
-													 page={this.state.currentWalletPage}
-													 count={this.state.customerWalletTotalTransaction.pages}
-													 onChange={this.onPageWallet}
+													page={this.state.currentPage}
+													count={this.state.orderTotal}
+													onChange={this.onPageChange}
 												/>
 											</div>
 											<div
 												className="position-absolute totalCount"
 												style={{ right: 23, bottom: 5 }}
 											>
-												Total Transaction: {this.state.customerWalletTotalTransaction.total}
+												Total Orders: {this.state.orders?.length}
 											</div>
 										</div>
 									</div>
 								</div>
-							{/* )} */}
+							)}
 						</>
 					)
 				}

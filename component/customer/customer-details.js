@@ -355,7 +355,11 @@ export default class CustomerDetails extends Component {
 												</MenuItem>
 												{this.state.userType?.map((value) => {
 													return (
-														<MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+														<MenuItem value={value?.key}>
+															<div className="text-capitalize">
+																{value?.key}
+															</div>
+														</MenuItem>
 													);
 												})}
 											</Select>
@@ -436,7 +440,11 @@ export default class CustomerDetails extends Component {
 												</MenuItem>
 												{this.state.userType?.map((value) => {
 													return (
-														<MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+														<MenuItem value={value?.key}>
+															<div className="text-capitalize">
+																{value?.key}
+															</div>
+														</MenuItem>
 													);
 												})}
 											</Select>
@@ -1014,79 +1022,79 @@ export default class CustomerDetails extends Component {
 					)
 				}
 
-{
+				{
 					this.state.tab === 6 && (
 						<>
 
-						<div data-Component="CustomerWallet">
-						<div className="justify-content-center d-flex w-100 mt-3">
-                                                        <div className="fitpointsCircle text-center align-items-center">
-                                                            <div className="fitpointsCircleHead">
-                                                                4000
-                                                            </div>
-                                                            Points
-                                                        </div>
-                                                    </div>
+							<div data-Component="CustomerWallet">
+								<div className="justify-content-center d-flex w-100 mt-3">
+									<div className="fitpointsCircle text-center align-items-center">
+										<div className="fitpointsCircleHead">
+											4000
+										</div>
+										Points
+									</div>
+								</div>
 
-													<div className="fitpointsCircleBanner justify-content-center d-flex w-100 mt-3 mb-2">
-                                                        Total Wallet Balance
-                                                    </div>
+								<div className="fitpointsCircleBanner justify-content-center d-flex w-100 mt-3 mb-2">
+									Total Wallet Balance
+								</div>
 
-													<div className="">
-                                                        <div className=" justify-content-between d-flex">
-                                                            <div className=" borderBox borderBoxPurple borderBoxMargin mt-3">
-                                                                <div className="row align-items-center align-content-center justify-content-center">
-                                                                    <div className="col-md-2 col-12 py-2 img">
-                                                                        <div className="borderBoxCircle img">
-                                                                            <img src="/images/VectorGift.png" className="img-fluid" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-md-9 col-12 py-2 img">
-                                                                        <div className="borderBoxInfo">
-                                                                            FitPRO Reward:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
-                                                                        </div>
-                                                                       
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-
-                                                            <div className=" borderBox borderBoxYellow borderBoxMargin mt-3">
-                                                                <div className="row align-items-center align-content-center justify-content-center">
-                                                                    <div className="col-md-2 col-12 py-2  img">
-                                                                        <div className="borderBoxCircle">
-                                                                            <img src="/images/announce1.svg" className="img-fluid" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-md-9 col-12 py-2 img">
-                                                                        <div className="borderBoxInfo">
-                                                                            Referral Points:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
-                                                                        </div>
-                                                                      
-                                                                     
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                         
-
-
-                                                           
-
-
-
-
-
-
-
-                                                        </div>
-                                                    </div>
-													<div>
-														<div className="text-center mt-3 accordionHeading">Wallet Transaction History</div>
+								<div className="">
+									<div className=" justify-content-between d-flex">
+										<div className=" borderBox borderBoxPurple borderBoxMargin mt-3">
+											<div className="row align-items-center align-content-center justify-content-center">
+												<div className="col-md-2 col-12 py-2 img">
+													<div className="borderBoxCircle img">
+														<img src="/images/VectorGift.png" className="img-fluid" />
+													</div>
+												</div>
+												<div className="col-md-9 col-12 py-2 img">
+													<div className="borderBoxInfo">
+														FitPRO Reward:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
 													</div>
 
-						</div>
+												</div>
+											</div>
+										</div>
+
+
+
+										<div className=" borderBox borderBoxYellow borderBoxMargin mt-3">
+											<div className="row align-items-center align-content-center justify-content-center">
+												<div className="col-md-2 col-12 py-2  img">
+													<div className="borderBoxCircle">
+														<img src="/images/announce1.svg" className="img-fluid" />
+													</div>
+												</div>
+												<div className="col-md-9 col-12 py-2 img">
+													<div className="borderBoxInfo">
+														Referral Points:&nbsp;<span className="borderBoxInfoVal">2000 Points</span>
+													</div>
+
+
+												</div>
+											</div>
+										</div>
+
+
+
+
+
+
+
+
+
+
+
+
+									</div>
+								</div>
+								<div>
+									<div className="text-center mt-3 accordionHeading">Wallet Transaction History</div>
+								</div>
+
+							</div>
 							<div data-component="CustomerComponent">
 								<div className="row">
 									<div className="col-md-12">
@@ -1171,7 +1179,6 @@ export default class CustomerDetails extends Component {
 						</>
 					)
 				}
-	
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}

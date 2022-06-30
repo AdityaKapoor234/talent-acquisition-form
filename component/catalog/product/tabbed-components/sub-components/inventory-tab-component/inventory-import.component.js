@@ -175,6 +175,9 @@ export default function InventoryImportComponent(props) {
             setExpireDate("");
             setIsActive(false);
             setCertificateUrl("");
+            setCountry("select");
+            setWarehouse("select");
+          
 
           }
         })
@@ -378,6 +381,9 @@ export default function InventoryImportComponent(props) {
     setExpireDate("");
     setIsActive(false);
     setCertificateUrl("");
+    setCountry("select");
+    setWarehouse("select");
+
 
   }, [props?.id]);
 
@@ -443,25 +449,25 @@ export default function InventoryImportComponent(props) {
                   return (
                     <div className="col-md-12">
                       <div className="tableCell">
-                        <div className="tableBody col">
+                        <div className="tableBody col ps-2 elip-text" title={val?.upc_code ? val?.upc_code : "-"}>
                           {val?.upc_code ? val?.upc_code : "-"}
                         </div>
-                        <div className="col text-center">
+                        <div className="col text-center px-2 elip-text" title={val?.batch_number ? val?.batch_number : "-"}>
                           {val?.batch_number ? val?.batch_number : "-"}
                         </div>
-                        <div className="col text-center">
+                        <div className="col text-center px-2 elip-text" title={val?.warehouse_location_state_id?.name ? val?.warehouse_location_state_id?.name : "-"}>
                           {val?.warehouse_location_state_id?.name ? val?.warehouse_location_state_id?.name : "-"}
                         </div>
-                        <div className="col text-center">
+                        <div className="col text-center px-2 elip-text" title={val?.country ? val?.country : "-"}>
                           {val?.country ? val?.country : "-"}
                         </div>
-                        <div className="col text-center">
+                        <div className="col text-center px-2 elip-text" title={val?.count ? val?.count : "-"}>
                           {val?.count ? val?.count : "-"}
                         </div>
-                        <div className="col text-center">
+                        <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.manufacture_date)}>
                           {convertDateStringToDateAPI(val?.manufacture_date)}
                         </div>
-                        <div className="col text-center">
+                        <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.expire_date)}>
                           {convertDateStringToDateAPI(val?.expire_date)}
                         </div>
                         <div className="col-1 text-center">
@@ -603,7 +609,7 @@ export default function InventoryImportComponent(props) {
                   style={{ color: "#012169" }}
                   checked={is_active}
                   name="is_active"
-                  onChange={(e) => { setIsActive(e.target.value) }}
+                  onChange={(e) => { setIsActive(e.target.checked) }}
                 />
                 <label>Active</label>
               </div>

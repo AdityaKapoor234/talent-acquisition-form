@@ -17,7 +17,12 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pagination from "@mui/material/Pagination";
+import ProductInfoApi from "../../../../../../services/product-info";
+import CustomerApi from "../../../../../../services/customer";
 
 export default function InventoryImportComponent(props) {
   const [isEdit, setIsEdit] = useState(false);
@@ -30,6 +35,10 @@ export default function InventoryImportComponent(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState([]);
 
+  const [countryList, setCountryList] = useState([]);
+  const [stateList, setStateList] = useState([]);
+  
+
   const [inventory, setInventory] = useState([]);
   const [active, setActive] = useState();
   const [input, setInput] = useState({
@@ -40,7 +49,9 @@ export default function InventoryImportComponent(props) {
     "expire_date": "",
     "certificate_url": "",
     "upc_code": "",
-    "is_active": false
+    "is_active": false,
+    "country": "select",
+    "warehouse": "",
   });
   const [upc_code, setUpcCode] = useState("");
   const [batch_number, setBatchNumber] = useState(null);
@@ -49,6 +60,8 @@ export default function InventoryImportComponent(props) {
   const [expire_date, setExpireDate] = useState("");
   const [is_active, setIsActive] = useState(false);
   const [certificate_url, setCertificateUrl] = useState("");
+  const [country, setCountry] = useState("select");
+  const [warehouse, setWarehouse] = useState("select");
   const [is_all, setIsAll] = useState(false);
   const [is_upc_code, setIsUpcCode] = useState(false);
   const [is_batch_number, setIsBatchNumber] = useState(false);
@@ -56,6 +69,8 @@ export default function InventoryImportComponent(props) {
   const [is_manufacture_date, setIsManufactureDate] = useState(false);
   const [is_expire_date, setIsExpireDate] = useState(false);
   const [is_certificate_url, setIsCertificateUrl] = useState(false);
+  const [is_warehouse_location, setIsWarehouseLocation] = useState(false);
+  const [is_country, setIsCountry] = useState(false);
 
 
   function setTab(value, url) {
@@ -70,6 +85,8 @@ export default function InventoryImportComponent(props) {
     setIsManufactureDate(false);
     setIsExpireDate(false);
     setIsCertificateUrl(false);
+    setIsWarehouseLocation(false);
+    setIsCountry(false);
     // setIsActive(false);
 
     if (upc_code === "" || upc_code === null || upc_code.replace(/\s/g, "").length <= 0) {
@@ -102,6 +119,17 @@ export default function InventoryImportComponent(props) {
       setIsCertificateUrl(true);
       isValid = false;
     }
+    if (warehouse === "" || warehouse === null || warehouse.replace(/\s/g, "").length <= 0) {
+      // toast.error("Please enter upc code");
+      setIsWarehouseLocation(true);
+      isValid = false;
+    }
+    if (country === "select" || country === null || country.replace(/\s/g, "").length <= 0) {
+      // toast.error("Please enter upc code");
+      setIsCountry(true);
+      isValid = false;
+    }
+
 
     return isValid;
 
@@ -123,6 +151,8 @@ export default function InventoryImportComponent(props) {
         best_before_months: "",
         is_active: is_active,
         certificate_url: certificate_url,
+        country_id: parseInt(country),
+        warehouse_location_state_id: parseInt(warehouse),
       }
       if (data.is_active === "on") {
         data.is_active = true;
@@ -232,6 +262,45 @@ export default function InventoryImportComponent(props) {
       });
   };
 
+  const getCountry = () => {
+    ProductInfoApi.country()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setCountryList(response.data.data?.list);
+        }
+      })
+      .catch((error) => {
+      });
+  }
+
+  const getState = () => {
+    // AddressService.getState()
+    CustomerApi.getState()
+      .then((response) => {
+        if (response?.data?.httpStatusCode === 200) {
+          setStateList(response?.data.data?.list);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime.",
+          {
+            autoClose: 5000,
+          }
+        );
+      });
+  };
+
+
+  const countryChange = (event) => {
+    setCountry(event.target.value);
+  };
+
+
   const ActivationButton = () => {
     let data = {
       "is_active": active ? false : true
@@ -294,6 +363,8 @@ export default function InventoryImportComponent(props) {
 
   useEffect(() => {
     getInventoryList(id, 1);
+    getCountry();
+    getState();
   }, []);
 
   useEffect(() => {
@@ -354,6 +425,8 @@ export default function InventoryImportComponent(props) {
               <div className="tableRow">
                 <div className="col">UPC Code</div>
                 <div className="col text-center">Batch No</div>
+                <div className="col text-center">Warehouse</div>
+                <div className="col text-center">Country</div>
                 <div className="col  text-center">Quantity</div>
                 <div className="col text-center">Mfg Date</div>
                 <div className="col  text-center">Exp Date</div>
@@ -375,6 +448,12 @@ export default function InventoryImportComponent(props) {
                         </div>
                         <div className="col text-center">
                           {val?.batch_number ? val?.batch_number : "-"}
+                        </div>
+                        <div className="col text-center">
+                          {val?.warehouse_location_state_id?.name ? val?.warehouse_location_state_id?.name : "-"}
+                        </div>
+                        <div className="col text-center">
+                          {val?.country ? val?.country : "-"}
                         </div>
                         <div className="col text-center">
                           {val?.count ? val?.count : "-"}
@@ -529,6 +608,160 @@ export default function InventoryImportComponent(props) {
                 <label>Active</label>
               </div>
             </div>
+
+
+
+
+            {/* <div className="col-md-4">
+              <div className="login-form ">
+                <label>
+                  Warehouse Location<span className="mandatory-star">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="warehouse"
+                  value={warehouse}
+                  onChange={(e) => { setWarehouse(e.target.value) }}
+                />
+                {is_warehouse_location === true ? <small className="form-text text-danger" >Please Enter Warehouse Location</small> : ""}
+              </div>
+            </div> */}
+
+
+
+
+
+            <div className="col-md-4">
+              <div data-component="inventoryCountry">
+                <div className="login-form select-dropdown">
+                  <label>
+                  Warehouse Location<span className="mandatory-star">*</span>
+                  </label>
+
+
+                  <div className="sort-by-select-wrapper">
+                    {/* <Select
+                      disableUnderline
+                      variant="standard"
+                      // disabled={mode === "view" ? true : false}
+                      autoWidth={true}
+                      IconComponent={ExpandMoreIcon}
+                      name="country"
+                      // onChange={(e) => { setWarehouse(e.target.value) }}
+                      onChange={countryChange}
+                      className="sort-by-select w-100 selectCountry"
+                      value={country}
+                    >
+                      <MenuItem
+                        value="select"
+                        disabled
+                        className="field_toggle_checked"
+                      >
+                        Select Country{" "}
+                      </MenuItem>
+                      {
+                        countryList?.map(elem => {
+                          return (
+                            <>
+                              <MenuItem value={elem?.id}>
+                                {elem?.name}
+                              </MenuItem>
+                            </>
+                          )
+                        })
+                      }
+                    </Select> */}
+
+                    <select className='selectCountry'
+                      // disabled={this.state.mode === "view" ? true : false}
+                      value={warehouse}
+                      name="origin_country_id"
+                      onChange={(e) => { setWarehouse(e.target.value) }}
+                    >
+                      <option value={"select"} disabled>Select State</option>
+                      {stateList?.map(val => {
+                        return (
+                          <option value={val?.id}>{val?.name}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                  {is_warehouse_location === true ? <small className="form-text text-danger" >Please Enter Warehouse Location</small> : ""}
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+            <div className="col-md-4">
+              <div data-component="inventoryCountry">
+                <div className="login-form select-dropdown">
+                  <label>
+                    Country<span className="mandatory-star">*</span>
+                  </label>
+
+
+                  <div className="sort-by-select-wrapper">
+                    {/* <Select
+                      disableUnderline
+                      variant="standard"
+                      // disabled={mode === "view" ? true : false}
+                      autoWidth={true}
+                      IconComponent={ExpandMoreIcon}
+                      name="country"
+                      // onChange={(e) => { setCountry(e.target.value) }}
+                      onChange={countryChange}
+                      className="sort-by-select w-100 selectCountry"
+                      value={country}
+                    >
+                      <MenuItem
+                        value="select"
+                        disabled
+                        className="field_toggle_checked"
+                      >
+                        Select Country{" "}
+                      </MenuItem>
+                      {
+                        countryList?.map(elem => {
+                          return (
+                            <>
+                              <MenuItem value={elem?.id}>
+                                {elem?.name}
+                              </MenuItem>
+                            </>
+                          )
+                        })
+                      }
+                    </Select> */}
+
+                    <select className='selectCountry'
+                      // disabled={this.state.mode === "view" ? true : false}
+                      value={country}
+                      name="origin_country_id"
+                      // onChange={this.handleChange.bind(this)}
+                      onChange={countryChange}
+                    >
+                      <option value={"select"} disabled>Select Country</option>
+                      {countryList?.map(val => {
+                        return (
+                          <option value={val?.id}>{val?.name}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                  {is_country === true ? <small className="form-text text-danger" >Please Enter Country</small> : ""}
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
             <div className="col-md-12">
               <div className="">
                 <PDF

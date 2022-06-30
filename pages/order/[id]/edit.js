@@ -130,7 +130,7 @@ export default function OrderEditDetails({ id }) {
                             <div className="hamburger">
                                 <span>order / order / </span>Edit order{" "}
                             </div>
-                            <div className="page-name">Order - {order?.name}</div>
+                            <div className="page-name">Order - {order?.order?.id}</div>
                         </div>
                         <div className="col-md-7 btn-save">
                             <div

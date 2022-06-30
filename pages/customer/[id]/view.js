@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import CustomerComponent from "../../../component/customer/customer-list";
 import Pagination from "@mui/material/Pagination";
-import CustomerDetail from "../../../component/customer/customer-details";
+import CustomerDetails from "../../../component/customer/customer-details";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import CustomerApi from "../../../services/customer";
@@ -20,59 +20,78 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function CustomerViewDetails({id}) {
+export default class CustomerViewDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: props?.id,
+      mode: "view",
+      customer: [],
+      active: false,
+      is_all: false,
+      wishList: [],
+      userType: [],
+      wishListTotalProduct: "",
+      totalWishListPage: "",
+      shoppingCart: [],
+      shoppingCartTotal: "",
+      customerWallet:"",
+      customerWalletTransaction:"",
+      page:1,
+    };
+  }
 
-  const mode = "view";
-
-  const [customer,setCustomer]=useState([]);
-  const [wishList,setWishList]=useState([]);
-  const [wishListTotalProduct,setWishListTotalProduct]=useState("");
-  const [totalWishListPage,setTotalWishListPage]=useState("");
-  const [shoppingCart,setShoppingCart]=useState([]);
-  const [shoppingCartTotal,setShoppingCartTotal]=useState("");
 
 
-  const customerDetail =(id)=>{
+
+  customerDetail = (id) => {
     CustomerApi
-    .getCustomerDetails(id)
-    .then((response) => {
-      setCustomer(response.data.data.user)
-    })
-    .catch((error) => {
-      toast.error(
-        error?.response &&
-          error?.response?.data &&
-          error?.response?.data?.message
-          ? error.response.data.message
-          : "Unable to process your request, please try after sometime"
-      );
-    });
+      .getCustomerDetails(id)
+      .then((response) => {
+        this.setState({ customer: response.data.data.user });
+        let input = {
+          phone_number: response.data.data.user.phone_number,
+          name: response.data.data.user.name,
+          email: response.data.data.user.email,
+          user_type: response.data.data.user.user_type,
+          is_active: response.data.data.user.is_active,
+        }
+        this.setState({ customerDetails: input });
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
   }
 
-  const wishListDetail =(id, page)=>{
+  wishListDetail = (id, page) => {
     CustomerApi.WishList(id, page)
-    .then((response) => {
-      setWishList(response.data.data.list);
-      setWishListTotalProduct(response.data.data.total);
-      setTotalWishListPage(Math.ceil(response.data.data.total / response.data.data.page_size));
-
-    })
-    .catch((error) => {
-      toast.error(
-        error?.response &&
-          error?.response?.data &&
-          error?.response?.data?.message
-          ? error.response.data.message
-          : "Unable to process your request, please try after sometime"
-      );
-    });
+      .then((response) => {
+        this.setState({ wishList: response.data.data.list })
+        this.setState({ wishListTotalProduct: response.data.data.total })
+        this.setState({ totalWishListPage: Math.ceil(response.data.data.total / response.data.data.page_size) })
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
   }
 
-  const shoppingCartDetail =(id)=>{
+  shoppingCartDetail =(id)=>{
     CustomerApi.ShoppingCartList(id)
     .then((response) => {
-      setShoppingCart(response.data.data.orders);
-      setShoppingCartTotal(response.data.data.cart_price);
+      this.setState({shoppingCart: response.data.data.orders});
+      this.setState({shoppingCartTotal: response.data.data.cart_price});
     })
     .catch((error) => {
       toast.error(
@@ -86,55 +105,138 @@ export default function CustomerViewDetails({id}) {
   }
 
 
-  const wishListPage = (value) => {
-    wishListDetail(id, value);
+  customerTypeDropdownDetail = () => {
+    CustomerApi.getCustomerTypeDropdownDetails()
+      .then((response) => {
+        this.setState({ userType: response.data.data.list })
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
   }
 
-  useEffect(() => {
+
+  customerWallet =(id)=>{
+    CustomerApi.getCustomerWallet(id)
+    .then((response) => {
+      // this.setState({shoppingCart: response.data.data.orders});
+      // this.setState({shoppingCartTotal: response.data.data.cart_price});
+      this.setState({customerWallet: response.data.data});
+      
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
+
+  customerWalletTransactionList =(page,id)=>{
+    CustomerApi.getCustomerWalletTransaction(page,id)
+    .then((response) => {
+      // console.log(response)
+      this.setState({customerWalletTransaction: response.data.data.transation});
+      this.setState({customerWalletTotalTransaction: response.data.data})
+      
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
+
+
+  wishListPage = (value) => {
+    this.wishListDetail(this.state.id, value);
+  }
+
+  componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    customerDetail(id);
-    wishListDetail(id, "1");
-    shoppingCartDetail(id);
-  }, [id]);
-  return (
-    <div>
-      <Head>
-        <title>{APP_NAME} - Customer</title>
-        <meta name="description" content="Trusted Brands. Better Health." />
-        <link rel="icon" href="/fitcart.ico" />
-      </Head>
+    this.customerDetail(this.state.id);
+    this.wishListDetail(this.state.id, "1");
+    this.customerTypeDropdownDetail();
+    this.shoppingCartDetail(this.state.id);
+    this.customerWallet(this.state.id);
+    this.customerWalletTransactionList(this.state.page,this.state.id);
+  }
+  render() {
+    return (
+      <div>
+        <Head>
+          <title>{APP_NAME} - Customer</title>
+          <meta name="description" content="Trusted Brands. Better Health." />
+          <link rel="icon" href="/fitcart.ico" />
+        </Head>
 
-      <main>
-        <DashboardLayoutComponent>
-          <div className="row border-box">
-            <div className="col-md-10">
-              <div className="hamburger">
-                <span>customer / customer / </span>View customer{" "}
+        <main>
+          <DashboardLayoutComponent>
+            <div className="row border-box">
+              <div className="col-md-6">
+                <div className="hamburger">
+                  <span>Customer / Customer / </span>View Customer{" "}
+                </div>
+                <div className="page-name">Customer - {this.state.customer?.name}</div>
               </div>
-              <div className="page-name">Customer - {customer?.name}</div>
-            </div>
-            <div className="col-md-2 btn-save">
-              <div
-                className="Cancel-btn custom-btn"
-                style={{width:"100%"}}
-                onClick={() => {
-                  Router.push(`/customer`);
-                }}
-              >
-                <span>Cancel </span>
+              <div className="col-md-6 btn-save">
+                {/* <div
+                  className="custom-btn "
+                  onClick={() => {
+                    this.saveDetails(this.state.id)
+                  }}
+                >
+                  <span>Save </span>
+                </div> */}
+                <div
+                  className="Cancel-btn custom-btn"
+                  onClick={() => {
+                    Router.push(`/customer`);
+                  }}
+                >
+                  <span>Cancel </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-m-12">
-              <CustomerDetail customer={customer} id={id} mode={mode} wishList={wishList} totalWishListPage={totalWishListPage} wishListTotalProduct={wishListTotalProduct} wishListPage={wishListPage} shoppingCart={shoppingCart} shoppingCartTotal={shoppingCartTotal}/>
+            <div className="row">
+              <div className="col-m-12">
+                <CustomerDetails
+                  customer={this.state.customer} 
+                  id={this.state.id} 
+                  mode={this.state.mode} 
+                  userType={this.state.userType} 
+                  wishList={this.state.wishList} 
+                  totalWishListPage={this.state.totalWishListPage} 
+                  wishListTotalProduct={this.state.wishListTotalProduct} 
+                  wishListPage={this.wishListPage.bind(this)} 
+                  shoppingCart={this.state.shoppingCart} 
+                  shoppingCartTotal={this.state.shoppingCartTotal} 
+                  customerWallet={this.state.customerWallet} 
+                  customerWalletTransaction={this.state.customerWalletTransaction}
+                  customerWalletTotalTransaction={this.state.customerWalletTotalTransaction} 
+                  customerWalletTransactionList={this.customerWalletTransactionList.bind(this)}
+                />
+              </div>
             </div>
-          </div>
-        </DashboardLayoutComponent>
-      </main>
-    </div>
-  );
+          </DashboardLayoutComponent>
+        </main>
+      </div>
+    );
+  }
 }

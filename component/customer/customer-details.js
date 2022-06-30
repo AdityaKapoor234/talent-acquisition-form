@@ -546,7 +546,8 @@ export default class CustomerDetails extends Component {
 											size="small"
 											disabled
 											style={{ color: "#012169" }}
-											checked={this.state.customer?.is_active}
+											checked={this.state.active}
+										// checked={this.state.customer?.is_active}
 										/>
 										<label>Active</label>
 									</div>
@@ -826,14 +827,18 @@ export default class CustomerDetails extends Component {
 														</div>
 														{/* <div className="col-3 text-center">COD</div> */}
 														<div className="col text-center">
-															₹{" "}
-															{p?.total
-																?.toFixed(2)
-																.toString()
-																.replace(
-																	/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
-																	","
-																)}
+															{p?.total ? <>₹{" "}</> : ""}
+															{p?.total ?
+																p?.total
+																	?.toFixed(2)
+																	.toString()
+																	.replace(
+																		/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
+																		","
+																	)
+																:
+																"-"
+															}
 														</div>
 														{/* <div className="col-1 text-center">
                             <CheckCircleOutlineOutlinedIcon className="check-icon" />
@@ -1127,14 +1132,27 @@ export default class CustomerDetails extends Component {
 														</div>
 														{/* <div className="col-3 text-center">COD</div> */}
 														<div className="col text-center">
-															₹{" "}
+														{p?.total ? <>₹{" "}</> : ""}
+															{p?.total ?
+																p?.total
+																	?.toFixed(2)
+																	.toString()
+																	.replace(
+																		/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
+																		","
+																	)
+																:
+																"-"
+															}
+
+															{/* ₹{" "}
 															{p?.total
 																?.toFixed(2)
 																.toString()
 																.replace(
 																	/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g,
 																	","
-																)}
+																)} */}
 														</div>
 														{/* <div className="col-1 text-center">
                             <CheckCircleOutlineOutlinedIcon className="check-icon" />

@@ -35,6 +35,7 @@ export default class ReviewCreateDetails extends Component {
             id: props?.id,
             mode: "edit",
             review: {},
+            review2: {},
             open: false,
             reviewDetails: {
                 rating: null,
@@ -140,12 +141,36 @@ export default class ReviewCreateDetails extends Component {
         this.setState({ reviewDetails: value });
     };
 
+    reviewList = (id, page, search) => {
+        // this.setState({ isLoader: true });
+        ReviewApi.reviewList(id, page, search)
+            .then((response) => {
+                this.setState({
+                    review2: response.data.data,
+                    // isLoader: false,
+                });
+            })
+            .catch((error) => {
+                // this.setState({ isLoader: false });
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    };
+
+
     componentDidMount() {
         const token = Cookie.get("access_token_admin");
         if (token === undefined) {
             Router.push("/");
         }
         this.setState({ id: this.props?.id });
+        this.reviewList(this.props?.id, 1, "");
+
     }
 
     render() {
@@ -160,15 +185,15 @@ export default class ReviewCreateDetails extends Component {
                 <main>
                     <DashboardLayoutComponent>
                         <div className="row border-box">
-                            <div className="col-md-5">
+                            <div className="col-md-7">
                                 <div className="hamburger">
                                     <span>Catalog / Product Review / </span>Add a New Product Review
                                 </div>
                                 <div className="page-name">
-                                    Add a New Product Review Details - {this.state.review?.name}
+                                    Add a New Product Review Details - {this.state.review2?.product_name}
                                 </div>
                             </div>
-                            <div className="col-md-7 btn-save">
+                            <div className="col-md-5 btn-save">
                                 <div
                                     className="custom-btn "
                                     onClick={() => {

@@ -167,15 +167,15 @@ export default class ReviewEditDetails extends Component {
         <main>
           <DashboardLayoutComponent>
             <div className="row border-box">
-              <div className="col-md-5">
+              <div className="col-md-7">
                 <div className="hamburger">
                   <span>Catalog / Product Review / </span>Edit Product Review
                 </div>
                 <div className="page-name">
-                  Edit Product Review Details - {this.state.review?.name}
+                  Edit Product Review Details - {this.state.review?.product_name}
                 </div>
               </div>
-              <div className="col-md-7 btn-save">
+              <div className="col-md-5 btn-save">
                 <div
                   className="custom-btn "
                   onClick={() => {

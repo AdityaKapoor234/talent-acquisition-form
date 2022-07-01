@@ -361,7 +361,7 @@ export default class CustomerDetails extends Component {
 												name="user_type"
 												onChange={this.handleChange}
 												className="sort-by-select"
-												value={this.state.input?.user_type}
+												value={this.state.input?.user_type?.toLowerCase()}
 											>
 												<MenuItem
 													value="select"
@@ -372,7 +372,11 @@ export default class CustomerDetails extends Component {
 												</MenuItem>
 												{this.state.userType?.map((value) => {
 													return (
-														<MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+														<MenuItem value={value?.user_type?.toLowerCase()}>
+															<div className="text-capitalize">
+																{value?.user_type}
+															</div>
+														</MenuItem>
 													);
 												})}
 											</Select>
@@ -442,7 +446,7 @@ export default class CustomerDetails extends Component {
 												name="user_type"
 												onChange={this.handleChange}
 												className="sort-by-select"
-												value={this.state.input?.user_type}
+												value={this.state.input?.user_type?.toLowerCase()}
 											>
 												<MenuItem
 													value="select"
@@ -453,7 +457,11 @@ export default class CustomerDetails extends Component {
 												</MenuItem>
 												{this.state.userType?.map((value) => {
 													return (
-														<MenuItem value={value?.user_type}>{value?.user_type}</MenuItem>
+														<MenuItem value={value?.user_type?.toLowerCase()}>
+															<div className="text-capitalize">
+																{value?.user_type}
+															</div>
+														</MenuItem>
 													);
 												})}
 											</Select>

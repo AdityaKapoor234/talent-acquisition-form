@@ -271,7 +271,7 @@ export const GST_DROPDOWN = `${ORDER_SERVICE}/manage/gst/all`;
 export const CERTIFICATION_LIST = `${PRODUCT_SERVICE}/manage/certification/?page={{page}}&q={{search}}`;
 export const CERTIFICATION_VIEW = `${PRODUCT_SERVICE}/manage/certification/{{id}}`;
 export const CERTIFICATION_EDIT = `${PRODUCT_SERVICE}/manage/certification/{{id}}`;
-export const CERTIFICATION_CREATE = `${PRODUCT_SERVICE}/manage/certification`;
+export const CERTIFICATION_CREATE = `${PRODUCT_SERVICE}/manage/certification/add`;
 
 
 //REVIEW

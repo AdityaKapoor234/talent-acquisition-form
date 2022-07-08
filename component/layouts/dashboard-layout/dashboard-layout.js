@@ -43,7 +43,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabHsnCode, setHsnCode] = useState(pathArr === "gst" ? true : false);
     const [tabTestimonial, setTestimonail] = useState(pathArr === "testimonial" || pathArr === "testimonial-category" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" || pathArr === "product-review" ? true : false);
-    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription" ? true : false || pathArr === "coupon-log" ? true : false);
+    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription" ? true : false || pathArr === "coupon-log" ? true : false || pathArr === "max-members" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "email-support" ? true : false);
@@ -176,11 +176,13 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabCustomer &&
                                     <ul>
                                         <li className={categary === "customer" ? "sub_active" : ""} onClick={() => handleCategary("/customer", "customer")}>customer</li>
+                                        <li className={categary === "max-members" ? "sub_active" : ""} onClick={() => handleCategary("/max-members", "max-members")}>Max Members</li>
                                         <li className={categary === "customer-type" ? "sub_active" : ""} onClick={() => handleCategary("/customer-type", "customer-type")}>customer type</li>
                                         <li className={categary === "customer-support-information" ? "sub_active" : ""} onClick={() => handleCategary("/customer-support-information", "customer-support-information")}>customer support info</li>
                                         {/* <li className={categary=== "customer-type" ? "sub_active":""} onClick={()=> handleCategary("#","customer-type")}>customer type</li> */}
                                         <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>NewsLetter Subscribers</li>
                                         <li className={categary === "coupon-log" ? "sub_active" : ""} onClick={() => handleCategary("/coupon-log", "coupon-log")}>Coupon Log</li>
+                                       
                                     </ul>
                                 }
                                 <div className={tabDiscount ? 'menu-btn active' : 'menu-btn'} onClick={() => setDiscount(!tabDiscount)}>

@@ -134,7 +134,9 @@ export default function Bulk_Buys() {
                                         onChange={handleFilter}
                                         onKeyPress={handleKeyPress}
                                     />
-                                    <SearchIcon className="search-icon point-but"  />
+                                    <span onClick={handleClickPress}>
+                                        <SearchIcon className="search-icon point-but"  />
+                                    </span>
                                 </div>
                             </div>
                            

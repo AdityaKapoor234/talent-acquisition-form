@@ -282,7 +282,7 @@ export default class OrderDetails extends Component {
                                                                             <span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
                                                                         </span>
                                                                         <span className="orderLine mt-4">
-                                                                            <span className="orderInfoValQuant elip-text">{p?.size}</span>
+                                                                            <span className="orderInfoValQuant elip-text">{p?.size}&nbsp;{p?.size_unit}</span>
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -505,7 +505,7 @@ export default class OrderDetails extends Component {
                                                                             <span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
                                                                         </span>
                                                                         <span className="orderLine mt-4">
-                                                                            <span className="orderInfoValQuant elip-text">{p?.size}</span>
+                                                                            <span className="orderInfoValQuant elip-text">{p?.size}&nbsp;{p?.size_unit}</span>
                                                                         </span>
                                                                     </div>
                                                                 </div>

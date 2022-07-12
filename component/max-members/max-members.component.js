@@ -9,16 +9,16 @@ export default class MaxMembersList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customer: props?.customer,
+      maxMembers: props?.maxMembers,
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      prevState.customer !== nextProps.customer
+      prevState.maxMembers !== nextProps.maxMembers
     ) {
       return {
-        customer: nextProps?.customer
+        maxMembers: nextProps?.maxMembers
       };
     }
     return null;
@@ -57,14 +57,14 @@ export default class MaxMembersList extends Component {
               <div className="col-3 px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
               <div className="col px-2 text-center">Reg. Date</div>
-              <div className="col-1 text-center">Active</div>
+              <div className="col-1 text-center">Premium</div>
               <div className="col-1 text-end">Action</div>
             </div>
           </div>
         </div>
         {
-		this.state.customer && this.state.customer.length === 0 ? <div className="not-found">No Data Found</div> :
-          this.state.customer?.map((p, index) => {
+		this.state.maxMembers && this.state.maxMembers.length === 0 ? <div className="not-found">No Data Found</div> :
+          this.state.maxMembers?.map((p, index) => {
           return (
             <div className="row" key={index}>
               <div className="col-md-12">
@@ -77,7 +77,7 @@ export default class MaxMembersList extends Component {
                   <div className="col px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_number}</div>
                   <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                   <div className="col-1 text-center">
-                    {p?.is_active === true ? (
+                    {p?.is_premium === true ? (
                       <CheckCircleOutlineOutlinedIcon className="check-icon" />
                     ) : (
                       <CancelOutlinedIcon className="cancel-icon" />

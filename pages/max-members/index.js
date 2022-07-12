@@ -19,122 +19,123 @@ import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
 
 export default function MaxMembers() {
-	// const pathArr = useRouter();
-	// const [customer, setCustomer] = useState([]);
-	// const [customerExcel, setCustomerExcelList] = useState([]);
-	// const [totalCustomer, setTotalCustomer] = useState([]);
-	// const [wordEntered, setWordEntered] = useState(
-	// 	pathArr.query?.q ? pathArr.query?.q : ""
-	// );
-	// const [totalPage, setTotalPage] = useState(1);
-	// const [currentPage, setCurrentPage] = useState(1);
-	// const [isLoader, setIsLoader] = useState(true);
+	const pathArr = useRouter();
+	const [maxMembers, setMaxMembers] = useState([]);
+	 const [maxMembersExcel, setMaxMembersExcelList] = useState([]);
+	 const [totalMaxMembers, setTotalMaxMembers] = useState([]);
+	 const [wordEntered, setWordEntered] = useState(
+		pathArr.query?.q ? pathArr.query?.q : ""
+	);
+	const [totalPage, setTotalPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
+    const [isLoader, setIsLoader] = useState(true);
 
-	// const handleKeyPress = (event) => {
-	// 	let router_query_object = {};
-	// 	if (wordEntered !== "") {
-	// 		router_query_object["q"] = wordEntered;
-	// 	}
-	// 	if (event.key === "Enter") {
-	// 		Router.push({
-	// 			pathname: "/customer",
-	// 			query: router_query_object,
-	// 		});
-	// 		setCurrentPage(1)
-	// 		customerList(1, wordEntered);
-	// 	}
-	// };
+	const handleKeyPress = (event) => {
+		let router_query_object = {};
+		if (wordEntered !== "") {
+			router_query_object["q"] = wordEntered;
+		}
+		if (event.key === "Enter") {
+			Router.push({
+				pathname: "/max-members",
+				query: router_query_object,
+			});
+			setCurrentPage(1)
+			maxMembersList(1, wordEntered);
+		}
+	};
 
-	// const handleClickPress = (event) => {
-	// 	let router_query_object = {};
-	// 	if (wordEntered !== "") {
-	// 		router_query_object["q"] = wordEntered;
-	// 	}
-	// 	Router.push({
-	// 		pathname: "/customer",
-	// 		query: router_query_object,
-	// 	});
-	// 	setCurrentPage(1)
-	// 	customerList(1, wordEntered);
-	// };
+	const handleClickPress = (event) => {
+		let router_query_object = {};
+		if (wordEntered !== "") {
+			router_query_object["q"] = wordEntered;
+		}
+		Router.push({
+			pathname: "/max-members",
+			query: router_query_object,
+		});
+		setCurrentPage(1)
+		maxMembersList(1, wordEntered);
+	};
 
-	// const handleFilter = (event) => {
-	// 	const searchWord = event.target.value;
-	// 	setWordEntered(searchWord);
-	// 	if (event.target.value === "") {
-	// 		Router.push({
-	// 			pathname: "/customer",
-	// 			query: "",
-	// 		});
-	// 		customerList(1, "");
-	// 	}
-	// };
+	const handleFilter = (event) => {
+		const searchWord = event.target.value;
+		setWordEntered(searchWord);
+		if (event.target.value === "") {
+			Router.push({
+				pathname: "/max-members",
+				query: "",
+			});
+			maxMembersList(1, "");
+		}
+	};
 
-	// let onPageChange = function (e, page) {
-	// 	setCurrentPage(page)
-	// 	customerList(page, wordEntered)
-	// };
+	let onPageChange = function (e, page) {
+		setCurrentPage(page)
+		maxMembersList(page, wordEntered)
+	};
 
-	// const handleOnExport = () => {
-	// 	var XLSX = require("xlsx");
-	// 	var wb = XLSX.utils.book_new();
-	// 	var ws = XLSX.utils.json_to_sheet(customerExcel);
+	const handleOnExport = () => {
+		var XLSX = require("xlsx");
+		var wb = XLSX.utils.book_new();
+		var ws = XLSX.utils.json_to_sheet(maxMembersExcel);
 
-	// 	XLSX.utils.book_append_sheet(wb, ws, "CustomerList");
+		XLSX.utils.book_append_sheet(wb, ws, "MaxMembersList");
 
-	// 	XLSX.writeFile(wb, "Customer List.xlsx");
-	// };
-
-
-	// const customerList = (page, search) => {
-	// 	setIsLoader(true);
-	// 	CustomerApi.CustomerList(page, search)
-	// 		.then((response) => {
-	// 			console.log(response,"test")
-	// 			setCustomer(response.data.data.list);
-	// 			setTotalCustomer(response.data.data);
-	// 			setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
-	// 			setIsLoader(false);
-	// 		})
-	// 		.catch((error) => {
-	// 			setIsLoader(false);
-	// 			toast.error(
-	// 				error?.response &&
-	// 					error?.response?.data &&
-	// 					error?.response?.data?.message
-	// 					? error.response.data.message
-	// 					: "Unable to process your request, please try after sometime"
-	// 			);
-	// 		});
-	// };
+		XLSX.writeFile(wb, "Max-Members List.xlsx");
+	};
 
 
-	// const customerExcelList = () => {
-	// 	setIsLoader(true);
-	// 	ExcelApi.CustomerExcelList()
-	// 		.then((response) => {
-	// 			setCustomerExcelList(response.data.data.list);
-	// 			setIsLoader(false);
-	// 		})
-	// 		.catch((error) => {
-	// 			setIsLoader(false);
-	// 			toast.error(
-	// 				error?.response &&
-	// 					error?.response?.data &&
-	// 					error?.response?.data?.message
-	// 					? error.response.data.message
-	// 					: "Unable to process your request, please try after sometime"
-	// 			);
-	// 		});
-	// };
-	// useEffect(() => {
-	// 	const token = Cookie.get("access_token_admin");
-	// 	if (token === undefined) {
-	// 		Router.push("/");
-	// 	}
-	// 	customerList(currentPage, "");
-	// 	customerExcelList();
-	// }, []);
+	const maxMembersList = (page, search) => {
+		setIsLoader(true);
+		CustomerApi.getMaxMemberslist(page, search)
+			.then((response) => {
+				console.log(response,"test")
+				setMaxMembers(response.data.data.list);
+				setTotalMaxMembers(response.data.data);
+				setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+				setIsLoader(false);
+			})
+			.catch((error) => {
+				setIsLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+			});
+	};
+
+
+	const maxMembersExcelList = () => {
+		setIsLoader(true);
+		ExcelApi.downloadMaxMemberslist()
+			.then((response) => {
+				console.log(response)
+				setMaxMembersExcelList(response.data.data.user);
+				setIsLoader(false);
+			})
+			.catch((error) => {
+				setIsLoader(false);
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime"
+				);
+			});
+	};
+	useEffect(() => {
+		const token = Cookie.get("access_token_admin");
+		if (token === undefined) {
+			Router.push("/");
+		}
+		maxMembersList(currentPage, "");
+		maxMembersExcelList();
+	}, []);
 	return (
 		<div>
 			<div page-component="customer-page">
@@ -159,19 +160,19 @@ export default function MaxMembers() {
 										type="text"
 										placeholder="Search..."
 										className="search-box"
-										// value={wordEntered}
-										// onChange={handleFilter}
-										// onKeyPress={handleKeyPress}
+										value={wordEntered}
+										onChange={handleFilter}
+										onKeyPress={handleKeyPress}
 									/>
 									<SearchIcon className="search-icon point-but" style={{right:"13.8rem!important"}}
-                                    //  onClick={handleClickPress} 
+                                      onClick={handleClickPress} 
                                     />
 								</div>
 							</div>
 							<div className="col-md-2 btn-save">
 								<div className="custom-btn ">
 									<span
-										// onClick={handleOnExport}
+										 onClick={handleOnExport}
 										className="d-flex"
 									>
 										Download&nbsp;<FileDownloadIcon />
@@ -191,7 +192,7 @@ export default function MaxMembers() {
 						</div>
 						<div className="row sticky-scroll scroll">
 							<div className="col-md-12 ">
-								{/* {
+								{
 									isLoader ? (
 										<div className="row justify-content-center">
 											<div className="col-md-12 loader-cart">
@@ -203,10 +204,13 @@ export default function MaxMembers() {
 											</div>
 										</div>
 									) : (
-										< MaxMembersList customer={customer} />
+										
+										< MaxMembersList  maxMembers={maxMembers} />	
+										
+										
 									)
-								} */}
-< MaxMembersList  />
+								}
+
 							</div>
 						</div>
 						<div className="row">
@@ -215,14 +219,14 @@ export default function MaxMembers() {
 									<div>
 										<Pagination
 											className="pagination pagi"
-											// page={currentPage}
-											// count={totalPage}
+											page={currentPage}
+											count={totalPage}
 											// onChange={onPageChange}
 										/>
 									</div>
 									<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
 										Total Members: 
-                                        {/* {totalCustomer.total} */}
+                                        {totalMaxMembers.total}
 									</div>
 								</div>
 							</div>

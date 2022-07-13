@@ -23,70 +23,70 @@ export default function Bulk_Edit_Product() {
     const [page, setPage] = useState(1);
 
     // const [customerExcel, setCustomerExcelList] = useState([]);
-      const [totalProduct, setTotalProduct] = useState([]);
+    const [totalProduct, setTotalProduct] = useState([]);
     const [wordEntered, setWordEntered] = useState(
-    	pathArr.query?.q ? pathArr.query?.q : ""
+        pathArr.query?.q ? pathArr.query?.q : ""
     );
-      const [totalPage, setTotalPage] = useState(1);
-      const [currentPage, setCurrentPage] = useState(1)
-      const [isLoader, setIsLoader] = useState(true);
+    const [totalPage, setTotalPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1)
+    const [isLoader, setIsLoader] = useState(true);
 
     const handleKeyPress = (event) => {
-    	let router_query_object = {};
-    	if (wordEntered !== "") {
-    		router_query_object["q"] = wordEntered;
-    	}
-    	if (event.key === "Enter") {
-    		Router.push({
-    			pathname: "/bulk-edit-product",
-    			query: router_query_object,
-    		});
-    		setCurrentPage(1)
+        let router_query_object = {};
+        if (wordEntered !== "") {
+            router_query_object["q"] = wordEntered;
+        }
+        if (event.key === "Enter") {
+            Router.push({
+                pathname: "/bulk-edit-product",
+                query: router_query_object,
+            });
+            setCurrentPage(1)
             BulkEditProduct(1, wordEntered);
-    	}
+        }
     };
 
     const handleClickPress = (event) => {
-    	let router_query_object = {};
-    	if (wordEntered !== "") {
-    		router_query_object["q"] = wordEntered;
-    	}
-    	Router.push({
-    		pathname: "/bulk-edit-product",
-    		query: router_query_object,
-    	});
-    	setCurrentPage(1)
-    	BulkEditProduct(1, wordEntered);
+        let router_query_object = {};
+        if (wordEntered !== "") {
+            router_query_object["q"] = wordEntered;
+        }
+        Router.push({
+            pathname: "/bulk-edit-product",
+            query: router_query_object,
+        });
+        setCurrentPage(1)
+        BulkEditProduct(1, wordEntered);
     };
 
     const handleFilter = (event) => {
-    	const searchWord = event.target.value;
-    	setWordEntered(searchWord);
-    	if (event.target.value === "") {
-    		Router.push({
-    			pathname: "/bulk-edit-product",
-    			query: "",
-    		});
-    		BulkEditProduct(1, "");
-    	}
+        const searchWord = event.target.value;
+        setWordEntered(searchWord);
+        if (event.target.value === "") {
+            Router.push({
+                pathname: "/bulk-edit-product",
+                query: "",
+            });
+            BulkEditProduct(1, "");
+        }
     };
 
     let onPageChange = function (e, page) {
-    	setCurrentPage(page)
-    	BulkEditProduct(page, wordEntered)
+        setCurrentPage(page)
+        BulkEditProduct(page, wordEntered)
     };
 
-   
+
 
 
     const BulkEditProduct = (page, search) => {
-         setIsLoader(true);
+        setIsLoader(true);
         BulkEditProductApi.BulkEditProductList(page, search)
             .then((response) => {
                 setProductType(response.data.data.list);
-                   setTotalProduct(response.data.data.total);
-                   setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
-                  setIsLoader(false);
+                setTotalProduct(response.data.data.total);
+                setTotalPage(Math.ceil(response.data.data.total / response.data.data.page_size));
+                setIsLoader(false);
             })
             .catch((error) => {
                 setIsLoader(false);
@@ -138,30 +138,32 @@ export default function Bulk_Edit_Product() {
                                         onChange={handleFilter}
                                         onKeyPress={handleKeyPress}
                                     />
-                                    <SearchIcon className="search-icon point-but" />
+                                    <span onClick={handleClickPress}>
+                                        <SearchIcon className="search-icon point-but" />
+                                    </span>
                                 </div>
                             </div>
-                          
+
                         </div>
                         <div className="row sticky-scroll scroll">
                             <div className="col-md-12 ">
                                 {
-									isLoader ? (
-										<div className="row justify-content-center">
-											<div className="col-md-12 loader-cart">
-												<Box sx={{ display: "flex" }}>
-													<CircularProgress
-														style={{ color: "#F54A00" }}
-													/>
-												</Box>
-											</div>
-										</div>
-									) : (
-										 productType && productType.length === 0 ? <div className="not-found">No Data Found</div> :
-                                         <BulkEditProductcomponent list={productType}
-                                          handle={BulkEditProduct}/>
-									)
-								}
+                                    isLoader ? (
+                                        <div className="row justify-content-center">
+                                            <div className="col-md-12 loader-cart">
+                                                <Box sx={{ display: "flex" }}>
+                                                    <CircularProgress
+                                                        style={{ color: "#F54A00" }}
+                                                    />
+                                                </Box>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        // productType && productType.length === 0 ? <div className="not-found">No Data Found</div> :
+                                            <BulkEditProductcomponent list={productType}
+                                                handle={BulkEditProduct} />
+                                    )
+                                }
 
                             </div>
                         </div>

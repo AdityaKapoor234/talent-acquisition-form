@@ -39,6 +39,7 @@ export default class TypeEditDetails extends Component {
         sort_order: null,
         name: "",
         description:"",
+        short_description: "",
         label:"",
         bg_img:"",
         banner_sm_url:"",
@@ -70,6 +71,10 @@ export default class TypeEditDetails extends Component {
       toast.error("Please enter description");
       return false;
     }
+    if (this.state.TypeDetails.short_description === "" || this.state.TypeDetails?.short_description.replace(/\s/g, "").length <=0) {
+      toast.error("Please enter short description");
+      return false;
+    }
     if (
       this.state.TypeDetails.sort_order === "" ||
       this.state.TypeDetails.sort_order === null
@@ -88,6 +93,7 @@ export default class TypeEditDetails extends Component {
         sort_order: parseInt(this.state.TypeDetails.sort_order),
         is_active: this.state.TypeDetails.is_active,
         description: this.state.TypeDetails.description,
+        short_description: this.state.TypeDetails.short_description,
         label:this.state.TypeDetails.label,
         bg_img:this.state.TypeDetails.bg_img,
         banner_sm_url:this.state.TypeDetails.banner_sm_url,
@@ -129,6 +135,7 @@ export default class TypeEditDetails extends Component {
               ? response.data.data.view.is_active
               : null,
             description: response.data.data.view?.description ?response.data.data.view?.description:"",
+            short_description: response.data.data.view?.short_description ?response.data.data.view?.short_description:"",
             label:response.data.data.view?.label? response.data.data.view?.label:"",
             bg_img:response.data.data.view?.bg_img? response.data.data.view?.bg_img:"",
             banner_sm_url:response.data.data.view?.banner_sm_url? response.data.data.view?.banner_sm_url:"",

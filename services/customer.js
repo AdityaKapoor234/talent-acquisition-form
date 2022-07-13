@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CUSTOMERLIST,CUSTOMER_TYPE_DROPDOWN,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST,SHOPPING_CART_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_ADD, CUSTOMER_TYPE_LIST,CUSTOMER_TYPE_EDIT,ADD_CUSTOMER_TYPE,CUSTOMER_TYPE_VIEW,CUSTOMER_TYPE_DELETE, CUSTOMER_ADDRESS_EDIT, CUSTOMER_ADDRESS_ADD, STATE ,CUSTOMER_WALLET, CUSTOMER_WALLET_TRANSACTION} from "../utils/constant";
+import {CUSTOMERLIST,CUSTOMER_TYPE_DROPDOWN,GET_CUSTOMER,GET_CUSTOMER_ORDER,GET_CUSTOMER_ADDRESSES,WISH_LIST,SHOPPING_CART_LIST, GET_CUSTOMER_SUPPORT_INFORMATION, GET_CUSTOMER_SUPPORT_INFORMATION_VIEW, CUSTOMER_ADD, CUSTOMER_TYPE_ADD, CUSTOMER_TYPE_LIST,CUSTOMER_TYPE_EDIT,ADD_CUSTOMER_TYPE,CUSTOMER_TYPE_VIEW,CUSTOMER_TYPE_DELETE, CUSTOMER_ADDRESS_EDIT, CUSTOMER_ADDRESS_ADD, STATE ,CUSTOMER_WALLET, CUSTOMER_WALLET_TRANSACTION, GET_MAX_MEMBERS,DOWNLOAD_MAX_MEMBERS} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -265,6 +265,18 @@ export class CustomerApi {
         };
         return axios.get(`${ CUSTOMER_WALLET_TRANSACTION}`.replace('{{page}}',page).replace('{{id}}',id),httpOptions)
     }
+
+    static getMaxMemberslist(page ,search) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${GET_MAX_MEMBERS}`.replace('{{page}}',page).replace('{{search}}',search),httpOptions)
+    }
+
 
 
 

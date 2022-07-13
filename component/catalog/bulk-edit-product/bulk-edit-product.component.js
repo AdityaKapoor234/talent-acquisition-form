@@ -4,7 +4,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Router from "next/router";
-import {  CheckCircleOutline } from "@mui/icons-material";
+import { CheckCircleOutline } from "@mui/icons-material";
 import { BulkEditProductApi } from "../../../services/bulk-edit-product";
 import { toast } from "react-toastify";
 
@@ -52,18 +52,18 @@ export default class BulkEditProductComponent extends Component {
     return str;
   };
 
-  update(id){
+  update(id) {
     let data = {
       price: parseInt(this.state.price),
       special_price: parseInt(this.state.special_price)
     };
-    
+
     BulkEditProductApi.updatePrice(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-            toast.success("Update price successfully");
-            this.setState({editId: null});
-            this.props.handle(1,"")
+          toast.success("Update price successfully");
+          this.setState({ editId: null });
+          this.props.handle(1, "")
         }
       })
       .catch((error) => {
@@ -94,51 +94,55 @@ export default class BulkEditProductComponent extends Component {
             </div>
           </div>
         </div>
-      
-           
-        
-   {  this.state.list?.map((ele,index)=>{return(
-       <div className="row" >
-       <div className="col-md-12">
-         <div className="tableCell">
-           
-         
-           <div className="tableBody  col-5 elip-text ">
-           {ele.name}
-           </div>
-           <div className="col-2  text-center elip-text ">
-              
-               {this.state.editId && this.state.editId===ele.id ? <input type="number" value={this.state.price} onChange={(e)=>{ this.setState({price: e.target.value}) }}/> : ele.price}
-           </div>
-           <div className="col-2  text-center elip-text"> 
-           
 
-            {this.state.editId && this.state.editId===ele.id ? <input type="number" value={this.state.special_price} onChange={(e)=>{ this.setState({special_price: e.target.value}) }}/> : ele.special_price}
-            </div>
-           <div className="col-1  text-center ">
-           
-           
-               <CheckCircleOutline className="check-icon"/>
-           </div>
-           <div className="col-2 text-center">
-           
-             {this.state.editId && this.state.editId===ele.id ? 
-              <div className="btn-save">
-                <button className="custom-btn w-50" onClick={()=>{this.update(this.state.editId)}} >Update</button> 
-                <button className="custom-btn Cancel-btn w-50" onClick={()=>{ this.setState({editId: null}) }}>Cancel</button>
-              </div> : <EditOutlinedIcon
-               className="edit-icon"
-               onClick={()=>{ this.setState({editId: ele.id, special_price: ele.special_price, price: ele.price}) }}
-             /> }
-             
-           </div> 
-         </div>
-       </div>
-     </div>
 
-     )}) }
-     
-     </div>
+
+        {
+          this.state.list && this.state.list.length === 0 ? <div className="not-found">No Data Found</div> :
+            this.state.list?.map((ele, index) => {
+              return (
+                <div className="row" >
+                  <div className="col-md-12">
+                    <div className="tableCell">
+
+
+                      <div className="tableBody  col-5 elip-text ">
+                        {ele.name}
+                      </div>
+                      <div className="col-2  text-center elip-text ">
+
+                        {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.price} onChange={(e) => { this.setState({ price: e.target.value }) }} /> : ele.price}
+                      </div>
+                      <div className="col-2  text-center elip-text">
+
+
+                        {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.special_price} onChange={(e) => { this.setState({ special_price: e.target.value }) }} /> : ele.special_price}
+                      </div>
+                      <div className="col-1  text-center ">
+
+
+                        <CheckCircleOutline className="check-icon" />
+                      </div>
+                      <div className="col-2 text-center">
+
+                        {this.state.editId && this.state.editId === ele.id ?
+                          <div className="btn-save">
+                            <button className="custom-btn w-50" onClick={() => { this.update(this.state.editId) }} >Update</button>
+                            <button className="custom-btn Cancel-btn w-50" onClick={() => { this.setState({ editId: null }) }}>Cancel</button>
+                          </div> : <EditOutlinedIcon
+                            className="edit-icon"
+                            onClick={() => { this.setState({ editId: ele.id, special_price: ele.special_price, price: ele.price }) }}
+                          />}
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              )
+            })}
+
+      </div>
     );
   }
 }

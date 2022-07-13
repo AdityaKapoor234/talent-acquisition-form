@@ -26,6 +26,8 @@ export const GET_CUSTOMER_ADDRESSES = `${USER_SERVICE}/customer/{{id}}/addresses
 export const GET_CUSTOMER_SUPPORT_INFORMATION = `${USER_SERVICE}/manage/enquiry?page={{page}}&q={{search}}`;
 export const GET_CUSTOMER_SUPPORT_INFORMATION_VIEW = `${USER_SERVICE}/manage/enquiry/{{id}}/view`;
 export const CUSTOMER_TYPE_DROPDOWN = `${USER_SERVICE}/customer/type/dropdown`;
+export const  GET_MAX_MEMBERS = `${USER_SERVICE}/customer/verified/paginate?page={{page}}&q={{search}}`
+export const  DOWNLOAD_MAX_MEMBERS = `${USER_SERVICE}/customer/verified`
 
 export const CUSTOMER_TYPE_LIST = `${USER_SERVICE}/customer/type/dropdown/paginate?page={{page}}&q={{search}}`;
 export const CUSTOMER_TYPE_VIEW=`${USER_SERVICE}/customer/type/dropdown/view/{{id}}`

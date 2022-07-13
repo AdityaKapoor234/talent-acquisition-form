@@ -23,6 +23,7 @@ export default class TypeCreate extends Component {
         is_active: props?.type?.is_active ? props?.type?.is_active : false,
         label: props?.type?.label ? props?.type?.label : "",
         description: props?.type?.description ? props?.type?.description : "",
+        short_description: props?.type?.short_description ? props?.type?.short_description : "",
         banner_sm_url: props?.type?.banner_sm_url
           ? props?.type?.banner_sm_url
           : "",
@@ -52,13 +53,16 @@ export default class TypeCreate extends Component {
           description: nextProps?.type?.description
             ? nextProps?.type?.description
             : "",
+          short_description: nextProps?.type?.short_description
+            ? nextProps?.type?.short_description
+            : "",
           banner_sm_url: nextProps?.type?.banner_sm_url
             ? nextProps?.type?.banner_sm_url
             : "",
           banner_url: nextProps?.type?.banner_url
             ? nextProps?.type?.banner_url
             : "",
-            bg_img: nextProps?.type?.bg_img
+          bg_img: nextProps?.type?.bg_img
             ? nextProps?.type?.bg_img
             : "",
         },
@@ -133,6 +137,16 @@ export default class TypeCreate extends Component {
                           cols="100"
                           rows="5"
                           value={this.state.input?.description}
+                          onChange={this.handleChange.bind(this)}
+                        />
+                      </div>
+                      <div className="login-form ">
+                        <label>Short Description</label>
+                        <textarea
+                          name="short_description"
+                          cols="100"
+                          rows="5"
+                          value={this.state.input?.short_description}
                           onChange={this.handleChange.bind(this)}
                         />
                       </div>
@@ -271,10 +285,22 @@ export default class TypeCreate extends Component {
                         <label>
                           Description<span className="mandatory-star">*</span>
                         </label>
-                        <input
-                          type="text"
+                        <textarea
+                          cols="100"
+                          rows="5"
                           readOnly={true}
-                          value={this.state.input?.name}
+                          value={this.state.input?.description}
+                        />
+                      </div>
+                      <div className="login-form ">
+                        <label>
+                          Short Description<span className="mandatory-star">*</span>
+                        </label>
+                        <textarea
+                          cols="100"
+                          rows="5"
+                          readOnly={true}
+                          value={this.state.input?.short_description}
                         />
                       </div>
                       <div className="login-form ">

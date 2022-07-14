@@ -164,7 +164,7 @@ export default function MaxMembers() {
 										onChange={handleFilter}
 										onKeyPress={handleKeyPress}
 									/>
-									<SearchIcon className="search-icon point-but" style={{right:"13.8rem!important"}}
+									<SearchIcon className="search-icon-max-member point-but"
                                       onClick={handleClickPress} 
                                     />
 								</div>

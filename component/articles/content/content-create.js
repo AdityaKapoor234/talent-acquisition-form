@@ -427,7 +427,7 @@ export default class ContentCreate extends Component {
 													</Select>
 												</div>
 											</div>
-											<div className="login-form mt-4">
+											{/* <div className="login-form mt-4">
 												<label>
 													Youtube Url
 												</label>
@@ -437,7 +437,7 @@ export default class ContentCreate extends Component {
 													value={this.state.input?.video_url}
 													onChange={this.handleChange.bind(this)}
 												/>
-											</div>
+											</div> */}
 											<div className="login-form mt-3">
 												<label>Short Description</label>
 												<br />

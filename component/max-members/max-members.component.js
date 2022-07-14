@@ -56,7 +56,7 @@ export default class MaxMembersList extends Component {
               <div className="col text-center">Type</div>
               <div className="col-3 px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
-              <div className="col px-2 text-center">Reg. Date</div>
+              <div className="col px-2 text-center">MemberShip. Date</div>
               <div className="col-1 text-center">Premium</div>
               <div className="col-1 text-end">Action</div>
             </div>

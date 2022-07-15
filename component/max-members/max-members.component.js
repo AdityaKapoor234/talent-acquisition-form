@@ -75,7 +75,7 @@ export default class MaxMembersList extends Component {
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_number}</div>
-                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
+                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.time_to_premium)}>{this.convertDateStringToDate(p?.time_to_premium)}</div>
                   <div className="col-1 text-center">
                     {p?.is_premium === true ? (
                       <CheckCircleOutlineOutlinedIcon className="check-icon" />

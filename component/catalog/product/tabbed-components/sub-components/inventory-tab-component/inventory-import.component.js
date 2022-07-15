@@ -114,11 +114,11 @@ export default function InventoryImportComponent(props) {
       setIsExpireDate(true);
       isValid = false;
     }
-    if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
-      // toast.error("Please enter certific ate");
-      setIsCertificateUrl(true);
-      isValid = false;
-    }
+    // if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter certific ate");
+    //   setIsCertificateUrl(true);
+    //   isValid = false;
+    // }
     if (warehouse === "" || warehouse === null || warehouse.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter upc code");
       setIsWarehouseLocation(true);
@@ -779,6 +779,7 @@ export default function InventoryImportComponent(props) {
                   setUrl={setTab.bind()}
                   value="file-input"
                   urlName="avatar"
+                  validation={false}
 
                 // name="certificate_url"
                 // id={id}

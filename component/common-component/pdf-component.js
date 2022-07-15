@@ -8,7 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { PRODUCT_SERVICE } from "../../utils/constant";
 
-export default function photo({ label, accept, mode, img, name, setUrl, value, urlName }) {
+export default function photo({ label, accept, mode, img, name, setUrl, value, urlName, validation }) {
   const [image, setImage] = useState(img ? img : "");
   const [isLoader, setIsLoader] = useState(false);
 
@@ -55,7 +55,15 @@ export default function photo({ label, accept, mode, img, name, setUrl, value, u
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <div className="label">{label}<span className="mandatory-star">*</span></div>
+      <div className="label">
+        {label}
+        {
+          validation === true ?
+            <span className="mandatory-star">*</span>
+            :
+            ""
+        }
+      </div>
       <div className="photo-box">
         <div className="photo-image" style={{ background: `url(${image})` }}>
           {image === "" && mode === "edit" ? (

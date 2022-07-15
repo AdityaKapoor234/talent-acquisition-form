@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+import ProductApi from "../../../../services/product";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
 import InventoryImportComponent from "./sub-components/inventory-tab-component/inventory-import.component";
+import InventoryExportComponent from "./sub-components/inventory-tab-component/inventory-export.component";
 import Router from "next/router";
 
 const editor_tabs = [
@@ -12,7 +15,7 @@ const editor_tabs = [
   },
   {
     id: 2,
-    show: false,
+    show: true,
     label: "Export",
     key: "export",
   },
@@ -26,6 +29,7 @@ export default class ProductInventoryComponent extends Component {
       tabs: editor_tabs,
       tab: "import",
       id: props?.id,
+      inventory: {},
     };
   }
   handleChange = (event) => {
@@ -44,6 +48,28 @@ export default class ProductInventoryComponent extends Component {
     this.setState({ tab: value });
   };
 
+  getInventoryList = (id, page) => {
+    ProductApi.getInventoryExportList(id, page)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ inventory: response.data.data });
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  componentDidMount() {
+    this.getInventoryList(this.state.id, 1)
+  }
+
   render() {
     return (
       <div
@@ -56,7 +82,7 @@ export default class ProductInventoryComponent extends Component {
           onSaveAndContinue={this.onSaveAndContinue}
           showSaveContinueButton={true}
         >
-          Inventories
+          Inventories {this.state.inventory?.stock_count ? <>({this.state.inventory?.stock_count})</> : "(0)"}
         </ProductTabEditorHeader>
         <div className="row ">
           <div className="col-md-12">
@@ -87,6 +113,11 @@ export default class ProductInventoryComponent extends Component {
           {this.state.tab === "import" && (
             <>
               <InventoryImportComponent id={this.state.id} />
+            </>
+          )}
+          {this.state.tab === "export" && (
+            <>
+              <InventoryExportComponent id={this.state.id} />
             </>
           )}
         </div>

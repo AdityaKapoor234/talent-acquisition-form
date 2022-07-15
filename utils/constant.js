@@ -107,6 +107,7 @@ export const GET_CERTIFICATE=`${PRODUCT_SERVICE}/manage/product/{{id}}/certifica
 export const ADD_CLASSIFICTION= `${PRODUCT_SERVICE}/manage/classification/{{id}}`;
 export const GET_CLASSIFICTION = `${PRODUCT_SERVICE}/manage/classification/all`;
 export const GET_INVENTORY_LIST =`${PRODUCT_SERVICE}/manage/inventory/{{id}}?page={{page}}`;
+export const GET_INVENTORY_EXPORT_LIST =`${PRODUCT_SERVICE}/manage/inventory/{{id}}/export?page={{page}}`;
 export const CREATE_INVENTORY=`${PRODUCT_SERVICE}/manage/inventory/{{id}}`;
 export const GET_INVENTORY_DELETE=`${PRODUCT_SERVICE}/manage/inventory/{{id}}/delete`;
 export const GET_INVENTORY_UPADTE=`${PRODUCT_SERVICE}/manage/inventory/{{id}}/update`;

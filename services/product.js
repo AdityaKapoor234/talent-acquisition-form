@@ -2,7 +2,7 @@ import axios from "axios";
 import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO,GET_INVENTORY_UPADTE,
     GET_INVENTORY_DELETE,CREATE_INVENTORY, CONTENTLIST, CONTENT_LIST_EDIT,
     GET_PRICE,ADD_CLASSIFICTION,GET_CLASSIFICTION,GET_CERTIFICATE,ADD_CERTIFICATE,
-    GET_INVENTORY_LIST,GET_CATEGORY_INFO, GET_PRODUCT_LIST, GET_VARIANTS, UPDATE_VARIANTS } from "../utils/constant";
+    GET_INVENTORY_LIST,GET_INVENTORY_EXPORT_LIST,GET_CATEGORY_INFO, GET_PRODUCT_LIST, GET_VARIANTS, UPDATE_VARIANTS } from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -160,6 +160,17 @@ export class ProductApi {
             }
         };
         return axios.get(`${GET_INVENTORY_LIST}`.replace('{{id}}',id).replace('{{page}}',page),httpOptions)
+    }
+
+    static getInventoryExportList(id,page) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`          
+            }
+        };
+        return axios.get(`${GET_INVENTORY_EXPORT_LIST}`.replace('{{id}}',id).replace('{{page}}',page),httpOptions)
     }
 
     static getInventoryUpdate(id,data) {

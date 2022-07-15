@@ -779,6 +779,7 @@ export default function InventoryImportComponent(props) {
                   setUrl={setTab.bind()}
                   value="file-input"
                   urlName="avatar"
+                  validation={false}
 
                 // name="certificate_url"
                 // id={id}

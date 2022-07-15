@@ -6,6 +6,7 @@ import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import Pagination from "@mui/material/Pagination";
 import OrderDetails from "../../../component/sales/order/order-details";
+import OrderPrimeDetails from "../../../component/sales/order/order-prime-detail";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import OrderApi from "../../../services/orders";
@@ -28,6 +29,7 @@ export default function OrderEditDetails({ id }) {
     const [active, setActive] = useState(false);
     const [orderStatus, setOrderStatus] = useState("");
     const [error, setError] = useState("");
+    const [orderId, setOrderId] = useState(id);
 
     const activeHandle = (value) => {
         setActive(value)
@@ -90,21 +92,21 @@ export default function OrderEditDetails({ id }) {
             });
     }
 
-    const orderInvoice = (id) => {
-        OrderApi.getOrderInvoice(id)
-            .then((response) => {
-                setInvoice(response.data.data.pdf)
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime"
-                );
-            });
-    }
+    // const orderInvoice = (id) => {
+    //     OrderApi.getOrderInvoice(id)
+    //         .then((response) => {
+    //             setInvoice(response.data.data.pdf)
+    //         })
+    //         .catch((error) => {
+    //             toast.error(
+    //                 error?.response &&
+    //                     error?.response?.data &&
+    //                     error?.response?.data?.message
+    //                     ? error.response.data.message
+    //                     : "Unable to process your request, please try after sometime"
+    //             );
+    //         });
+    // }
 
 
     useEffect(() => {
@@ -113,7 +115,7 @@ export default function OrderEditDetails({ id }) {
             Router.push("/");
         }
         orderDetail(id)
-        orderInvoice(id)
+        setOrderId(id);
     }, [id]);
     return (
         <div>
@@ -130,7 +132,7 @@ export default function OrderEditDetails({ id }) {
                             <div className="hamburger">
                                 <span>order / order / </span>Edit order{" "}
                             </div>
-                            <div className="page-name">Order - {order?.order?.id}</div>
+                            <div className="page-name">Order - {order?.order?.order_no}</div>
                         </div>
                         <div className="col-md-7 btn-save">
                             <div
@@ -152,9 +154,24 @@ export default function OrderEditDetails({ id }) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-m-12">
-                            <OrderDetails order={order} invoice={invoice} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)}/>
+                        {
+                         order?.length !== 0 &&
+
+                            <div className="col-m-12">
+                            {
+                               order?.order?.plan_id && order?.order?.plan_id !== undefined ?
+
+                                    <OrderPrimeDetails order={order}  mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} />
+                                    :
+                                    <>
+                                    
+                                        <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)}  id={orderId}/>
+                                    </>
+                                    
+                            }
                         </div>
+                        }
+                       
                     </div>
                 </DashboardLayoutComponent>
             </main>

@@ -14,8 +14,8 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import OrderApi from "../../../services/orders";
-export default class OrderDetails extends Component {
+
+export default class OrderPrimeDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,9 +26,7 @@ export default class OrderDetails extends Component {
             error: props?.error,
             open: false,
             status: props?.order?.order?.status ? props?.order?.order?.status : "0",
-            // invoice: props?.invoice ? props?.invoice : "",
-            invoice: {},
-            id:props?.id,
+            //invoice: props?.invoice ? props?.invoice : "",
         };
     }
     handleChange = (event) => {
@@ -63,12 +61,10 @@ export default class OrderDetails extends Component {
             // prevState.invoice !== nextProps.invoice ||
             prevState.mode !== nextProps.mode ||
             prevState.error !== nextProps.error
-
         ) {
             return {
                 order: nextProps?.order,
                 // invoice: nextProps?.invoice,
-                id: nextProps?.id,
                 mode: nextProps?.mode,
                 error: nextProps?.error,
                 status: nextProps?.order?.order?.status,
@@ -78,22 +74,6 @@ export default class OrderDetails extends Component {
             };
         }
         return null;
-    }
-
-    orderInvoice = (id) => {
-        OrderApi.getOrderInvoice(id)
-            .then((response) => {
-                this.setState({ invoice: response.data.data.pdf})
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime"
-                );
-            });
     }
 
     convertDateStringToDate = (dateStr) => {
@@ -118,9 +98,6 @@ export default class OrderDetails extends Component {
         return str;
     };
 
-    componentDidMount() {
-        this.orderInvoice(this.state.id);
-    }
 
     render() {
         return (
@@ -161,10 +138,10 @@ export default class OrderDetails extends Component {
                                                     <span className="orderInfo">Name&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.recipient_name}>{this.state.order?.recipient_name}</span>
                                                 </span>
-                                                <span className="orderLine">
+                                                {/* <span className="orderLine">
                                                     <span className="orderInfo">Contact No.&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
-                                                </span>
+                                                </span> */}
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Email&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
@@ -172,41 +149,19 @@ export default class OrderDetails extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <span className="orderLine">
-                                                    <span className="orderInfo">Billing Address</span>
-                                                </span>
-                                                <span className="orderLine2">
-                                                    <span className="orderInfoVal">
-                                                        {this.state.order?.billing_address?.flat_no}&nbsp;
-                                                        {this.state.order?.billing_address?.locality}&nbsp;
-                                                        {this.state.order?.billing_address?.landmark}&nbsp;
-                                                        {this.state.order?.billing_address?.state}<br />
-                                                        {this.state.order?.billing_address?.city}&nbsp;
-                                                        {this.state.order?.billing_address?.pin_code}
-                                                    </span>
-                                                </span>
-                                                <span className="orderLine mt-3">
-                                                    <span className="orderInfoVal">{this.state.order?.billing_address?.recipient_phone_number}</span>
-                                                </span>
 
+                                            <span className="orderLine">
+                                                    <span className="orderInfo">Reg.Date&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
+                                                </span>
+                                               
                                             </div>
                                             <div className="col-3">
-                                                <span className="orderLine">
-                                                    <span className="orderInfo">Delivery Address</span>
+                                            <span className="orderLine">
+                                                    <span className="orderInfo">Valid Till&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till) )}</span>
                                                 </span>
-                                                <span className="orderLine2">
-                                                    <span className="orderInfoVal">
-                                                        {this.state.order?.shipping_address?.flat_no}&nbsp;
-                                                        {this.state.order?.shipping_address?.locality}&nbsp;
-                                                        {this.state.order?.shipping_address?.landmark}&nbsp;
-                                                        {this.state.order?.shipping_address?.state}<br />
-                                                        {this.state.order?.shipping_address?.city}&nbsp;
-                                                        {this.state.order?.shipping_address?.pin_code}
-                                                    </span>
-                                                </span>
-                                                <span className="orderLine mt-3">
-                                                    <span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
-                                                </span>
+
 
                                             </div>
                                             <div className="col-3">
@@ -260,7 +215,7 @@ export default class OrderDetails extends Component {
                                                         ""
                                                 }
 
-                                                {
+                                                {/* {
                                                     this.state.invoice === "" ?
                                                         ""
                                                         :
@@ -271,7 +226,7 @@ export default class OrderDetails extends Component {
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
-                                                }
+                                                } */}
 
                                                 <div></div>
                                             </div>
@@ -284,7 +239,7 @@ export default class OrderDetails extends Component {
                                                 <div className="col text-center">Tax(₹)</div>
                                                 <div className="col text-center">Tax(%)</div>
                                                 <div className="col text-center">Actual Amount</div>
-                                                <div className="col-2 text-center">Quantity</div>
+                                                {/* <div className="col-2 text-center">Quantity</div> */}
                                                 <div className="col text-center">Amount</div>
                                             </div>
                                         </div>
@@ -337,7 +292,7 @@ export default class OrderDetails extends Component {
                                                                     </span>}
 
                                                             </div>
-                                                            <div className="col-2">
+                                                            {/* <div className="col-2">
                                                                 <span className="orderLine justify-content-center d-flex">
                                                                     <span className="orderInfoVal">Order Qty: {p?.quantity}</span>
                                                                 </span>
@@ -345,7 +300,7 @@ export default class OrderDetails extends Component {
                                                                     <span className="orderInfoVal">Shipped Qty: {p?.quantity}</span>
                                                                 </span>
 
-                                                            </div>
+                                                            </div> */}
                                                             <div className="col justify-content-center d-flex">
                                                                 <span className="orderLine">
                                                                     <span className="orderInfoVal">₹{p?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
@@ -387,7 +342,7 @@ export default class OrderDetails extends Component {
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-11 textRight">
-                                                        <span className="orderInfo">Grand Total</span>
+                                                        <span className="orderInfo">Grand Total Prime</span>
                                                     </div>
                                                     <div className="col-1">
                                                         <span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
@@ -420,10 +375,10 @@ export default class OrderDetails extends Component {
                                                     <span className="orderInfo">Name&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.recipient_name}>{this.state.order?.recipient_name}</span>
                                                 </span>
-                                                <span className="orderLine">
+                                                {/* <span className="orderLine">
                                                     <span className="orderInfo">Contact No.&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
-                                                </span>
+                                                </span> */}
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Email&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
@@ -431,40 +386,17 @@ export default class OrderDetails extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <span className="orderLine">
-                                                    <span className="orderInfo">Billing Address</span>
-                                                </span>
-                                                <span className="orderLine2">
-                                                    <span className="orderInfoVal">
-                                                        {this.state.order?.billing_address?.flat_no}&nbsp;
-                                                        {this.state.order?.billing_address?.locality}&nbsp;
-                                                        {this.state.order?.billing_address?.landmark}&nbsp;
-                                                        {this.state.order?.billing_address?.state}<br />
-                                                        {this.state.order?.billing_address?.city}&nbsp;
-                                                        {this.state.order?.billing_address?.pin_code}
-                                                    </span>
-                                                </span>
-                                                <span className="orderLine mt-3">
-                                                    <span className="orderInfoVal">{this.state.order?.billing_address?.recipient_phone_number}</span>
-                                                </span>
 
+
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Reg.Date&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
+                                                </span>
                                             </div>
                                             <div className="col-3">
                                                 <span className="orderLine">
-                                                    <span className="orderInfo">Delivery Address</span>
-                                                </span>
-                                                <span className="orderLine2">
-                                                    <span className="orderInfoVal">
-                                                        {this.state.order?.shipping_address?.flat_no}&nbsp;
-                                                        {this.state.order?.shipping_address?.locality}&nbsp;
-                                                        {this.state.order?.shipping_address?.landmark}&nbsp;
-                                                        {this.state.order?.shipping_address?.state}<br />
-                                                        {this.state.order?.shipping_address?.city}&nbsp;
-                                                        {this.state.order?.shipping_address?.pin_code}
-                                                    </span>
-                                                </span>
-                                                <span className="orderLine mt-3">
-                                                    <span className="orderInfoVal">{this.state.order?.shipping_address?.recipient_phone_number}</span>
+                                                    <span className="orderInfo">Valid Till&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till) )}</span>
                                                 </span>
 
                                             </div>
@@ -483,7 +415,7 @@ export default class OrderDetails extends Component {
                                                         <span className="orderInfoVal elip-text" title={this.state.order?.coupon_code}>{this.state.order?.coupon_code}</span>
                                                     </span> : ""}
 
-                                                {
+                                                {/* {
                                                     this.state.invoice === "" ?
                                                         ""
                                                         :
@@ -494,7 +426,7 @@ export default class OrderDetails extends Component {
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
-                                                }
+                                                } */}
 
 
                                             </div>
@@ -507,7 +439,7 @@ export default class OrderDetails extends Component {
                                                 <div className="col text-center">Tax(₹)</div>
                                                 <div className="col text-center">Tax(%)</div>
                                                 <div className="col text-center">Actual Amount</div>
-                                                <div className="col-2 text-center">Quantity</div>
+                                                {/* <div className="col-2 text-center">Quantity</div> */}
                                                 <div className="col text-center">Amount</div>
                                             </div>
                                         </div>
@@ -560,7 +492,7 @@ export default class OrderDetails extends Component {
                                                                     </span>}
 
                                                             </div>
-                                                            <div className="col-2">
+                                                            {/* <div className="col-2">
                                                                 <span className="orderLine justify-content-center d-flex">
                                                                     <span className="orderInfoVal">Order Qty: {p?.quantity}</span>
                                                                 </span>
@@ -568,7 +500,7 @@ export default class OrderDetails extends Component {
                                                                     <span className="orderInfoVal">Shipped Qty: {p?.quantity}</span>
                                                                 </span>
 
-                                                            </div>
+                                                            </div> */}
                                                             <div className="col justify-content-center d-flex">
                                                                 <span className="orderLine">
                                                                     <span className="orderInfoVal">₹{p?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>

@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import { APP_NAME } from "../../../utils/constant";
 import DashboardLayoutComponent from "../../../component/layouts/dashboard-layout/dashboard-layout";
 import Pagination from "@mui/material/Pagination";
-import OrderDetail from "../../../component/sales/order/order-details";
+import OrderDetails from "../../../component/sales/order/order-details";
+import OrderPrimeDetails from "../../../component/sales/order/order-prime-detail";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import OrderApi from "../../../services/orders";
@@ -25,6 +26,7 @@ export default function OrderViewDetails({ id }) {
 
     const [order, setOrder] = useState([]);
     const [invoice, setInvoice] = useState("");
+    const [orderId, setOrderId] = useState(id);
 
     const orderDetail = (id) => {
         OrderApi
@@ -43,21 +45,21 @@ export default function OrderViewDetails({ id }) {
             });
     }
 
-    const orderInvoice = (id) => {
-        OrderApi.getOrderInvoice(id)
-            .then((response) => {
-                setInvoice(response.data.data.pdf)
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime"
-                );
-            });
-    }
+    // const orderInvoice = (id) => {
+    //     OrderApi.getOrderInvoice(id)
+    //         .then((response) => {
+    //             setInvoice(response.data.data.pdf)
+    //         })
+    //         .catch((error) => {
+    //             toast.error(
+    //                 error?.response &&
+    //                     error?.response?.data &&
+    //                     error?.response?.data?.message
+    //                     ? error.response.data.message
+    //                     : "Unable to process your request, please try after sometime"
+    //             );
+    //         });
+    // }
 
 
     useEffect(() => {
@@ -66,7 +68,7 @@ export default function OrderViewDetails({ id }) {
             Router.push("/");
         }
         orderDetail(id)
-        orderInvoice(id)
+        setOrderId(id);
     }, [id]);
     return (
         <div>
@@ -83,7 +85,7 @@ export default function OrderViewDetails({ id }) {
                             <div className="hamburger">
                                 <span>sales / order / </span>View order{" "}
                             </div>
-                            <div className="page-name">Order - {order?.name}</div>
+                            <div className="page-name">Order - {order?.order?.order_no}</div>
                         </div>
                         <div className="col-md-2 btn-save">
                             <div
@@ -98,9 +100,24 @@ export default function OrderViewDetails({ id }) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-m-12">
-                            <OrderDetail order={order} invoice={invoice} mode={mode} />
+                    
+                        {
+                            order?.length !== 0 &&
+                            <div className="col-m-12">
+                            {
+                                order?.order?.plan_id && order?.order?.plan_id !== undefined ?
+                                
+                                    <OrderPrimeDetails order={order} mode={mode} />
+                                    :
+                                    <>
+                                    
+                                        <OrderDetails order={order} mode={mode} id={orderId} />
+                                    </>
+
+                            }
                         </div>
+                        }
+                       
                     </div>
                 </DashboardLayoutComponent>
             </main>

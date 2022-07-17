@@ -9,7 +9,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pagination from "@mui/material/Pagination";
-import {PRODUCT_SERVICE} from "../../utils/constant";
+import { PRODUCT_SERVICE } from "../../utils/constant";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -31,12 +32,20 @@ export default function AskTheProps(props) {
   const [codeDropdownList, setCodeDropdownList] = useState(
     props?.codeDropdownList
   );
-  const [codeId, setCodeId]= useState(props?.askThePros?.coupon_code_id);
+  const [codeId, setCodeId] = useState(props?.askThePros?.coupon_code_id);
   const [trustTheProsRefferalCode, setTrustTheProsRefferalCode] = useState([]);
   const [totalAskTheProsRefferalCode, setTotalAskTheProsRefferalCode] = useState([]);
   const [totalPageRefferalCode, setTotalPageRefferalCode] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [trustTheProsTotalPoints, setTrustTheProsTotalPoints] = useState();
+
+  const [askTheProsQueryList, setAskTheProsQueryList] = useState(props?.askTheProsQueryList);
+  const [currentPageQueryList, setCurrentPageQueryList] = useState(props?.currentPageQueryList);
+  const [totalAskTheProsQueryList, setTotalAskTheProsQueryList] = useState(props?.totalAskTheProsQueryList);
+  const [totalPageQueryList, setTotalPageQueryList] = useState(props?.totalPageQueryList);
+  const [viewAskTheProsQuery, setViewAskTheProsQuery] = useState(false);
+  const [viewAskTheProsQueryObj, setViewAskTheProsQueryObj] = useState({});
+
   // const [openProRefferalCode, setOpenProRefferalCode] = useState(false);
   // const [trustTheProsRefferalCodeDropdownValue, setTrustTheProsRefferalCodeDropdownValue] = useState("select");
 
@@ -75,16 +84,16 @@ export default function AskTheProps(props) {
   // };
   const handleChangeCode = (event) => {
     let list = codeDropdownList;
-	let data={
-		"coupon_code_id" : event?.target?.value,
-		"coupon" : list?.filter(val=>val?.id==event?.target?.value)?.map(val=>val?.code)[0],
-		"need_changes" : true
-		}
-	let input = ask;
+    let data = {
+      "coupon_code_id": event?.target?.value,
+      "coupon": list?.filter(val => val?.id == event?.target?.value)?.map(val => val?.code)[0],
+      "need_changes": true
+    }
+    let input = ask;
     input["coupon_code_id"] = event.target.value;
     props?.handle(input);
-	setCodeId(event?.target?.value)
-	props?.codeHandle(data)
+    setCodeId(event?.target?.value)
+    props?.codeHandle(data)
   };
   const handleChange = (event) => {
     let input = ask;
@@ -155,9 +164,34 @@ export default function AskTheProps(props) {
   // }
 
   const onPageChange = function (e, page) {
-  	props?.RefferalCodePagination(page)
-  	props?.trustTheProsRefferCodeList(id,page)
+    props?.RefferalCodePagination(page)
+    props?.trustTheProsRefferCodeList(id, page)
   };
+
+  const onPageChangeQueryList = function (e, page) {
+    props?.QueryListPagination(page)
+    props?.AskTheProsQueryDetails(id, page)
+  };
+
+  const askTheProsViewApi = (id) => {
+    AskTheProsApi.AskTheProsQueryView(id)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setViewAskTheProsQuery(true);
+          setViewAskTheProsQueryObj(response.data.data);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+
+  }
 
   useEffect(() => {
     setAsk(props?.askThePros);
@@ -165,7 +199,7 @@ export default function AskTheProps(props) {
     setId(props?.id);
     getExpert(props?.askThePros?.expertises);
     setCodeDropdownList(props?.codeDropdownList);
-	setCodeId(props?.askThePros?.coupon_code_id)
+    setCodeId(props?.askThePros?.coupon_code_id)
     setTrustTheProsRefferalCode(props?.trustTheProsRefferalCode)
     setTotalAskTheProsRefferalCode(props?.totalAskTheProsRefferalCode)
     setTotalPageRefferalCode(props?.totalPageRefferalCode)
@@ -173,6 +207,12 @@ export default function AskTheProps(props) {
     // setTrustTheProsRefferalCodeDropdown(props?.trustTheProsRefferalCodeDropdown)
 
     setTrustTheProsTotalPoints(props?.trustTheProsTotalPoints)
+
+
+    setAskTheProsQueryList(props?.askTheProsQueryList);
+    setCurrentPageQueryList(props?.currentPageQueryList);
+    setTotalAskTheProsQueryList(props?.totalAskTheProsQueryList);
+    setTotalPageQueryList(props?.totalPageQueryList);
 
     // setTrustTheProsRefferalCodeDropdownValue({
     // 	code: props?.askThePros?.coupon_code,
@@ -193,15 +233,28 @@ export default function AskTheProps(props) {
             >
               Pro info
             </div>
-			{mode !== "create" &&
-            <div
-              className={tab === 2 ? `sub-tab active-tab` : "sub-tab"}
-              onClick={() => {
-                setTab(2);
-              }}
-            >
-              Referral Code info
-            </div>}
+            {
+              mode !== "create" && (
+                <>
+                  <div
+                    className={tab === 2 ? `sub-tab active-tab` : "sub-tab"}
+                    onClick={() => {
+                      setTab(2);
+                    }}
+                  >
+                    Referral Code info
+                  </div>
+                  <div
+                    className={tab === 3 ? `sub-tab active-tab` : "sub-tab"}
+                    onClick={() => {
+                      setTab(3);
+                    }}
+                  >
+                    Queries info
+                  </div>
+                </>
+              )
+            }
           </div>
         </div>
       </div>
@@ -220,6 +273,29 @@ export default function AskTheProps(props) {
                       name="name"
                       readOnly={mode === "view" ? true : false}
                       value={ask?.name}
+                      onChange={handleChange.bind(this)}
+                    />
+                  </div>
+                  <div className="login-form ">
+                    <label>
+                      User ID<span className="mandatory-star">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="id"
+                      readOnly={true}
+                      value={ask?.id}
+                    />
+                  </div>
+                  <div className="login-form ">
+                    <label>
+                      Education<span className="mandatory-star">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="education"
+                      readOnly={mode === "view" ? true : false}
+                      value={ask?.education}
                       onChange={handleChange.bind(this)}
                     />
                   </div>
@@ -261,7 +337,7 @@ export default function AskTheProps(props) {
                   ) : (
                     <div className="mt-4">
                       <Photo
-                        mode={mode==="create"?"edit":"edit"}
+                        mode={mode === "create" ? "edit" : "edit"}
                         label={"Avatar"}
                         accept=".jpg,.jpeg,.png"
                         name="avatar_url"
@@ -371,67 +447,168 @@ export default function AskTheProps(props) {
                     </div>
                   </div>
                 </div>
+
+
+
+                <div className="row">
+                  <div className="col-md-4">
+                    <div className="login-form mt-3 sort">
+                      <label>
+                        Recomended Article Category<span className="mandatory-star">*</span>
+                      </label>
+                      <div className="sort-by-select-wrapper">
+                        <Select
+                          disableUnderline
+                          variant="standard"
+                          disabled={mode === "view" ? true : false}
+                          autoWidth={true}
+                          IconComponent={ExpandMoreIcon}
+                          name="recomended_article_category"
+                          onChange={handleChange.bind(this)}
+                          className="sort-by-select"
+                          value={ask?.recomended_article_category ? ask?.recomended_article_category : "select"}
+                        >
+                          <MenuItem
+                            value="select"
+                            disabled
+                            className="field_toggle_checked"
+                          >
+                            Select Recomended Article Category{" "}
+                          </MenuItem>
+                          <MenuItem value="1 Month">1 Month</MenuItem>
+                          <MenuItem value="2 Months">2 Months</MenuItem>
+                          <MenuItem value="3 Months">3 Months</MenuItem>
+                          <MenuItem value="4 Months">4 Months</MenuItem>
+                          <MenuItem value="5 Months">5 Months</MenuItem>
+                          <MenuItem value="6 Months">6 Months</MenuItem>
+                          <MenuItem value="7 Months">7 Months</MenuItem>
+                          <MenuItem value="8 Months">8 Months</MenuItem>
+                          <MenuItem value="9 Months">9 Months</MenuItem>
+                          <MenuItem value="10 Months">10 Months</MenuItem>
+                          <MenuItem value="11 Months">11 Months</MenuItem>
+                          <MenuItem value="1 Year">1 Year</MenuItem>
+                          <MenuItem value="2 Years">2 Years</MenuItem>
+                          <MenuItem value="3 Years">3 Years</MenuItem>
+                          <MenuItem value="4 Years">4 Years</MenuItem>
+                          <MenuItem value="5 Years">5 Years</MenuItem>
+                          <MenuItem value="5+ Years">5+ Years</MenuItem>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-4">
+                    <div className="login-form mt-3 sort">
+                      <label>
+                        Article Type ID<span className="mandatory-star">*</span>
+                      </label>
+                      <div className="sort-by-select-wrapper">
+                        <Select
+                          disableUnderline
+                          variant="standard"
+                          disabled={mode === "view" ? true : false}
+                          autoWidth={true}
+                          IconComponent={ExpandMoreIcon}
+                          name="article_type_id"
+                          onChange={handleChange.bind(this)}
+                          className="sort-by-select"
+                          value={ask?.article_type_id ? ask?.article_type_id : "select"}
+                        >
+                          <MenuItem
+                            value="select"
+                            disabled
+                            className="field_toggle_checked"
+                          >
+                            Select Article Type ID{" "}
+                          </MenuItem>
+                          <MenuItem value="1 Month">1 Month</MenuItem>
+                          <MenuItem value="2 Months">2 Months</MenuItem>
+                          <MenuItem value="3 Months">3 Months</MenuItem>
+                          <MenuItem value="4 Months">4 Months</MenuItem>
+                          <MenuItem value="5 Months">5 Months</MenuItem>
+                          <MenuItem value="6 Months">6 Months</MenuItem>
+                          <MenuItem value="7 Months">7 Months</MenuItem>
+                          <MenuItem value="8 Months">8 Months</MenuItem>
+                          <MenuItem value="9 Months">9 Months</MenuItem>
+                          <MenuItem value="10 Months">10 Months</MenuItem>
+                          <MenuItem value="11 Months">11 Months</MenuItem>
+                          <MenuItem value="1 Year">1 Year</MenuItem>
+                          <MenuItem value="2 Years">2 Years</MenuItem>
+                          <MenuItem value="3 Years">3 Years</MenuItem>
+                          <MenuItem value="4 Years">4 Years</MenuItem>
+                          <MenuItem value="5 Years">5 Years</MenuItem>
+                          <MenuItem value="5+ Years">5+ Years</MenuItem>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
               </div>
             </div>
           </div>
         </>
       )}
       {tab === 2 && (<>
-          {mode === "view" && (
-            <>
-              <div className="row totalCount">
-                <div className="col">
-                  <div className=" h-100 d-flex align-items-start pt-3 text-end justify-content-start">
-                    {ask?.name} Professional Refferal Code: &nbsp;<div style={{ fontWeight: 400 }}>{ask?.coupon_code}</div>
-                  </div>
-                  {/* <div className="sort mt-3">
+        {mode === "view" && (
+          <>
+            <div className="row totalCount">
+              <div className="col">
+                <div className=" h-100 d-flex align-items-start pt-3 text-end justify-content-start">
+                  {ask?.name} Professional Refferal Code: &nbsp;<div style={{ fontWeight: 400 }}>{ask?.coupon_code}</div>
+                </div>
+                {/* <div className="sort mt-3">
 											<label>Pro Refferal Code<span className="mandatory-star">*</span></label>
 											<div className="sort-by-select-wrapper">
 											</div>
 										</div> */}
-                </div>
-                <div className="col">
-					{trustTheProsTotalPoints!==null &&
+              </div>
+              <div className="col">
+                {trustTheProsTotalPoints !== null &&
                   <div className=" h-100 d-flex align-items-start pt-3 text-end justify-content-end">
                     Total Points: {trustTheProsTotalPoints}
                   </div>}
-                </div>
               </div>
-            </>
-          )}
-          {mode === "edit" && (
-            <>
-              <div className="row">
-                <div className="col">
-                  <div className="sort mt-3">
-                    <label>
-                      Pro Refferal Code<span className="mandatory-star">*</span>
-                    </label>
-                    <div className="sort-by-select-wrapper">
-                      <Select
-                        disableUnderline
-                        variant="standard"
-                        autoWidth={false}
-                        IconComponent={ExpandMoreIcon}
-                        name="coupon_code_id"
-                        onChange={handleChangeCode}
-                        className="sort-by-select w-50"
-                        value={codeId}
+            </div>
+          </>
+        )}
+        {mode === "edit" && (
+          <>
+            <div className="row">
+              <div className="col">
+                <div className="sort mt-3">
+                  <label>
+                    Pro Refferal Code<span className="mandatory-star">*</span>
+                  </label>
+                  <div className="sort-by-select-wrapper">
+                    <Select
+                      disableUnderline
+                      variant="standard"
+                      autoWidth={false}
+                      IconComponent={ExpandMoreIcon}
+                      name="coupon_code_id"
+                      onChange={handleChangeCode}
+                      className="sort-by-select w-50"
+                      value={codeId}
+                    >
+                      <MenuItem
+                        value="select"
+                        disabled
+                        className="field_toggle_checked"
                       >
-                        <MenuItem
-                          value="select"
-                          disabled
-                          className="field_toggle_checked"
-                        >
-                          Select Code{" "}
-                        </MenuItem>
-                        {codeDropdownList?.map((value) => {
-                          return (
-                            <MenuItem value={value?.id}>{value?.code}</MenuItem>
-                          );
-                        })}
-                      </Select>
-                      {/* <Dialog
+                        Select Code{" "}
+                      </MenuItem>
+                      {codeDropdownList?.map((value) => {
+                        return (
+                          <MenuItem value={value?.id}>{value?.code}</MenuItem>
+                        );
+                      })}
+                    </Select>
+                    {/* <Dialog
 													open={openProRefferalCode}
 													onClose={handleCloseProRefferalCode}
 													maxWidth="sm"
@@ -475,78 +652,259 @@ export default function AskTheProps(props) {
 														</Button>
 													</DialogActions>
 												</Dialog> */}
-                    </div>
                   </div>
                 </div>
-                <div className="col">
-				{trustTheProsTotalPoints!==null &&
+              </div>
+              <div className="col">
+                {trustTheProsTotalPoints !== null &&
                   <div className="totalCount h-100 my-3 d-flex align-items-start pt-3 text-end justify-content-end">
                     Total Points: {trustTheProsTotalPoints}
                   </div>}
+              </div>
+            </div>
+          </>
+        )}
+        {/* {mode === "edit" && ( */}
+        <div data-component="CustomerComponent">
+          <div className='mb-2 mt-2'>
+            <div className="row">
+              <div className="col-md-12">
+                <div className="tableRow">
+                  <div className="col pe-1">Coupon Code</div>
+                  <div className="col px-2 text-center">Order ID</div>
+                  <div className="col px-2 text-center">Redeem By</div>
+                  <div className="col px-2 text-center">Date</div>
+                  <div className="col px-2 text-center">Reward Points</div>
+                  <div className="col px-2 text-end">Discount</div>
+                </div>
+              </div>
+            </div>
+            {
+              trustTheProsRefferalCode && trustTheProsRefferalCode.length === 0 ? <div className="not-found">No Data Found</div> :
+                trustTheProsRefferalCode?.map((p, index) => {
+                  return (
+                    <div className="row" key={index}>
+                      <div className="col-md-12">
+                        <div className="tableCell">
+                          <div className="tableBody pe-1 col elip-text" title={p?.coupon_code}>{p?.coupon_code}</div>
+                          <div className="px-2 col text-center elip-text" title={p?.order_id}>{p?.order_id}</div>
+                          <div className="px-2 col text-center elip-text" title={p?.redeem_by}>{p?.redeem_by}</div>
+                          <div className="px-2 col text-center elip-text" title={convertDateStringToDate(p?.created_at)}>{convertDateStringToDate(p?.created_at)}</div>
+                          <div className="px-2 col text-center elip-text" title={p?.reward_points}>{p?.reward_points}</div>
+                          <div className="col text-end px-2 elip-text" title={p?.discount}>₹&nbsp;{p?.discount ? p?.discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') : parseInt(0).toFixed(2)}</div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+          </div>
+        </div>
+        {/* )} */}
+        {
+          totalPageRefferalCode > 1 ?
+            <div className="row">
+              <div className="col-md-12 mt-5 justify-content-between d-flex position-relative">
+                <div className="pagiantion-category">
+                  <div>
+                    <Pagination
+                      className="pagination pagi"
+                      page={currentPage}
+                      count={totalPageRefferalCode}
+                      onChange={onPageChange}
+                    />
+                  </div>
+                  <div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
+                    Total Professionals Refferal Codes: {totalAskTheProsRefferalCode.total}
+                  </div>
+                </div>
+              </div>
+            </div>
+            :
+            ""
+        }
+      </>
+      )}
+      {tab === 3 && (<>
+        {
+          viewAskTheProsQuery === false ?
+            <>
+              <div data-component="CustomerComponent">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="tableRow">
+                      <div className="col ps-1 elip-text">Customer Name</div>
+                      <div className="col px-2 elip-text text-center">Query Title</div>
+                      <div className="col px-2 elip-text text-center">Query</div>
+                      <div className="col-1 text-end">View</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="sticky-scroll scroll">
+                  {askTheProsQueryList?.length === 0 ? (
+                    <div className="error-message">No order Info</div>
+                  )
+                    :
+                    askTheProsQueryList?.map((p) => {
+                      return (
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="tableCell">
+                              <div className="tableBody col ps-1 elip-text">
+                                {p?.name}
+                              </div>
+                              <div className="col text-center px-2 elip-text">
+                                {p?.ask?.subject}
+                              </div>
+                              <div className="col text-center px-2 elip-text">
+                                {p?.ask?.body}
+                              </div>
+                              <div className="col-1 text-end">
+                                <RemoveRedEyeIcon
+                                  className="view-icon"
+                                  onClick={() => {
+                                    askTheProsViewApi(p?.ask?.id);
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+              {/* const [askTheProsQueryList, setAskTheProsQueryList] = useState(props?.askTheProsQueryList);
+              const [currentPageQueryList, setCurrentPageQueryList] = useState(props?.currentPageQueryList);
+              const [totalAskTheProsQueryList, setTotalAskTheProsQueryList] = useState(props?.totalAskTheProsQueryList);
+              const [totalPageQueryList, setTotalPageQueryList] = useState(props?.totalPageQueryList); */}
+              {totalPageQueryList > 1 && (
+                <div className="row">
+                  <div className="col-md-12 justify-content-between d-flex position-relative">
+                    <div className="pagiantion-category">
+                      <div>
+                        <Pagination
+                          className="pagination pagi"
+                          page={currentPageQueryList}
+                          count={totalPageQueryList}
+                          onChange={onPageChangeQueryList}
+                        />
+                      </div>
+                      <div
+                        className="position-absolute totalCount"
+                        style={{ right: 23, bottom: 5 }}
+                      >
+                        Total Orders: {totalAskTheProsQueryList?.total}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+            :
+            <>
+              <div className="btn-save mt-4 row justify-content-start">
+                <div
+                  className="Cancel-btn custom-btn"
+                  onClick={() => {
+                    setViewAskTheProsQuery(false);
+                  }}
+                >
+                  <span>Back </span>
+                </div>
+              </div>
+              <div className="row sticky-scroll scroll">
+                <div className="col">
+                  <div className="row mt-4">
+                    <div className="col-md-4">
+                      <div className="login-form ">
+                        <label>
+                          Customer Name<span className="mandatory-star">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="asked_by"
+                          readOnly={true}
+                          value={viewAskTheProsQueryObj?.asked_by}
+                        />
+                      </div>
+                      <div className="login-form ">
+                        <label>
+                          Query Title<span className="mandatory-star">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="subject"
+                          readOnly={true}
+                          value={viewAskTheProsQueryObj?.ask?.subject}
+                        />
+                      </div>
+                      <div className="login-form ">
+                        <label>
+                          Query<span className="mandatory-star">*</span>
+                        </label>
+                        <textarea
+                          cols="100"
+                          rows="5"
+                          type="text"
+                          name="body"
+                          readOnly={true}
+                          value={viewAskTheProsQueryObj?.ask?.body}
+                        />
+                      </div>
+
+
+                      {viewAskTheProsQueryObj?.reply?.length === 0 ? (
+                        <div className="error-message">Not Replied Yet</div>
+                      )
+                        :
+                        (
+                          <>
+                            {
+                              viewAskTheProsQueryObj?.reply?.map(elem => {
+                                return (
+                                  <>
+                                    <div className="login-form ">
+                                      <label>
+                                        Reply<span className="mandatory-star">*</span>
+                                      </label>
+                                      <textarea
+                                        cols="100"
+                                        rows="5"
+                                        type="text"
+                                        name="description"
+                                        readOnly={true}
+                                        value={elem?.reply?.body}
+                                      />
+                                    </div>
+                                    <div>
+                                      {
+                                        elem?.reply?.attachment ?
+                                          <a href={elem?.reply?.attachment}><button className="custom-btn d-flex justify-content-center point-text w-50">Attachment</button></a>
+                                          :
+                                          <button className="custom-btn d-flex justify-content-center point-text w-50">No Attachment</button>
+                                      }
+                                    </div>
+
+                                  </>
+                                )
+                              })
+                            }
+                          </>
+
+                        )
+                      }
+
+
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
-          )}
-		{/* {mode === "edit" && ( */}
-          <div data-component="CustomerComponent">
-						<div className='mb-2 mt-2'>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="tableRow">
-										<div className="col pe-1">Coupon Code</div>
-										<div className="col px-2 text-center">Order ID</div>
-										<div className="col px-2 text-center">Redeem By</div>
-										<div className="col px-2 text-center">Date</div>
-										<div className="col px-2 text-center">Reward Points</div>
-										<div className="col px-2 text-end">Discount</div>
-									</div>
-								</div>
-							</div>
-							{
-								trustTheProsRefferalCode && trustTheProsRefferalCode.length === 0 ? <div className="not-found">No Data Found</div> :
-									trustTheProsRefferalCode?.map((p, index) => {
-										return (
-											<div className="row" key={index}>
-												<div className="col-md-12">
-													<div className="tableCell">
-														<div className="tableBody pe-1 col elip-text" title={p?.coupon_code}>{p?.coupon_code}</div>
-														<div className="px-2 col text-center elip-text" title={p?.order_id}>{p?.order_id}</div>
-														<div className="px-2 col text-center elip-text" title={p?.redeem_by}>{p?.redeem_by}</div>
-														<div className="px-2 col text-center elip-text" title={convertDateStringToDate(p?.created_at)}>{convertDateStringToDate(p?.created_at)}</div>
-														<div className="px-2 col text-center elip-text" title={p?.reward_points}>{p?.reward_points}</div>
-														<div className="col text-end px-2 elip-text" title={p?.discount}>₹&nbsp;{p?.discount ? p?.discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',') : parseInt(0).toFixed(2)}</div>
-													</div>
-												</div>
-											</div>
-										);
-									})}
-						</div>
-					</div>
-          {/* )} */}
-					{
-						totalPageRefferalCode > 1 ?
-							<div className="row">
-								<div className="col-md-12 mt-5 justify-content-between d-flex position-relative">
-									<div className="pagiantion-category">
-										<div>
-											<Pagination
-												className="pagination pagi"
-												page={currentPage}
-												count={totalPageRefferalCode}
-												onChange={onPageChange}
-											/>
-										</div>
-										<div className="position-absolute totalCount" style={{ right: 23, bottom: 5 }}>
-											Total Professionals Refferal Codes: {totalAskTheProsRefferalCode.total}
-										</div>
-									</div>
-								</div>
-							</div>
-							:
-							""
-					}
-        </>
+        }
+      </>
       )}
+
     </div>
   );
 }

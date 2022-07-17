@@ -35,7 +35,14 @@ export default class AskTheProsCreate extends Component {
         is_active: false,
         experience: "",
         expertises: [],
+
+        id: null,
+        education: "",
+        recomended_article_category: "",
+        article_type_id: null
       },
+      askTheProsQueryArticleDropdown: [],
+      askTheProsQueryTypeDropdown: [],
     };
   }
 
@@ -91,6 +98,52 @@ export default class AskTheProsCreate extends Component {
       return false;
     }
 
+
+    if (
+      this.state.askTheProsDetails?.education === "" ||
+      this.state.askTheProsDetails?.education === null ||
+      this.state.askTheProsDetails?.education === undefined
+    ) {
+      toast.error("Please enter the educational qualification");
+      return false;
+    }
+    if (this.state.askTheProsDetails?.education !== undefined) {
+      if (this.state.askTheProsDetails?.education.replace(/\s/g, "").length <= 0) {
+        toast.error("Please enter the educational qualification");
+        return false;
+      }
+    }
+    if (
+      this.state.askTheProsDetails?.recomended_article_category === "select" ||
+      this.state.askTheProsDetails?.recomended_article_category === null ||
+      this.state.askTheProsDetails?.recomended_article_category === undefined
+    ) {
+      toast.error("Please enter the recommended article category");
+      return false;
+    }
+    if (this.state.askTheProsDetails?.recomended_article_category !== undefined) {
+      if (this.state.askTheProsDetails?.recomended_article_category.replace(/\s/g, "").length <= 0) {
+        toast.error("Please enter the recommended article category");
+        return false;
+      }
+    }
+    if (
+      this.state.askTheProsDetails?.article_type_id === "select" ||
+      this.state.askTheProsDetails?.article_type_id === null ||
+      this.state.askTheProsDetails?.article_type_id === undefined
+    ) {
+      toast.error("Please enter the article type id");
+      return false;
+    }
+    if (this.state.askTheProsDetails?.article_type_id !== undefined) {
+      if (this.state.askTheProsDetails?.article_type_id.replace(/\s/g, "").length <= 0) {
+        toast.error("Please enter the article type id");
+        return false;
+      }
+    }
+
+
+
     return true;
   };
   OnSave = () => {
@@ -103,6 +156,11 @@ export default class AskTheProsCreate extends Component {
         is_active: this.state.askTheProsDetails?.is_active,
         experience: this.state.askTheProsDetails?.experience,
         expertises: this.state.askTheProsDetails?.expertises,
+
+        education: this.state.askTheProsDetails?.education,
+        recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
+        article_type_id: this.state.askTheProsDetails?.article_type_id,
+
       };
       AskTheProsApi.AskTheProsCreate(data)
         .then((response) => {
@@ -127,12 +185,60 @@ export default class AskTheProsCreate extends Component {
     this.setState({ askTheProsDetails: value });
   };
 
+  AskTheProsQueryCategoryDropdown = () => {
+    this.setState({ isLoader: true });
+    AskTheProsApi.AskTheProsQueryCategoryDropdown()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            isLoader: false,
+            askTheProsQueryArticleDropdown: response.data.data?.list,
+          });
+        }
+      })
+      .catch((error) => {
+        this.setState({ isLoader: false });
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  AskTheProsQueryTypeDropdown = () => {
+    this.setState({ isLoader: true });
+    AskTheProsApi.AskTheProsQueryTypeDropdown()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            isLoader: false,
+            askTheProsQueryTypeDropdown: response.data.data?.list,
+          });
+        }
+      })
+      .catch((error) => {
+        this.setState({ isLoader: false });
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
     this.setState({ id: this.props?.id });
+    this.AskTheProsQueryCategoryDropdown();
+    this.AskTheProsQueryTypeDropdown();
   }
   render() {
     return (
@@ -177,6 +283,8 @@ export default class AskTheProsCreate extends Component {
                   askThePros={this.state.asktheProps}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
+                  askTheProsQueryArticleDropdown={this.state.askTheProsQueryArticleDropdown}
+                  askTheProsQueryTypeDropdown={this.state.askTheProsQueryTypeDropdown}  
                 />
               </div>
             </div>

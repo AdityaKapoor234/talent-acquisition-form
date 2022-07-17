@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ASKTHEPROSLIST, GET_ASKTHEPROS_DETAILS, GET_ASKTHEPROS_CREATE, GET_ASKTHEPROS_EDIT, GET_ASKTHEPROS_DELETE,GET_EXPERTISE, ASK_THE_PROS_REFFRAL_CODE_LIST, ASK_THE_PROS_CODE_DROPDOWN_LIST, ASK_THE_PROS_REFFRAL_CODE_EDIT, ASK_THE_PROS_REFFRAL_CODE_TOTAL_POINTS, ASK_THE_PROS_QUERY_LIST, ASK_THE_PROS_QUERY_VIEW} from "../utils/constant";
+import {ASKTHEPROSLIST, GET_ASKTHEPROS_DETAILS, GET_ASKTHEPROS_CREATE, GET_ASKTHEPROS_EDIT, GET_ASKTHEPROS_DELETE,GET_EXPERTISE, ASK_THE_PROS_REFFRAL_CODE_LIST, ASK_THE_PROS_CODE_DROPDOWN_LIST, ASK_THE_PROS_REFFRAL_CODE_EDIT, ASK_THE_PROS_REFFRAL_CODE_TOTAL_POINTS, ASK_THE_PROS_QUERY_LIST, ASK_THE_PROS_QUERY_VIEW, ASK_THE_PROS_QUERY_ARTICLE_CATEGORY, ASK_THE_PROS_QUERY_ARTICLE_TYPE} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -138,6 +138,29 @@ export class AskTheProsApi {
         };
         return axios.get(`${ASK_THE_PROS_QUERY_VIEW}`.replace('{{id}}', id),httpOptions)
     }
+
+    static AskTheProsQueryCategoryDropdown() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${ASK_THE_PROS_QUERY_ARTICLE_CATEGORY}`,httpOptions)
+    }
+
+    static AskTheProsQueryTypeDropdown() {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${ASK_THE_PROS_QUERY_ARTICLE_TYPE}`,httpOptions)
+    }
+
     
 }
 export default AskTheProsApi ;

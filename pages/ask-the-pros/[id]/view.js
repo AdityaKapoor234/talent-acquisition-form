@@ -42,6 +42,8 @@ export default function AskTheProsViewDetails({ id }) {
   const [currentPageQueryList, setCurrentPageQueryList] = useState(1);
   const [totalAskTheProsQueryList, setTotalAskTheProsQueryList] = useState([]);
   const [totalPageQueryList, setTotalPageQueryList] = useState(null);
+  const [askTheProsQueryArticleDropdown, setAskTheProsQueryArticleDropdown] = useState([]);
+  const [askTheProsQueryTypeDropdown, setAskTheProsQueryTypeDropdown] = useState([]);
 
 
 
@@ -192,6 +194,48 @@ export default function AskTheProsViewDetails({ id }) {
     setCurrentPageQueryList(value)
   }
 
+  const AskTheProsQueryCategoryDropdown = () => {
+    setIsLoader(true);
+    AskTheProsApi.AskTheProsQueryCategoryDropdown()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setIsLoader(false);
+          setAskTheProsQueryArticleDropdown(response.data.data?.list);
+        }
+      })
+      .catch((error) => {
+        setIsLoader(false);
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  const AskTheProsQueryTypeDropdown = () => {
+    setIsLoader(true);
+    AskTheProsApi.AskTheProsQueryTypeDropdown()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setIsLoader(false);
+          setAskTheProsQueryTypeDropdown(response.data.data?.list);
+        }
+      })
+      .catch((error) => {
+        setIsLoader(false);
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
 
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
@@ -203,6 +247,8 @@ export default function AskTheProsViewDetails({ id }) {
     trustTheProsRefferCodeDropdownList();
     trustTheProsTotalPoint(id);
     AskTheProsQueryDetails(id, currentPageQueryList);
+    AskTheProsQueryCategoryDropdown();
+    AskTheProsQueryTypeDropdown();
 
   }, [id]);
   return (
@@ -263,6 +309,8 @@ export default function AskTheProsViewDetails({ id }) {
                 AskTheProsQueryDetails={AskTheProsQueryDetails.bind(this)}
                 totalAskTheProsQueryList={totalAskTheProsQueryList}
                 totalPageQueryList={totalPageQueryList}
+                askTheProsQueryArticleDropdown={askTheProsQueryArticleDropdown}
+                askTheProsQueryTypeDropdown={askTheProsQueryTypeDropdown}
               />
             </div>
           </div>

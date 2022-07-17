@@ -85,6 +85,8 @@ export const ASK_THE_PROS_REFFRAL_CODE_EDIT = `${USER_SERVICE}/manage/expert/{{i
 export const ASK_THE_PROS_REFFRAL_CODE_TOTAL_POINTS = `${ORDER_SERVICE}/manage/expert/reward/{{id}}/total_point`;
 export const ASK_THE_PROS_QUERY_LIST = `${USER_SERVICE}/manage/expert/{{id}}/query/view?page={{page}}`;
 export const ASK_THE_PROS_QUERY_VIEW = `${USER_SERVICE}/manage/expert/{{id}}/query/view_by_id`;
+export const ASK_THE_PROS_QUERY_ARTICLE_CATEGORY = `${USER_SERVICE}/manage/article/category/all`;
+export const ASK_THE_PROS_QUERY_ARTICLE_TYPE = `${USER_SERVICE}/manage/article/type/all`;
 
 //DASHBOARD
 export const GET_DASHBOARD_ORDER_STATS = `${ORDER_SERVICE}/manage/order/stats`;

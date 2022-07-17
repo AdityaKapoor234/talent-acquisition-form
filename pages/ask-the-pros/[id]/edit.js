@@ -64,6 +64,10 @@ export default class AskTheProsEditDetails extends Component {
       totalAskTheProsQueryList: [],
       totalPageQueryList: null,
 
+      askTheProsQueryArticleDropdown: [],
+      askTheProsQueryTypeDropdown: [],
+    
+
       // trustTheProsRefferalCodeDropdown: [],
       // proffesionalReferralCodeId: "",
       // proffesionalReferralCode: "",
@@ -338,6 +342,54 @@ export default class AskTheProsEditDetails extends Component {
   }
 
 
+  AskTheProsQueryCategoryDropdown = () => {
+    this.setState({ isLoader: true });
+    AskTheProsApi.AskTheProsQueryCategoryDropdown()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            isLoader: false,
+            askTheProsQueryArticleDropdown: response.data.data?.list,
+          });
+        }
+      })
+      .catch((error) => {
+        this.setState({ isLoader: false });
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  AskTheProsQueryTypeDropdown = () => {
+    this.setState({ isLoader: true });
+    AskTheProsApi.AskTheProsQueryTypeDropdown()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            isLoader: false,
+            askTheProsQueryTypeDropdown: response.data.data?.list,
+          });
+        }
+      })
+      .catch((error) => {
+        this.setState({ isLoader: false });
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+
+
 
 
   componentDidMount() {
@@ -351,6 +403,8 @@ export default class AskTheProsEditDetails extends Component {
     this.codeList();
     this.trustTheProsTotalPoints(this.props.id);
     this.AskTheProsQueryDetails(this.state.id, this.state.currentPageQueryList);
+    this.AskTheProsQueryCategoryDropdown();
+    this.AskTheProsQueryTypeDropdown();
   }
   render() {
     return (
@@ -426,6 +480,9 @@ export default class AskTheProsEditDetails extends Component {
                   AskTheProsQueryDetails={this.AskTheProsQueryDetails.bind(this)}
                   totalAskTheProsQueryList={this.state.totalAskTheProsQueryList}
                   totalPageQueryList={this.state.totalPageQueryList}
+
+                  askTheProsQueryArticleDropdown={this.state.askTheProsQueryArticleDropdown}
+                  askTheProsQueryTypeDropdown={this.state.askTheProsQueryTypeDropdown}  
 
                 />
               </div>

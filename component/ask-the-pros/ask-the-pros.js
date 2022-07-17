@@ -46,6 +46,9 @@ export default function AskTheProps(props) {
   const [viewAskTheProsQuery, setViewAskTheProsQuery] = useState(false);
   const [viewAskTheProsQueryObj, setViewAskTheProsQueryObj] = useState({});
 
+  const [askTheProsQueryArticleDropdown, setAskTheProsQueryArticleDropdown] = useState(props?.askTheProsQueryArticleDropdown);
+  const [askTheProsQueryTypeDropdown, setAskTheProsQueryTypeDropdown] = useState(props?.askTheProsQueryTypeDropdown);
+
   // const [openProRefferalCode, setOpenProRefferalCode] = useState(false);
   // const [trustTheProsRefferalCodeDropdownValue, setTrustTheProsRefferalCodeDropdownValue] = useState("select");
 
@@ -213,6 +216,10 @@ export default function AskTheProps(props) {
     setCurrentPageQueryList(props?.currentPageQueryList);
     setTotalAskTheProsQueryList(props?.totalAskTheProsQueryList);
     setTotalPageQueryList(props?.totalPageQueryList);
+
+    setAskTheProsQueryArticleDropdown(props?.askTheProsQueryArticleDropdown);
+    setAskTheProsQueryTypeDropdown(props?.askTheProsQueryTypeDropdown);
+  
 
     // setTrustTheProsRefferalCodeDropdownValue({
     // 	code: props?.askThePros?.coupon_code,
@@ -475,23 +482,13 @@ export default function AskTheProps(props) {
                           >
                             Select Recomended Article Category{" "}
                           </MenuItem>
-                          <MenuItem value="1 Month">1 Month</MenuItem>
-                          <MenuItem value="2 Months">2 Months</MenuItem>
-                          <MenuItem value="3 Months">3 Months</MenuItem>
-                          <MenuItem value="4 Months">4 Months</MenuItem>
-                          <MenuItem value="5 Months">5 Months</MenuItem>
-                          <MenuItem value="6 Months">6 Months</MenuItem>
-                          <MenuItem value="7 Months">7 Months</MenuItem>
-                          <MenuItem value="8 Months">8 Months</MenuItem>
-                          <MenuItem value="9 Months">9 Months</MenuItem>
-                          <MenuItem value="10 Months">10 Months</MenuItem>
-                          <MenuItem value="11 Months">11 Months</MenuItem>
-                          <MenuItem value="1 Year">1 Year</MenuItem>
-                          <MenuItem value="2 Years">2 Years</MenuItem>
-                          <MenuItem value="3 Years">3 Years</MenuItem>
-                          <MenuItem value="4 Years">4 Years</MenuItem>
-                          <MenuItem value="5 Years">5 Years</MenuItem>
-                          <MenuItem value="5+ Years">5+ Years</MenuItem>
+                          {
+                            askTheProsQueryArticleDropdown?.map(elem => {
+                              return (
+                                <MenuItem value={elem?.id}>{elem?.name}</MenuItem>
+                              )
+                            })
+                          }
                         </Select>
                       </div>
                     </div>
@@ -501,7 +498,7 @@ export default function AskTheProps(props) {
                   <div className="col-md-4">
                     <div className="login-form mt-3 sort">
                       <label>
-                        Article Type ID<span className="mandatory-star">*</span>
+                        Article Type<span className="mandatory-star">*</span>
                       </label>
                       <div className="sort-by-select-wrapper">
                         <Select
@@ -520,25 +517,15 @@ export default function AskTheProps(props) {
                             disabled
                             className="field_toggle_checked"
                           >
-                            Select Article Type ID{" "}
+                            Select Article Type{" "}
                           </MenuItem>
-                          <MenuItem value="1 Month">1 Month</MenuItem>
-                          <MenuItem value="2 Months">2 Months</MenuItem>
-                          <MenuItem value="3 Months">3 Months</MenuItem>
-                          <MenuItem value="4 Months">4 Months</MenuItem>
-                          <MenuItem value="5 Months">5 Months</MenuItem>
-                          <MenuItem value="6 Months">6 Months</MenuItem>
-                          <MenuItem value="7 Months">7 Months</MenuItem>
-                          <MenuItem value="8 Months">8 Months</MenuItem>
-                          <MenuItem value="9 Months">9 Months</MenuItem>
-                          <MenuItem value="10 Months">10 Months</MenuItem>
-                          <MenuItem value="11 Months">11 Months</MenuItem>
-                          <MenuItem value="1 Year">1 Year</MenuItem>
-                          <MenuItem value="2 Years">2 Years</MenuItem>
-                          <MenuItem value="3 Years">3 Years</MenuItem>
-                          <MenuItem value="4 Years">4 Years</MenuItem>
-                          <MenuItem value="5 Years">5 Years</MenuItem>
-                          <MenuItem value="5+ Years">5+ Years</MenuItem>
+                          {
+                            askTheProsQueryTypeDropdown?.map(elem => {
+                              return (
+                                <MenuItem value={elem?.id}>{elem?.name}</MenuItem>
+                              )
+                            })
+                          }
                         </Select>
                       </div>
                     </div>

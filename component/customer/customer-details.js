@@ -60,6 +60,7 @@ export default class CustomerDetails extends Component {
 			input: {
 				phone_number: props?.customer?.phone_number,
 				name: props?.customer?.name,
+				id: props?.customer?.id,
 				email: props?.customer?.email,
 				user_type: "select",
 				is_active: props?.customer?.is_active,
@@ -146,6 +147,7 @@ export default class CustomerDetails extends Component {
 				userType: nextProps?.userType,
 				input: {
 					phone_number: nextProps?.customer?.phone_number,
+					id: nextProps?.customer?.id,
 					name: nextProps?.customer?.name,
 					email: nextProps?.customer?.email,
 					user_type: nextProps?.customer?.user_type ? nextProps?.customer?.user_type : "select",
@@ -469,6 +471,17 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
+											Customer ID<span className="mandatory-star">*</span>
+										</label>
+										<input
+											type="text"
+											value={this.state.input?.id}
+											name="id"
+											readOnly={true}
+										/>
+									</div>
+									<div className="login-form ">
+										<label>
 											Name<span className="mandatory-star">*</span>
 										</label>
 										<input
@@ -526,6 +539,17 @@ export default class CustomerDetails extends Component {
 											type="text"
 											readOnly={true}
 											value={this.state.customer?.user_type}
+										/>
+									</div>
+									<div className="login-form ">
+										<label>
+											Customer ID<span className="mandatory-star">*</span>
+										</label>
+										<input
+											type="text"
+											value={this.state.input?.id}
+											name="id"
+											readOnly={true}
 										/>
 									</div>
 									<div className="login-form ">

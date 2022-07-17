@@ -44,19 +44,30 @@ export default class AskTheProsEditDetails extends Component {
         is_active: false,
         experience: "",
         expertises: [],
+
+        id: null,
+        education: "",
+        recomended_article_category: "",
+        article_type_id: null
       },
       isLoader: true,
-      codeDropdownList:[],
-      codeSubmit:null,
+      codeDropdownList: [],
+      codeSubmit: null,
       trustTheProsTotalPoints: {},
       trustTheProsRefferalCode: [],
       totalAskTheProsRefferalCode: [],
       totalPageRefferalCode: null,
       currentPage: 1,
+
+      askTheProsQueryList: [],
+      currentPageQueryList: 1,
+      totalAskTheProsQueryList: [],
+      totalPageQueryList: null,
+
       // trustTheProsRefferalCodeDropdown: [],
       // proffesionalReferralCodeId: "",
       // proffesionalReferralCode: "",
-  
+
     };
   }
 
@@ -75,7 +86,7 @@ export default class AskTheProsEditDetails extends Component {
     if (
       this.state.askTheProsDetails?.name === "" ||
       this.state.askTheProsDetails?.name === null ||
-      this.state.askTheProsDetails?.name.replace(/\s/g, "").length <=0
+      this.state.askTheProsDetails?.name.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the name");
       return false;
@@ -83,14 +94,14 @@ export default class AskTheProsEditDetails extends Component {
     if (
       this.state.askTheProsDetails?.description === "" ||
       this.state.askTheProsDetails?.description === null ||
-      this.state.askTheProsDetails?.description.replace(/\s/g, "").length <=0
+      this.state.askTheProsDetails?.description.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the description");
       return false;
     }
-    if (this.state.askTheProsDetails?.email === ""||
-    this.state.askTheProsDetails?.email === null ||
-    this.state.askTheProsDetails?.email.replace(/\s/g, "").length <=0) {
+    if (this.state.askTheProsDetails?.email === "" ||
+      this.state.askTheProsDetails?.email === null ||
+      this.state.askTheProsDetails?.email.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter email address");
       return false;
     }
@@ -108,27 +119,57 @@ export default class AskTheProsEditDetails extends Component {
     if (
       this.state.askTheProsDetails?.experience === "" ||
       this.state.askTheProsDetails?.experience === null ||
-      this.state.askTheProsDetails?.experience.replace(/\s/g, "").length <=0
+      this.state.askTheProsDetails?.experience.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter experience");
       return false;
     }
-    
+
+    if (
+      this.state.askTheProsDetails?.education === "" ||
+      this.state.askTheProsDetails?.education === null ||
+      this.state.askTheProsDetails?.education.replace(/\s/g, "").length <= 0
+    ) {
+      toast.error("Please enter the educational qualification");
+      return false;
+    }
+    if (
+      this.state.askTheProsDetails?.recomended_article_category === "select" ||
+      this.state.askTheProsDetails?.recomended_article_category === null ||
+      this.state.askTheProsDetails?.recomended_article_category.replace(/\s/g, "").length <= 0
+    ) {
+      toast.error("Please enter the recommended article category");
+      return false;
+    }
+    if (
+      this.state.askTheProsDetails?.article_type_id === "select" ||
+      this.state.askTheProsDetails?.article_type_id === null ||
+      this.state.askTheProsDetails?.article_type_id.replace(/\s/g, "").length <= 0
+    ) {
+      toast.error("Please enter the article type id");
+      return false;
+    }
+
     return true;
   };
   OnSave = () => {
     if (this.validateData()) {
       let data = {
-        name:this.state.askTheProsDetails?.name,
-        email:this.state.askTheProsDetails?.email,
-        description:this.state.askTheProsDetails?.description,
+        name: this.state.askTheProsDetails?.name,
+        email: this.state.askTheProsDetails?.email,
+        description: this.state.askTheProsDetails?.description,
         avatar_url: this.state.askTheProsDetails?.avatar_url,
         is_active: this.state.askTheProsDetails?.is_active,
-        experience:this.state.askTheProsDetails?.experience,
-        expertises:this.state.askTheProsDetails?.expertises,
+        experience: this.state.askTheProsDetails?.experience,
+        expertises: this.state.askTheProsDetails?.expertises,
+
+        education: this.state.askTheProsDetails?.education,
+        recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
+        article_type_id: this.state.askTheProsDetails?.article_type_id,
+
       };
-      if(this.state.codeSubmit !==null){
-        AskTheProsApi.AskTheProsRefferalCodeEdit(this.props?.id,this.state.codeSubmit)
+      if (this.state.codeSubmit !== null) {
+        AskTheProsApi.AskTheProsRefferalCodeEdit(this.props?.id, this.state.codeSubmit)
       }
       AskTheProsApi.AskTheProsEdit(this.props.id, data)
         .then((response) => {
@@ -157,15 +198,20 @@ export default class AskTheProsEditDetails extends Component {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
-            name:response.data.data.expert?.name,
-            email:response.data.data.expert?.email,
-            description:response.data.data.expert?.description,
+            name: response.data.data.expert?.name,
+            email: response.data.data.expert?.email,
+            description: response.data.data.expert?.description,
             coupon_code: response.data.data.expert?.coupon_code,
             coupon_code_id: response.data.data.expert?.coupon_code_id,
             avatar_url: response.data.data.expert?.avatar_url,
             is_active: response.data.data.expert?.is_active,
-            experience:response.data.data.expert?.experience,
-            expertises:response.data.data?.expertise?.expertise === "deleted"? []:response.data.data?.expertise?.map(val=>val?.id)
+            experience: response.data.data.expert?.experience,
+            expertises: response.data.data?.expertise?.expertise === "deleted" ? [] : response.data.data?.expertise?.map(val => val?.id),
+
+            id: response.data.data.expert?.id,
+            education: response.data.data.expert?.education,
+            recomended_article_category: response.data.data.expert?.recomended_article_category,
+            article_type_id: response.data.data.expert?.article_type_id,
           };
           this.setState({
             askTheProsDetails: details,
@@ -206,9 +252,9 @@ export default class AskTheProsEditDetails extends Component {
   trustTheProsRefferCodeList = (id, page) => {
     AskTheProsApi.AskTheProsRefferalCodeList(id, page)
       .then((response) => {
-        this.setState({trustTheProsRefferalCode: response.data.data.list}); 
-        this.setState({totalAskTheProsRefferalCode: response.data.data});
-        this.setState({totalPageRefferalCode: Math.ceil(response.data.data.total / response.data.data.page_size)});
+        this.setState({ trustTheProsRefferalCode: response.data.data.list });
+        this.setState({ totalAskTheProsRefferalCode: response.data.data });
+        this.setState({ totalPageRefferalCode: Math.ceil(response.data.data.total / response.data.data.page_size) });
 
       })
       .catch((error) => {
@@ -225,7 +271,7 @@ export default class AskTheProsEditDetails extends Component {
   codeList = () => {
     AskTheProsApi.AskTheProsRefferalCodeDropdownList()
       .then((response) => {
-        this.setState({codeDropdownList: response.data.data.list}); 
+        this.setState({ codeDropdownList: response.data.data.list });
       })
       .catch((error) => {
         toast.error(
@@ -241,7 +287,7 @@ export default class AskTheProsEditDetails extends Component {
   trustTheProsTotalPoints = (id) => {
     AskTheProsApi.AskTheProsRefferalCodeTotalPoints(id)
       .then((response) => {
-        this.setState({trustTheProsTotalPoints: response.data.data.total}); 
+        this.setState({ trustTheProsTotalPoints: response.data.data.total });
       })
       .catch((error) => {
       });
@@ -259,17 +305,52 @@ export default class AskTheProsEditDetails extends Component {
   // }
 
 
-  
+
+
+
+  AskTheProsQueryDetails = (id, page) => {
+    this.setState({ isLoader: true });
+    AskTheProsApi.AskTheProsQueryList(id, page)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            isLoader: false,
+            askTheProsQueryList: response.data.data?.list,
+            totalAskTheProsQueryList: response.data.data,
+            totalPageQueryList: Math.ceil(response.data.data.total / response.data.data.page_size)
+          });
+        }
+      })
+      .catch((error) => {
+        this.setState({ isLoader: false });
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  QueryListPagination = (value) => {
+    this.setState({ currentPageQueryList: value });
+  }
+
+
+
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
-    this. getAskTheProsDetails(this.props.id);
+    this.getAskTheProsDetails(this.props.id);
     this.setState({ id: this.props?.id });
-    this.trustTheProsRefferCodeList(this.props.id,this.state.currentPage);
+    this.trustTheProsRefferCodeList(this.props.id, this.state.currentPage);
     this.codeList();
     this.trustTheProsTotalPoints(this.props.id);
+    this.AskTheProsQueryDetails(this.state.id, this.state.currentPageQueryList);
   }
   render() {
     return (
@@ -285,10 +366,10 @@ export default class AskTheProsEditDetails extends Component {
             <div className="row border-box">
               <div className="col-md-5">
                 <div className="hamburger">
-                <span>Trust The Pros / Trust The Pros /  </span>Edit Trust The Pros 
+                  <span>Trust The Pros / Trust The Pros /  </span>Edit Trust The Pros
                 </div>
                 <div className="page-name">
-                Edit Trust The Pros  - {this.state.askTheProsDetails?.name}
+                  Edit Trust The Pros  - {this.state.askTheProsDetails?.name}
                 </div>
               </div>
               <div className="col-md-7 btn-save">
@@ -320,24 +401,32 @@ export default class AskTheProsEditDetails extends Component {
             </div>
             <div className="row">
               <div className="col-m-12">
-              <AskTheProsCreateComponent
+                <AskTheProsCreateComponent
                   askThePros={this.state.askTheProsDetails}
                   mode={this.state.mode}
                   id={this.state.id}
                   handle={this.stateHandle.bind(this)}
                   codeDropdownList={this.state.codeDropdownList}
-                  codeHandle={(value)=>this.setState({codeSubmit:value})}
-                  trustTheProsTotalPoints= {this.state.trustTheProsTotalPoints}
-                  trustTheProsRefferalCode= {this.state.trustTheProsRefferalCode}
-                  totalAskTheProsRefferalCode= {this.state.totalAskTheProsRefferalCode}
-                  totalPageRefferalCode= {this.state.totalPageRefferalCode}
-                  currentPage= {this.state.currentPage}
+                  codeHandle={(value) => this.setState({ codeSubmit: value })}
+                  trustTheProsTotalPoints={this.state.trustTheProsTotalPoints}
+                  trustTheProsRefferalCode={this.state.trustTheProsRefferalCode}
+                  totalAskTheProsRefferalCode={this.state.totalAskTheProsRefferalCode}
+                  totalPageRefferalCode={this.state.totalPageRefferalCode}
+                  currentPage={this.state.currentPage}
                   // trustTheProsRefferalCodeDropdown= {this.state.trustTheProsRefferalCodeDropdown}
                   // trustTheProsTotalPoints= {this.state.trustTheProsTotalPoints}
                   // setProfessionalReferralCode={this.setProfessionalReferralCode.bind(this)}
                   // trustTheProsRefferalCodeEdit={this.trustTheProsRefferalCodeEdit.bind(this)}
                   RefferalCodePagination={this.RefferalCodePagination.bind(this)}
                   trustTheProsRefferCodeList={this.trustTheProsRefferCodeList.bind(this)}
+
+                  askTheProsQueryList={this.state.askTheProsQueryList}
+                  currentPageQueryList={this.state.currentPageQueryList}
+                  QueryListPagination={this.QueryListPagination.bind(this)}
+                  AskTheProsQueryDetails={this.AskTheProsQueryDetails.bind(this)}
+                  totalAskTheProsQueryList={this.state.totalAskTheProsQueryList}
+                  totalPageQueryList={this.state.totalPageQueryList}
+
                 />
               </div>
             </div>

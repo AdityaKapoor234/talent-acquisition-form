@@ -83,6 +83,8 @@ export const ASK_THE_PROS_REFFRAL_CODE_LIST = `${ORDER_SERVICE}/manage/expert/re
 export const ASK_THE_PROS_CODE_DROPDOWN_LIST = `${ORDER_SERVICE}/manage/coupon/all`;
 export const ASK_THE_PROS_REFFRAL_CODE_EDIT = `${USER_SERVICE}/manage/expert/{{id}}/set_coupon`;
 export const ASK_THE_PROS_REFFRAL_CODE_TOTAL_POINTS = `${ORDER_SERVICE}/manage/expert/reward/{{id}}/total_point`;
+export const ASK_THE_PROS_QUERY_LIST = `${USER_SERVICE}/manage/expert/{{id}}/query/view?page={{page}}`;
+export const ASK_THE_PROS_QUERY_VIEW = `${USER_SERVICE}/manage/expert/{{id}}/query/view_by_id`;
 
 //DASHBOARD
 export const GET_DASHBOARD_ORDER_STATS = `${ORDER_SERVICE}/manage/order/stats`;

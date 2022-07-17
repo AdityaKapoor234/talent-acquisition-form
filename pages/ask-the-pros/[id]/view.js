@@ -38,8 +38,12 @@ export default function AskTheProsViewDetails({ id }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [trustTheProsRefferalCodeDropdown, setTrustTheProsRefferalCodeDropdown] = useState([]);
   const [trustTheProsTotalPoints, setTrustTheProsTotalPoints] = useState({});
+  const [askTheProsQueryList, setAskTheProsQueryList] = useState([]);
+  const [currentPageQueryList, setCurrentPageQueryList] = useState(1);
+  const [totalAskTheProsQueryList, setTotalAskTheProsQueryList] = useState([]);
+  const [totalPageQueryList, setTotalPageQueryList] = useState(null);
 
-  
+
 
 
   const AskTheProsDetail = (id) => {
@@ -47,17 +51,22 @@ export default function AskTheProsViewDetails({ id }) {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let details = {
-            name:response.data.data.expert?.name,
-            email:response.data.data.expert?.email,
-            description:response.data.data.expert?.description,
+            name: response.data.data.expert?.name,
+            email: response.data.data.expert?.email,
+            description: response.data.data.expert?.description,
             coupon_code: response.data.data.expert?.coupon_code,
             coupon_code_id: response.data.data.expert?.coupon_code_id,
             avatar_url: response.data.data.expert?.avatar_url,
             is_active: response.data.data.expert?.is_active,
-            experience:response.data.data.expert?.experience,
-            expertises:response.data.data?.expertise?.expertise === "deleted"? []:response.data.data?.expertise?.map(val=>val?.id)
+            experience: response.data.data.expert?.experience,
+            expertises: response.data.data?.expertise?.expertise === "deleted" ? [] : response.data.data?.expertise?.map(val => val?.id),
+
+            id: response.data.data.expert?.id,
+            education: response.data.data.expert?.education,
+            recomended_article_category: response.data.data.expert?.recomended_article_category,
+            article_type_id: response.data.data.expert?.article_type_id,
           };
-        setAskThePros(details);
+          setAskThePros(details);
         }
       })
       .catch((error) => {
@@ -155,15 +164,45 @@ export default function AskTheProsViewDetails({ id }) {
     // trustTheProsRefferCodeList(id,currentPage);
   }
 
+
+  const AskTheProsQueryDetails = (id, page) => {
+    setIsLoader(true);
+    AskTheProsApi.AskTheProsQueryList(id, page)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          setIsLoader(false);
+          setAskTheProsQueryList(response.data.data?.list);
+          setTotalAskTheProsQueryList(response.data.data);
+          setTotalPageQueryList(Math.ceil(response.data.data.total / response.data.data.page_size));
+        }
+      })
+      .catch((error) => {
+        setIsLoader(false);
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
+
+  const QueryListPagination = (value) => {
+    setCurrentPageQueryList(value)
+  }
+
+
   useEffect(() => {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
     AskTheProsDetail(id);
-    trustTheProsRefferCodeList(id,currentPage);
+    trustTheProsRefferCodeList(id, currentPage);
     trustTheProsRefferCodeDropdownList();
     trustTheProsTotalPoint(id);
+    AskTheProsQueryDetails(id, currentPageQueryList);
 
   }, [id]);
   return (
@@ -210,14 +249,20 @@ export default function AskTheProsViewDetails({ id }) {
                 mode={mode}
                 id={id}
                 askThePros={askThePros}
-                trustTheProsRefferalCode= {trustTheProsRefferalCode}
-                totalAskTheProsRefferalCode= {totalAskTheProsRefferalCode}
-                totalPageRefferalCode= {totalPageRefferalCode}
-                currentPage= {currentPage}
-                trustTheProsRefferalCodeDropdown= {trustTheProsRefferalCodeDropdown}
-                trustTheProsTotalPoints= {trustTheProsTotalPoints}
+                trustTheProsRefferalCode={trustTheProsRefferalCode}
+                totalAskTheProsRefferalCode={totalAskTheProsRefferalCode}
+                totalPageRefferalCode={totalPageRefferalCode}
+                currentPage={currentPage}
+                trustTheProsRefferalCodeDropdown={trustTheProsRefferalCodeDropdown}
+                trustTheProsTotalPoints={trustTheProsTotalPoints}
                 RefferalCodePagination={RefferalCodePagination.bind(this)}
                 trustTheProsRefferCodeList={trustTheProsRefferCodeList.bind(this)}
+                askTheProsQueryList={askTheProsQueryList}
+                currentPageQueryList={currentPageQueryList}
+                QueryListPagination={QueryListPagination.bind(this)}
+                AskTheProsQueryDetails={AskTheProsQueryDetails.bind(this)}
+                totalAskTheProsQueryList={totalAskTheProsQueryList}
+                totalPageQueryList={totalPageQueryList}
               />
             </div>
           </div>

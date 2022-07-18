@@ -45,7 +45,7 @@ export default class AskTheProsEditDetails extends Component {
         experience: "",
         expertises: [],
 
-        id: null,
+        user_id: null,
         education: "",
         recomended_article_category: "",
         article_type_id: null
@@ -186,7 +186,7 @@ export default class AskTheProsEditDetails extends Component {
         experience: this.state.askTheProsDetails?.experience,
         expertises: this.state.askTheProsDetails?.expertises,
 
-        user_id:  this.state.askTheProsDetails?.id,
+        user_id:  this.state.askTheProsDetails?.user_id,
         education: this.state.askTheProsDetails?.education,
         recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
         article_type_id: this.state.askTheProsDetails?.article_type_id,
@@ -232,7 +232,7 @@ export default class AskTheProsEditDetails extends Component {
             experience: response.data.data.expert?.experience,
             expertises: response.data.data?.expertise?.expertise === "deleted" ? [] : response.data.data?.expertise?.map(val => val?.id),
 
-            id: response.data.data.expert?.id,
+            user_id: response.data.data.expert?.user_id,
             education: response.data.data.expert?.education,
             recomended_article_category: response.data.data.expert?.recomended_article_category,
             article_type_id: response.data.data.expert?.article_type_id,

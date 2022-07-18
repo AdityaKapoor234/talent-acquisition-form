@@ -63,7 +63,7 @@ export default function AskTheProsViewDetails({ id }) {
             experience: response.data.data.expert?.experience,
             expertises: response.data.data?.expertise?.expertise === "deleted" ? [] : response.data.data?.expertise?.map(val => val?.id),
 
-            id: response.data.data.expert?.id,
+            user_id: response.data.data.expert?.user_id,
             education: response.data.data.expert?.education,
             recomended_article_category: response.data.data.expert?.recomended_article_category,
             article_type_id: response.data.data.expert?.article_type_id,

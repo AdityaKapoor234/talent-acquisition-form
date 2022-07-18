@@ -219,7 +219,7 @@ export default function AskTheProps(props) {
 
     setAskTheProsQueryArticleDropdown(props?.askTheProsQueryArticleDropdown);
     setAskTheProsQueryTypeDropdown(props?.askTheProsQueryTypeDropdown);
-  
+
 
     // setTrustTheProsRefferalCodeDropdownValue({
     // 	code: props?.askThePros?.coupon_code,
@@ -292,6 +292,7 @@ export default function AskTheProps(props) {
                       name="user_id"
                       readOnly={mode === "view" ? true : false}
                       value={ask?.id}
+                      onChange={handleChange.bind(this)}
                     />
                   </div>
                   <div className="login-form ">
@@ -406,17 +407,21 @@ export default function AskTheProps(props) {
                           onChange={handleChange.bind(this)}
                         /> */}
                   </div>
-                  <div className="signup-check">
-                    <Checkbox
-                      size="small"
-                      style={{ color: "#012169" }}
-                      checked={ask?.is_active ? ask?.is_active : false}
-                      name="is_active"
-                      disabled={mode === "view" ? true : false}
-                      onChange={handleCheck.bind(this)}
-                    />
-                    <label>Active</label>
-                  </div>
+                  {
+                    mode !== "create" && (
+                      <div className="signup-check">
+                        <Checkbox
+                          size="small"
+                          style={{ color: "#012169" }}
+                          checked={ask?.is_active ? ask?.is_active : false}
+                          name="is_active"
+                          disabled={mode === "view" ? true : false}
+                          onChange={handleCheck.bind(this)}
+                        />
+                        <label>Active</label>
+                      </div>
+                    )
+                  }
                 </div>
                 <div className="col-md-12">
                   <label className="expertise">

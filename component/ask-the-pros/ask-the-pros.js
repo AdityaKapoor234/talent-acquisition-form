@@ -289,8 +289,8 @@ export default function AskTheProps(props) {
                     </label>
                     <input
                       type="text"
-                      name="id"
-                      readOnly={true}
+                      name="user_id"
+                      readOnly={mode === "view" ? true : false}
                       value={ask?.id}
                     />
                   </div>

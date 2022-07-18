@@ -37,6 +37,7 @@ export default class AskTheProsCreate extends Component {
         expertises: [],
 
         id: null,
+        user_id: null,
         education: "",
         recomended_article_category: "",
         article_type_id: null
@@ -128,12 +129,12 @@ export default class AskTheProsCreate extends Component {
       toast.error("Please enter the recommended article category");
       return false;
     }
-    if (this.state.askTheProsDetails?.recomended_article_category !== undefined) {
-      if (this.state.askTheProsDetails?.recomended_article_category.replace(/\s/g, "").length <= 0) {
-        toast.error("Please enter the recommended article category");
-        return false;
-      }
-    }
+    // if (this.state.askTheProsDetails?.recomended_article_category !== undefined) {
+    //   if (this.state.askTheProsDetails?.recomended_article_category.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter the recommended article category");
+    //     return false;
+    //   }
+    // }
     if (
       this.state.askTheProsDetails?.article_type_id === "select" ||
       this.state.askTheProsDetails?.article_type_id === null ||
@@ -142,12 +143,12 @@ export default class AskTheProsCreate extends Component {
       toast.error("Please enter the article type id");
       return false;
     }
-    if (this.state.askTheProsDetails?.article_type_id !== undefined) {
-      if (this.state.askTheProsDetails?.article_type_id.replace(/\s/g, "").length <= 0) {
-        toast.error("Please enter the article type id");
-        return false;
-      }
-    }
+    // if (this.state.askTheProsDetails?.article_type_id !== undefined) {
+    //   if (this.state.askTheProsDetails?.article_type_id.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter the article type id");
+    //     return false;
+    //   }
+    // }
 
 
 
@@ -160,11 +161,11 @@ export default class AskTheProsCreate extends Component {
         email: this.state.askTheProsDetails?.email,
         description: this.state.askTheProsDetails?.description,
         avatar_url: this.state.askTheProsDetails?.avatar_url,
-        is_active: this.state.askTheProsDetails?.is_active,
+        is_active: true,
         experience: this.state.askTheProsDetails?.experience,
         expertises: this.state.askTheProsDetails?.expertises,
 
-        user_id:  this.state.askTheProsDetails?.id,
+        user_id: parseInt(this.state.askTheProsDetails?.user_id),
         education: this.state.askTheProsDetails?.education,
         recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
         article_type_id: this.state.askTheProsDetails?.article_type_id,

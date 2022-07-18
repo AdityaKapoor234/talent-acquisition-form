@@ -290,8 +290,8 @@ export default function AskTheProps(props) {
                     <input
                       type="text"
                       name="user_id"
-                      readOnly={mode === "view" ? true : false}
-                      value={ask?.id}
+                      readOnly={mode === "view" || mode === "edit" ? true : false}
+                      value={ask?.user_id}
                       onChange={handleChange.bind(this)}
                     />
                   </div>

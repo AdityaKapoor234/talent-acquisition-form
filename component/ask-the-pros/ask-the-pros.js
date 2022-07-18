@@ -742,7 +742,7 @@ export default function AskTheProps(props) {
                           <div className="col-md-12">
                             <div className="tableCell">
                               <div className="tableBody col ps-1 elip-text">
-                                {p?.name}
+                                {p?.asked_by}
                               </div>
                               <div className="col text-center px-2 elip-text">
                                 {p?.ask?.subject}

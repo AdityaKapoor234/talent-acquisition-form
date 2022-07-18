@@ -138,21 +138,40 @@ export default class AskTheProsEditDetails extends Component {
       return false;
     }
     if (
+      this.state.askTheProsDetails?.user_id === "" ||
+      this.state.askTheProsDetails?.user_id === null
+    ) {
+      toast.error("Please enter the user id");
+      return false;
+    }
+    if (
       this.state.askTheProsDetails?.recomended_article_category === "select" ||
       this.state.askTheProsDetails?.recomended_article_category === null ||
-      this.state.askTheProsDetails?.recomended_article_category.replace(/\s/g, "").length <= 0
+      this.state.askTheProsDetails?.recomended_article_category === undefined
     ) {
       toast.error("Please enter the recommended article category");
       return false;
     }
+    // if (this.state.askTheProsDetails?.recomended_article_category !== undefined) {
+    //   if (this.state.askTheProsDetails?.recomended_article_category.replace(/\s/g, "").length <= 0) {
+    //     toast.error("Please enter the recommended article category");
+    //     return false;  
+    //   }
+    // }
     if (
       this.state.askTheProsDetails?.article_type_id === "select" ||
       this.state.askTheProsDetails?.article_type_id === null ||
-      this.state.askTheProsDetails?.article_type_id.replace(/\s/g, "").length <= 0
+      this.state.askTheProsDetails?.article_type_id === undefined
     ) {
       toast.error("Please enter the article type id");
       return false;
     }
+    // if (this.state.askTheProsDetails?.article_type_id !== undefined) {
+    //   if (this.state.askTheProsDetails?.article_type_id.length <= 0) {
+    //     toast.error("Please enter the article type id");
+    //     return false;  
+    //   }
+    // }
 
     return true;
   };
@@ -167,6 +186,7 @@ export default class AskTheProsEditDetails extends Component {
         experience: this.state.askTheProsDetails?.experience,
         expertises: this.state.askTheProsDetails?.expertises,
 
+        user_id:  this.state.askTheProsDetails?.id,
         education: this.state.askTheProsDetails?.education,
         recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
         article_type_id: this.state.askTheProsDetails?.article_type_id,

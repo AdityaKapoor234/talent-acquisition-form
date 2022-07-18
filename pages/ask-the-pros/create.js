@@ -114,6 +114,13 @@ export default class AskTheProsCreate extends Component {
       }
     }
     if (
+      this.state.askTheProsDetails?.user_id === "" ||
+      this.state.askTheProsDetails?.user_id === null
+    ) {
+      toast.error("Please enter the user id");
+      return false;
+    }
+    if (
       this.state.askTheProsDetails?.recomended_article_category === "select" ||
       this.state.askTheProsDetails?.recomended_article_category === null ||
       this.state.askTheProsDetails?.recomended_article_category === undefined
@@ -157,6 +164,7 @@ export default class AskTheProsCreate extends Component {
         experience: this.state.askTheProsDetails?.experience,
         expertises: this.state.askTheProsDetails?.expertises,
 
+        user_id:  this.state.askTheProsDetails?.id,
         education: this.state.askTheProsDetails?.education,
         recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
         article_type_id: this.state.askTheProsDetails?.article_type_id,

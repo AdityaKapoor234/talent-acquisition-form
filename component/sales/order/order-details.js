@@ -279,7 +279,7 @@ export default class OrderDetails extends Component {
 
                                         <div data-component="CustomerComponent">
                                             <div className="tableRow row py-3">
-                                                <div className="col-5">Product</div>
+                                                <div className="col-4">Product</div>
                                                 <div className="col text-center">Price</div>
                                                 <div className="col text-center">Tax(₹)</div>
                                                 <div className="col text-center">Tax(%)</div>
@@ -294,13 +294,13 @@ export default class OrderDetails extends Component {
                                                 return (
                                                     <>
                                                         <div className="div-box row mb-2" key={index}>
-                                                            <div className="col-5">
+                                                            <div className="col-4">
                                                                 <div className="row">
-                                                                    <div className="col-3">
+                                                                    <div className="col-4">
 
                                                                         <img src={p?.image} className="orderImg" alt="" />
                                                                     </div>
-                                                                    <div className="col-9">
+                                                                    <div className="col-8">
                                                                         <span className="orderLine">
                                                                             <span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
                                                                         </span>
@@ -502,7 +502,7 @@ export default class OrderDetails extends Component {
 
                                         <div data-component="CustomerComponent">
                                             <div className="tableRow row py-3">
-                                                <div className="col-5">Product</div>
+                                                <div className="col-4">Product</div>
                                                 <div className="col text-center">Price</div>
                                                 <div className="col text-center">Tax(₹)</div>
                                                 <div className="col text-center">Tax(%)</div>
@@ -517,13 +517,13 @@ export default class OrderDetails extends Component {
                                                 return (
                                                     <>
                                                         <div className="div-box row mb-2" key={index}>
-                                                            <div className="col-5">
+                                                            <div className="col-4">
                                                                 <div className="row">
-                                                                    <div className="col-3">
+                                                                    <div className="col-4">
 
                                                                         <img src={p?.image} className="orderImg" alt="" />
                                                                     </div>
-                                                                    <div className="col-9">
+                                                                    <div className="col-8">
                                                                         <span className="orderLine">
                                                                             <span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
                                                                         </span>

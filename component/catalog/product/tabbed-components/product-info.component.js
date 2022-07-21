@@ -207,6 +207,20 @@ export default class ProductInfoComponent extends Component {
         //     errors["origin_country_id"] = "Please enter country of origin";
         // }
 
+        if (!input["height"]) {
+            isValid = false;
+            errors["height"] = "Please enter height";
+        }
+        if (!input["breadth"]) {
+            isValid = false;
+            errors["breadth"] = "Please enter width";
+        }
+        if (!input["length"]) {
+            isValid = false;
+            errors["length"] = "Please enter length";
+        }
+
+
 
         this.setState({
             errors: errors

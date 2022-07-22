@@ -100,24 +100,20 @@ export default function OrderViewDetails({ id }) {
                         </div>
                     </div>
                     <div className="row">
-                    
+
                         {
                             order?.length !== 0 &&
                             <div className="col-m-12">
-                            {
-                                order?.order?.plan_id && order?.order?.plan_id !== undefined ?
-                                
-                                    <OrderPrimeDetails order={order} mode={mode} />
-                                    :
-                                    <>
-                                    
-                                        <OrderDetails order={order} mode={mode} id={orderId} />
-                                    </>
+                                {
+                                    order?.order?.plan_id && order?.order?.plan_id !== undefined ?
 
-                            }
-                        </div>
+                                        <OrderPrimeDetails order={order} mode={mode} id={orderId} />
+                                        :
+                                        <OrderDetails order={order} mode={mode} id={orderId} />
+                                }
+                            </div>
                         }
-                       
+
                     </div>
                 </DashboardLayoutComponent>
             </main>

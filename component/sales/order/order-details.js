@@ -261,7 +261,7 @@ export default class OrderDetails extends Component {
                                                 }
 
                                                 {
-                                                    this.state.invoice === "" ?
+                                                    !this.state.invoice ?
                                                         ""
                                                         :
                                                         <div
@@ -484,7 +484,7 @@ export default class OrderDetails extends Component {
                                                     </span> : ""}
 
                                                 {
-                                                    this.state.invoice === "" ?
+                                                    !this.state.invoice ?
                                                         ""
                                                         :
                                                         <div

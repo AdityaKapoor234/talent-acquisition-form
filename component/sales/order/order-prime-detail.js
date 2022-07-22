@@ -14,6 +14,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import OrderApi from "../../../services/orders";
 
 export default class OrderPrimeDetails extends Component {
     constructor(props) {
@@ -26,7 +27,9 @@ export default class OrderPrimeDetails extends Component {
             error: props?.error,
             open: false,
             status: props?.order?.order?.status ? props?.order?.order?.status : "0",
-            //invoice: props?.invoice ? props?.invoice : "",
+            // invoice: props?.invoice ? props?.invoice : "",
+            invoice: "",
+            id:props?.id,
         };
     }
     handleChange = (event) => {
@@ -71,9 +74,26 @@ export default class OrderPrimeDetails extends Component {
                 active: nextProps?.order?.is_active
                     ? nextProps?.order?.is_active
                     : false,
+                id: nextProps?.id,
             };
         }
         return null;
+    }
+
+    orderInvoice = (id) => {
+        OrderApi.getOrderInvoicePrime(id)
+            .then((response) => {
+                this.setState({ invoice: response.data.data.pdf})
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
     }
 
     convertDateStringToDate = (dateStr) => {
@@ -98,6 +118,10 @@ export default class OrderPrimeDetails extends Component {
         return str;
     };
 
+
+    componentDidMount() {
+        this.orderInvoice(this.state.id);
+    }
 
     render() {
         return (
@@ -215,8 +239,8 @@ export default class OrderPrimeDetails extends Component {
                                                         ""
                                                 }
 
-                                                {/* {
-                                                    this.state.invoice === "" ?
+                                                {
+                                                    !this.state.invoice ?
                                                         ""
                                                         :
                                                         <div
@@ -226,7 +250,7 @@ export default class OrderPrimeDetails extends Component {
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
-                                                } */}
+                                                }
 
                                                 <div></div>
                                             </div>
@@ -415,8 +439,8 @@ export default class OrderPrimeDetails extends Component {
                                                         <span className="orderInfoVal elip-text" title={this.state.order?.coupon_code}>{this.state.order?.coupon_code}</span>
                                                     </span> : ""}
 
-                                                {/* {
-                                                    this.state.invoice === "" ?
+                                                {
+                                                    !this.state.invoice ?
                                                         ""
                                                         :
                                                         <div
@@ -426,7 +450,7 @@ export default class OrderPrimeDetails extends Component {
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
-                                                } */}
+                                                }
 
 
                                             </div>

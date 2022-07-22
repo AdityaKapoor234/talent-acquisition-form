@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ORDERSLIST, GET_ORDER_DETAILS, ADD_ORDER_STATUS, CANCEL, GET_ORDER_INVOICE } from "../utils/constant";
+import { ORDERSLIST, GET_ORDER_DETAILS, ADD_ORDER_STATUS, CANCEL, GET_ORDER_INVOICE, GET_ORDER_INVOICE_PRIME } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class OrderApi {
@@ -57,6 +57,17 @@ export class OrderApi {
             }
         };
         return axios.get(`${GET_ORDER_INVOICE}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static getOrderInvoicePrime(id) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token} `          
+            }
+        };
+        return axios.get(`${GET_ORDER_INVOICE_PRIME}`.replace('{{id}}', id),httpOptions)
     }
 
 }

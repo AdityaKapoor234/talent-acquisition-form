@@ -155,23 +155,19 @@ export default function OrderEditDetails({ id }) {
                     </div>
                     <div className="row">
                         {
-                         order?.length !== 0 &&
+                            order?.length !== 0 &&
 
                             <div className="col-m-12">
-                            {
-                               order?.order?.plan_id && order?.order?.plan_id !== undefined ?
+                                {
+                                    order?.order?.plan_id && order?.order?.plan_id !== undefined ?
 
-                                    <OrderPrimeDetails order={order}  mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} />
-                                    :
-                                    <>
-                                    
-                                        <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)}  id={orderId}/>
-                                    </>
-                                    
-                            }
-                        </div>
+                                        <OrderPrimeDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
+                                        :
+                                        <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
+                                }
+                            </div>
                         }
-                       
+
                     </div>
                 </DashboardLayoutComponent>
             </main>

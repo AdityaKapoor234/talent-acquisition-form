@@ -632,7 +632,7 @@ export default class ProductInfoComponent extends Component {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Height
+                                            <label>Height (cm)
                                                 {/* <span className="mandatory-star">*</span> */}
                                             </label>
                                             <input
@@ -648,7 +648,7 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Width
+                                            <label>Width (cm)
                                                 {/* <span className="mandatory-star">*</span> */}
                                             </label>
                                             <input
@@ -665,7 +665,7 @@ export default class ProductInfoComponent extends Component {
 
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
-                                            <label>Length
+                                            <label>Length (cm)
                                                 {/* <span className="mandatory-star">*</span> */}
                                             </label>
                                             <input

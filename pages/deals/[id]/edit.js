@@ -67,6 +67,7 @@ export default class DealsEditDetails extends Component {
     ];
 
     let date = new Date(dateStr);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     let str =
         date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
   // new Date(dateStr).toISOString().split('T')[0];

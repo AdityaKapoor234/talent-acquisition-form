@@ -152,6 +152,7 @@ export default function AskTheProps(props) {
     ];
 
     let date = new Date(dateStr);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     let str =
       date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
     return str;

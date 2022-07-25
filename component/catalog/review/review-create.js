@@ -147,6 +147,7 @@ export default class ReviewCreate extends Component {
         ];
 
         let date = new Date(dateStr);
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
         let str =
             date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
         return str;

@@ -491,7 +491,7 @@ export default function AskTheProps(props) {
                           {
                             askTheProsQueryArticleDropdown?.map(elem => {
                               return (
-                                <MenuItem value={elem?.name}>{elem?.name}</MenuItem>
+                                <MenuItem value={elem?.id}>{elem?.name}</MenuItem>
                               )
                             })
                           }

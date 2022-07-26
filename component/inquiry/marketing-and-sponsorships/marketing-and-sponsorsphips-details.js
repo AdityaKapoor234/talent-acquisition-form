@@ -173,7 +173,7 @@ export default class MarketingAndSponsorshipsDetails extends Component {
                                                 <label>Date of Birth<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
-                                                    value={this.convertDateStringToDate(this.state.marketingAndSponsorships?.dob)}
+                                                    value={this.state.marketingAndSponsorships?.dob}
                                                     readOnly={true}
                                                 />
                                             </div>

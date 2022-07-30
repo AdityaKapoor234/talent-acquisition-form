@@ -10,6 +10,7 @@ import CustomerDetails from "../../../component/customer/customer-details";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import CustomerApi from "../../../services/customer";
+import GiftCardApi from "../../../services/gift-card";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -38,6 +39,12 @@ export default class CustomerViewDetails extends Component {
       customerWallet:"",
       customerWalletTransaction:"",
       page:1,
+      giftCardRedeem: [],
+      giftCardRedeemTotalProduct: "",
+      totalGiftCardRedeemPage: "",
+      giftCardSend: [],
+      giftCardSendTotalProduct: "",
+      totalGiftCardSendPage: "",
     };
   }
 
@@ -165,6 +172,42 @@ export default class CustomerViewDetails extends Component {
     this.wishListDetail(this.state.id, value);
   }
 
+  giftCardRedeemList = (id, page) => {
+    GiftCardApi.giftCardRedeem(id, page)
+      .then((response) => {
+        this.setState({ giftCardRedeem: response.data.data.list })
+        this.setState({ giftCardRedeemTotalProduct: response.data.data.total })
+        this.setState({ totalGiftCardRedeemPage: Math.ceil(response.data.data.total / response.data.data.page_size) })
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  giftCardSendList = (id, page) => {
+    GiftCardApi.giftCardSend(id, page)
+    .then((response) => {
+      this.setState({ giftCardSend: response.data.data.list })
+      this.setState({ giftCardSendTotalProduct: response.data.data.total })
+      this.setState({ totalGiftCardSendPage: Math.ceil(response.data.data.total / response.data.data.page_size) })
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.message
+          ? error.response.data.message
+          : "Unable to process your request, please try after sometime"
+      );
+    });
+  }
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
@@ -176,6 +219,8 @@ export default class CustomerViewDetails extends Component {
     this.shoppingCartDetail(this.state.id);
     this.customerWallet(this.state.id);
     this.customerWalletTransactionList(this.state.page,this.state.id);
+    this.giftCardRedeemList(this.state.id, 1);
+    this.giftCardSendList(this.state.id, 1);
   }
   render() {
     return (
@@ -231,6 +276,14 @@ export default class CustomerViewDetails extends Component {
                   customerWalletTransaction={this.state.customerWalletTransaction}
                   customerWalletTotalTransaction={this.state.customerWalletTotalTransaction} 
                   customerWalletTransactionList={this.customerWalletTransactionList.bind(this)}
+                  giftCardRedeem= {this.state.giftCardRedeem}
+                  giftCardRedeemTotalProduct= {this.state.giftCardRedeemTotalProduct}
+                  totalGiftCardRedeemPage= {this.state.totalGiftCardRedeemPage}
+                  giftCardRedeemList={this.giftCardRedeemList.bind(this)}
+                  giftCardSend= {this.state.giftCardSend}
+                  giftCardSendTotalProduct= {this.state.giftCardSendTotalProduct}
+                  totalGiftCardSendPage= {this.state.totalGiftCardSendPage}
+                  giftCardSendList={this.giftCardSendList.bind(this)}
                 />
               </div>
             </div>

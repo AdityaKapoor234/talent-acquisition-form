@@ -44,9 +44,9 @@ export default class CustomerDetails extends Component {
 			shoppingCart: props?.shoppingCart,
 			shoppingCartTotal: props?.shoppingCartTotal,
 			customerWallet: props?.customerWallet,
-			customerWalletTransaction:props?.customerWalletTransaction,
-			customerWalletTotalTransaction:props?.customerWalletTotalTransaction,
-			currentWalletPage:1,
+			customerWalletTransaction: props?.customerWalletTransaction,
+			customerWalletTotalTransaction: props?.customerWalletTotalTransaction,
+			currentWalletPage: 1,
 			id: props?.id,
 			idAddress: [],
 			add_address: false,
@@ -64,7 +64,16 @@ export default class CustomerDetails extends Component {
 				email: props?.customer?.email,
 				user_type: "select",
 				is_active: props?.customer?.is_active,
-			}
+			},
+			giftCardRedeem: props?.giftCardRedeem,
+			giftCardRedeemTotalProduct: props?.giftCardRedeemTotalProduct,
+			totalGiftCardRedeemPage: props?.totalGiftCardRedeemPage,
+			giftCardSend: props?.giftCardSend,
+			giftCardSendTotalProduct: props?.giftCardSendTotalProduct,
+			totalGiftCardSendPage: props?.totalGiftCardSendPage,
+			giftCardTab: 1,
+			currentPageGiftCardSend: 1,
+			currentPageGiftCardRedeem: 1,
 		};
 	}
 	handleClickOpen = () => {
@@ -115,12 +124,21 @@ export default class CustomerDetails extends Component {
 		this.setState({ currentPageAddress: page });
 		this.getAddress(this.state.id, page);
 	};
-	onPageWallet = (e,page) => {
-		this.setState({currentWalletPage:page});
-		this.props.customerWalletTransactionList(page,this.state.id)
+	onPageWallet = (e, page) => {
+		this.setState({ currentWalletPage: page });
+		this.props.customerWalletTransactionList(page, this.state.id)
 
 	}
+	onPageChangeGiftCardSend = (e, page) => {
+		this.setState({ currentPageGiftCardSend: page });
+		this.giftCardSendList(this.state.id, page);
+	};
+	onPageChangeGiftCardRedeem = (e, page) => {
+		this.setState({ currentPageGiftCardRedeem: page });
+		this.giftCardRedeemList(this.state.id, page);
+	};
 
+	
 	closeAddress = () => {
 		this.setState({ add_address: false });
 		window.scrollTo(0, 0);
@@ -160,10 +178,16 @@ export default class CustomerDetails extends Component {
 				shoppingCart: nextProps?.shoppingCart,
 				shoppingCartTotal: nextProps?.shoppingCartTotal,
 				id: nextProps?.id,
-				customerWalletTransaction:nextProps?.customerWalletTransaction,
-				customerWallet:nextProps?.customerWallet,
-				customerWalletTotalTransaction:nextProps?.customerWalletTotalTransaction,
+				customerWalletTransaction: nextProps?.customerWalletTransaction,
+				customerWallet: nextProps?.customerWallet,
+				customerWalletTotalTransaction: nextProps?.customerWalletTotalTransaction,
 				active: nextProps?.customer?.is_active ? nextProps?.customer?.is_active : false,
+				giftCardRedeem: nextProps?.giftCardRedeem,
+				giftCardRedeemTotalProduct: nextProps?.giftCardRedeemTotalProduct,
+				totalGiftCardRedeemPage: nextProps?.totalGiftCardRedeemPage,
+				giftCardSend: nextProps?.giftCardSend,
+				giftCardSendTotalProduct: nextProps?.giftCardSendTotalProduct,
+				totalGiftCardSendPage: nextProps?.totalGiftCardSendPage,
 			};
 		}
 		return null;
@@ -337,7 +361,18 @@ export default class CustomerDetails extends Component {
 												this.setState({ tab: 6 });
 											}}
 										>
-											 Wallet
+											Wallet
+										</div>
+										<div
+											className={
+												this.state.tab === 7 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ tab: 7 });
+												this.setState({ giftCardTab: 1 });
+											}}
+										>
+											Gift Card
 										</div>
 									</>
 									:
@@ -1203,27 +1238,245 @@ export default class CustomerDetails extends Component {
 								</div>
 							</div>
 							{/* {this.state.customerWalletTransaction > 1 && ( */}
-								<div className="row">
-									<div className="col-md-12 justify-content-between d-flex position-relative">
-										<div className="pagiantion-category">
-											<div>
-												<Pagination
-													className="pagination pagi"
-													 page={this.state.currentWalletPage}
-													 count={this.state.customerWalletTotalTransaction.pages}
-													 onChange={this.onPageWallet}
-												/>
-											</div>
-											<div
-												className="position-absolute totalCount"
-												style={{ right: 23, bottom: 5 }}
-											>
-												Total Transaction: {this.state.customerWalletTotalTransaction.total}
-											</div>
+							<div className="row">
+								<div className="col-md-12 justify-content-between d-flex position-relative">
+									<div className="pagiantion-category">
+										<div>
+											<Pagination
+												className="pagination pagi"
+												page={this.state.currentWalletPage}
+												count={this.state.customerWalletTotalTransaction.pages}
+												onChange={this.onPageWallet}
+											/>
+										</div>
+										<div
+											className="position-absolute totalCount"
+											style={{ right: 23, bottom: 5 }}
+										>
+											Total Transaction: {this.state.customerWalletTotalTransaction.total}
 										</div>
 									</div>
 								</div>
+							</div>
 							{/* )} */}
+						</>
+					)
+				}
+
+
+				{
+					this.state.tab === 7 && (
+						<>
+							<div className="row">
+								<div className="col-md-12">
+									<div className="tab">
+										<div
+											className={
+												this.state.giftCardTab === 1 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ giftCardTab: 1 });
+											}}
+										>
+											Redeem
+										</div>
+										<div
+											className={
+												this.state.giftCardTab === 2 ? `sub-tab active-tab` : "sub-tab"
+											}
+											onClick={() => {
+												this.setState({ giftCardTab: 2 });
+											}}
+										>
+											Send
+										</div>
+									</div>
+								</div>
+							</div>
+							{this.state.giftCardTab === 1 && (
+								<>
+									<div data-component="CustomerComponent">
+										<div className="row">
+											<div className="col-md-12">
+												<div className="tableRow">
+													<div className="col">Sender Name</div>
+													<div className="col text-center">Receiver Name</div>
+													<div className="col text-center">Purchase</div>
+													<div className="col text-center">Expiry</div>
+													<div className="col text-center">Amount</div>
+													<div className="col-1 text-center">Active</div>
+													<div className="col-1 text-center">Redeem</div>
+													<div className="col-1 text-end">View</div>
+												</div>
+											</div>
+										</div>
+										<div className="sticky-scroll scroll">
+											{this.state.giftCardRedeem?.length === 0 && (
+												<div className="error-message">No order Info</div>
+											)}
+											{this.state.giftCardRedeem?.map((p) => {
+												return (
+													<div className="row">
+														<div className="col-md-12">
+															<div className="tableCell">
+																<div className="tableBody col pe-1 elip-text" title={p?.gift_cards?.sender_name}>{p?.gift_cards?.sender_name}</div>
+																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.receiver_name}>
+																	{p?.gift_cards?.receiver_name}
+																</div>
+																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.created_at)}>
+																	{this.convertDateStringToDate(p?.gift_cards?.created_at)}
+																</div>
+																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.expire_date)}>
+																	{this.convertDateStringToDate(p?.gift_cards?.expire_date)}
+																</div>
+																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.gift_card_amount}>
+																	{p?.gift_cards?.gift_card_amount}
+																</div>
+																<div className="col-1 text-center">
+																	{p?.gift_cards?.is_active === true ? (
+																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																	) : (
+																		<CancelOutlinedIcon className="cancel-icon" />
+																	)}
+																</div>
+																<div className="col-1 text-center">
+																	{p?.gift_cards?.is_redeem === true ? (
+																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																	) : (
+																		<CancelOutlinedIcon className="cancel-icon" />
+																	)}
+																</div>
+																<div className="col-1 text-end">
+																	<RemoveRedEyeIcon
+																		className="view-icon"
+																		// onClick={() => {
+																		// 	Router.push(`/order/${p?.order_number}/view`);
+																		// }}
+																	/>
+																</div>
+															</div>
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									</div>
+									{this.state.totalGiftCardRedeemPage > 1 && (
+										<div className="row">
+											<div className="col-md-12 justify-content-between d-flex position-relative">
+												<div className="pagiantion-category">
+													<div>
+														<Pagination
+															className="pagination pagi"
+															page={this.state.currentPageGiftCardRedeem}
+															count={this.state.totalGiftCardRedeemPage}
+															onChange={this.onPageChangeGiftCardRedeem}
+														/>
+													</div>
+													<div
+														className="position-absolute totalCount"
+														style={{ right: 23, bottom: 5 }}
+													>
+														Total Gift Cards: {this.state.giftCardRedeemTotalProduct}
+													</div>
+												</div>
+											</div>
+										</div>
+									)}
+								</>
+							)}
+							{this.state.giftCardTab === 2 && (
+								<>
+									<div data-component="CustomerComponent">
+										<div className="row">
+											<div className="col-md-12">
+												<div className="tableRow">
+													<div className="col">Sender Name</div>
+													<div className="col text-center">Receiver Name</div>
+													<div className="col text-center">Purchase</div>
+													<div className="col text-center">Expiry</div>
+													<div className="col text-center">Amount</div>
+													<div className="col-1 text-center">Active</div>
+													<div className="col-1 text-center">Redeem</div>
+													<div className="col-1 text-end">View</div>
+												</div>
+											</div>
+										</div>
+										<div className="sticky-scroll scroll">
+											{this.state.giftCardSend?.length === 0 && (
+												<div className="error-message">No order Info</div>
+											)}
+											{this.state.giftCardSend?.map((p) => {
+												return (
+													<div className="row">
+														<div className="col-md-12">
+															<div className="tableCell">
+																<div className="tableBody col pe-1 elip-text" title={p?.gift_cards?.sender_name}>{p?.gift_cards?.sender_name}</div>
+																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.receiver_name}>
+																	{p?.gift_cards?.receiver_name}
+																</div>
+																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.created_at)}>
+																	{this.convertDateStringToDate(p?.gift_cards?.created_at)}
+																</div>
+																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.expire_date)}>
+																	{this.convertDateStringToDate(p?.gift_cards?.expire_date)}
+																</div>
+																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.gift_card_amount}>
+																	{p?.gift_cards?.gift_card_amount}
+																</div>
+																<div className="col-1 text-center">
+																	{p?.gift_cards?.is_active === true ? (
+																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																	) : (
+																		<CancelOutlinedIcon className="cancel-icon" />
+																	)}
+																</div>
+																<div className="col-1 text-center">
+																	{p?.gift_cards?.is_redeem === true ? (
+																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																	) : (
+																		<CancelOutlinedIcon className="cancel-icon" />
+																	)}
+																</div>
+																<div className="col-1 text-end">
+																	<RemoveRedEyeIcon
+																		className="view-icon"
+																		// onClick={() => {
+																		// 	Router.push(`/order/${p?.order_number}/view`);
+																		// }}
+																	/>
+																</div>
+															</div>
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									</div>
+									{this.state.totalGiftCardSendPage > 1 && (
+										<div className="row">
+											<div className="col-md-12 justify-content-between d-flex position-relative">
+												<div className="pagiantion-category">
+													<div>
+														<Pagination
+															className="pagination pagi"
+															page={this.state.currentPageGiftCardSend}
+															count={this.state.totalGiftCardSendPage}
+															onChange={this.onPageChangeGiftCardSend}
+														/>
+													</div>
+													<div
+														className="position-absolute totalCount"
+														style={{ right: 23, bottom: 5 }}
+													>
+														Total Gift Cards: {this.state.giftCardSendTotalProduct}
+													</div>
+												</div>
+											</div>
+										</div>
+									)}
+								</>
+							)}
 						</>
 					)
 				}

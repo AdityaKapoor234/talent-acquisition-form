@@ -59,8 +59,8 @@ export default class EmailSupport extends Component {
               <div className="col-2 pe-1 ">Name</div>
               {/* <div className="col text-center">Type</div> */}
               <div className="col-4  text-center ">Email</div>
-              <div className="col-2  text-center ">Category</div>
-              <div className="col-2  text-center ">Description</div>
+              {/* <div className="col-2  text-center ">Category</div> */}
+              <div className="col  text-center ">Description</div>
               <div className="col-2 text-center ">View</div>
             </div>
           </div>
@@ -78,8 +78,8 @@ export default class EmailSupport extends Component {
                   <div className="tableBody  col-4 justify-content-center elip-text" title={p?.email}>
                     {p?.email}
                   </div>
-                  <div className="col-2  text-center elip-text" title={p?.category}>{p?.category}</div>
-                  <div className="col-2  text-center elip-text" title={p?.customer_query}>{p?.customer_query}</div>
+                  {/* <div className="col-2  text-center elip-text" title={p?.category}>{p?.category}</div> */}
+                  <div className="col  text-center elip-text" title={p?.customer_query}>{p?.customer_query}</div>
                   <div className="col-2 text-center">
                     <RemoveRedEyeIcon
                       className="view-icon"

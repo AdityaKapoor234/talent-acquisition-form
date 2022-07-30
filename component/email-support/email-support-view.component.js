@@ -5,6 +5,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Photo from "../common-component/photo";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Gallery from 'react-grid-gallery';
 
 export default class EmailSupportView extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class EmailSupportView extends Component {
             tab: 1,
             view: props?.view,
             mode: props?.mode,
+            images: [],
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -27,6 +29,26 @@ export default class EmailSupportView extends Component {
         }
         return null;
     }
+
+
+    galleryImageList = (pic) => {
+        this.state.images = [];
+        pic?.map(img => {
+            return (
+                <>
+                    {
+                        this.state.images?.push({
+                            "src": img?.images_url,
+                            "thumbnail": img?.images_url,
+                            // "thumbnailWidth": 50,
+                            // "thumbnailHeight": 100,
+                        })
+                    }
+                </>
+            )
+        })
+    }
+
 
 
 
@@ -72,14 +94,14 @@ export default class EmailSupportView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div>
-                                            <div className="login-form ">
+                                            {/* <div className="login-form ">
                                                 <label>Category<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
                                                     value={this.state.view?.email_support?.category}
                                                     readOnly={true}
                                                 />
-                                            </div>
+                                            </div> */}
 
                                             {/* <div className="login-form ">
                                                 <label>Address.<span className="mandatory-star">*</span></label>
@@ -129,50 +151,24 @@ export default class EmailSupportView extends Component {
                                         </div>
                                     </div>
 
-                                    <div className="row mt-4">
+
+
+
+                                    <div className="row">
                                         <div className="col-md-12">
-
-                                            <div className="login-form ">
-
+                                            <div className="login-form">
                                                 {
                                                     this.state.view?.screen_shots?.length > 0 ?
                                                         <>
-                                                            <label>Screenshots <span className="mandatory-star">*</span></label>
-                                                            {/* <ImageList 
-                                                            sx={{ width: 700, height: 700 }} 
-                                                            cols={1} 
-                                                            rowHeight={164}
-                                                            > */}
+                                                            <label>
+                                                                Images
+                                                            </label>
                                                             <div className="row">
-                                                                {this.state.view?.screen_shots?.map(elem => {
-                                                                    return (
-                                                                        <>
-                                                                            {/* <ImageListItem key={elem}> */}
-                                                                            {/* <img
-                                                                                    src={`${elem?.images_url}`}
-                                                                                    srcSet={`${elem?.images_url}`}
-                                                                                    alt={item.title}
-                                                                                    loading="lazy"
-                                                                                /> */}
-                                                                            {/* </ImageListItem> */}
-                                                                            <div className="col-6">
-                                                                                <img 
-                                                                                src={elem?.images_url} 
-                                                                                className="img-fluid mb-3"
-                                                                                style={{ width: "auto", height: "400px" }} 
-                                                                                 />
-                                                                            </div>
-                                                                            {/* <Photo
-                                                                            mode={this.state.mode}
-                                                                            label={""}
-                                                                            accept=".jpg,.jpeg,.png"
-                                                                            img={elem?.images_url}
-                                                                        /> */}
-                                                                        </>
-                                                                    )
-                                                                })}
+
+                                                                {this.galleryImageList(this.state.view?.screen_shots)}
+
+                                                                <Gallery images={this.state?.images?.slice(0, 10)} enableImageSelection={false} />
                                                             </div>
-                                                            {/* </ImageList> */}
                                                         </>
                                                         :
                                                         <div className="login-form ">
@@ -180,18 +176,13 @@ export default class EmailSupportView extends Component {
                                                         </div>
                                                 }
                                             </div>
-
-
-                                            {/* <div className="login-form ">
-                                                <label>Quantity required<span className="mandatory-star">*</span></label>
-                                                <input
-                                                    type="text"
-                                                    value={this.state.bulkbuyview?.quantity_required}
-                                                    readOnly={true}
-                                                />
-                                            </div> */}
                                         </div>
                                     </div>
+
+
+
+
+
                                 </div>
                             </div>
                         )}

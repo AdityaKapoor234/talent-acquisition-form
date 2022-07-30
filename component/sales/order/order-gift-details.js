@@ -20,16 +20,17 @@ export default class OrderPrimeDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: props?.order?.is_active ? props?.order?.is_active : false,
+            // active: props?.order?.is_active ? props?.order?.is_active : false,
             tab: 1,
-            order: props?.order,
+            // order: props?.order,
+            order: {},
             mode: props?.mode,
             error: props?.error,
             open: false,
-            status: props?.order?.order?.status ? props?.order?.order?.status : "0",
+            // status: props?.order?.order?.status ? props?.order?.order?.status : "0",
             // invoice: props?.invoice ? props?.invoice : "",
             invoice: "",
-            id:props?.id,
+            id: props?.id,
         };
     }
     handleChange = (event) => {
@@ -60,20 +61,20 @@ export default class OrderPrimeDetails extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
-            prevState.order !== nextProps.order ||
+            // prevState.order !== nextProps.order ||
             // prevState.invoice !== nextProps.invoice ||
             prevState.mode !== nextProps.mode ||
             prevState.error !== nextProps.error
         ) {
             return {
-                order: nextProps?.order,
+                // order: nextProps?.order,
                 // invoice: nextProps?.invoice,
                 mode: nextProps?.mode,
                 error: nextProps?.error,
-                status: nextProps?.order?.order?.status,
-                active: nextProps?.order?.is_active
-                    ? nextProps?.order?.is_active
-                    : false,
+                // status: nextProps?.order?.order?.status,
+                // active: nextProps?.order?.is_active
+                // ? nextProps?.order?.is_active
+                // : false,
                 id: nextProps?.id,
             };
         }
@@ -83,7 +84,23 @@ export default class OrderPrimeDetails extends Component {
     orderInvoice = (id) => {
         OrderApi.getOrderInvoicePrime(id)
             .then((response) => {
-                this.setState({ invoice: response.data.data.pdf})
+                this.setState({ invoice: response.data.data.pdf })
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+    orderDetail = (id) => {
+        OrderApi.getOrderGiftDetails(id)
+            .then((response) => {
+                this.setState({ order: response.data.data });
             })
             .catch((error) => {
                 toast.error(
@@ -121,7 +138,8 @@ export default class OrderPrimeDetails extends Component {
 
 
     componentDidMount() {
-        this.orderInvoice(this.state.id);
+        this.orderDetail(this.state.id);
+        // this.orderInvoice(this.state.id);
     }
 
     render() {
@@ -160,37 +178,55 @@ export default class OrderPrimeDetails extends Component {
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
                                                 </span>
                                                 <span className="orderLine">
-                                                    <span className="orderInfo">Name&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.state.order?.recipient_name}>{this.state.order?.recipient_name}</span>
+                                                    <span className="orderInfo">Sender's Name&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.sender_name}>{this.state.order?.gift_card_details?.sender_name}</span>
                                                 </span>
                                                 {/* <span className="orderLine">
                                                     <span className="orderInfo">Contact No.&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
                                                 </span> */}
                                                 <span className="orderLine">
-                                                    <span className="orderInfo">Email&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
+                                                    <span className="orderInfo">Occassion&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.occasion_type}>{this.state.order?.gift_card_details?.occasion_type}</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Message&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.message}>{this.state.order?.gift_card_details?.message}</span>
                                                 </span>
 
                                             </div>
                                             <div className="col-3">
+                                                <span className="orderLine">
+                                                    <span className="orderInfoValHigh">Receiver's Information&nbsp;</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Name&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.receiver_name}>{this.state.order?.gift_card_details?.receiver_name}</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Mob No&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.receiver_mobile_no}>{this.state.order?.gift_card_details?.receiver_mobile_no}</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">E-Mail&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.receiver_email}>{this.state.order?.gift_card_details?.receiver_email}</span>
+                                                </span>
 
-                                            <span className="orderLine">
+
+                                            </div>
+                                            <div className="col-3">
+                                                <span className="orderLine">
                                                     <span className="orderInfo">Reg.Date&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
                                                 </span>
-                                               
-                                            </div>
-                                            <div className="col-3">
-                                            <span className="orderLine">
+                                                <span className="orderLine">
                                                     <span className="orderInfo">Valid Till&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till) )}</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}>{this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}</span>
                                                 </span>
 
-
                                             </div>
                                             <div className="col-3">
-                                                <span className="orderLine align-items-center">
+                                                <span className="orderLine">
                                                     <span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                     <div data-component="edit-category">
                                                         <div className="sort">
@@ -221,24 +257,15 @@ export default class OrderPrimeDetails extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
-                                                    {/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
-
                                                 </span>
-                                                <small className="form-text text-danger" >{this.state.error}</small>
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Payment Mode:&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.order?.payment_mode === "razorpay" ? "Online" : "Cash on Delivery"}>{this.state.order?.order?.payment_mode === "razorpay" ? "Online" : "Cash on Delivery"}</span>
                                                 </span>
-                                                {
-                                                    this.state.order?.coupon_code !== "" && this.state.order?.coupon_code !== null ?
-                                                        <span className="orderLine">
-                                                            <span className="orderInfo">Coupon Code:&nbsp;</span>
-                                                            <span className="orderInfoVal elip-text" title={this.state.order?.coupon_code}>{this.state.order?.coupon_code}</span>
-                                                        </span>
-                                                        :
-                                                        ""
-                                                }
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Gift Card Code&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.gift_card_code}>{this.state.order?.gift_card_details?.gift_card_code}</span>
+                                                </span>
 
                                                 {
                                                     !this.state.invoice ?
@@ -253,7 +280,7 @@ export default class OrderPrimeDetails extends Component {
                                                         </div>
                                                 }
 
-                                                <div></div>
+
                                             </div>
                                         </div>
 
@@ -269,55 +296,53 @@ export default class OrderPrimeDetails extends Component {
                                             </div>
                                         </div>
 
-                                        {
-                                            this.state.order?.products?.map((p, index) => {
-                                                return (
-                                                    <>
-                                                        <div className="div-box row mb-2" key={index}>
-                                                            <div className="col-5">
-                                                                <div className="row">
-                                                                    <div className="col-3">
+                                        <div className="div-box row mb-2">
+                                            <div className="col-5">
+                                                <div className="row">
+                                                    <div className="col-6">
 
-                                                                        <img src={p?.image} className="orderImg" alt="" />
-                                                                    </div>
-                                                                    <div className="col-9">
-                                                                        <span className="orderLine">
-                                                                            <span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
-                                                                        </span>
-                                                                        <span className="orderLine mt-4">
-                                                                            <span className="orderInfoValQuant elip-text">{p?.size}&nbsp;{p?.size_unit}</span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                <span className="orderLine">
-                                                                    <span className="orderInfoVal">₹{p?.unit_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                </span>
+                                                        <img src={this.state.order?.image} className="orderGiftImg" alt="" />
+                                                    </div>
+                                                    <div className="col-6">
+                                                        <span className="orderLine">
+                                                            <span className="orderInfo elip-text" title={this.state.order?.name}>{this.state.order?.name}</span>
+                                                        </span>
+                                                        {/* <span className="orderLine mt-4">
+                                                            <span className="orderInfoValQuant elip-text">{p?.size}&nbsp;{p?.size_unit}</span>
+                                                        </span> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                <span className="orderLine">
+                                                    <span className="orderInfoVal">₹{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                </span>
 
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                {p?.tax_price === null ? "-" :
-                                                                    <span className="orderLine">
-                                                                        <span className="orderInfoVal">₹{p?.tax_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                    </span>}
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                -
+                                                {/* {p?.tax_price === null ? "-" :
+                                                    <span className="orderLine">
+                                                        <span className="orderInfoVal">₹{p?.tax_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                    </span>} */}
 
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                {p?.tax_rate === null ? "-" :
-                                                                    <span className="orderLine">
-                                                                        <span className="orderInfoVal">{p?.tax_rate?.toFixed(2)}%</span>
-                                                                    </span>}
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                -
+                                                {/* {p?.tax_rate === null ? "-" :
+                                                    <span className="orderLine">
+                                                        <span className="orderInfoVal">{p?.tax_rate?.toFixed(2)}%</span>
+                                                    </span>} */}
 
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                {p?.actual_price === null ? "-" :
-                                                                    <span className="orderLine">
-                                                                        <span className="orderInfoVal">₹{p?.actual_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                    </span>}
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                {this.state.order?.gift_card_details?.gift_card_amount === null ? "-" :
+                                                    <span className="orderLine">
+                                                        <span className="orderInfoVal">₹{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                    </span>}
 
-                                                            </div>
-                                                            {/* <div className="col-2">
+                                            </div>
+                                            {/* <div className="col-2">
                                                                 <span className="orderLine justify-content-center d-flex">
                                                                     <span className="orderInfoVal">Order Qty: {p?.quantity}</span>
                                                                 </span>
@@ -326,17 +351,14 @@ export default class OrderPrimeDetails extends Component {
                                                                 </span>
 
                                                             </div> */}
-                                                            <div className="col justify-content-center d-flex">
-                                                                <span className="orderLine">
-                                                                    <span className="orderInfoVal">₹{p?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                </span>
+                                            <div className="col justify-content-center d-flex">
+                                                <span className="orderLine">
+                                                    <span className="orderInfoVal">₹{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                </span>
 
-                                                            </div>
+                                            </div>
 
-                                                        </div>
-                                                    </>
-                                                )
-                                            })}
+                                        </div>
 
                                         <div className="div-box row mb-2">
                                             <div className="col-12">
@@ -345,7 +367,7 @@ export default class OrderPrimeDetails extends Component {
                                                         <span className="orderInfo">Sub Total</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" title={(this.state.order?.net_price)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{(this.state.order?.net_price)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" title={(this.state.order?.gift_card_details?.gift_card_amount)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{(this.state.order?.gift_card_details?.gift_card_amount)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                                 {this.state.order?.discount === null ? "" :
@@ -354,7 +376,7 @@ export default class OrderPrimeDetails extends Component {
                                                             <span className="orderInfo">Discount </span>
                                                         </div>
                                                         <div className="col-1 text-end">
-                                                            <span className="orderInfoVal elip-text" >-₹ {this.state.order?.discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                            <span className="orderInfoVal elip-text" >-₹ {parseInt(0)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                         </div>
                                                     </div>}
                                                 <div className="row">
@@ -362,15 +384,15 @@ export default class OrderPrimeDetails extends Component {
                                                         <span className="orderInfo">Shipping Charges</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" >₹ {this.state.order?.shipping_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" >₹ {parseInt(0)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-11 textRight">
-                                                        <span className="orderInfo">Grand Total Prime</span>
+                                                        <span className="orderInfo">Grand Total</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -397,31 +419,50 @@ export default class OrderPrimeDetails extends Component {
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
                                                 </span>
                                                 <span className="orderLine">
-                                                    <span className="orderInfo">Name&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.state.order?.recipient_name}>{this.state.order?.recipient_name}</span>
+                                                    <span className="orderInfo">Sender's Name&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.sender_name}>{this.state.order?.gift_card_details?.sender_name}</span>
                                                 </span>
                                                 {/* <span className="orderLine">
                                                     <span className="orderInfo">Contact No.&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.shipping_address?.recipient_phone_number}>{this.state.order?.shipping_address?.recipient_phone_number}</span>
                                                 </span> */}
                                                 <span className="orderLine">
-                                                    <span className="orderInfo">Email&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.state.order?.email}>{this.state.order?.email}</span>
+                                                    <span className="orderInfo">Occassion&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.occasion_type}>{this.state.order?.gift_card_details?.occasion_type}</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Message&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.message}>{this.state.order?.gift_card_details?.message}</span>
                                                 </span>
 
                                             </div>
                                             <div className="col-3">
+                                                <span className="orderLine">
+                                                    <span className="orderInfoValHigh">Receiver's Information&nbsp;</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Name&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.receiver_name}>{this.state.order?.gift_card_details?.receiver_name}</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Mob No&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.receiver_mobile_no}>{this.state.order?.gift_card_details?.receiver_mobile_no}</span>
+                                                </span>
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">E-Mail&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.receiver_email}>{this.state.order?.gift_card_details?.receiver_email}</span>
+                                                </span>
 
 
+                                            </div>
+                                            <div className="col-3">
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Reg.Date&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
                                                 </span>
-                                            </div>
-                                            <div className="col-3">
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Valid Till&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till) )}</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}>{this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}</span>
                                                 </span>
 
                                             </div>
@@ -434,11 +475,10 @@ export default class OrderPrimeDetails extends Component {
                                                     <span className="orderInfo">Payment Mode:&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.order?.payment_mode === "razorpay" ? "Online" : "Cash on Delivery"}>{this.state.order?.order?.payment_mode === "razorpay" ? "Online" : "Cash on Delivery"}</span>
                                                 </span>
-                                                {this.state.order?.coupon_code !== "" && this.state.order?.coupon_code !== null ?
-                                                    <span className="orderLine">
-                                                        <span className="orderInfo">Coupon Code:&nbsp;</span>
-                                                        <span className="orderInfoVal elip-text" title={this.state.order?.coupon_code}>{this.state.order?.coupon_code}</span>
-                                                    </span> : ""}
+                                                <span className="orderLine">
+                                                    <span className="orderInfo">Gift Card Code&nbsp;</span>
+                                                    <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.gift_card_code}>{this.state.order?.gift_card_details?.gift_card_code}</span>
+                                                </span>
 
                                                 {
                                                     !this.state.invoice ?
@@ -469,55 +509,53 @@ export default class OrderPrimeDetails extends Component {
                                             </div>
                                         </div>
 
-                                        {
-                                            this.state.order?.products?.map((p, index) => {
-                                                return (
-                                                    <>
-                                                        <div className="div-box row mb-2" key={index}>
-                                                            <div className="col-5">
-                                                                <div className="row">
-                                                                    <div className="col-3">
+                                        <div className="div-box row mb-2">
+                                            <div className="col-5">
+                                                <div className="row">
+                                                    <div className="col-6">
 
-                                                                        <img src={p?.image} className="orderImg" alt="" />
-                                                                    </div>
-                                                                    <div className="col-9">
-                                                                        <span className="orderLine">
-                                                                            <span className="orderInfo elip-text" title={p?.name}>{p?.name}</span>
-                                                                        </span>
-                                                                        <span className="orderLine mt-4">
-                                                                            <span className="orderInfoValQuant elip-text">{p?.size}&nbsp;{p?.size_unit}</span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                <span className="orderLine">
-                                                                    <span className="orderInfoVal">₹{p?.unit_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                </span>
+                                                        <img src={this.state.order?.image} className="orderGiftImg" alt="" />
+                                                    </div>
+                                                    <div className="col-6">
+                                                        <span className="orderLine">
+                                                            <span className="orderInfo elip-text" title={this.state.order?.name}>{this.state.order?.name}</span>
+                                                        </span>
+                                                        {/* <span className="orderLine mt-4">
+                                                            <span className="orderInfoValQuant elip-text">{p?.size}&nbsp;{p?.size_unit}</span>
+                                                        </span> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                <span className="orderLine">
+                                                    <span className="orderInfoVal">₹{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                </span>
 
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                {p?.tax_price === null ? "-" :
-                                                                    <span className="orderLine">
-                                                                        <span className="orderInfoVal">₹{p?.tax_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                    </span>}
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                -
+                                                {/* {p?.tax_price === null ? "-" :
+                                                    <span className="orderLine">
+                                                        <span className="orderInfoVal">₹{p?.tax_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                    </span>} */}
 
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                {p?.tax_rate === null ? "-" :
-                                                                    <span className="orderLine">
-                                                                        <span className="orderInfoVal">{p?.tax_rate?.toFixed(2)}%</span>
-                                                                    </span>}
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                -
+                                                {/* {p?.tax_rate === null ? "-" :
+                                                    <span className="orderLine">
+                                                        <span className="orderInfoVal">{p?.tax_rate?.toFixed(2)}%</span>
+                                                    </span>} */}
 
-                                                            </div>
-                                                            <div className="col justify-content-center d-flex">
-                                                                {p?.actual_price === null ? "-" :
-                                                                    <span className="orderLine">
-                                                                        <span className="orderInfoVal">₹{p?.actual_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                    </span>}
+                                            </div>
+                                            <div className="col justify-content-center d-flex">
+                                                {this.state.order?.gift_card_details?.gift_card_amount === null ? "-" :
+                                                    <span className="orderLine">
+                                                        <span className="orderInfoVal">₹{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                    </span>}
 
-                                                            </div>
-                                                            {/* <div className="col-2">
+                                            </div>
+                                            {/* <div className="col-2">
                                                                 <span className="orderLine justify-content-center d-flex">
                                                                     <span className="orderInfoVal">Order Qty: {p?.quantity}</span>
                                                                 </span>
@@ -526,17 +564,14 @@ export default class OrderPrimeDetails extends Component {
                                                                 </span>
 
                                                             </div> */}
-                                                            <div className="col justify-content-center d-flex">
-                                                                <span className="orderLine">
-                                                                    <span className="orderInfoVal">₹{p?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
-                                                                </span>
+                                            <div className="col justify-content-center d-flex">
+                                                <span className="orderLine">
+                                                    <span className="orderInfoVal">₹{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                </span>
 
-                                                            </div>
+                                            </div>
 
-                                                        </div>
-                                                    </>
-                                                )
-                                            })}
+                                        </div>
 
                                         <div className="div-box row mb-2">
                                             <div className="col-12">
@@ -545,7 +580,7 @@ export default class OrderPrimeDetails extends Component {
                                                         <span className="orderInfo">Sub Total</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" title={(this.state.order?.net_price)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{(this.state.order?.net_price)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" title={(this.state.order?.gift_card_details?.gift_card_amount)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{(this.state.order?.gift_card_details?.gift_card_amount)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                                 {this.state.order?.discount === null ? "" :
@@ -554,7 +589,7 @@ export default class OrderPrimeDetails extends Component {
                                                             <span className="orderInfo">Discount </span>
                                                         </div>
                                                         <div className="col-1 text-end">
-                                                            <span className="orderInfoVal elip-text" >-₹ {this.state.order?.discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                            <span className="orderInfoVal elip-text" >-₹ {parseInt(0)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                         </div>
                                                     </div>}
                                                 <div className="row">
@@ -562,7 +597,7 @@ export default class OrderPrimeDetails extends Component {
                                                         <span className="orderInfo">Shipping Charges</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" >₹ {this.state.order?.shipping_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" >₹ {parseInt(0)?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -570,7 +605,7 @@ export default class OrderPrimeDetails extends Component {
                                                         <span className="orderInfo">Grand Total</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" title={this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.gift_card_details?.gift_card_amount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                             </div>

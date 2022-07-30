@@ -101,6 +101,7 @@ export const GET_ORDER_DETAILS = `${ORDER_SERVICE}/manage/order/{{id}}`;
 export const ADD_ORDER_STATUS = `${ORDER_SERVICE}/manage/order/{{id}}/status`;
 export const GET_ORDER_INVOICE = `${ORDER_SERVICE}/manage/order/{{id}}/invoice`;
 export const GET_ORDER_INVOICE_PRIME = `${ORDER_SERVICE}/manage/order/{{id}}/plan/invoice`;
+export const GET_ORDER_GIFT_DETAILS = `${ORDER_SERVICE}/manage/gift/details/{{id}}`;
 
 //PRODUCT
 export const GET_INGREDIENT = `${PRODUCT_SERVICE}/manage/ingredient/all`;

@@ -7,6 +7,7 @@ import DashboardLayoutComponent from "../../../component/layouts/dashboard-layou
 import Pagination from "@mui/material/Pagination";
 import OrderDetails from "../../../component/sales/order/order-details";
 import OrderPrimeDetails from "../../../component/sales/order/order-prime-detail";
+import OrderGiftDetails from "../../../component/sales/order/order-gift-details";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import OrderApi from "../../../services/orders";
@@ -159,11 +160,13 @@ export default function OrderEditDetails({ id }) {
 
                             <div className="col-m-12">
                                 {
-                                    order?.order?.plan_id && order?.order?.plan_id !== undefined ?
-
+                                    order?.order?.order_type === "plan" ?
                                         <OrderPrimeDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
                                         :
-                                        <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
+                                        order?.order?.order_type === "Gift_card" ?
+                                            <OrderGiftDetails mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
+                                            :
+                                            <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
                                 }
                             </div>
                         }

@@ -71,7 +71,11 @@ export default class CustomerDetails extends Component {
 			giftCardSend: props?.giftCardSend,
 			giftCardSendTotalProduct: props?.giftCardSendTotalProduct,
 			totalGiftCardSendPage: props?.totalGiftCardSendPage,
+			giftCardSendViewObj: {},
+			giftCardRedeemViewObj: {},
 			giftCardTab: 1,
+			giftCardRedeemTab: 1,
+			giftCardSendTab: 1,
 			currentPageGiftCardSend: 1,
 			currentPageGiftCardRedeem: 1,
 		};
@@ -138,7 +142,16 @@ export default class CustomerDetails extends Component {
 		this.giftCardRedeemList(this.state.id, page);
 	};
 
-	
+	giftCardSendView = (value) => {
+		this.setState({ giftCardSendTab: 2 });
+		this.setState({ giftCardSendViewObj: value });
+	}
+
+	giftCardRedeemView = (value) => {
+		this.setState({ giftCardRedeemTab: 2 });
+		this.setState({ giftCardRedeemViewObj: value });
+	}
+
 	closeAddress = () => {
 		this.setState({ add_address: false });
 		window.scrollTo(0, 0);
@@ -1276,6 +1289,7 @@ export default class CustomerDetails extends Component {
 											}
 											onClick={() => {
 												this.setState({ giftCardTab: 1 });
+												this.setState({ giftCardRedeemTab: 1 });
 											}}
 										>
 											Redeem
@@ -1286,6 +1300,7 @@ export default class CustomerDetails extends Component {
 											}
 											onClick={() => {
 												this.setState({ giftCardTab: 2 });
+												this.setState({ giftCardSendTab: 1 });
 											}}
 										>
 											Send
@@ -1295,185 +1310,528 @@ export default class CustomerDetails extends Component {
 							</div>
 							{this.state.giftCardTab === 1 && (
 								<>
-									<div data-component="CustomerComponent">
-										<div className="row">
-											<div className="col-md-12">
-												<div className="tableRow">
-													<div className="col">Sender Name</div>
-													<div className="col text-center">Receiver Name</div>
-													<div className="col text-center">Purchase</div>
-													<div className="col text-center">Expiry</div>
-													<div className="col text-center">Amount</div>
-													<div className="col-1 text-center">Active</div>
-													<div className="col-1 text-center">Redeem</div>
-													<div className="col-1 text-end">View</div>
+									{this.state.giftCardRedeemTab === 1 && (
+										<>
+											<div data-component="CustomerComponent">
+												<div className="row">
+													<div className="col-md-12">
+														<div className="tableRow">
+															<div className="col">Sender Name</div>
+															<div className="col text-center">Receiver Name</div>
+															<div className="col text-center">Purchase</div>
+															<div className="col text-center">Expiry</div>
+															<div className="col text-center">Amount</div>
+															<div className="col-1 text-center">Active</div>
+															<div className="col-1 text-center">Redeem</div>
+															<div className="col-1 text-end">View</div>
+														</div>
+													</div>
+												</div>
+												<div className="sticky-scroll scroll">
+													{this.state.giftCardRedeem?.length === 0 && (
+														<div className="error-message">No order Info</div>
+													)}
+													{this.state.giftCardRedeem?.map((p) => {
+														return (
+															<div className="row">
+																<div className="col-md-12">
+																	<div className="tableCell">
+																		<div className="tableBody col pe-1 elip-text" title={p?.gift_cards?.sender_name}>{p?.gift_cards?.sender_name}</div>
+																		<div className="col text-center px-2 elip-text" title={p?.gift_cards?.receiver_name}>
+																			{p?.gift_cards?.receiver_name}
+																		</div>
+																		<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.created_at)}>
+																			{this.convertDateStringToDate(p?.gift_cards?.created_at)}
+																		</div>
+																		<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.expire_date)}>
+																			{this.convertDateStringToDate(p?.gift_cards?.expire_date)}
+																		</div>
+																		<div className="col text-center px-2 elip-text" title={p?.gift_cards?.gift_card_amount}>
+																			{p?.gift_cards?.gift_card_amount}
+																		</div>
+																		<div className="col-1 text-center">
+																			{p?.gift_cards?.is_active === true ? (
+																				<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																			) : (
+																				<CancelOutlinedIcon className="cancel-icon" />
+																			)}
+																		</div>
+																		<div className="col-1 text-center">
+																			{p?.gift_cards?.is_redeem === true ? (
+																				<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																			) : (
+																				<CancelOutlinedIcon className="cancel-icon" />
+																			)}
+																		</div>
+																		<div className="col-1 text-end">
+																			<RemoveRedEyeIcon
+																				className="view-icon"
+																				onClick={() => {
+																					this.giftCardRedeemView(p?.gift_cards);
+																				}}
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														);
+													})}
 												</div>
 											</div>
-										</div>
-										<div className="sticky-scroll scroll">
-											{this.state.giftCardRedeem?.length === 0 && (
-												<div className="error-message">No order Info</div>
-											)}
-											{this.state.giftCardRedeem?.map((p) => {
-												return (
-													<div className="row">
-														<div className="col-md-12">
-															<div className="tableCell">
-																<div className="tableBody col pe-1 elip-text" title={p?.gift_cards?.sender_name}>{p?.gift_cards?.sender_name}</div>
-																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.receiver_name}>
-																	{p?.gift_cards?.receiver_name}
-																</div>
-																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.created_at)}>
-																	{this.convertDateStringToDate(p?.gift_cards?.created_at)}
-																</div>
-																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.expire_date)}>
-																	{this.convertDateStringToDate(p?.gift_cards?.expire_date)}
-																</div>
-																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.gift_card_amount}>
-																	{p?.gift_cards?.gift_card_amount}
-																</div>
-																<div className="col-1 text-center">
-																	{p?.gift_cards?.is_active === true ? (
-																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
-																	) : (
-																		<CancelOutlinedIcon className="cancel-icon" />
-																	)}
-																</div>
-																<div className="col-1 text-center">
-																	{p?.gift_cards?.is_redeem === true ? (
-																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
-																	) : (
-																		<CancelOutlinedIcon className="cancel-icon" />
-																	)}
-																</div>
-																<div className="col-1 text-end">
-																	<RemoveRedEyeIcon
-																		className="view-icon"
-																		// onClick={() => {
-																		// 	Router.push(`/order/${p?.order_number}/view`);
-																		// }}
-																	/>
-																</div>
+											{this.state.totalGiftCardRedeemPage > 1 && (
+												<div className="row">
+													<div className="col-md-12 justify-content-between d-flex position-relative">
+														<div className="pagiantion-category">
+															<div>
+																<Pagination
+																	className="pagination pagi"
+																	page={this.state.currentPageGiftCardRedeem}
+																	count={this.state.totalGiftCardRedeemPage}
+																	onChange={this.onPageChangeGiftCardRedeem}
+																/>
+															</div>
+															<div
+																className="position-absolute totalCount"
+																style={{ right: 23, bottom: 5 }}
+															>
+																Total Gift Cards: {this.state.giftCardRedeemTotalProduct}
 															</div>
 														</div>
 													</div>
-												);
-											})}
-										</div>
-									</div>
-									{this.state.totalGiftCardRedeemPage > 1 && (
-										<div className="row">
-											<div className="col-md-12 justify-content-between d-flex position-relative">
-												<div className="pagiantion-category">
-													<div>
-														<Pagination
-															className="pagination pagi"
-															page={this.state.currentPageGiftCardRedeem}
-															count={this.state.totalGiftCardRedeemPage}
-															onChange={this.onPageChangeGiftCardRedeem}
-														/>
-													</div>
-													<div
-														className="position-absolute totalCount"
-														style={{ right: 23, bottom: 5 }}
-													>
-														Total Gift Cards: {this.state.giftCardRedeemTotalProduct}
+												</div>
+											)}
+										</>
+									)}
+									{this.state.giftCardRedeemTab === 2 && (
+										<>
+											<div className="btn-save mt-4 row justify-content-start">
+												<div
+													className="Cancel-btn custom-btn"
+													onClick={() => {
+														this.setState({ giftCardRedeemTab: 1 });
+													}}
+												>
+													<span>Back </span>
+												</div>
+											</div>
+											<div className="row sticky-scroll scroll">
+												<div className="col">
+													<div className="row mt-4">
+														<div className="col-md-4">
+															<div className="login-form ">
+																<label>
+																	Sender's Name<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.sender_name}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Receiver's Name<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.receiver_name}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Receiver's Mobile No<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.receiver_mobile_no}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Receiver's E-Mail<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.receiver_email}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Occassion<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.occasion_type}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Message<span className="mandatory-star">*</span>
+																</label>
+																<textarea
+																	cols="100"
+																	rows="5"
+																	type="text"
+																	name="body"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.message}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Purchase Date<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.convertDateStringToDate(this.state.giftCardRedeemViewObj?.created_at)}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Expiry Date<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.convertDateStringToDate(this.state.giftCardRedeemViewObj?.expire_date)}
+																/>
+															</div>
+															{
+																this.state.giftCardRedeemViewObj?.is_redeem && (
+																	<div className="login-form ">
+																		<label>
+																			Redeem Date<span className="mandatory-star">*</span>
+																		</label>
+																		<input
+																			type="text"
+																			name="asked_by"
+																			readOnly={true}
+																			value={this.convertDateStringToDate(this.state.giftCardRedeemViewObj?.redeem_date)}
+																		/>
+																	</div>
+																)
+															}
+															<div className="login-form ">
+																<label>
+																	Gift Card Amount<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.gift_card_amount}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Gift Card Code<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardRedeemViewObj?.gift_card_code}
+																/>
+															</div>
+															<div className="signup-check ">
+																<Checkbox
+																	size="small"
+																	disabled
+																	style={{ color: "#012169" }}
+																	checked={this.state.giftCardRedeemViewObj?.is_active}
+																/>
+																<label>Active</label>
+															</div>
+															<div className="signup-check ">
+																<Checkbox
+																	size="small"
+																	disabled
+																	style={{ color: "#012169" }}
+																	checked={this.state.giftCardRedeemViewObj?.is_redeem}
+																/>
+																<label>Redeemed</label>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
+										</>
 									)}
+
 								</>
 							)}
 							{this.state.giftCardTab === 2 && (
 								<>
-									<div data-component="CustomerComponent">
-										<div className="row">
-											<div className="col-md-12">
-												<div className="tableRow">
-													<div className="col">Sender Name</div>
-													<div className="col text-center">Receiver Name</div>
-													<div className="col text-center">Purchase</div>
-													<div className="col text-center">Expiry</div>
-													<div className="col text-center">Amount</div>
-													<div className="col-1 text-center">Active</div>
-													<div className="col-1 text-center">Redeem</div>
-													<div className="col-1 text-end">View</div>
+									{this.state.giftCardSendTab === 1 && (
+										<>
+											<div data-component="CustomerComponent">
+												<div className="row">
+													<div className="col-md-12">
+														<div className="tableRow">
+															<div className="col">Sender Name</div>
+															<div className="col text-center">Receiver Name</div>
+															<div className="col text-center">Purchase</div>
+															<div className="col text-center">Expiry</div>
+															<div className="col text-center">Amount</div>
+															<div className="col-1 text-center">Active</div>
+															<div className="col-1 text-center">Redeem</div>
+															<div className="col-1 text-end">View</div>
+														</div>
+													</div>
+												</div>
+												<div className="sticky-scroll scroll">
+													{this.state.giftCardSend?.length === 0 && (
+														<div className="error-message">No order Info</div>
+													)}
+													{this.state.giftCardSend?.map((p) => {
+														return (
+															<div className="row">
+																<div className="col-md-12">
+																	<div className="tableCell">
+																		<div className="tableBody col pe-1 elip-text" title={p?.gift_cards?.sender_name}>{p?.gift_cards?.sender_name}</div>
+																		<div className="col text-center px-2 elip-text" title={p?.gift_cards?.receiver_name}>
+																			{p?.gift_cards?.receiver_name}
+																		</div>
+																		<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.created_at)}>
+																			{this.convertDateStringToDate(p?.gift_cards?.created_at)}
+																		</div>
+																		<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.expire_date)}>
+																			{this.convertDateStringToDate(p?.gift_cards?.expire_date)}
+																		</div>
+																		<div className="col text-center px-2 elip-text" title={p?.gift_cards?.gift_card_amount}>
+																			{p?.gift_cards?.gift_card_amount}
+																		</div>
+																		<div className="col-1 text-center">
+																			{p?.gift_cards?.is_active === true ? (
+																				<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																			) : (
+																				<CancelOutlinedIcon className="cancel-icon" />
+																			)}
+																		</div>
+																		<div className="col-1 text-center">
+																			{p?.gift_cards?.is_redeem === true ? (
+																				<CheckCircleOutlineOutlinedIcon className="check-icon" />
+																			) : (
+																				<CancelOutlinedIcon className="cancel-icon" />
+																			)}
+																		</div>
+																		<div className="col-1 text-end">
+																			<RemoveRedEyeIcon
+																				className="view-icon"
+																				onClick={() => {
+																					this.giftCardSendView(p?.gift_cards);
+																				}}
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														);
+													})}
 												</div>
 											</div>
-										</div>
-										<div className="sticky-scroll scroll">
-											{this.state.giftCardSend?.length === 0 && (
-												<div className="error-message">No order Info</div>
-											)}
-											{this.state.giftCardSend?.map((p) => {
-												return (
-													<div className="row">
-														<div className="col-md-12">
-															<div className="tableCell">
-																<div className="tableBody col pe-1 elip-text" title={p?.gift_cards?.sender_name}>{p?.gift_cards?.sender_name}</div>
-																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.receiver_name}>
-																	{p?.gift_cards?.receiver_name}
-																</div>
-																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.created_at)}>
-																	{this.convertDateStringToDate(p?.gift_cards?.created_at)}
-																</div>
-																<div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.gift_cards?.expire_date)}>
-																	{this.convertDateStringToDate(p?.gift_cards?.expire_date)}
-																</div>
-																<div className="col text-center px-2 elip-text" title={p?.gift_cards?.gift_card_amount}>
-																	{p?.gift_cards?.gift_card_amount}
-																</div>
-																<div className="col-1 text-center">
-																	{p?.gift_cards?.is_active === true ? (
-																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
-																	) : (
-																		<CancelOutlinedIcon className="cancel-icon" />
-																	)}
-																</div>
-																<div className="col-1 text-center">
-																	{p?.gift_cards?.is_redeem === true ? (
-																		<CheckCircleOutlineOutlinedIcon className="check-icon" />
-																	) : (
-																		<CancelOutlinedIcon className="cancel-icon" />
-																	)}
-																</div>
-																<div className="col-1 text-end">
-																	<RemoveRedEyeIcon
-																		className="view-icon"
-																		// onClick={() => {
-																		// 	Router.push(`/order/${p?.order_number}/view`);
-																		// }}
-																	/>
-																</div>
+											{this.state.totalGiftCardSendPage > 1 && (
+												<div className="row">
+													<div className="col-md-12 justify-content-between d-flex position-relative">
+														<div className="pagiantion-category">
+															<div>
+																<Pagination
+																	className="pagination pagi"
+																	page={this.state.currentPageGiftCardSend}
+																	count={this.state.totalGiftCardSendPage}
+																	onChange={this.onPageChangeGiftCardSend}
+																/>
+															</div>
+															<div
+																className="position-absolute totalCount"
+																style={{ right: 23, bottom: 5 }}
+															>
+																Total Gift Cards: {this.state.giftCardSendTotalProduct}
 															</div>
 														</div>
 													</div>
-												);
-											})}
-										</div>
-									</div>
-									{this.state.totalGiftCardSendPage > 1 && (
-										<div className="row">
-											<div className="col-md-12 justify-content-between d-flex position-relative">
-												<div className="pagiantion-category">
-													<div>
-														<Pagination
-															className="pagination pagi"
-															page={this.state.currentPageGiftCardSend}
-															count={this.state.totalGiftCardSendPage}
-															onChange={this.onPageChangeGiftCardSend}
-														/>
-													</div>
-													<div
-														className="position-absolute totalCount"
-														style={{ right: 23, bottom: 5 }}
-													>
-														Total Gift Cards: {this.state.giftCardSendTotalProduct}
+												</div>
+											)}
+										</>
+									)}
+									{this.state.giftCardSendTab === 2 && (
+										<>
+											<div className="btn-save mt-4 row justify-content-start">
+												<div
+													className="Cancel-btn custom-btn"
+													onClick={() => {
+														this.setState({ giftCardSendTab: 1 });
+													}}
+												>
+													<span>Back </span>
+												</div>
+											</div>
+											<div className="row sticky-scroll scroll">
+												<div className="col">
+													<div className="row mt-4">
+														<div className="col-md-4">
+															<div className="login-form ">
+																<label>
+																	Sender's Name<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.sender_name}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Receiver's Name<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.receiver_name}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Receiver's Mobile No<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.receiver_mobile_no}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Receiver's E-Mail<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.receiver_email}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Occassion<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.occasion_type}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Message<span className="mandatory-star">*</span>
+																</label>
+																<textarea
+																	cols="100"
+																	rows="5"
+																	type="text"
+																	name="body"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.message}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Purchase Date<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.convertDateStringToDate(this.state.giftCardSendViewObj?.created_at)}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Expiry Date<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.convertDateStringToDate(this.state.giftCardSendViewObj?.expire_date)}
+																/>
+															</div>
+															{
+																this.state.giftCardSendViewObj?.is_redeem && (
+																	<div className="login-form ">
+																		<label>
+																			Redeem Date<span className="mandatory-star">*</span>
+																		</label>
+																		<input
+																			type="text"
+																			name="asked_by"
+																			readOnly={true}
+																			value={this.convertDateStringToDate(this.state.giftCardSendViewObj?.redeem_date)}
+																		/>
+																	</div>
+																)
+															}
+															<div className="login-form ">
+																<label>
+																	Gift Card Amount<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.gift_card_amount}
+																/>
+															</div>
+															<div className="login-form ">
+																<label>
+																	Gift Card Code<span className="mandatory-star">*</span>
+																</label>
+																<input
+																	type="text"
+																	name="asked_by"
+																	readOnly={true}
+																	value={this.state.giftCardSendViewObj?.gift_card_code}
+																/>
+															</div>
+															<div className="signup-check ">
+																<Checkbox
+																	size="small"
+																	disabled
+																	style={{ color: "#012169" }}
+																	checked={this.state.giftCardSendViewObj?.is_active}
+																/>
+																<label>Active</label>
+															</div>
+															<div className="signup-check ">
+																<Checkbox
+																	size="small"
+																	disabled
+																	style={{ color: "#012169" }}
+																	checked={this.state.giftCardSendViewObj?.is_redeem}
+																/>
+																<label>Redeemed</label>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
+										</>
 									)}
 								</>
 							)}

@@ -81,26 +81,27 @@ export default class OrderPrimeDetails extends Component {
         return null;
     }
 
-    orderInvoice = (id) => {
-        OrderApi.getOrderInvoicePrime(id)
-            .then((response) => {
-                this.setState({ invoice: response.data.data.pdf })
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime"
-                );
-            });
-    }
+    // orderInvoice = (id) => {
+    //     OrderApi.getOrderInvoicePrime(id)
+    //         .then((response) => {
+    //             // this.setState({ invoice: response.data.data.pdf })
+    //         })
+    //         .catch((error) => {
+    //             toast.error(
+    //                 error?.response &&
+    //                     error?.response?.data &&
+    //                     error?.response?.data?.message
+    //                     ? error.response.data.message
+    //                     : "Unable to process your request, please try after sometime"
+    //             );
+    //         });
+    // }
 
     orderDetail = (id) => {
         OrderApi.getOrderGiftDetails(id)
             .then((response) => {
                 this.setState({ order: response.data.data });
+                this.setState({ invoice: response.data?.data?.order_invoice?.invoice_link })
             })
             .catch((error) => {
                 toast.error(
@@ -223,6 +224,8 @@ export default class OrderPrimeDetails extends Component {
                                                     <span className="orderInfo">Valid Till&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}>{this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}</span>
                                                 </span>
+
+                                                
 
                                             </div>
                                             <div className="col-3">

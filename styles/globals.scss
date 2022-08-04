@@ -261,6 +261,29 @@ a {
     margin-left: 1rem;
   }
 }
+// @media (min-width:767.5px) and (max-width:1250px){
+//   .btn-save {
+//     display: flex;
+//     text-align: end;
+//     align-items: flex-start;
+//     justify-content: flex-end;
+//     .custom-btn {
+//       width: 34% !important;
+//       justify-content: center;
+//       padding: 0.3rem 1rem !important;
+//     }
+//     .Cancel-btn {
+//       background-color: white !important;
+//       border: 1.5px solid $clr-dark-blue !important;
+//       color: $clr-dark-blue !important;
+//       width: 34% !important;
+//       justify-content: center;
+//       padding: 0.2rem 1rem !important;
+//       font-weight: 600;
+//       margin-left: 1rem;
+//     }
+//   }
+// }
 .editor {
   label {
     color: $clr-dark-blue;

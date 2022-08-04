@@ -246,6 +246,22 @@ export default class ReviewCreate extends Component {
                                                     }}
                                                 />
                                             </div>
+
+                                            {
+                                                this.state.createMode === "create" && (
+                                                    <div className="login-form ">
+                                                    <label>
+                                                        User ID<span className="mandatory-star">*</span>
+                                                    </label>
+                                                    <input
+                                                        name="user_id"
+                                                        type="number"
+                                                        value={this.state.input.user_id}
+                                                        onChange={this.handleChange.bind(this)}
+                                                    />
+                                                </div>    
+                                                )
+                                            }
                                         </div>
                                     </div>
 

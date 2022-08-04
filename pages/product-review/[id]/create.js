@@ -98,6 +98,10 @@ export default class ReviewCreateDetails extends Component {
             toast.error("Please enter rating ");
             return false;
           }
+          if (this.state.reviewDetails.user_id === "" || this.state.reviewDetails.user_id === null || this.state.reviewDetails.user_id === undefined) {
+            toast.error("Please enter user id");
+            return false;
+          }
           // if (this.state.reviewDetails.icon_url === "" || this.state.reviewDetails.icon_url === null || this.state.reviewDetails.icon_url.replace(/\s/g, "").length <= 0) {
           //   toast.error("Please enter icon ");
           //   this.state.is_all = true;
@@ -109,13 +113,12 @@ export default class ReviewCreateDetails extends Component {
 
     OnSave = () => {
         if (this.validateData()) {
-            let UserDetails = JSON?.parse(localStorage.getItem('UserDetails'));
             let data = {
                 rating: this.state.reviewDetails.rating,
                 review_title: this.state.reviewDetails.review_title,
                 review: this.state.reviewDetails.review,
                 img_urls: this.state.reviewDetails.images,
-                user_id: UserDetails.id,
+                user_id: parseInt(this.state.reviewDetails.user_id),
                 product_id: parseInt(this.state.id),
             };
             ReviewApi.reviewCreate(this.state.id, data)

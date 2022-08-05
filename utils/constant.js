@@ -316,3 +316,9 @@ export const TESTIMONIAL_GALLERY_EDIT = `${USER_SERVICE}/manage/testimonial/gall
 export const TESTIMONIAL_GALLERY_CREATE = `${USER_SERVICE}/manage/testimonial/gallery/add`;
 export const TESTIMONIAL_GALLERY_DELETE = `${USER_SERVICE}/manage/testimonial/gallery/{{id}}/delete`;
 
+
+//SEARCH TAGS
+export const SEARCH_TAG_LIST = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms`;
+export const SEARCH_TAG_EDIT = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms/edit`;
+export const SEARCH_TAG_CREATE = `${PRODUCT_SERVICE}/manage/product/{{id}}/add_terms`;
+export const SEARCH_TAG_DELETE = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms/delete`;

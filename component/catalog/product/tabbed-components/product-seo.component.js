@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
+import ProductSEOSearchTagComponent from "./sub-components/seo-tab-component/seo-search-tag-component";
 import SeoApi from "../../../../services/seo";
+import SearchTagAPI from "../../../../services/search-tag";
 import { toast } from "react-toastify";
 import Router from "next/router";
 
@@ -8,52 +10,73 @@ export default class ProductSEOComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id:props?.id,
-            seo:{},
-            errors:{},
-            mode:props?.mode
+            id: props?.id,
+            seo: {},
+            errors: {},
+            mode: props?.mode,
+            searchTagList: {},
+
+
+            term: "",
+            addSearchTag: false,
+            searchTagId: null,
+
         };
     }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (
+            prevState.id !== nextProps.id ||
+            prevState.mode !== nextProps.mode
+        ) {
+            return {
+                mode: nextProps?.mode,
+                id: nextProps?.id,
+            };
+        }
+        return null;
+    }
+
     handleChange = (event) => {
         let input = this.state.seo;
         input[event.target.name] = event.target.value
         this.setState({
-            seo:input
+            seo: input
         })
     };
 
-    validation(){
+    validation() {
         let input = this.state.seo;
         let errors = {};
         let isValid = true;
-            if (!input["url_key"] || input["url_key"].replace(/\s/g, "").length <=0) {
-                isValid = false;
-                errors["url_key"] = "Please enter url key";
-            }
-            if (!input["meta_keywords"]) {
-                isValid = false;
-                errors["meta_keywords"] = "Please enter meta keywords";
-            }
-            if(input["meta_keywords"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["meta_keywords"] = "Please enter meta keywords";
-            }
-            if (!input["meta_title"]) {
-                isValid = false;
-                errors["meta_title"] = "Please enter meta title";
-            }
-            if(input["meta_title"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["meta_title"] = "Please enter meta title";
-            }
-            if (!input["meta_description"]) {
-                isValid = false;
-                errors["meta_description"] = "Please enter meta description";
-            }
-            if(input["meta_description"].replace(/\s/g, "").length <=0){
-                isValid = false;
-                errors["meta_description"] = "Please enter meta description";
-            }
+        if (!input["url_key"] || input["url_key"].replace(/\s/g, "").length <= 0) {
+            isValid = false;
+            errors["url_key"] = "Please enter url key";
+        }
+        if (!input["meta_keywords"]) {
+            isValid = false;
+            errors["meta_keywords"] = "Please enter meta keywords";
+        }
+        if (input["meta_keywords"].replace(/\s/g, "").length <= 0) {
+            isValid = false;
+            errors["meta_keywords"] = "Please enter meta keywords";
+        }
+        if (!input["meta_title"]) {
+            isValid = false;
+            errors["meta_title"] = "Please enter meta title";
+        }
+        if (input["meta_title"].replace(/\s/g, "").length <= 0) {
+            isValid = false;
+            errors["meta_title"] = "Please enter meta title";
+        }
+        if (!input["meta_description"]) {
+            isValid = false;
+            errors["meta_description"] = "Please enter meta description";
+        }
+        if (input["meta_description"].replace(/\s/g, "").length <= 0) {
+            isValid = false;
+            errors["meta_description"] = "Please enter meta description";
+        }
         this.setState({
             errors: errors
         });
@@ -61,35 +84,35 @@ export default class ProductSEOComponent extends Component {
         return isValid;
     }
 
-    EditSeo = (id)=>{
-        let data ={
+    EditSeo = (id) => {
+        let data = {
             "meta_description": this.state.seo?.meta_description,
             "meta_keywords": this.state.seo?.meta_keywords,
             "meta_title": this.state.seo?.meta_title,
             "url_key": this.state.seo?.url_key
         }
-        SeoApi.AddSeo(id,data)
-        .then((response) => {
-          if (response.data.httpStatusCode === 200) {
-                let list =  response.data.data
-                this.setState({seo: list});
-                toast.success("Update successfully")
-                Router.push("/product")
-          }
-        })
-        .catch((error) => {
-          toast.error(
-            error?.response &&
-              error?.response?.data &&
-              error?.response?.data?.message
-              ? error.response.data.message
-              : "Unable to process your request, please try after sometime"
-          );
-        });
+        SeoApi.AddSeo(id, data)
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    let list = response.data.data
+                    this.setState({ seo: list });
+                    toast.success("Update successfully")
+                    Router.push("/product")
+                }
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
     }
 
-    onSave=()=> {
-        if(this.validation()){
+    onSave = () => {
+        if (this.validation()) {
             this.EditSeo(this.state.id)
         }
     }
@@ -100,27 +123,142 @@ export default class ProductSEOComponent extends Component {
     //     }
     // }
 
-    getSeoDetails=(id)=>{
+    getSeoDetails = (id) => {
         SeoApi.getSeo(id)
-        .then((response) => {
-          if (response.data.httpStatusCode === 200) {
-              let list =  response.data.data
-              this.setState({seo: list});
-          }
-        })
-        .catch((error) => {
-          toast.error(
-            error?.response &&
-              error?.response?.data &&
-              error?.response?.data?.message
-              ? error.response.data.message
-              : "Unable to process your request, please try after sometime"
-          );
-        });
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    let list = response.data.data
+                    this.setState({ seo: list });
+                }
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
     }
 
-    componentDidMount(){
-        this.getSeoDetails(this.state.id)
+
+
+
+
+
+
+    searchTagViewList = () => {
+        SearchTagAPI.searchTagViewList(this.state.id)
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    this.setState({ searchTagList: response.data.data });
+                }
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+    validateDataSearchTerm = () => {
+        if (this.state.term === "" || this.state.term === null || this.state.term.replace(/\s/g, "").length <= 0) {
+            toast.error("Please enter search term");
+            return false;
+        }
+
+        return true;
+    };
+
+    // OnEditSaveSearchTerm = (id) => {
+    //     if (this.validateDataSearchTerm()) {
+    //         let data = {
+    //             term: this.state.term,
+    //         };
+    //         SearchTagAPI.searchTagEdit(id, data)
+    //             .then((response) => {
+    //                 if (response.data.httpStatusCode === 200) {
+    //                     toast.success("Search Term Editted Successfully");
+    //                     this.setState({ term: "" });
+    //                     this.searchTagViewList();
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 toast.error(
+    //                     error?.response &&
+    //                         error?.response?.data &&
+    //                         error?.response?.data?.message
+    //                         ? error.response.data.message
+    //                         : "Unable to process your request, please try after sometime"
+    //                 );
+    //             });
+    //     }
+    // };
+
+    OnAddSaveSearchTerm = () => {
+        if (this.validateDataSearchTerm()) {
+            let data = {
+                term: this.state.term,
+            };
+            SearchTagAPI.searchTagCreate(this.state.id, data)
+                .then((response) => {
+                    if (response.data.httpStatusCode === 200) {
+                        toast.success("Search Term Added Successfully");
+                        this.setState({ term: "" });
+                        this.setState({ addSearchTag: false });
+                        this.searchTagViewList();
+                    }
+                })
+                .catch((error) => {
+                    toast.error(
+                        error?.response &&
+                            error?.response?.data &&
+                            error?.response?.data?.message
+                            ? error.response.data.message
+                            : "Unable to process your request, please try after sometime"
+                    );
+                });
+        }
+    };
+
+    // DeleteSearchTerm = (id) => {
+    //     let data = {};
+    //     SearchTagAPI.searchTagDelete(id, data)
+    //         .then((response) => {
+    //             if (response.data.httpStatusCode === 200) {
+    //                 toast.success("Search Tag Deleted Successfully");
+    //                 this.searchTagViewList();
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             toast.error(
+    //                 error?.response &&
+    //                     error?.response?.data &&
+    //                     error?.response?.data?.message
+    //                     ? error.response.data.message
+    //                     : "Unable to process your request, please try after sometime"
+    //             );
+    //         });
+    // };
+
+
+    addNewSearchTage = () => {
+        if (this.state.addSearchTag) {
+            toast.error("Add one by one");
+        }
+        else {
+            this.setState({ addSearchTag: true });
+        }
+    }
+
+    componentDidMount() {
+        this.getSeoDetails(this.state.id);
+        this.searchTagViewList();
     }
 
     render() {
@@ -139,7 +277,7 @@ export default class ProductSEOComponent extends Component {
                                     <input
                                         type="text"
                                         name="url_key"
-                                        readOnly={this.state.mode === "view"?true:false}
+                                        readOnly={this.state.mode === "view" ? true : false}
                                         value={this.state.seo?.url_key}
                                         onChange={this.handleChange.bind(this)}
                                     />
@@ -147,12 +285,12 @@ export default class ProductSEOComponent extends Component {
                                 </div>
                                 <div className="fc-form-group">
                                     <label>Meta Title<span className="mandatory-star">*</span></label>
-                                    <br/>
+                                    <br />
                                     <textarea
                                         name="meta_title"
                                         value={this.state.seo?.meta_title}
                                         cols="100"
-                                        readOnly={this.state.mode === "view"?true:false}
+                                        readOnly={this.state.mode === "view" ? true : false}
                                         rows="5"
                                         onChange={this.handleChange.bind(this)}
                                     />
@@ -160,12 +298,12 @@ export default class ProductSEOComponent extends Component {
                                 </div>
                                 <div className="fc-form-group">
                                     <label>Meta Keywords<span className="mandatory-star">*</span></label>
-                                    <br/>
+                                    <br />
                                     <textarea
                                         name="meta_keywords"
                                         value={this.state.seo?.meta_keywords}
                                         cols="100"
-                                        readOnly={this.state.mode === "view"?true:false}
+                                        readOnly={this.state.mode === "view" ? true : false}
                                         rows="5"
                                         onChange={this.handleChange.bind(this)}
                                     />
@@ -173,18 +311,162 @@ export default class ProductSEOComponent extends Component {
                                 </div>
                                 <div className="fc-form-group">
                                     <label>Meta Description<span className="mandatory-star">*</span></label>
-                                    <br/>
+                                    <br />
                                     <textarea
                                         name="meta_description"
                                         value={this.state.seo?.meta_description}
                                         cols="100"
-                                        readOnly={this.state.mode === "view"?true:false}
+                                        readOnly={this.state.mode === "view" ? true : false}
                                         rows="5"
                                         onChange={this.handleChange.bind(this)}
                                     />
                                     <small className="form-text text-danger" >{this.state.errors["meta_description"]}</small>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div data-component="product-supplement-edit" className='product-tabbed-editor'>
+                    <div className="fc-form-group">
+                        <label>Search Tags<span className="mandatory-star">*</span></label>
+                    </div>
+
+                    <div className="row ">
+                        <div className="col-md-12">
+                            {
+                                this.state.mode === "edit" ?
+                                    this.state.searchTagList?.search_term?.length === 0 &&
+                                    <p className='mt-2'>Add search tag by clicking on the button below</p>
+                                    :
+                                    this.state.searchTagList?.search_term?.length === 0 &&
+                                    <p className='mt-2'>No Search Tag Available</p>
+                            }
+                            {
+                                this.state.searchTagList?.search_term?.map((elem, key) => {
+                                    return (
+                                        <>
+                                            <ProductSEOSearchTagComponent
+                                                key={key}
+                                                elem={elem}
+                                                mode={this.state.mode}
+                                                id={this.state.id}
+                                                searchTagViewList={this.searchTagViewList.bind(this)}
+                                            />
+                                            {/* <div
+                                                key={key}
+                                                className='row mt-2'
+                                            >
+                                                <div className='col-md-4'>
+                                                    <input
+                                                        type="text"
+                                                        readOnly={this.state.mode === "view" ? true : false}
+                                                        placeholder='New Search Tag'
+                                                        name='term'
+                                                        className='form-control'
+                                                        onChange={(event) => this.setState({elem: {search_term: event.target.value}})}
+                                                        value={elem?.search_term}
+                                                    />
+                                                </div>
+                                                <div className='col-md-2 d-grid'>
+                                                </div>
+                                                <div className='col-md-1 d-grid'>
+                                                    <button
+                                                        disabled={this.state.mode === "view" ? true : false}
+                                                        className='btn btn-success btn-sm'
+                                                        onClick={this.OnEditSaveSearchTerm.bind(elem?.id)}
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                </div>
+                                                <div className='col-md-1 d-grid'>
+                                                    <div
+                                                        disabled={this.state.mode === "view" ? true : false}
+                                                        className='btn btn-danger btn-sm'
+                                                        onClick={this.DeleteSearchTerm.bind(this, elem?.id)}
+                                                    >
+                                                        Remove
+                                                    </div>
+                                                </div>
+                                            </div> */}
+                                        </>
+                                    )
+                                })
+                            }
+                            {
+                                this.state.addSearchTag === true && (
+                                    <>
+                                        <div className='row mt-2'>
+                                            <div className='col-md-4'>
+                                                <input
+                                                    type="text"
+                                                    readOnly={this.state.mode === "view" ? true : false}
+                                                    placeholder='New Search Tag'
+                                                    // id={s?.id}
+                                                    name='term'
+                                                    className='form-control'
+                                                    onChange={(event) => this.setState({ term: event.target.value })}
+                                                    value={this.state.term}
+                                                />
+                                            </div>
+                                            <div className='col-md-2 d-grid'>
+                                            </div>
+                                            <div className='col-md-1 d-grid'>
+                                                <button
+                                                    disabled={this.state.mode === "view" ? true : false}
+                                                    className='btn btn-success btn-sm'
+                                                    onClick={this.OnAddSaveSearchTerm.bind()}
+                                                >
+                                                    Add
+                                                </button>
+                                            </div>
+                                            <div className='col-md-1 d-grid'>
+                                                <button
+                                                    disabled={this.state.mode === "view" ? true : false}
+                                                    className='btn btn-danger btn-sm'
+                                                    onClick={() => {
+                                                        this.setState({
+                                                            addSearchTag: false,
+                                                            term: "",
+                                                        })
+                                                    }}
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )
+                            }
+                            {this.state.mode === "edit" &&
+                                <div className='mt-5'>
+                                    <button
+                                        className='btn btn-primary'
+                                        onClick={this.addNewSearchTage.bind(this)}
+                                    >
+                                        Add New Search Tag
+                                    </button>
+                                </div>}
                         </div>
                     </div>
                 </div>

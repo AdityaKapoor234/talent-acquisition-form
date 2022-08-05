@@ -72,14 +72,14 @@ export default class AffiliateMarketingView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div>
-                                            <div className="login-form ">
+                                            {/* <div className="login-form ">
                                                 <label>Enquiry<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
                                                     value={this.state. affiliatemarketingview?.enquiry}
                                                     readOnly={true}
                                                 />
-                                            </div>
+                                            </div> */}
                                             <div className="login-form ">
                                                 <label>Contact Email.<span className="mandatory-star">*</span></label>
                                                 <input

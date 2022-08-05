@@ -175,30 +175,30 @@ export default class ProductSEOComponent extends Component {
         return true;
     };
 
-    OnEditSaveSearchTerm = (id) => {
-        if (this.validateDataSearchTerm()) {
-            let data = {
-                term: this.state.term,
-            };
-            SearchTagAPI.searchTagEdit(id, data)
-                .then((response) => {
-                    if (response.data.httpStatusCode === 200) {
-                        toast.success("Search Term Editted Successfully");
-                        this.setState({ term: "" });
-                        this.searchTagViewList();
-                    }
-                })
-                .catch((error) => {
-                    toast.error(
-                        error?.response &&
-                            error?.response?.data &&
-                            error?.response?.data?.message
-                            ? error.response.data.message
-                            : "Unable to process your request, please try after sometime"
-                    );
-                });
-        }
-    };
+    // OnEditSaveSearchTerm = (id) => {
+    //     if (this.validateDataSearchTerm()) {
+    //         let data = {
+    //             term: this.state.term,
+    //         };
+    //         SearchTagAPI.searchTagEdit(id, data)
+    //             .then((response) => {
+    //                 if (response.data.httpStatusCode === 200) {
+    //                     toast.success("Search Term Editted Successfully");
+    //                     this.setState({ term: "" });
+    //                     this.searchTagViewList();
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 toast.error(
+    //                     error?.response &&
+    //                         error?.response?.data &&
+    //                         error?.response?.data?.message
+    //                         ? error.response.data.message
+    //                         : "Unable to process your request, please try after sometime"
+    //                 );
+    //             });
+    //     }
+    // };
 
     OnAddSaveSearchTerm = () => {
         if (this.validateDataSearchTerm()) {
@@ -226,25 +226,25 @@ export default class ProductSEOComponent extends Component {
         }
     };
 
-    DeleteSearchTerm = (id) => {
-        let data = {};
-        SearchTagAPI.searchTagDelete(id, data)
-            .then((response) => {
-                if (response.data.httpStatusCode === 200) {
-                    toast.success("Search Tag Deleted Successfully");
-                    this.searchTagViewList();
-                }
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response &&
-                        error?.response?.data &&
-                        error?.response?.data?.message
-                        ? error.response.data.message
-                        : "Unable to process your request, please try after sometime"
-                );
-            });
-    };
+    // DeleteSearchTerm = (id) => {
+    //     let data = {};
+    //     SearchTagAPI.searchTagDelete(id, data)
+    //         .then((response) => {
+    //             if (response.data.httpStatusCode === 200) {
+    //                 toast.success("Search Tag Deleted Successfully");
+    //                 this.searchTagViewList();
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             toast.error(
+    //                 error?.response &&
+    //                     error?.response?.data &&
+    //                     error?.response?.data?.message
+    //                     ? error.response.data.message
+    //                     : "Unable to process your request, please try after sometime"
+    //             );
+    //         });
+    // };
 
 
     addNewSearchTage = () => {

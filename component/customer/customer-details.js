@@ -25,6 +25,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddressView from "../common-component/addressview";
 import AddressForm from "../common-component/address-form"
 import EditIcon from '@mui/icons-material/Edit';
+import GiftCardApi from "../../services/gift-card";
 
 export default class CustomerDetails extends Component {
 	constructor(props) {
@@ -65,12 +66,20 @@ export default class CustomerDetails extends Component {
 				user_type: "select",
 				is_active: props?.customer?.is_active,
 			},
-			giftCardRedeem: props?.giftCardRedeem,
-			giftCardRedeemTotalProduct: props?.giftCardRedeemTotalProduct,
-			totalGiftCardRedeemPage: props?.totalGiftCardRedeemPage,
-			giftCardSend: props?.giftCardSend,
-			giftCardSendTotalProduct: props?.giftCardSendTotalProduct,
-			totalGiftCardSendPage: props?.totalGiftCardSendPage,
+			// giftCardRedeem: props?.giftCardRedeem,
+			// giftCardRedeemTotalProduct: props?.giftCardRedeemTotalProduct,
+			// totalGiftCardRedeemPage: props?.totalGiftCardRedeemPage,
+			// giftCardSend: props?.giftCardSend,
+			// giftCardSendTotalProduct: props?.giftCardSendTotalProduct,
+			// totalGiftCardSendPage: props?.totalGiftCardSendPage,
+
+			giftCardRedeem: [],
+			giftCardRedeemTotalProduct: "",
+			totalGiftCardRedeemPage: "",	  
+			giftCardSend: [],
+			giftCardSendTotalProduct: "",
+			totalGiftCardSendPage: "",
+	  
 			giftCardSendViewObj: {},
 			giftCardRedeemViewObj: {},
 			giftCardTab: 1,
@@ -195,12 +204,12 @@ export default class CustomerDetails extends Component {
 				customerWallet: nextProps?.customerWallet,
 				customerWalletTotalTransaction: nextProps?.customerWalletTotalTransaction,
 				active: nextProps?.customer?.is_active ? nextProps?.customer?.is_active : false,
-				giftCardRedeem: nextProps?.giftCardRedeem,
-				giftCardRedeemTotalProduct: nextProps?.giftCardRedeemTotalProduct,
-				totalGiftCardRedeemPage: nextProps?.totalGiftCardRedeemPage,
-				giftCardSend: nextProps?.giftCardSend,
-				giftCardSendTotalProduct: nextProps?.giftCardSendTotalProduct,
-				totalGiftCardSendPage: nextProps?.totalGiftCardSendPage,
+				// giftCardRedeem: nextProps?.giftCardRedeem,
+				// giftCardRedeemTotalProduct: nextProps?.giftCardRedeemTotalProduct,
+				// totalGiftCardRedeemPage: nextProps?.totalGiftCardRedeemPage,
+				// giftCardSend: nextProps?.giftCardSend,
+				// giftCardSendTotalProduct: nextProps?.giftCardSendTotalProduct,
+				// totalGiftCardSendPage: nextProps?.totalGiftCardSendPage,
 			};
 		}
 		return null;
@@ -275,6 +284,44 @@ export default class CustomerDetails extends Component {
 	};
 
 
+
+
+	giftCardSendList = (id, page) => {
+		GiftCardApi.giftCardSend(id, page)
+		.then((response) => {
+		  this.setState({ giftCardSend: response.data.data.list })
+		  this.setState({ giftCardSendTotalProduct: response.data.data.total })
+		  this.setState({ totalGiftCardSendPage: Math.ceil(response.data.data.total / response.data.data.page_size) })
+		})
+		.catch((error) => {
+		  toast.error(
+			error?.response &&
+			  error?.response?.data &&
+			  error?.response?.data?.message
+			  ? error.response.data.message
+			  : "Unable to process your request, please try after sometime"
+		  );
+		});
+	  }
+
+	  giftCardRedeemList = (id, page) => {
+		GiftCardApi.giftCardRedeem(id, page)
+		  .then((response) => {
+			this.setState({ giftCardRedeem: response.data.data.list })
+			this.setState({ giftCardRedeemTotalProduct: response.data.data.total })
+			this.setState({ totalGiftCardRedeemPage: Math.ceil(response.data.data.total / response.data.data.page_size) })
+		  })
+		  .catch((error) => {
+			toast.error(
+			  error?.response &&
+				error?.response?.data &&
+				error?.response?.data?.message
+				? error.response.data.message
+				: "Unable to process your request, please try after sometime"
+			);
+		  });
+	  }
+	
 
 	// getCustomerType = () => {
 	//   CustomerApi.CustomerType()
@@ -383,6 +430,10 @@ export default class CustomerDetails extends Component {
 											onClick={() => {
 												this.setState({ tab: 7 });
 												this.setState({ giftCardTab: 1 });
+												this.setState({ currentPageGiftCardRedeem: 1 });
+												this.setState({ currentPageGiftCardSend: 1 });
+												this.giftCardRedeemList(this.state.id, 1);
+												this.giftCardSendList(this.state.id, 1);									
 											}}
 										>
 											Gift Card
@@ -1290,6 +1341,8 @@ export default class CustomerDetails extends Component {
 											onClick={() => {
 												this.setState({ giftCardTab: 1 });
 												this.setState({ giftCardRedeemTab: 1 });
+												this.setState({ currentPageGiftCardRedeem: 1 });
+												this.giftCardRedeemList(this.state.id, 1);
 											}}
 										>
 											Redeem
@@ -1301,6 +1354,8 @@ export default class CustomerDetails extends Component {
 											onClick={() => {
 												this.setState({ giftCardTab: 2 });
 												this.setState({ giftCardSendTab: 1 });
+												this.setState({ currentPageGiftCardSend: 1 });
+												this.giftCardSendList(this.state.id, 1);									
 											}}
 										>
 											Send

@@ -46,6 +46,7 @@ export default class DealsEditDetails extends Component {
         icon_url: "",
         discount_image_url:"",
         is_active: false,
+        sort_order: null,
       },
     };
   }
@@ -118,6 +119,10 @@ export default class DealsEditDetails extends Component {
       toast.error("Please enter discount image");
       this.state.is_all = true;
     }
+    if (this.state.dealsDetails?.sort_order === "" || this.state.dealsDetails?.sort_order === null) {
+      toast.error("Please enter display order ");
+      this.state.is_all = true;
+    }
 
 
     if (this.state.is_all === true) {
@@ -139,6 +144,7 @@ export default class DealsEditDetails extends Component {
         icon_url: this.state.dealsDetails.icon_url,
         discount_image_url: this.state.dealsDetails.discount_image_url,
         is_active: this.state.dealsDetails.is_active,
+        sort_order: this.state.dealsDetails.sort_order,
       };
       DealsApi.dealsListEDIT(this.state.id, data)
         .then((response) => {
@@ -175,6 +181,7 @@ export default class DealsEditDetails extends Component {
             icon_url: response.data.data.list.icon_url ? response.data.data.list.icon_url : "",
             discount_image_url:response.data.data.list?.discount_image_url ?response.data.data.list?.discount_image_url:"",
             is_active: response.data.data.list.is_active ? response.data.data.list.is_active : false,
+            sort_order: response.data.data.list.sort_order ? response.data.data.list.sort_order : null,
           };
           this.setState({
             dealsDetails: details,

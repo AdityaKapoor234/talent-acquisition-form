@@ -25,7 +25,8 @@ export default class DealsCreate extends Component {
         url: "",
         icon_url: "",
         is_active: false,
-        discount_image_url:"",
+        discount_image_url: "",
+        sort_order: null,
       },
     };
   }
@@ -87,6 +88,10 @@ export default class DealsCreate extends Component {
       toast.error("Please enter icon");
       this.state.is_all = true;
     }
+    if (this.state.dealsDetails?.sort_order === "" || this.state.dealsDetails?.sort_order === null) {
+      toast.error("Please enter display order ");
+      this.state.is_all = true;
+    }
 
 
     if (this.state.is_all === true) {
@@ -107,6 +112,7 @@ export default class DealsCreate extends Component {
         url: this.state.dealsDetails.url,
         icon_url: this.state.dealsDetails.icon_url,
         discount_image_url: this.state.dealsDetails.discount_image_url,
+        sort_order: this.state.dealsDetails.sort_order,
         is_active: this.state.dealsDetails.is_active,
       };
       DealsApi.dealsCreate(data)

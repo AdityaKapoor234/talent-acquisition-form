@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import {PRODUCT_SERVICE} from "../../../utils/constant";
+import { PRODUCT_SERVICE } from "../../../utils/constant";
 
 export default class DealsCreate extends Component {
 	constructor(props) {
@@ -21,8 +21,9 @@ export default class DealsCreate extends Component {
 				color_code: props?.deals?.color_code ? props?.deals?.color_code : "",
 				url: props?.deals?.url ? props?.deals?.url : "",
 				icon_url: props?.deals?.icon_url ? props?.deals?.icon_url : "",
-				discount_image_url : props?.deals?.discount_image_url ? props?.deals?.discount_image_url :"",
+				discount_image_url: props?.deals?.discount_image_url ? props?.deals?.discount_image_url : "",
 				is_active: props?.deals?.is_active ? props?.deals?.is_active : false,
+				sort_order: props?.deals?.sort_order ? props?.deals?.sort_order : null,
 			},
 		};
 	}
@@ -42,8 +43,9 @@ export default class DealsCreate extends Component {
 					color_code: nextProps?.deals?.color_code ? nextProps?.deals?.color_code : "",
 					url: nextProps?.deals?.url ? nextProps?.deals?.url : "",
 					icon_url: nextProps?.deals?.icon_url ? nextProps?.deals?.icon_url : "",
-					discount_image_url:nextProps?.deals?.discount_image_url ? nextProps?.deals?.discount_image_url:"",
+					discount_image_url: nextProps?.deals?.discount_image_url ? nextProps?.deals?.discount_image_url : "",
 					is_active: nextProps?.deals?.is_active ? nextProps?.deals?.is_active : false,
+					sort_order: nextProps?.deals?.sort_order ? nextProps?.deals?.sort_order : null,
 				},
 			};
 		}
@@ -73,31 +75,31 @@ export default class DealsCreate extends Component {
 	};
 
 	convertDateStringToDate = (dateStr) => {
-        let months = [
-            "01",
-            "02",
-            "03",
-            "04",
-            "05",
-            "06",
-            "07",
-            "08",
-            "09",
-            "10",
-            "11",
-            "12",
-        ];
+		let months = [
+			"01",
+			"02",
+			"03",
+			"04",
+			"05",
+			"06",
+			"07",
+			"08",
+			"09",
+			"10",
+			"11",
+			"12",
+		];
 
-        let date = new Date(dateStr);
+		let date = new Date(dateStr);
 		date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-        let str =
-            // date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+		let str =
+			// date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
 			// new Date(dateStr).toISOString().split('T')[0];
 			date.toLocaleDateString('en-CA');
-        return str;
-    };
+		return str;
+	};
 
-	
+
 
 	render() {
 		return (
@@ -205,6 +207,18 @@ export default class DealsCreate extends Component {
 													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
 												/>
 											</div>
+											<div className="login-form mt-4">
+												<label>
+													Display Order<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="number"
+													min="0"
+													name="sort_order"
+													value={this.state.input.sort_order}
+													onChange={this.handleChange.bind(this)}
+												/>
+											</div>
 											<div className="signup-check mt-4">
 												<Checkbox
 													size="small"
@@ -237,7 +251,7 @@ export default class DealsCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-												Deal Start Date<span className="mandatory-star">*</span>
+													Deal Start Date<span className="mandatory-star">*</span>
 												</label>
 												<input
 													type="date"
@@ -248,7 +262,7 @@ export default class DealsCreate extends Component {
 
 											<div className="login-form ">
 												<label>
-												Deal End Date<span className="mandatory-star">*</span>
+													Deal End Date<span className="mandatory-star">*</span>
 												</label>
 												<input
 													type="date"
@@ -293,8 +307,19 @@ export default class DealsCreate extends Component {
 												/>
 											</div>
 											<div>
-                                                <a href={this.state.input?.url}><button className="custom-btn w-50 mb-4">URL PREVIEW<ArrowForwardIosIcon className='arrow-icon'/></button></a>
-                                            </div>
+												<a href={this.state.input?.url}><button className="custom-btn w-50 mb-4">URL PREVIEW<ArrowForwardIosIcon className='arrow-icon' /></button></a>
+											</div>
+											<div className="login-form ">
+												<label>
+													Display Order<span className="mandatory-star">*</span>
+												</label>
+												<input
+													type="number"
+													min="0"
+													readOnly={true}
+													value={this.state.input?.sort_order}
+												/>
+											</div>
 											<div className="signup-check">
 												<Checkbox
 													size="small"

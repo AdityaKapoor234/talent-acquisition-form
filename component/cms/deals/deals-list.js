@@ -58,6 +58,7 @@ export default class DealsList extends Component {
                             <div className="col text-center">Label</div>
                             <div className="col-2 text-center">Deal Start Date</div>
                             <div className="col-2 px-2 text-center">Deal End Date</div>
+                            <div className="col-2 px-2 text-center">Display Order</div>
                             <div className="col-1 px-2 text-center">Active</div>
                             <div className="col-1 text-end">Action</div>
                         </div>
@@ -79,11 +80,14 @@ export default class DealsList extends Component {
                                                 />
                                             </div>
                                             <div className="col text-center" title={p?.label}>{p?.label}</div>
-                                            <div className="col-2 text-center" title={this.convertDateStringToDate(p?.deal_start_date)}>
+                                            <div className="col-2 text-center px-2 elip-text" title={this.convertDateStringToDate(p?.deal_start_date)}>
                                                 {this.convertDateStringToDate(p?.deal_start_date)}
                                             </div>
-                                            <div className="col-2 text-center" title={this.convertDateStringToDate(p?.deal_end_date)}>
+                                            <div className="col-2 text-center px-2 elip-text" title={this.convertDateStringToDate(p?.deal_end_date)}>
                                                 {this.convertDateStringToDate(p?.deal_end_date)}
+                                            </div>
+                                            <div className="col-2 text-center px-2 elip-text" title={p?.sort_order}>
+                                                {p?.sort_order}
                                             </div>
                                             <div className="col-1 px-2 text-center elip-text">
                                                 {p?.is_active === true ? (

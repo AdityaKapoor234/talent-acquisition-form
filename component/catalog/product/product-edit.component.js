@@ -44,7 +44,7 @@ const editor_tabs = [
   },
   {
     id: 42,
-    show: true,
+    show: false,
     label: "Supplements",
     key: "supplements",
   },

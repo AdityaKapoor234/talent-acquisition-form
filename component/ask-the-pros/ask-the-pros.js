@@ -397,8 +397,12 @@ export default function AskTheProps(props) {
                         <MenuItem value="3 Years">3 Years</MenuItem>
                         <MenuItem value="4 Years">4 Years</MenuItem>
                         <MenuItem value="5 Years">5 Years</MenuItem>
-                        <MenuItem value="5+ Years">5+ Years</MenuItem>
-                        <MenuItem value="5+ Years">10+ Years</MenuItem>
+                        <MenuItem value="6 Years">6 Years</MenuItem>
+                        <MenuItem value="7 Years">7 Years</MenuItem>
+                        <MenuItem value="8 Years">8 Years</MenuItem>
+                        <MenuItem value="9 Years">9 Years</MenuItem>
+                        <MenuItem value="10 Years">10 Years</MenuItem>
+                        <MenuItem value="10+ Years">10+ Years</MenuItem>
                       </Select>
                     </div>
                     {/* <input

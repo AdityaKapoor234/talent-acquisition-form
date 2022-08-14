@@ -4,15 +4,17 @@ import ArticleEditor from "../../../common-component/text-editer";
 import { toast } from "react-toastify";
 import Router from "next/router";
 import ProductApi from "../../../../services/product";
+import SupplementApi from "../../../../services/supplement";
 
 export default class ProductContentComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             content: props?.content ? props.content : {},
+            supplement: "",
             mode: props?.mode,
             id: props?.id,
-            errors:{},
+            errors: {},
             open: false,
         };
     }
@@ -93,6 +95,12 @@ export default class ProductContentComponent extends Component {
 
     }
 
+    handleSupplement = (value) => {
+        let supplement = this.state.supplement;
+        supplement = value;
+        this.setState({ supplement });
+
+    }
 
     handleChange = (event) => {
         this.setState({ type: event.target.value });
@@ -119,7 +127,7 @@ export default class ProductContentComponent extends Component {
         //     isValid = false;
         //     errors["other_ingredients"] = "Please enter Other Ingredients";
         // }
-        if (!content["product_label"] || content["product_label"] ==="<p></p>\n" || content["product_label"].replace(/&nbsp;/g, "").length <=8) {
+        if (!content["product_label"] || content["product_label"] === "<p></p>\n" || content["product_label"].replace(/&nbsp;/g, "").length <= 8) {
             isValid = false;
             errors["product_label"] = "Please enter Product Label";
         }
@@ -130,6 +138,10 @@ export default class ProductContentComponent extends Component {
         // if (!content["warning"] || content["warning"] ==="<p></p>\n" || content["warning"].replace(/&nbsp;/g, "").length <=8) {
         //     isValid = false;
         //     errors["warning"] = "Please enter Warning";
+        // }
+        // if (!this.state.supplement || this.state.supplement === "<p></p>\n" || this.state.supplement.replace(/&nbsp;/g, "").length <= 8) {
+        //     isValid = false;
+        //     errors["supplement_fact"] = "Please enter Nutritional Information";
         // }
 
         this.setState({
@@ -157,6 +169,7 @@ export default class ProductContentComponent extends Component {
             ProductApi.ContentListEdit(this.state.id, data)
                 .then((response) => {
                     if (response.data.httpStatusCode === 200) {
+                        this.EditSupplement();
                         this.setState({ content: response.data.data });
                         toast.success(response.data.message);
                         Router.push(`/product`);
@@ -190,9 +203,11 @@ export default class ProductContentComponent extends Component {
             ProductApi.ContentListEdit(this.state.id, data)
                 .then((response) => {
                     if (response.data.httpStatusCode === 200) {
+                        this.EditSupplement();
                         this.setState({ content: response.data.data });
                         toast.success(response.data.message);
-                        this.props?.tab("supplements")
+                        // this.props?.tab("supplements")
+                        this.props?.tab("inventories")
                     }
                 })
                 .catch((error) => {
@@ -207,12 +222,79 @@ export default class ProductContentComponent extends Component {
         }
     }
 
+
+    getSupplementData = () => {
+        SupplementApi.getSupplement(this.state.id)
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    this.setState({ supplement: response.data.data?.suplements_html })
+                }
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+
+
+    EditSupplement = () => {
+        let data = {
+            "data": {
+                // "id": 0,
+                // "ingredient_id": "",
+                // "amount_per_serving": null,
+                // "daily_value": null,
+                // "sort_order": null,
+                // "serving_unit": "",
+                // "remove_id": false,
+                "suplements_html": this.state.supplement,
+            }
+        }
+        SupplementApi.AddSupplement(this.state.id, data)
+            .then((response) => {
+                if (response.data.httpStatusCode === 200) {
+                    this.setState({ supplement: response.data.data?.suplements_html });
+                    // let list = response.data.data?.data
+                    // list.forEach(function (field) {
+                    //     field.remove_id = false
+                    // })
+                    // this.setState({ supplements: list });
+                    // if (button === "continue") {
+                    //     toast.success("Update supplement successfully")
+                    //     this.props?.tab("inventories")
+                    // } else if (button === "save") {
+                    //     toast.success("Update supplement successfully")
+                    //     Router.push("/product")
+                    // }
+                }
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
+    componentDidMount() {
+        this.getSupplementData();
+    }
+
     render() {
         return (
             <div data-component="product-content-edit" className='product-tabbed-editor'>
 
                 <ProductTabEditorHeader onSave={this.onSave} onSaveAndContinue={this.onSaveAndContinue} showSaveContinueButton={true} mode={this.state.mode}>Content</ProductTabEditorHeader>
-                
+
                 {this.state.mode === "edit" &&
                     <div className="row ">
                         <div className="col-md-12">
@@ -314,6 +396,20 @@ export default class ProductContentComponent extends Component {
                                 />
                                 <small className="form-text text-danger" >{this.state.errors["warning"]}</small>
                             </div>
+                            <div className="fc-form-group editor">
+                                <label>Nutritional Information
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
+                                <br />
+                                <ArticleEditor
+                                    value={this.state.supplement}
+                                    mode={this.state.mode}
+                                    handleContent={this.handleSupplement.bind(this)}
+                                    articleProd="edit"
+                                    name="supplement"
+                                />
+                                <small className="form-text text-danger" >{this.state.errors["supplement_fact"]}</small>
+                            </div>
                         </div>
                     </div>}
 
@@ -402,6 +498,18 @@ export default class ProductContentComponent extends Component {
                                 <br />
                                 <ArticleEditor
                                     value={this.state.content?.warning}
+                                    mode={this.state.mode}
+                                    handleContent={this.handleFullContent.bind()}
+                                    articleProd="view"
+                                />
+                            </div>
+                            <div className="fc-form-group editor">
+                                <label>Nutritional Information
+                                    {/* <span className="mandatory-star">*</span> */}
+                                </label>
+                                <br />
+                                <ArticleEditor
+                                    value={this.state.supplement}
                                     mode={this.state.mode}
                                     handleContent={this.handleFullContent.bind()}
                                     articleProd="view"

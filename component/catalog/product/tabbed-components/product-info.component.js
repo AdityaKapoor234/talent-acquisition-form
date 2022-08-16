@@ -436,7 +436,7 @@ export default class ProductInfoComponent extends Component {
                                                 <MenuItem value='draft'>Draft</MenuItem>
                                                 <MenuItem value='published'>Publised</MenuItem>
                                                 <MenuItem value='archived'>Archived</MenuItem>
-                                                <MenuItem value="out_of_stock">Out of Stock</MenuItem>
+                                                <MenuItem value="out_of_stock">Coming Soon</MenuItem>
                                             </Select>
                                             <small className="form-text text-danger" >{this.state.errors["status"]}</small>
                                         </div>

@@ -1253,3 +1253,49 @@
   }
 
 }
+
+[data-component="image-cropper"] {
+  .dialog-cropper {
+    text-align: center;
+    // width: 500px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 80px;
+    position: fixed;
+    background: #333333;
+  }
+  .backdrop{
+    position: fixed;
+    background: #333333;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .controls {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    bottom: 0px;
+  }
+  .controls-upper-area{
+    text-align: center;
+  }
+  .slider{
+    width: 50%;
+  }
+  .button-area {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    button {
+      margin-left: 10px;
+      margin-right: 10px;
+      background-color: black;
+      color:white;
+      border: 1px solid yellow;
+      font-size: 20px;
+    }
+  }
+}

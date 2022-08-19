@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductTabEditorHeader from "./sub-components/product-tab-editor-header.component";
-// import ProductSEOSearchTagComponent from "./sub-components/seo-tab-component/seo-search-tag-component";
+import ProductSEOSearchTagComponent from "./sub-components/seo-tab-component/seo-search-tag-component";
 import SeoApi from "../../../../services/seo";
 import SearchTagAPI from "../../../../services/search-tag";
 import { toast } from "react-toastify";
@@ -16,12 +16,12 @@ export default class ProductSEOComponent extends Component {
             seo: {},
             errors: {},
             mode: props?.mode,
-            // searchTagList: props?.searchTagList,
+            searchTagList: props?.searchTagList,
 
 
-            // term: "",
-            // addSearchTag: false,
-            // searchTagId: null,
+            term: "",
+            addSearchTag: false,
+            searchTagId: null,
 
             tags: props?.tags,
 
@@ -43,7 +43,7 @@ export default class ProductSEOComponent extends Component {
             return {
                 mode: nextProps?.mode,
                 id: nextProps?.id,
-                // searchTagList: nextProps?.searchTagList,
+                searchTagList: nextProps?.searchTagList,
                 tags: nextProps?.tags,
             };
         }
@@ -203,7 +203,7 @@ export default class ProductSEOComponent extends Component {
         SearchTagAPI.searchTagViewList(this.state.id)
             .then((response) => {
                 if (response.data.httpStatusCode === 200) {
-                    // this.setState({ searchTagList: response.data.data });
+                    this.setState({ searchTagList: response.data.data });
 
                     // console.log(typeof response.data?.data?.search_term[0].id,"response");
 
@@ -272,8 +272,8 @@ export default class ProductSEOComponent extends Component {
                 .then((response) => {
                     if (response.data.httpStatusCode === 200) {
                         toast.success("Search Term Added Successfully");
-                        // this.setState({ term: "" });
-                        // this.setState({ addSearchTag: false });
+                        this.setState({ term: "" });
+                        this.setState({ addSearchTag: false });
                         // this.searchTagViewList();
 
                         this.state.tags?.filter(elem => elem?.text === response.data.data?.search_term?.search_term)?.map(elem => elem["id"]=response.data.data?.search_term?.id?.toString())
@@ -312,21 +312,21 @@ export default class ProductSEOComponent extends Component {
     };
 
 
-    // addNewSearchTage = () => {
-    //     if (this.state.addSearchTag) {
-    //         toast.error("Add one by one");
-    //     }
-    //     else {
-    //         this.setState({ addSearchTag: true });
-    //     }
-    // }
+    addNewSearchTage = () => {
+        if (this.state.addSearchTag) {
+            toast.error("Add one by one");
+        }
+        else {
+            this.setState({ addSearchTag: true });
+        }
+    }
 
     componentDidMount() {
         this.getSeoDetails(this.state.id);
         // this.searchTagViewList();
     }
 
-    ReactTags = require('react-tag-input').WithOutContext;
+    // ReactTags = require('react-tag-input').WithOutContext;
 
     render() {
         return (
@@ -406,7 +406,7 @@ export default class ProductSEOComponent extends Component {
                                                     // handleDrag={this.handleDrag}
                                                     // handleTagClick={this.handleTagClick}
                                                     inputFieldPosition='bottom'
-                                                    allowDragDrop={false}
+                                                    // allowDragDrop={true}
                                                     autocomplete
                                                     readOnly={this.state.mode === "view" ? true : false}
                                                 />

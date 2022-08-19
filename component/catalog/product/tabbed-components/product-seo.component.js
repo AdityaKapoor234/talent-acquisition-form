@@ -5,7 +5,7 @@ import SeoApi from "../../../../services/seo";
 import SearchTagAPI from "../../../../services/search-tag";
 import { toast } from "react-toastify";
 import Router from "next/router";
-import { WithContext as ReactTags } from 'react-tag-input';
+// import { WithContext as ReactTags } from 'react-tag-input';
 
 export default class ProductSEOComponent extends Component {
 
@@ -16,14 +16,16 @@ export default class ProductSEOComponent extends Component {
             seo: {},
             errors: {},
             mode: props?.mode,
-            searchTagList: props?.searchTagList,
+            // searchTagList: props?.searchTagList,
+            searchTagList: {},
 
 
             term: "",
             addSearchTag: false,
             searchTagId: null,
 
-            tags: props?.tags,
+            // tags: props?.tags,
+            tags: [],
 
             // KeyCodes: {
             //     comma: 188,
@@ -43,8 +45,8 @@ export default class ProductSEOComponent extends Component {
             return {
                 mode: nextProps?.mode,
                 id: nextProps?.id,
-                searchTagList: nextProps?.searchTagList,
-                tags: nextProps?.tags,
+                // searchTagList: nextProps?.searchTagList,
+                // tags: nextProps?.tags,
             };
         }
         return null;
@@ -160,29 +162,19 @@ export default class ProductSEOComponent extends Component {
 
 
 
-    handleDelete = (i, tag) => {
-        this.state.tags?.filter((tag, index) => index === i)?.map(elem => {
-            this.DeleteSearchTerm(parseInt(elem?.id));
-        })
+    // handleDelete = (i, tag) => {
+    //     this.state.tags?.filter((tag, index) => index === i)?.map(elem => {
+    //         this.DeleteSearchTerm(parseInt(elem?.id));
+    //     })
 
-        let newList = this.state.tags.filter((tag, index) => index !== i)
-        this.setState({ tags: newList });
+    //     let newList = this.state.tags.filter((tag, index) => index !== i)
+    //     this.setState({ tags: newList });
+    // };
 
-    };
-
-    handleAddition = (tag) => {
-        console.log(tag,"tag")
-        this.state.tags?.push(tag);
-        this.OnAddSaveSearchTerm(tag?.text);
-
-        
-
-        // this.setState({ tags: []});
-        // this.props?.searchTagViewList();
-        // this.searchTagViewList();
-
-        // this.setState(...this.state.tags, {id:tag,text:tag});
-    };
+    // handleAddition = (tag) => {
+    //     this.state.tags?.push(tag);
+    //     this.OnAddSaveSearchTerm(tag?.text);
+    // };
 
     // handleDrag = (tag, currPos, newPos) => {
     //     const newTags = this.state.tags.slice();
@@ -226,47 +218,47 @@ export default class ProductSEOComponent extends Component {
     }
 
     validateDataSearchTerm = (text) => {
-        // if (this.state.term === "" || this.state.term === null || this.state.term.replace(/\s/g, "").length <= 0) {
-        //     toast.error("Please enter search term");
-        //     return false;
-        // }
-        if (text=== "" || text === null || text.replace(/\s/g, "").length <= 0) {
+        if (this.state.term === "" || this.state.term === null || this.state.term.replace(/\s/g, "").length <= 0) {
             toast.error("Please enter search term");
             return false;
         }
+        // if (text=== "" || text === null || text.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter search term");
+        //     return false;
+        // }
 
         return true;
     };
 
-    // OnEditSaveSearchTerm = (id) => {
-    //     if (this.validateDataSearchTerm()) {
-    //         let data = {
-    //             term: this.state.term,
-    //         };
-    //         SearchTagAPI.searchTagEdit(id, data)
-    //             .then((response) => {
-    //                 if (response.data.httpStatusCode === 200) {
-    //                     toast.success("Search Term Editted Successfully");
-    //                     this.setState({ term: "" });
-    //                     this.searchTagViewList();
-    //                 }
-    //             })
-    //             .catch((error) => {
-    //                 toast.error(
-    //                     error?.response &&
-    //                         error?.response?.data &&
-    //                         error?.response?.data?.message
-    //                         ? error.response.data.message
-    //                         : "Unable to process your request, please try after sometime"
-    //                 );
-    //             });
-    //     }
-    // };
+    OnEditSaveSearchTerm = (id) => {
+        if (this.validateDataSearchTerm()) {
+            let data = {
+                term: this.state.term,
+            };
+            SearchTagAPI.searchTagEdit(id, data)
+                .then((response) => {
+                    if (response.data.httpStatusCode === 200) {
+                        toast.success("Search Term Editted Successfully");
+                        this.setState({ term: "" });
+                        this.searchTagViewList();
+                    }
+                })
+                .catch((error) => {
+                    toast.error(
+                        error?.response &&
+                            error?.response?.data &&
+                            error?.response?.data?.message
+                            ? error.response.data.message
+                            : "Unable to process your request, please try after sometime"
+                    );
+                });
+        }
+    };
 
     OnAddSaveSearchTerm = (text) => {
         if (this.validateDataSearchTerm(text)) {
             let data = {
-                term: text
+                term: this.state.term
             };
             SearchTagAPI.searchTagCreate(this.state.id, data)
                 .then((response) => {
@@ -274,7 +266,7 @@ export default class ProductSEOComponent extends Component {
                         toast.success("Search Term Added Successfully");
                         this.setState({ term: "" });
                         this.setState({ addSearchTag: false });
-                        // this.searchTagViewList();
+                        this.searchTagViewList();
 
                         this.state.tags?.filter(elem => elem?.text === response.data.data?.search_term?.search_term)?.map(elem => elem["id"]=response.data.data?.search_term?.id?.toString())
                     }
@@ -297,7 +289,7 @@ export default class ProductSEOComponent extends Component {
             .then((response) => {
                 if (response.data.httpStatusCode === 200) {
                     toast.success("Search Tag Deleted Successfully");
-                    // this.searchTagViewList();
+                    this.searchTagViewList();
                 }
             })
             .catch((error) => {
@@ -323,7 +315,7 @@ export default class ProductSEOComponent extends Component {
 
     componentDidMount() {
         this.getSeoDetails(this.state.id);
-        // this.searchTagViewList();
+        this.searchTagViewList();
     }
 
     // ReactTags = require('react-tag-input').WithOutContext;
@@ -392,7 +384,7 @@ export default class ProductSEOComponent extends Component {
 
 
 
-                                <div className="fc-form-group">
+                                {/* <div className="fc-form-group">
                                     <label>Search Tags<span className="mandatory-star">*</span></label>
                                     <div data-component="react-tags">
                                         {
@@ -414,7 +406,7 @@ export default class ProductSEOComponent extends Component {
                                         }
                                     </div>
 
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>
@@ -441,7 +433,7 @@ export default class ProductSEOComponent extends Component {
 
 
 
-                {/* <div data-component="product-supplement-edit" className='product-tabbed-editor'>
+                <div data-component="product-supplement-edit" className='product-tabbed-editor'>
                     <div className="fc-form-group">
                         <label>Search Tags<span className="mandatory-star">*</span></label>
                     </div>
@@ -467,7 +459,7 @@ export default class ProductSEOComponent extends Component {
                                                 id={this.state.id}
                                                 searchTagViewList={this.searchTagViewList.bind(this)}
                                             />
-                                            <div
+                                            {/* <div
                                                 key={key}
                                                 className='row mt-2'
                                             >
@@ -502,7 +494,7 @@ export default class ProductSEOComponent extends Component {
                                                         Remove
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </>
                                     )
                                 })
@@ -529,7 +521,7 @@ export default class ProductSEOComponent extends Component {
                                                 <button
                                                     disabled={this.state.mode === "view" ? true : false}
                                                     className='btn btn-success btn-sm'
-                                                    // onClick={this.OnAddSaveSearchTerm.bind()}
+                                                    onClick={this.OnAddSaveSearchTerm.bind()}
                                                 >
                                                     Add
                                                 </button>
@@ -563,7 +555,7 @@ export default class ProductSEOComponent extends Component {
                                 </div>}
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         );
     }

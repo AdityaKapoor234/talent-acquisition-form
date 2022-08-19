@@ -10,6 +10,7 @@ import ProductSupplementsComponent from "./tabbed-components/product-supplements
 import ProductCertificateComponent from "./tabbed-components/product-certificate.component";
 import ProductClassificationComponent from "./tabbed-components/product-classification.component";
 import ProductVariantComponent from "./tabbed-components/product-variant.component";
+import SearchTagAPI from "../../../services/search-tag";
 
 const editor_tabs = [
   {
@@ -93,6 +94,10 @@ export default class ProductEditComponent extends Component {
       product: props?.product ? props.product : {},
       name: props?.product?.name ? props.product?.name : "",
       type: props?.product?.type ? props.product?.type : "",
+
+      searchTagList: {},
+      tags: [],
+
     };
   }
   handleChange = (event) => {
@@ -101,6 +106,37 @@ export default class ProductEditComponent extends Component {
   setTab = (value) => {
     this.setState({ tab: value });
   };
+
+  searchTagViewList = () => {
+    SearchTagAPI.searchTagViewList(this.state.id)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ searchTagList: response.data.data });
+
+          // console.log(typeof response.data?.data?.search_term[0].id,"response");
+
+          response.data?.data?.search_term?.map(elem => {
+            let add_search_elem = { "id": elem?.id.toString(), "text": elem?.search_term }
+            this.state.tags.push(add_search_elem)
+          })
+
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
+
+  componentDidMount() {
+    this.searchTagViewList();
+  }
+
 
   render() {
     return (
@@ -207,7 +243,7 @@ export default class ProductEditComponent extends Component {
           )}
           {this.state.tab === "seo" && (
             <>
-              <ProductSEOComponent id={this.state.id} mode={this.state.mode} />
+              <ProductSEOComponent id={this.state.id} mode={this.state.mode} searchTagList={this.state.searchTagList} tags={this.state.tags} searchTagViewList={this.searchTagViewList.bind(this)} />
             </>
           )}
           {this.state.tab === "custom" && (

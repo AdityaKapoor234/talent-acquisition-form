@@ -26,7 +26,6 @@ export default class DealsCreate extends Component {
         icon_url: "",
         is_active: false,
         discount_image_url: "",
-        brand_logo: "",
         sort_order: null,
       },
     };
@@ -85,10 +84,6 @@ export default class DealsCreate extends Component {
       toast.error("Please enter discount image");
       this.state.is_all = true;
     }
-    if (this.state.dealsDetails.brand_logo === "" || this.state.dealsDetails.brand_logo === null || this.state.dealsDetails.brand_logo.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter brand logo");
-      this.state.is_all = true;
-    }
     if (this.state.dealsDetails.icon_url === "" || this.state.dealsDetails.icon_url === null || this.state.dealsDetails.icon_url.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter icon");
       this.state.is_all = true;
@@ -117,7 +112,6 @@ export default class DealsCreate extends Component {
         url: this.state.dealsDetails.url,
         icon_url: this.state.dealsDetails.icon_url,
         discount_image_url: this.state.dealsDetails.discount_image_url,
-        brand_logo: this.state.dealsDetails.brand_logo,
         sort_order: this.state.dealsDetails.sort_order,
         is_active: this.state.dealsDetails.is_active,
       };

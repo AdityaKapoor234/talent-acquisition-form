@@ -45,7 +45,6 @@ export default class DealsEditDetails extends Component {
         url: "",
         icon_url: "",
         discount_image_url:"",
-        brand_logo:"",
         is_active: false,
         sort_order: null,
       },
@@ -120,10 +119,6 @@ export default class DealsEditDetails extends Component {
       toast.error("Please enter discount image");
       this.state.is_all = true;
     }
-    if (this.state.dealsDetails.brand_logo === "" || this.state.dealsDetails.brand_logo === null || this.state.dealsDetails.brand_logo.replace(/\s/g, "").length <= 0) {
-      toast.error("Please enter brand logo");
-      this.state.is_all = true;
-    }
     if (this.state.dealsDetails?.sort_order === "" || this.state.dealsDetails?.sort_order === null) {
       toast.error("Please enter display order ");
       this.state.is_all = true;
@@ -148,7 +143,6 @@ export default class DealsEditDetails extends Component {
         url: this.state.dealsDetails.url,
         icon_url: this.state.dealsDetails.icon_url,
         discount_image_url: this.state.dealsDetails.discount_image_url,
-        brand_logo: this.state.dealsDetails.brand_logo,
         is_active: this.state.dealsDetails.is_active,
         sort_order: this.state.dealsDetails.sort_order,
       };
@@ -186,7 +180,6 @@ export default class DealsEditDetails extends Component {
             url: response.data.data.list.url ? response.data.data.list.url : "",
             icon_url: response.data.data.list.icon_url ? response.data.data.list.icon_url : "",
             discount_image_url:response.data.data.list?.discount_image_url ?response.data.data.list?.discount_image_url:"",
-            brand_logo:response.data.data.list?.brand_logo ?response.data.data.list?.brand_logo:"",
             is_active: response.data.data.list.is_active ? response.data.data.list.is_active : false,
             sort_order: response.data.data.list.sort_order ? response.data.data.list.sort_order : null,
           };

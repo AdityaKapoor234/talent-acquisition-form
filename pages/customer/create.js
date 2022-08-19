@@ -75,16 +75,16 @@ export default class CustomerCreate extends Component {
             toast.error("Please enter email address");
             this.state.is_all = true;
         }
-        if (this.state.customerDetails?.phone_number === "" ||
-            this.state.customerDetails?.phone_number !== undefined
-        ) {
-            if (!this.state.customerDetails?.phone_number.match(/^[6-9]{1}[0-9]{9}$/) ||
-                this.state.customerDetails?.phone_number.replace(/\s/g, "").length <= 0
-            ) {
-                toast.error("Please enter phone number");
-                this.state.is_all = true;
-            }
-        }
+        // if (this.state.customerDetails?.phone_number === "" ||
+        //     this.state.customerDetails?.phone_number !== undefined
+        // ) {
+        //     if (!this.state.customerDetails?.phone_number.match(/^[6-9]{1}[0-9]{9}$/) ||
+        //         this.state.customerDetails?.phone_number.replace(/\s/g, "").length <= 0
+        //     ) {
+        //         toast.error("Please enter phone number");
+        //         this.state.is_all = true;
+        //     }
+        // }
         if (
             this.state.customerDetails?.user_type === "select" ||
             this.state.customerDetails?.user_type === null ||

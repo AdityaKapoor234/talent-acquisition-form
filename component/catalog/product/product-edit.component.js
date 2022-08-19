@@ -95,7 +95,7 @@ export default class ProductEditComponent extends Component {
       name: props?.product?.name ? props.product?.name : "",
       type: props?.product?.type ? props.product?.type : "",
 
-      searchTagList: {},
+      // searchTagList: {},
       tags: [],
 
     };
@@ -111,7 +111,7 @@ export default class ProductEditComponent extends Component {
     SearchTagAPI.searchTagViewList(this.state.id)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-          this.setState({ searchTagList: response.data.data });
+          // this.setState({ searchTagList: response.data.data });
 
           // console.log(typeof response.data?.data?.search_term[0].id,"response");
 
@@ -195,7 +195,7 @@ export default class ProductEditComponent extends Component {
               />
             </>
           )}
-          {/* {this.state.tab === "certificate" && (
+          {this.state.tab === "certificate" && (
             <>
               <ProductCertificateComponent
                 id={this.state.id}
@@ -203,7 +203,7 @@ export default class ProductEditComponent extends Component {
                 tab={this.setTab.bind(this)}
               />
             </>
-          )} */}
+          )}
           {this.state.tab === "content" && (
             <>
               <ProductContentComponent
@@ -243,7 +243,13 @@ export default class ProductEditComponent extends Component {
           )}
           {this.state.tab === "seo" && (
             <>
-              <ProductSEOComponent id={this.state.id} mode={this.state.mode} searchTagList={this.state.searchTagList} tags={this.state.tags} searchTagViewList={this.searchTagViewList.bind(this)} />
+              <ProductSEOComponent
+                id={this.state.id}
+                mode={this.state.mode}
+                // searchTagList={this.state.searchTagList}
+                tags={this.state.tags}
+                searchTagViewList={this.searchTagViewList.bind(this)}
+              />
             </>
           )}
           {this.state.tab === "custom" && (

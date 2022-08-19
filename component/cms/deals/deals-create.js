@@ -22,6 +22,7 @@ export default class DealsCreate extends Component {
 				url: props?.deals?.url ? props?.deals?.url : "",
 				icon_url: props?.deals?.icon_url ? props?.deals?.icon_url : "",
 				discount_image_url: props?.deals?.discount_image_url ? props?.deals?.discount_image_url : "",
+				brand_logo: props?.deals?.brand_logo ? props?.deals?.brand_logo : "",
 				is_active: props?.deals?.is_active ? props?.deals?.is_active : false,
 				sort_order: props?.deals?.sort_order ? props?.deals?.sort_order : null,
 			},
@@ -44,6 +45,7 @@ export default class DealsCreate extends Component {
 					url: nextProps?.deals?.url ? nextProps?.deals?.url : "",
 					icon_url: nextProps?.deals?.icon_url ? nextProps?.deals?.icon_url : "",
 					discount_image_url: nextProps?.deals?.discount_image_url ? nextProps?.deals?.discount_image_url : "",
+					brand_logo: nextProps?.deals?.brand_logo ? nextProps?.deals?.brand_logo : "",
 					is_active: nextProps?.deals?.is_active ? nextProps?.deals?.is_active : false,
 					sort_order: nextProps?.deals?.sort_order ? nextProps?.deals?.sort_order : null,
 				},
@@ -207,6 +209,18 @@ export default class DealsCreate extends Component {
 													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
 												/>
 											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Brand Logo"}
+													accept=".jpg,.jpeg,.png"
+													name="brand_logo"
+													img={this.state.input?.brand_logo}
+													setUrl={this.handlePhotoUrl.bind(this)}
+													value={this.state.img_sm}
+													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
+												/>
+											</div>
 											<div className="login-form mt-4">
 												<label>
 													Display Order<span className="mandatory-star">*</span>
@@ -304,6 +318,14 @@ export default class DealsCreate extends Component {
 													label={"Discount Image"}
 													accept=".jpg,.jpeg,.png"
 													img={this.state.input?.discount_image_url}
+												/>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Brand Logo"}
+													accept=".jpg,.jpeg,.png"
+													img={this.state.input?.brand_logo}
 												/>
 											</div>
 											<div>

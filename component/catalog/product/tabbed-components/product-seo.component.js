@@ -6,6 +6,8 @@ import SearchTagAPI from "../../../../services/search-tag";
 import { toast } from "react-toastify";
 import Router from "next/router";
 // import { WithContext as ReactTags } from 'react-tag-input';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 export default class ProductSEOComponent extends Component {
 
@@ -21,18 +23,18 @@ export default class ProductSEOComponent extends Component {
 
 
             term: "",
-            addSearchTag: false,
-            searchTagId: null,
+            // addSearchTag: false,
+            // searchTagId: null,
 
             // tags: props?.tags,
-            tags: [],
+            // tags: [],
 
             // KeyCodes: {
             //     comma: 188,
             //     enter: 13
             // },
 
-            delimiters: [188, 13],
+            // delimiters: [188, 13],
 
         };
     }
@@ -199,10 +201,10 @@ export default class ProductSEOComponent extends Component {
 
                     // console.log(typeof response.data?.data?.search_term[0].id,"response");
 
-                    response.data?.data?.search_term?.map(elem => {
-                        let add_search_elem={"id": elem?.id.toString(), "text": elem?.search_term}
-                        this.state.tags.push(add_search_elem)
-                    })
+                    // response.data?.data?.search_term?.map(elem => {
+                    //     let add_search_elem = { "id": elem?.id.toString(), "text": elem?.search_term }
+                    //     this.state.tags.push(add_search_elem)
+                    // })
 
                 }
             })
@@ -265,10 +267,10 @@ export default class ProductSEOComponent extends Component {
                     if (response.data.httpStatusCode === 200) {
                         toast.success("Search Term Added Successfully");
                         this.setState({ term: "" });
-                        this.setState({ addSearchTag: false });
+                        // this.setState({ addSearchTag: false });
                         this.searchTagViewList();
 
-                        this.state.tags?.filter(elem => elem?.text === response.data.data?.search_term?.search_term)?.map(elem => elem["id"]=response.data.data?.search_term?.id?.toString())
+                        // this.state.tags?.filter(elem => elem?.text === response.data.data?.search_term?.search_term)?.map(elem => elem["id"] = response.data.data?.search_term?.id?.toString())
                     }
                 })
                 .catch((error) => {
@@ -304,14 +306,14 @@ export default class ProductSEOComponent extends Component {
     };
 
 
-    addNewSearchTage = () => {
-        if (this.state.addSearchTag) {
-            toast.error("Add one by one");
-        }
-        else {
-            this.setState({ addSearchTag: true });
-        }
-    }
+    // addNewSearchTage = () => {
+    //     if (this.state.addSearchTag) {
+    //         toast.error("Add one by one");
+    //     }
+    //     else {
+    //         this.setState({ addSearchTag: true });
+    //     }
+    // }
 
     componentDidMount() {
         this.getSeoDetails(this.state.id);
@@ -440,6 +442,86 @@ export default class ProductSEOComponent extends Component {
 
                     <div className="row ">
                         <div className="col-md-12">
+                            <Stack direction="row" spacing={1}>
+                                <div className="col-md-8">
+                                    {
+                                        this.state.searchTagList?.search_term?.map((elem, key) => {
+                                            return (
+                                                <>
+
+                                                    {
+                                                        this.state.mode === "view" ?
+                                                            <Chip
+                                                                label={elem?.search_term}
+                                                                className="mt-3 me-2"
+                                                            />
+                                                            :
+                                                            <Chip
+                                                                label={elem?.search_term}
+                                                                onDelete={this.DeleteSearchTerm.bind(this, elem?.id)}
+                                                                className="mt-3 me-2"
+                                                            />
+                                                    }
+
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </Stack>
+
+                            {
+                                this.state.mode === "edit" && (
+                                    <>
+                                        <div className='row mt-4'>
+                                            <div className='col-md-5'>
+                                                <input
+                                                    type="text"
+                                                    readOnly={this.state.mode === "view" ? true : false}
+                                                    placeholder='Add New Search Tag'
+                                                    // id={s?.id}
+                                                    name='term'
+                                                    className='form-control'
+                                                    onChange={(event) => this.setState({ term: event.target.value })}
+                                                    value={this.state.term}
+                                                />
+                                            </div>
+                                            <div className='col-md-1 d-grid'>
+                                            </div>
+                                            <div className='col-md-1 d-grid'>
+                                                <button
+                                                    disabled={this.state.mode === "view" ? true : false}
+                                                    className='btn btn-success btn-sm'
+                                                    onClick={this.OnAddSaveSearchTerm.bind()}
+                                                >
+                                                    Add
+                                                </button>
+                                            </div>
+                                            <div className='col-md-1 d-grid'>
+                                                <button
+                                                    disabled={this.state.mode === "view" ? true : false}
+                                                    className='btn btn-danger btn-sm'
+                                                    onClick={() => {
+                                                        this.setState({
+                                                            // addSearchTag: false,
+                                                            term: "",
+                                                        })
+                                                    }}
+                                                >
+                                                    Clear
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )
+                            }
+
+
+                        </div>
+                    </div>
+
+                    {/* <div className="row ">
+                        <div className="col-md-12">
                             {
                                 this.state.mode === "edit" ?
                                     this.state.searchTagList?.search_term?.length === 0 &&
@@ -459,7 +541,7 @@ export default class ProductSEOComponent extends Component {
                                                 id={this.state.id}
                                                 searchTagViewList={this.searchTagViewList.bind(this)}
                                             />
-                                            {/* <div
+                                            <div
                                                 key={key}
                                                 className='row mt-2'
                                             >
@@ -494,7 +576,7 @@ export default class ProductSEOComponent extends Component {
                                                         Remove
                                                     </div>
                                                 </div>
-                                            </div> */}
+                                            </div>
                                         </>
                                     )
                                 })
@@ -554,7 +636,7 @@ export default class ProductSEOComponent extends Component {
                                     </button>
                                 </div>}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

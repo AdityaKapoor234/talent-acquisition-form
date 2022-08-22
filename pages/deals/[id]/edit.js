@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import ProductInfoApi from "../../../services/product-info";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -44,41 +45,42 @@ export default class DealsEditDetails extends Component {
         color_code: "",
         url: "",
         icon_url: "",
-        discount_image_url:"",
-        brand_logo:"",
+        discount_image_url: "",
+        brand_logo: "",
         is_active: false,
         sort_order: null,
       },
+      brand: [],
     };
   }
 
   convertDateStringToDate = (dateStr) => {
     let months = [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
     ];
 
     let date = new Date(dateStr);
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     let str =
-        date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
-  // new Date(dateStr).toISOString().split('T')[0];
-  // date.toLocaleDateString('en-CA');
+      date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+    // new Date(dateStr).toISOString().split('T')[0];
+    // date.toLocaleDateString('en-CA');
     return str;
-};
+  };
 
   urlPatternValidation = (URL) => {
-    const regex = new RegExp('(https?://)');    
+    const regex = new RegExp('(https?://)');
     return regex.test(URL);
   };
 
@@ -120,7 +122,7 @@ export default class DealsEditDetails extends Component {
       toast.error("Please enter discount image");
       this.state.is_all = true;
     }
-    if (this.state.dealsDetails.brand_logo === "" || this.state.dealsDetails.brand_logo === null || this.state.dealsDetails.brand_logo.replace(/\s/g, "").length <= 0) {
+    if (this.state.dealsDetails.brand_logo === "" || this.state.dealsDetails.brand_logo === "select" || this.state.dealsDetails.brand_logo === null || this.state.dealsDetails.brand_logo.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter brand logo");
       this.state.is_all = true;
     }
@@ -185,8 +187,8 @@ export default class DealsEditDetails extends Component {
             color_code: response.data.data.list.color_code ? response.data.data.list.color_code : "",
             url: response.data.data.list.url ? response.data.data.list.url : "",
             icon_url: response.data.data.list.icon_url ? response.data.data.list.icon_url : "",
-            discount_image_url:response.data.data.list?.discount_image_url ?response.data.data.list?.discount_image_url:"",
-            brand_logo:response.data.data.list?.brand_logo ?response.data.data.list?.brand_logo:"",
+            discount_image_url: response.data.data.list?.discount_image_url ? response.data.data.list?.discount_image_url : "",
+            brand_logo: response.data.data.list?.brand_logo ? response.data.data.list?.brand_logo : "",
             is_active: response.data.data.list.is_active ? response.data.data.list.is_active : false,
             sort_order: response.data.data.list.sort_order ? response.data.data.list.sort_order : null,
           };
@@ -227,6 +229,26 @@ export default class DealsEditDetails extends Component {
         );
       });
   };
+  getBrands = () => {
+    ProductInfoApi.getBrand()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            brand: response.data.data?.list
+          })
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime1"
+        );
+      });
+  }
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
@@ -234,6 +256,7 @@ export default class DealsEditDetails extends Component {
     }
     this.getdealsDetails(this.props.id);
     this.setState({ id: this.props?.id });
+    this.getBrands();
   }
 
   render() {
@@ -289,6 +312,7 @@ export default class DealsEditDetails extends Component {
                   deals={this.state.deals}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
+                  brand={this.state.brand}
                 />
               </div>
             </div>

@@ -8,6 +8,7 @@ import DealsCreateComponent from "../../component/cms/deals/deals-create";
 import Router from "next/router";
 import Cookie from "js-cookie";
 import DealsApi from "../../services/deals";
+import ProductInfoApi from "../../services/product-info";
 
 export default class DealsCreate extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class DealsCreate extends Component {
         brand_logo: "",
         sort_order: null,
       },
+      brand: [],
     };
   }
 
@@ -85,7 +87,7 @@ export default class DealsCreate extends Component {
       toast.error("Please enter discount image");
       this.state.is_all = true;
     }
-    if (this.state.dealsDetails.brand_logo === "" || this.state.dealsDetails.brand_logo === null || this.state.dealsDetails.brand_logo.replace(/\s/g, "").length <= 0) {
+    if (this.state.dealsDetails.brand_logo === "" || this.state.dealsDetails.brand_logo === "select" || this.state.dealsDetails.brand_logo === null || this.state.dealsDetails.brand_logo.replace(/\s/g, "").length <= 0) {
       toast.error("Please enter brand logo");
       this.state.is_all = true;
     }
@@ -143,11 +145,32 @@ export default class DealsCreate extends Component {
   stateHandle = (value) => {
     this.setState({ dealsDetails: value });
   };
+  getBrands = () => {
+    ProductInfoApi.getBrand()
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({
+            brand: response.data.data?.list
+          })
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime1"
+        );
+      });
+  }
+
   componentDidMount() {
     const token = Cookie.get("access_token_admin");
     if (token === undefined) {
       Router.push("/");
     }
+    this.getBrands();
   }
 
   render() {
@@ -192,6 +215,7 @@ export default class DealsCreate extends Component {
                 <DealsCreateComponent
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
+                  brand={this.state.brand}
                 />
               </div>
             </div>

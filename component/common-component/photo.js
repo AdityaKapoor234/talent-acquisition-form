@@ -10,10 +10,6 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import ImageCrop from "./image-crop";
 
 
@@ -33,6 +29,7 @@ export default function photo({
   const [anchorEl, setAnchorEl] = useState(null);
   const [model, setModel] = useState(false);
   const [src, setSrc] = useState(null);
+  const [filename,setFilename] = useState("");
   // const [crop, setCrop] = useState({ aspect: 1 / 1 });
   // const [output, setOutput] = useState(null);
   // const [Image, setimage] = useState(null);
@@ -66,15 +63,21 @@ export default function photo({
   // };
 
   function uploadFile({ target: { files } }) {
+    setSrc("");
     if (files?.length > 0) {
-      // console.log(files[0],"files[0]");
-      const formData = new FormData();
-      formData.append("media", files[0]);
-      // console.log(formData,"formData");
-      setModel(true);
+      // console.log(files[0], "files[0]");
+      setFilename(files[0].name);
+      
+      // const formData = new FormData();
+      // formData.append("media", files[0]);
+      // setTimeout(() => {
+      //   setSrc(URL.createObjectURL(files[0]));
+      //   setModel(true);
+      //   }, 1000)
+
       setSrc(URL.createObjectURL(files[0]));
-      // uploadfile(urlLink, formData, name);
-      // dialogOpen(formData);
+      setModel(true);
+  
     }
   }
 
@@ -86,7 +89,7 @@ export default function photo({
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log(image,"image");
+    //  console.log(image,"image");
     axios
       .put(url, image, headers)
       .then((response) => {
@@ -98,11 +101,11 @@ export default function photo({
         setIsLoader(false);
         toast.error(error);
       });
+      // console.log(image,"imagee....");
   };
 
   useEffect(() => {
     setImage(img ? img : "");
-    // console.log(src);
   }, [img]);
 
   const dialogClose = () => {
@@ -114,17 +117,25 @@ export default function photo({
   //   setModel(true);
   // };  
 
-  const onCancel = () => {
-    setModel(false);
-  }
+  // const onCancel = () => {
+  //   setModel(false);
+  // }
+
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+    u8arr[n] = bstr.charCodeAt(n);
+    }
+  return new File([u8arr], filename, {type:mime});
+ }
 
   const setCroppedImageFor = (croppedImageUrl) => {
     setImage(croppedImageUrl);
-    // const formData = new FormData();
-    // formData.append("media", croppedImageUrl);
-
-    // uploadfile(urlLink, formData, name);
-    // setSrc(null);
+    const myFile = dataURLtoFile(croppedImageUrl, filename);
+    const formData = new FormData();
+    formData.append("media", myFile);
+    uploadfile(urlLink, formData, name);
     setModel(false);
   }
 
@@ -191,43 +202,9 @@ export default function photo({
         name={name}
         accept={accept}
         onChange={uploadFile}
+      // onClick={uploadFile}
       // onChange={(e) => { selectImage(e.target.files[0]) }}
       />
-
-      
-      {/* <div style={{ zIndex: 1 }}>
-        {src ? <ImageCrop src={src} /> : null}
-      </div> */}
-
-      {/* <Dialog onClose={dialogClose} open={model} maxWidth="lg"
-        fullWidth>
-
-        <Box position="absolute" top={0} right={5}>
-          <IconButton onClick={dialogClose}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
-
-        <DialogContent className="scroll">
-
-          <div>
-            {src && (
-              <div>
-                <ReactCrop src={src} onImageLoaded={setimage}
-                    crop={crop} onChange={setCrop} />
-                  <br />
-                  <button  onClick={cropImageNow}>Crop</button>
-                  <br />
-                  <br />
-                <Cropper image={src} zoom={zoom} crop={crop} onCropChange={onCropChange} />
-              </div>
-            )}
-          </div>
-          <div className="controls"></div>
-            <div>{output && <img src={output} />}</div>
-
-        </DialogContent>
-      </Dialog> */}
 
       <Dialog
         onClose={dialogClose}
@@ -237,16 +214,16 @@ export default function photo({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle style={{ color: "#012169" }}>
+        {/* <DialogTitle style={{ color: "#012169" }}>
 
-        </DialogTitle>
-        <Box style={{"color" : "white"}} position="absolute" top={0} right={0}>
+        </DialogTitle> */}
+        {/* <Box style={{ "color": "white" }} position="absolute" top={0} right={0}>
           <IconButton onClick={dialogClose}>
             <CloseIcon />
           </IconButton>
-        </Box>
+        </Box> */}
         <DialogContent>
-          {src ? <ImageCrop src={src} onCancel={onCancel} setCroppedImageFor={setCroppedImageFor}/> : null}
+          {src ? <ImageCrop src={src} onCancel={dialogClose} setCroppedImageFor={setCroppedImageFor} /> : null}
         </DialogContent>
         {/* <DialogActions>
                         <div

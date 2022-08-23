@@ -66,9 +66,9 @@ export default class ProductSEOComponent extends Component {
         let input = this.state.seo;
         let errors = {};
         let isValid = true;
-        if (!input["url_key"] || input["url_key"].replace(/\s/g, "").length <= 0) {
+        if (!input["url_key"] || input["url_key"].replace(/\s/g, "").length <= 0 || /[^a-z0-9\-_]/.test(input["url_key"])) {
             isValid = false;
-            errors["url_key"] = "Please enter url key";
+            errors["url_key"] = "Please enter url key in valid format";
         }
         if (!input["meta_keywords"]) {
             isValid = false;

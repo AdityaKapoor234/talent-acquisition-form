@@ -63,7 +63,7 @@ export default function photo({
   // };
 
   function uploadFile({ target: { files } }) {
-    setSrc("");
+    // setSrc("");
     if (files?.length > 0) {
       // console.log(files[0], "files[0]");
       setFilename(files[0].name);
@@ -80,6 +80,8 @@ export default function photo({
   
     }
   }
+
+
 
   const uploadfile = (url, image, names) => {
     setIsLoader(true);
@@ -101,7 +103,6 @@ export default function photo({
         setIsLoader(false);
         toast.error(error);
       });
-      // console.log(image,"imagee....");
   };
 
   useEffect(() => {
@@ -202,7 +203,7 @@ export default function photo({
         name={name}
         accept={accept}
         onChange={uploadFile}
-      // onClick={uploadFile}
+        // onClick={uploadFile}
       // onChange={(e) => { selectImage(e.target.files[0]) }}
       />
 

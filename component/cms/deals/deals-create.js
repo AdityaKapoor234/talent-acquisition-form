@@ -3,6 +3,8 @@ import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { PRODUCT_SERVICE } from "../../../utils/constant";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 export default class DealsCreate extends Component {
 	constructor(props) {
@@ -22,16 +24,19 @@ export default class DealsCreate extends Component {
 				url: props?.deals?.url ? props?.deals?.url : "",
 				icon_url: props?.deals?.icon_url ? props?.deals?.icon_url : "",
 				discount_image_url: props?.deals?.discount_image_url ? props?.deals?.discount_image_url : "",
+				brand_logo: props?.deals?.brand_logo ? props?.deals?.brand_logo : "",
 				is_active: props?.deals?.is_active ? props?.deals?.is_active : false,
 				sort_order: props?.deals?.sort_order ? props?.deals?.sort_order : null,
 			},
+			brand: props?.brand ? props?.brand : "select",
 		};
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (
 			prevState.deals !== nextProps.deals ||
-			prevState.mode !== nextProps.mode
+			prevState.mode !== nextProps.mode ||
+			prevState.brand !== nextProps.brand
 		) {
 			return {
 				deals: nextProps?.deals,
@@ -44,9 +49,11 @@ export default class DealsCreate extends Component {
 					url: nextProps?.deals?.url ? nextProps?.deals?.url : "",
 					icon_url: nextProps?.deals?.icon_url ? nextProps?.deals?.icon_url : "",
 					discount_image_url: nextProps?.deals?.discount_image_url ? nextProps?.deals?.discount_image_url : "",
+					brand_logo: nextProps?.deals?.brand_logo ? nextProps?.deals?.brand_logo : "",
 					is_active: nextProps?.deals?.is_active ? nextProps?.deals?.is_active : false,
 					sort_order: nextProps?.deals?.sort_order ? nextProps?.deals?.sort_order : null,
 				},
+				brand: nextProps?.brand ? nextProps?.brand : "select",
 			};
 		}
 		return null;
@@ -207,6 +214,46 @@ export default class DealsCreate extends Component {
 													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
 												/>
 											</div>
+											{/* <div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Brand Logo"}
+													accept=".jpg,.jpeg,.png"
+													name="brand_logo"
+													img={this.state.input?.brand_logo}
+													setUrl={this.handlePhotoUrl.bind(this)}
+													value={this.state.img_sm}
+													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/icon`}
+												/>
+											</div> */}
+											<div className="sort fc-select-form-group">
+												<label>Brand<span className="mandatory-star">*</span></label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														disabled={this.state.mode === "view" ? true : false}
+														variant="standard"
+														autoWidth={false}
+														name="brand_logo"
+														onChange={this.handleChange}
+														className="sort-by-select w-100"
+														value={this.state.input?.brand_logo}
+													>
+														<MenuItem
+															value="select"
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Brand{" "}
+														</MenuItem>
+														{this.state.brand?.map(val => {
+															return (
+																<MenuItem value={val?.icon_url}>{val?.name}</MenuItem>
+															)
+														})}
+													</Select>
+												</div>
+											</div>
 											<div className="login-form mt-4">
 												<label>
 													Display Order<span className="mandatory-star">*</span>
@@ -304,6 +351,14 @@ export default class DealsCreate extends Component {
 													label={"Discount Image"}
 													accept=".jpg,.jpeg,.png"
 													img={this.state.input?.discount_image_url}
+												/>
+											</div>
+											<div className="mt-4">
+												<Photo
+													mode={this.state.mode}
+													label={"Brand Logo"}
+													accept=".jpg,.jpeg,.png"
+													img={this.state.input?.brand_logo}
 												/>
 											</div>
 											<div>

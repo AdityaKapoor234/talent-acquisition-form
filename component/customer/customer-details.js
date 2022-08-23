@@ -508,7 +508,7 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
-											Mobile<span className="mandatory-star">*</span>
+											Mobile
 										</label>
 										<input
 											type="number"
@@ -604,7 +604,7 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
-											Mobile<span className="mandatory-star">*</span>
+											Mobile
 										</label>
 										<input
 											type="number"
@@ -674,7 +674,7 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
-											Mobile<span className="mandatory-star">*</span>
+											Mobile
 										</label>
 										<input
 											type="number"

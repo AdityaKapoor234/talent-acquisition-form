@@ -20,6 +20,7 @@ export default class ProductPriceComponent extends Component {
     let prices = this.state.prices;
     prices = [
       {
+        max_member_price: 0,
         special_price: 0,
         price: 0,
         id: 0,
@@ -36,19 +37,25 @@ export default class ProductPriceComponent extends Component {
     let errors = {};
     let isValid = true;
     if (
-      input?.filter((value) => value.id === 0)?.map((val) => val?.price)[0] ===
-      0
+      input?.filter((value) => value.id === 0)?.map((val) => val?.price)[0] === 0 || 
+      !input?.filter((value) => value.id === 0)?.map((val) => val?.price)[0]
     ) {
       isValid = false;
       errors["price"] = "Please enter price";
     }
     if (
-      input
-        ?.filter((value) => value.id === 0)
-        ?.map((val) => val?.special_price)[0] === 0
+      input?.filter((value) => value.id === 0)?.map((val) => val?.special_price)[0] === 0 ||
+      !input?.filter((value) => value.id === 0)?.map((val) => val?.special_price)[0]
     ) {
       isValid = false;
       errors["special_price"] = "Please enter special price";
+    }
+    if (
+      input?.filter((value) => value.id === 0)?.map((val) => val?.max_member_price)[0] === 0 ||
+      !input?.filter((value) => value.id === 0)?.map((val) => val?.max_member_price)[0]
+    ) {
+      isValid = false;
+      errors["max_member_price"] = "Please enter max member price";
     }
     this.setState({
       errors: errors,
@@ -65,6 +72,9 @@ export default class ProductPriceComponent extends Component {
       special_price: this.state.prices
         ?.filter((val) => val?.id === 0)
         ?.map((p) => p?.special_price)[0],
+      max_member_price: this.state.prices
+        ?.filter((val) => val?.id === 0)
+        ?.map((p) => p?.max_member_price)[0],
     };
     ProductApi.updatePrice(id, data)
       .then((response) => {
@@ -151,6 +161,7 @@ export default class ProductPriceComponent extends Component {
     this.setState({
         prices,
         isunsaved: false,
+        errors: {},
     })
 }
 
@@ -179,17 +190,20 @@ export default class ProductPriceComponent extends Component {
             )}
             {this.state.prices.length >0 && (
             <div className="row mt-2">
-                  <div className="col-md-4">
+                  <div className="col-md-3">
                     <label style={{color:'#012169'}}>Price</label>
                   </div>
-                  <div className="col-md-4 ">
+                  <div className="col-md-3 ">
                     <label style={{color:'#012169'}}>Special Price</label>
+                  </div>
+                  <div className="col-md-3 ">
+                    <label style={{color:'#012169'}}>Max Member Price</label>
                   </div>
             </div>)}
             {this.state.prices.map((p, i) => {
               return (
                 <div key={i} className="row mt-2">
-                  <div className="col-md-4">
+                  <div className="col-md-3">
                     <input
                       type="number"
                       placeholder="Price"
@@ -206,7 +220,7 @@ export default class ProductPriceComponent extends Component {
                       </small>
                     )}
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-3">
                     <input
                       type="number"
                       placeholder="Special Price"
@@ -223,8 +237,25 @@ export default class ProductPriceComponent extends Component {
                       </small>
                     )}
                   </div>
+                  <div className="col-md-3">
+                    <input
+                      type="number"
+                      placeholder="Special Price"
+                      className="form-control"
+                      readOnly={p?.id === 0 ? false : true}
+                      name="max_member_price"
+                      value={p.max_member_price}
+                      id={p?.id}
+                      onChange={this.handleChange}
+                    />
+                    {p?.id === 0 && (
+                      <small className="form-text text-danger">
+                        {this.state.errors["max_member_price"]}
+                      </small>
+                    )}
+                  </div>
                   {p?.id === 0 &&
-                  <div className='col-md-2 d-grid'>
+                  <div className='col-md-3 d-grid'>
                         <button className='btn btn-danger btn-sm' onClick={this.remove.bind(this,0)}>Remove</button>
                     </div>}
                   <div className="col-md-4 mt-1">

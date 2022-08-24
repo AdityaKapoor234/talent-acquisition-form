@@ -282,6 +282,7 @@ export default class ProductPriceComponent extends Component {
                     <div className='col-md-3 d-grid'>
                       <button className='btn btn-danger btn-sm' onClick={this.delete.bind(this, p?.id)}>Delete</button>
                     </div>
+                    
                   }
                   <div className="col-md-4 mt-1">
                     {/*Added on: {p.created_at}*/}

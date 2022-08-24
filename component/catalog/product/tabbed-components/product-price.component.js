@@ -37,7 +37,7 @@ export default class ProductPriceComponent extends Component {
     let errors = {};
     let isValid = true;
     if (
-      input?.filter((value) => value.id === 0)?.map((val) => val?.price)[0] === 0 || 
+      input?.filter((value) => value.id === 0)?.map((val) => val?.price)[0] === 0 ||
       !input?.filter((value) => value.id === 0)?.map((val) => val?.price)[0]
     ) {
       isValid = false;
@@ -155,15 +155,35 @@ export default class ProductPriceComponent extends Component {
     this.setState({ prices });
   };
 
-  remove(i){
+  remove(i) {
     let prices = this.state.prices;
-    prices.splice(0,1);
+    prices.splice(0, 1);
     this.setState({
-        prices,
-        isunsaved: false,
-        errors: {},
+      prices,
+      isunsaved: false,
+      errors: {},
     })
-}
+  }
+
+  delete(id) {
+    let data = {};
+    ProductApi.deletePrice(id,data)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.getprice(this.state.id);
+          toast.success(response.data.message);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  }
 
   componentDidMount() {
     this.getprice(this.state.id);
@@ -188,18 +208,18 @@ export default class ProductPriceComponent extends Component {
             {this.state.prices.length === 0 && (
               <p className="mt-2">Add price but clicking on the button below</p>
             )}
-            {this.state.prices.length >0 && (
-            <div className="row mt-2">
-                  <div className="col-md-3">
-                    <label style={{color:'#012169'}}>Price</label>
-                  </div>
-                  <div className="col-md-3 ">
-                    <label style={{color:'#012169'}}>Special Price</label>
-                  </div>
-                  <div className="col-md-3 ">
-                    <label style={{color:'#012169'}}>Max Member Price</label>
-                  </div>
-            </div>)}
+            {this.state.prices.length > 0 && (
+              <div className="row mt-2">
+                <div className="col-md-3">
+                  <label style={{ color: '#012169' }}>Price</label>
+                </div>
+                <div className="col-md-3 ">
+                  <label style={{ color: '#012169' }}>Special Price</label>
+                </div>
+                <div className="col-md-3 ">
+                  <label style={{ color: '#012169' }}>Max Member Price</label>
+                </div>
+              </div>)}
             {this.state.prices.map((p, i) => {
               return (
                 <div key={i} className="row mt-2">
@@ -254,10 +274,15 @@ export default class ProductPriceComponent extends Component {
                       </small>
                     )}
                   </div>
-                  {p?.id === 0 &&
-                  <div className='col-md-3 d-grid'>
-                        <button className='btn btn-danger btn-sm' onClick={this.remove.bind(this,0)}>Remove</button>
-                    </div>}
+                  {p?.id === 0 ?
+                    <div className='col-md-3 d-grid'>
+                      <button className='btn btn-danger btn-sm' onClick={this.remove.bind(this, 0)}>Remove</button>
+                    </div>
+                    :
+                    <div className='col-md-3 d-grid'>
+                      <button className='btn btn-danger btn-sm' onClick={this.delete.bind(this, p?.id)}>Delete</button>
+                    </div>
+                  }
                   <div className="col-md-4 mt-1">
                     {/*Added on: {p.created_at}*/}
                   </div>
@@ -265,15 +290,15 @@ export default class ProductPriceComponent extends Component {
               );
             })}
             {this.state.mode === "edit" &&
-            <div className="mt-5">
-              <button
-                className="btn btn-primary"
-                disabled={this.state.isunsaved}
-                onClick={this.addNewPrice.bind(this)}
-              >
-                Add New Price
-              </button>
-            </div>}
+              <div className="mt-5">
+                <button
+                  className="btn btn-primary"
+                  disabled={this.state.isunsaved}
+                  onClick={this.addNewPrice.bind(this)}
+                >
+                  Add New Price
+                </button>
+              </div>}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { PRODUCTLIST, CREATE_PRODUCT, GET_PHOTO,GET_INVENTORY_UPADTE,
     GET_INVENTORY_DELETE,CREATE_INVENTORY, CONTENTLIST, CONTENT_LIST_EDIT,
-    GET_PRICE,ADD_CLASSIFICTION,GET_CLASSIFICTION,GET_CERTIFICATE,ADD_CERTIFICATE,
+    GET_PRICE,DELETE_PRICE,ADD_CLASSIFICTION,GET_CLASSIFICTION,GET_CERTIFICATE,ADD_CERTIFICATE,
     GET_INVENTORY_LIST,GET_INVENTORY_EXPORT_LIST,GET_CATEGORY_INFO, GET_PRODUCT_LIST, GET_VARIANTS, UPDATE_VARIANTS } from "../utils/constant";
 import cookie from "js-cookie";
 
@@ -94,6 +94,17 @@ export class ProductApi {
             }
         };
         return axios.post(`${GET_PRICE}`.replace('{{id}}',id),data,httpOptions)
+    }
+
+    static deletePrice(id,data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`          
+            }
+        };
+        return axios.post(`${DELETE_PRICE}`.replace('{{id}}',id),data,httpOptions)
     }
 
     static getCertificate(id) {

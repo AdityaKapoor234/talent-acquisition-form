@@ -142,6 +142,7 @@ export const CREATE_PRODUCT = `${PRODUCT_SERVICE}/manage/product`;
 export const GET_PHOTO =`${PRODUCT_SERVICE}/manage/product/{{id}}/images`;
 export const GET_COUNTRY =`${PRODUCT_SERVICE}/manage/country`;
 export const GET_PRICE =`${PRODUCT_SERVICE}/manage/product/{{id}}/price`;
+export const DELETE_PRICE =`${PRODUCT_SERVICE}/manage/product/{{id}}/price/delete`;
 
 
 //USERS

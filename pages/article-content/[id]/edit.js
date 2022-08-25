@@ -159,14 +159,14 @@ export default class ArticleEditDetails extends Component {
       toast.error("Please select the type");
       return false;
     }
-    // if (
-    //   this.state.articleDetails?.author_id === "select" ||
-    //   this.state.articleDetails?.author_id === null ||
-    //   this.state.articleDetails?.author_id === undefined
-    // ) {
-    //   toast.error("Please select the author");
-    //   return false;
-    // }
+    if (
+      this.state.articleDetails?.author_id === "select" ||
+      this.state.articleDetails?.author_id === null ||
+      this.state.articleDetails?.author_id === undefined
+    ) {
+      toast.error("Please select the author");
+      return false;
+    }
     if (
       !this.state.articleDetails?.content || 
       this.state.articleDetails?.content ==="<p></p>\n" || 

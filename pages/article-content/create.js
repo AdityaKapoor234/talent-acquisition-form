@@ -118,14 +118,14 @@ export default class ContentCreate extends Component {
       toast.error("Please select the type");
       return false;
     }
-    // if (
-    //   this.state.contentDetails?.author_id === "select" ||
-    //   this.state.contentDetails?.author_id === null ||
-    //   this.state.contentDetails?.author_id === undefined
-    // ) {
-    //   toast.error("Please select the author");
-    //   return false;
-    // }
+    if (
+      this.state.contentDetails?.author_id === "select" ||
+      this.state.contentDetails?.author_id === null ||
+      this.state.contentDetails?.author_id === undefined
+    ) {
+      toast.error("Please select the author");
+      return false;
+    }
     if (
       !this.state.contentDetails?.content || 
       this.state.contentDetails?.content ==="<p></p>\n" || 

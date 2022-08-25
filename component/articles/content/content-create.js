@@ -397,7 +397,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort mt-4">
 												<label>
-													Author
+													Author<span className="mandatory-star">*</span>
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -664,7 +664,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort mt-4">
 												<label>
-													Author
+													Author<span className="mandatory-star">*</span>
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select

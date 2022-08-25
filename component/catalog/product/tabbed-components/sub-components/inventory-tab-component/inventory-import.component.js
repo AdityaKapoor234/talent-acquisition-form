@@ -94,11 +94,11 @@ export default function InventoryImportComponent(props) {
       setIsUpcCode(true);
       isValid = false;
     }
-    if (batch_number === "" || batch_number === null || batch_number.replace(/\s/g, "").length <= 0) {
-      // toast.error("Please enter batch number");
-      setIsBatchNumber(true);
-      isValid = false;
-    }
+    // if (batch_number === "" || batch_number === null || batch_number.replace(/\s/g, "").length <= 0) {
+    //   toast.error("Please enter batch number");
+    //   setIsBatchNumber(true);
+    //   isValid = false;
+    // }
     if (count === "" || count === null || count.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter quantity");
       setIsCount(true);
@@ -550,7 +550,7 @@ export default function InventoryImportComponent(props) {
             <div className="col-md-4">
               <div className="login-form ">
                 <label>
-                  Batch Number<span className="mandatory-star">*</span>
+                  Batch Number
                 </label>
                 <input
                   type="text"

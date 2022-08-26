@@ -10,7 +10,7 @@ import ArticleEditor from "../../common-component/text-editer";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Photo from "../../common-component/photo";
+import Photo from "../../common-component/photo-non-merge";
 import BannerApi from "../../../services/banner";
 import {PRODUCT_SERVICE} from "../../../utils/constant";
 

@@ -43,20 +43,20 @@ export default class ProductPriceComponent extends Component {
       isValid = false;
       errors["price"] = "Please enter price";
     }
-    if (
-      input?.filter((value) => value.id === 0)?.map((val) => val?.special_price)[0] === 0 ||
-      !input?.filter((value) => value.id === 0)?.map((val) => val?.special_price)[0]
-    ) {
-      isValid = false;
-      errors["special_price"] = "Please enter special price";
-    }
-    if (
-      input?.filter((value) => value.id === 0)?.map((val) => val?.max_member_price)[0] === 0 ||
-      !input?.filter((value) => value.id === 0)?.map((val) => val?.max_member_price)[0]
-    ) {
-      isValid = false;
-      errors["max_member_price"] = "Please enter max member price";
-    }
+    // if (
+    //   input?.filter((value) => value.id === 0)?.map((val) => val?.special_price)[0] === 0 ||
+    //   !input?.filter((value) => value.id === 0)?.map((val) => val?.special_price)[0]
+    // ) {
+    //   isValid = false;
+    //   errors["special_price"] = "Please enter special price";
+    // }
+    // if (
+    //   input?.filter((value) => value.id === 0)?.map((val) => val?.max_member_price)[0] === 0 ||
+    //   !input?.filter((value) => value.id === 0)?.map((val) => val?.max_member_price)[0]
+    // ) {
+    //   isValid = false;
+    //   errors["max_member_price"] = "Please enter max member price";
+    // }
     this.setState({
       errors: errors,
     });

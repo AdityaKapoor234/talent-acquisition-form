@@ -391,7 +391,7 @@ export default class OrderDetails extends Component {
                                                         <span className="orderInfo">Grand Total</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" title={this.state.order?.price_after_coupon_discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.price_after_coupon_discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -614,7 +614,7 @@ export default class OrderDetails extends Component {
                                                         <span className="orderInfo">Grand Total</span>
                                                     </div>
                                                     <div className="col-1 text-end">
-                                                        <span className="orderInfoVal elip-text" title={this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.total_price?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
+                                                        <span className="orderInfoVal elip-text" title={this.state.order?.price_after_coupon_discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}>₹&nbsp;{this.state.order?.price_after_coupon_discount?.toFixed(2).toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',')}</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -171,7 +171,7 @@ export default class SellOnFitcartDetails extends Component {
 												/>
 											</div>
 											<div className="login-form ">
-												<label>Email / Name of contact<span className="mandatory-star">*</span></label>
+												<label>Email<span className="mandatory-star">*</span></label>
 												<input
 													type="text"
 													value={this.state.sellOnFitcart?.email}

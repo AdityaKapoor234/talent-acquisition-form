@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { toast } from "react-toastify";
 import Checkbox from "@mui/material/Checkbox";
-import Photo from "../../common-component/photo";
 import { PRODUCT_SERVICE } from "../../../utils/constant";
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';

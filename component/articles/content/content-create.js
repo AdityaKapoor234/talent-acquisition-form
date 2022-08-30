@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import Photo from "../../common-component/photo";
+import Photo from "../../common-component/photo-non-merge";
 import ArticleEditor from "../../common-component/text-editer";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";

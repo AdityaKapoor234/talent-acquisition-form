@@ -9,7 +9,6 @@ import ArticleEditor from "../../common-component/text-editer";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Photo from "../../common-component/photo";
 
 export default class ClassificationCreate extends Component {
     constructor(props) {

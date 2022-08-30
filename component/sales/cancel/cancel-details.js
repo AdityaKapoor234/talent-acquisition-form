@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import CancelApi from "../../services/order";
-import Photo from "../common-component/photo";
+import Photo from "../common-component/photo-non-merge";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 

@@ -4,7 +4,6 @@ import ProductApi from "../../../../services/product";
 import cookie from "js-cookie";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Photo from "../../../common-component/photo";
 import IconButton from "@mui/material/IconButton";
 import {PhotoCamera} from "@mui/icons-material";
 import Router from "next/router";

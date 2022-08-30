@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import Photo from "../../common-component/photo";
+import Photo from "../../common-component/photo-non-merge";
 import FormGroup from "@mui/material/FormGroup";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';

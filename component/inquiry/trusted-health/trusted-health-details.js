@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Photo from "../../common-component/photo";
+import Photo from "../../common-component/photo-non-merge";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";

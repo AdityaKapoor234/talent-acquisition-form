@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import Photo from "../../common-component/photo";
 import Review from "./review-list"
 
 export default class ReviewCreate extends Component {

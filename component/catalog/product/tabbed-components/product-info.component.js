@@ -385,7 +385,7 @@ export default class ProductInfoComponent extends Component {
                             <div className="row">
                                 <div className="col-md-4">
                                     <div className="fc-form-group">
-                                        <label>SKU<span className="mandatory-star">*</span></label>
+                                        <label>SKU / Product code / Item code<span className="mandatory-star">*</span></label>
                                         <input
                                             type="text"
                                             name="sku"

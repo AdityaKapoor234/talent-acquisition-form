@@ -395,7 +395,7 @@ export default class CouponDetails extends Component {
                                         style={{ color: "#012169" }}
                                       />
                                     }
-                                    label="By Fixed Ammount (₹)"
+                                    label="By Fixed Amount (₹)"
                                   />
                                 </div>
                               </RadioGroup>
@@ -672,7 +672,7 @@ export default class CouponDetails extends Component {
                                         style={{ color: "#012169" }}
                                       />
                                     }
-                                    label="By Fixed Ammount (₹)"
+                                    label="By Fixed Amount (₹)"
                                   />
                                 </div>
                               </RadioGroup>

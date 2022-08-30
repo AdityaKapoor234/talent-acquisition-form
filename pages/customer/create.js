@@ -66,14 +66,16 @@ export default class CustomerCreate extends Component {
             toast.error("Please enter the name");
             this.state.is_all = true;
         }
-        if (this.state.customerDetails?.email === "" ||
-            this.state.customerDetails?.email === null ||
-            this.state.customerDetails?.email === undefined ||
-            this.state.customerDetails?.email.replace(/\s/g, "").length <= 0 ||
-            !this.ValidateEmail(this.state.customerDetails?.email)
-        ) {
-            toast.error("Please enter email address");
-            this.state.is_all = true;
+        if (this.state.customerDetails?.email) {
+            if (this.state.customerDetails?.email === "" ||
+                this.state.customerDetails?.email === null ||
+                this.state.customerDetails?.email === undefined ||
+                this.state.customerDetails?.email.replace(/\s/g, "").length <= 0 ||
+                !this.ValidateEmail(this.state.customerDetails?.email)
+            ) {
+                toast.error("Please enter valid email address");
+                this.state.is_all = true;
+            }
         }
         // if (this.state.customerDetails?.phone_number === "" ||
         //     this.state.customerDetails?.phone_number !== undefined
@@ -98,18 +100,29 @@ export default class CustomerCreate extends Component {
         if (this.state.is_all === true) {
             return false;
         }
-        
-            return true;
+
+        return true;
 
     };
     OnSave = () => {
         if (this.validateData()) {
-            let data = {
-                name: this.state.customerDetails?.name,
-                phone_number: this.state.customerDetails?.phone_number,
-                email: this.state.customerDetails?.email,
-                user_type: this.state.customerDetails?.user_type,
-            };
+            let data;
+            if (this.state.customerDetails?.email) {
+                data = {
+                    name: this.state.customerDetails?.name,
+                    phone_number: this.state.customerDetails?.phone_number,
+                    email: this.state.customerDetails?.email,
+                    user_type: this.state.customerDetails?.user_type,
+                };
+            }
+            else {
+                data = {
+                    name: this.state.customerDetails?.name,
+                    phone_number: this.state.customerDetails?.phone_number,
+                    email: null,
+                    user_type: this.state.customerDetails?.user_type,
+                };
+            }
             CustomerApi.CustomerAdd(data)
                 .then((response) => {
                     if (response.data.httpStatusCode === 200) {

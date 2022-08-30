@@ -37,9 +37,9 @@ export default class CustomerEditDetails extends Component {
       totalWishListPage: "",
       shoppingCart: [],
       shoppingCartTotal: "",
-      customerWallet:"",
-      customerWalletTransaction:"",
-      page:1,
+      customerWallet: "",
+      customerWalletTransaction: "",
+      page: 1,
       customerDetails: {
         user_type: "",
         name: "",
@@ -76,13 +76,15 @@ export default class CustomerEditDetails extends Component {
       toast.error("Please enter the name");
       this.state.is_all = true;
     }
-    if (this.state.customerDetails?.email === "" ||
-      this.state.customerDetails?.email === null ||
-      this.state.customerDetails?.email.replace(/\s/g, "").length <= 0 ||
-      !this.ValidateEmail(this.state.customerDetails?.email)
-    ) {
-      toast.error("Please enter email address");
-      this.state.is_all = true;
+    if (this.state.customerDetails?.email) {
+      if (this.state.customerDetails?.email === "" ||
+        this.state.customerDetails?.email === null ||
+        this.state.customerDetails?.email.replace(/\s/g, "").length <= 0 ||
+        !this.ValidateEmail(this.state.customerDetails?.email)
+      ) {
+        toast.error("Please enter valid email address");
+        this.state.is_all = true;
+      }
     }
     // if (this.state.customerDetails?.phone_number === "" ||
     //   // customerDetails?.phone_number !== undefined ||
@@ -186,21 +188,21 @@ export default class CustomerEditDetails extends Component {
       });
   }
 
-  shoppingCartDetail =(id)=>{
+  shoppingCartDetail = (id) => {
     CustomerApi.ShoppingCartList(id)
-    .then((response) => {
-      this.setState({shoppingCart: response.data.data.orders});
-      this.setState({shoppingCartTotal: response.data.data.cart_price});
-    })
-    .catch((error) => {
-      toast.error(
-        error?.response &&
-          error?.response?.data &&
-          error?.response?.data?.message
-          ? error.response.data.message
-          : "Unable to process your request, please try after sometime"
-      );
-    });
+      .then((response) => {
+        this.setState({ shoppingCart: response.data.data.orders });
+        this.setState({ shoppingCartTotal: response.data.data.cart_price });
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
   }
 
 
@@ -221,42 +223,42 @@ export default class CustomerEditDetails extends Component {
   }
 
 
-  customerWallet =(id)=>{
+  customerWallet = (id) => {
     CustomerApi.getCustomerWallet(id)
-    .then((response) => {
-      // this.setState({shoppingCart: response.data.data.orders});
-      // this.setState({shoppingCartTotal: response.data.data.cart_price});
-      this.setState({customerWallet: response.data.data});
-      
-    })
-    .catch((error) => {
-      toast.error(
-        error?.response &&
-          error?.response?.data &&
-          error?.response?.data?.message
-          ? error.response.data.message
-          : "Unable to process your request, please try after sometime"
-      );
-    });
+      .then((response) => {
+        // this.setState({shoppingCart: response.data.data.orders});
+        // this.setState({shoppingCartTotal: response.data.data.cart_price});
+        this.setState({ customerWallet: response.data.data });
+
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
   }
 
-  customerWalletTransactionList =(page,id)=>{
-    CustomerApi.getCustomerWalletTransaction(page,id)
-    .then((response) => {
-      // console.log(response)
-      this.setState({customerWalletTransaction: response.data.data.transation});
-      this.setState({customerWalletTotalTransaction: response.data.data})
-      
-    })
-    .catch((error) => {
-      toast.error(
-        error?.response &&
-          error?.response?.data &&
-          error?.response?.data?.message
-          ? error.response.data.message
-          : "Unable to process your request, please try after sometime"
-      );
-    });
+  customerWalletTransactionList = (page, id) => {
+    CustomerApi.getCustomerWalletTransaction(page, id)
+      .then((response) => {
+        // console.log(response)
+        this.setState({ customerWalletTransaction: response.data.data.transation });
+        this.setState({ customerWalletTotalTransaction: response.data.data })
+
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
   }
 
 
@@ -311,7 +313,7 @@ export default class CustomerEditDetails extends Component {
     this.customerTypeDropdownDetail();
     this.shoppingCartDetail(this.state.id);
     this.customerWallet(this.state.id);
-    this.customerWalletTransactionList(this.state.page,this.state.id);
+    this.customerWalletTransactionList(this.state.page, this.state.id);
     // this.giftCardRedeemList(this.state.id, 1);
     // this.giftCardSendList(this.state.id, 1);
   }
@@ -356,29 +358,29 @@ export default class CustomerEditDetails extends Component {
               <div className="col-m-12">
                 <CustomerDetails
                   handle={this.stateHandle.bind(this)}
-                  customer={this.state.customer} 
-                  id={this.state.id} 
-                  mode={this.state.mode} 
-                  active={this.activeHandle.bind(this)} 
-                  userType={this.state.userType} 
-                  wishList={this.state.wishList} 
-                  totalWishListPage={this.state.totalWishListPage} 
-                  wishListTotalProduct={this.state.wishListTotalProduct} 
-                  wishListPage={this.wishListPage.bind(this)} 
-                  shoppingCart={this.state.shoppingCart} 
-                  shoppingCartTotal={this.state.shoppingCartTotal} 
-                  customerWallet={this.state.customerWallet} 
+                  customer={this.state.customer}
+                  id={this.state.id}
+                  mode={this.state.mode}
+                  active={this.activeHandle.bind(this)}
+                  userType={this.state.userType}
+                  wishList={this.state.wishList}
+                  totalWishListPage={this.state.totalWishListPage}
+                  wishListTotalProduct={this.state.wishListTotalProduct}
+                  wishListPage={this.wishListPage.bind(this)}
+                  shoppingCart={this.state.shoppingCart}
+                  shoppingCartTotal={this.state.shoppingCartTotal}
+                  customerWallet={this.state.customerWallet}
                   customerWalletTransaction={this.state.customerWalletTransaction}
-                  customerWalletTotalTransaction={this.state.customerWalletTotalTransaction} 
+                  customerWalletTotalTransaction={this.state.customerWalletTotalTransaction}
                   customerWalletTransactionList={this.customerWalletTransactionList.bind(this)}
-                  // giftCardRedeem= {this.state.giftCardRedeem}
-                  // giftCardRedeemTotalProduct= {this.state.giftCardRedeemTotalProduct}
-                  // totalGiftCardRedeemPage= {this.state.totalGiftCardRedeemPage}
-                  // giftCardRedeemList={this.giftCardRedeemList.bind(this)}
-                  // giftCardSend= {this.state.giftCardSend}
-                  // giftCardSendTotalProduct= {this.state.giftCardSendTotalProduct}
-                  // totalGiftCardSendPage= {this.state.totalGiftCardSendPage}
-                  // giftCardSendList={this.giftCardSendList.bind(this)}
+                // giftCardRedeem= {this.state.giftCardRedeem}
+                // giftCardRedeemTotalProduct= {this.state.giftCardRedeemTotalProduct}
+                // totalGiftCardRedeemPage= {this.state.totalGiftCardRedeemPage}
+                // giftCardRedeemList={this.giftCardRedeemList.bind(this)}
+                // giftCardSend= {this.state.giftCardSend}
+                // giftCardSendTotalProduct= {this.state.giftCardSendTotalProduct}
+                // totalGiftCardSendPage= {this.state.totalGiftCardSendPage}
+                // giftCardSendList={this.giftCardSendList.bind(this)}
                 />
               </div>
             </div>

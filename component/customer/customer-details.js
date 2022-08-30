@@ -497,7 +497,7 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
-											Email<span className="mandatory-star">*</span>
+											Email
 										</label>
 										<input
 											type="text"
@@ -593,7 +593,7 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
-											Email<span className="mandatory-star">*</span>
+											Email
 										</label>
 										<input
 											type="text"
@@ -664,7 +664,7 @@ export default class CustomerDetails extends Component {
 									</div>
 									<div className="login-form ">
 										<label>
-											Email<span className="mandatory-star">*</span>
+											Email
 										</label>
 										<input
 											type="text"

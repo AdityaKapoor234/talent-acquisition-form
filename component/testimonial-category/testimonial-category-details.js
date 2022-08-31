@@ -7,6 +7,7 @@ export default class TestimonialCategoryCreate extends Component {
 		this.state = {
 			tab: 1,
 			mode: props?.mode,
+			createMode: props?.createMode,
 			testimonialCategory: props?.testimonialCategory,
 			img_sm: "file-input-sm",
 			img_lg: "file-input-lg",
@@ -26,6 +27,7 @@ export default class TestimonialCategoryCreate extends Component {
 			return {
 				testimonialCategory: nextProps?.testimonialCategory,
 				mode: nextProps?.mode,
+				createMode: nextProps?.createMode,
 				input: {
 					name: nextProps?.testimonialCategory?.name ? nextProps.testimonialCategory?.name : "",
 					is_active: nextProps?.testimonialCategory?.is_active ? nextProps?.testimonialCategory?.is_active : false,
@@ -94,16 +96,20 @@ export default class TestimonialCategoryCreate extends Component {
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
-											<div className="signup-check mt-4">
-												<Checkbox
-													size="small"
-													style={{ color: "#012169" }}
-													checked={this.state.input?.is_active}
-													name="is_active"
-													onChange={this.handleCheck.bind(this)}
-												/>
-												<label>Active</label>
-											</div>
+											{
+												this.state.createMode !== "create" && (
+													<div className="signup-check mt-4">
+														<Checkbox
+															size="small"
+															style={{ color: "#012169" }}
+															checked={this.state.input?.is_active}
+															name="is_active"
+															onChange={this.handleCheck.bind(this)}
+														/>
+														<label>Active</label>
+													</div>
+												)
+											}
 										</div>
 									</div>
 								</div>

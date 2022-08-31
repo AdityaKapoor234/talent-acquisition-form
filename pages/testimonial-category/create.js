@@ -28,7 +28,6 @@ export default class TestimonialCategoryEditDetails extends Component {
       open: false,
       testimonialCategoryDetails: {
         name: "",
-        is_active: false,
       },
     };
   }
@@ -55,7 +54,7 @@ export default class TestimonialCategoryEditDetails extends Component {
     if (this.validateData()) {
       let data = {
         name: this.state.testimonialCategoryDetails.name,
-        is_active: this.state.testimonialCategoryDetails.is_active,
+        is_active: true,
       };
       TestimonialCategoryApi.testimonialCategoryCreate(data)
         .then((response) => {
@@ -139,6 +138,7 @@ export default class TestimonialCategoryEditDetails extends Component {
                   testimonialCategory={this.state.testimonialCategory}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
+                  createMode="create"
                 />
               </div>
             </div>

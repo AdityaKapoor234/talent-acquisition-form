@@ -323,3 +323,11 @@ export const SEARCH_TAG_LIST = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms`;
 export const SEARCH_TAG_EDIT = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms/edit`;
 export const SEARCH_TAG_CREATE = `${PRODUCT_SERVICE}/manage/product/{{id}}/add_terms`;
 export const SEARCH_TAG_DELETE = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms/delete`;
+
+// TRUSTED HEALTH
+export const TRUSTED_HEALTH_BANNER_GET = `${PRODUCT_SERVICE}/manage/trusthealth/content/view`;
+export const TRUSTED_HEALTH_BANNER_EDIT = `${PRODUCT_SERVICE}/manage/trusthealth/{{id}}/content/edit`;
+
+// CHECK MY SUPPLEMENT
+export const CHECK_MY_SUPPLEMENT_GET = `${PRODUCT_SERVICE}/manage/check_my_supp`;
+export const CHECK_MY_SUPPLEMENT_EDIT = `${PRODUCT_SERVICE}/manage/check_my_supp/{{id}}`;

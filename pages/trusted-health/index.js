@@ -109,14 +109,14 @@ export default function TrustedHealth() {
             <main>
                 <DashboardLayoutComponent>
                     <div className="row border-box">
-                        <div className="col-md-6">
+                        <div className="col-md-8">
                             <div className="hamburger">
                                 <span>Inquiry / </span>Trusted Health
                             </div>
                             <div className="page-name">Trusted Health</div>
                         </div>
-                        <div className="col-md-4">
-                            {/* <div className="login-form ">
+                        {/* <div className="col-md-4">
+                            <div className="login-form ">
                                 <input
                                     type="text"
                                     placeholder="Search..."
@@ -126,7 +126,17 @@ export default function TrustedHealth() {
                                     onKeyPress={handleKeyPress}
                                 />
                                 <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
-                            </div> */}
+                            </div>
+                        </div> */}
+                        <div className="col-md-2 btn-save">
+                            <div
+                                className="custom-btn "
+                                onClick={() => {
+                                    Router.push(`/trusted-health/1/banner`);
+                                }}
+                            >
+                                <span>Edit Banner</span>
+                            </div>
                         </div>
                         <div className="col-md-2 btn-save">
                             <div

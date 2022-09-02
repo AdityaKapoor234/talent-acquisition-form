@@ -10,6 +10,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -272,8 +274,33 @@ export default class AdminDetails extends Component {
                                             onChange={this.handleMailChange.bind(this)}
                                         />
                                     </div>
+                                    {/* <span title="Password Requirements:&#13;
+                                    I) At least 10 characters&#13;
+                                    II) Contain all of the following types of characters:
+                                    &nbsp;&nbsp;1) Lower case (a-z)
+                                    &nbsp;&nbsp;2) Upper case (A-Z)
+                                    &nbsp;&nbsp;3) Numbers (i.e. 0-9)
+                                    &nbsp;&nbsp;4) Special Characters (e.g. !@#$%^&*)">
+                                                <IconButton>
+                                                    <InfoIcon className="iBut" />
+                                                </IconButton>
+                                            </span> */}
                                     <div className="login-form ">
-                                        <label>Password<span className="mandatory-star">*</span></label>
+                                        <label className="d-flex align-items-center">Password
+                                            <Tooltip
+                                                style={{ all: "unset" }}
+                                                title={<span>Password Requirements:<br /><br />
+                                                    I) At least 10 characters<br /><br />
+                                                    II) Contain all of the following types of characters:<br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) Lower case (a-z)<br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) Upper case (A-Z)<br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) Numbers (i.e. 0-9)<br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) Special Characters (e.g. !@#$%^&*)</span>}>
+                                                <IconButton>
+                                                    <InfoIcon className="iBut" />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <span className="mandatory-star">*</span></label>
                                         <input
                                             type="password"
                                             onChange={this.handleChange.bind(this)}
@@ -367,7 +394,21 @@ export default class AdminDetails extends Component {
                                                         />
                                                     </div>
                                                     <div className="login-form ">
-                                                        <label>Password<span className="mandatory-star">*</span></label>
+                                                        <label>Password
+                                                            <Tooltip
+                                                                style={{ all: "unset" }}
+                                                                title={<span>Password Requirements:<br /><br />
+                                                                    I) At least 10 characters<br /><br />
+                                                                    II) Contain all of the following types of characters:<br />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) Lower case (a-z)<br />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) Upper case (A-Z)<br />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) Numbers (i.e. 0-9)<br />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) Special Characters (e.g. !@#$%^&*)</span>}>
+                                                                <IconButton>
+                                                                    <InfoIcon className="iBut" />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <span className="mandatory-star">*</span></label>
                                                         <input
                                                             type="password"
                                                             value={this.state?.password}

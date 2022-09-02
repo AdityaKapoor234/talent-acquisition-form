@@ -109,17 +109,17 @@ export default function InventoryImportComponent(props) {
       setIsManufactureDate(true);
       isValid = false;
     }
-    if (expire_date === "" || expire_date === null || expire_date.replace(/\s/g, "").length <= 0) {
+    // if (expire_date === "" || expire_date === null || expire_date.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter expiry date");
-      setIsExpireDate(true);
-      isValid = false;
-    }
+    //   setIsExpireDate(true);
+    //   isValid = false;
+    // }
     // if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
     //   toast.error("Please enter certific ate");
     //   setIsCertificateUrl(true);
     //   isValid = false;
     // }
-    if (warehouse === "" || warehouse === null || warehouse.replace(/\s/g, "").length <= 0) {
+    if (warehouse === "" || warehouse === "select" || warehouse === null || warehouse.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter upc code");
       setIsWarehouseLocation(true);
       isValid = false;
@@ -593,7 +593,7 @@ export default function InventoryImportComponent(props) {
             <div className="col-md-4">
               <div className="login-form ">
                 <label>
-                  Expiry Date<span className="mandatory-star">*</span>
+                  Expiry Date
                 </label>
                 <input
                   type="date"

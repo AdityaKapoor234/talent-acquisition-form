@@ -68,9 +68,10 @@ export default class AdminCreate extends Component {
         if (this.state.adminDetails?.password === "" ||
             this.state.adminDetails?.password === null ||
             this.state.adminDetails?.password === undefined ||
-            this.state.adminDetails?.password.replace(/\s/g, "").length <= 0
+            this.state.adminDetails?.password.replace(/\s/g, "").length <= 0 ||
+            !this.state.adminDetails?.password.match(/^(?=.*([A-Z]){1,})(?=.*[!@#$&*]{1,})(?=.*[0-9]{1,})(?=.*[a-z]{1,}).{10}$/)
         ) {
-            toast.error("Please enter password");
+            toast.error("Please enter valid password");
             return false;
         }
         if (this.state.pass2 === "" ||

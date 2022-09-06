@@ -44,6 +44,7 @@ export default class CouponCreate extends Component {
         by_amount_or_percent:"",
         customer_type:"",
         is_active: false,
+        is_free_shipping: false,
       },
     };
   }
@@ -210,6 +211,7 @@ export default class CouponCreate extends Component {
         coupon_value: this.state.couponDetails?.coupon_value,
         by_amount_or_percent: this.state.couponDetails?.by_amount_or_percent,
         customer_type: this.state.couponDetails?.customer_type,
+        is_free_shipping: this.state.couponDetails?.is_free_shipping,
         is_active: true,
       };
       CouponApi.couponCreate(data)

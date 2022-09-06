@@ -127,12 +127,44 @@ export default class AdminDetails extends Component {
     handleClickClose = () => {
         this.setState({ dialog: false });
     };
+    validateDataPassword = () => {
+        if (
+            !this.state.password ||
+            this.state.password === -1 ||
+            this.state.password === "" ||
+            this.state.password === null ||
+            this.state.password === undefined ||
+            this.state.password.replace(/\s/g, "").length <= 0 ||
+            !this.state.password.match(/^(?=.*([A-Z]){1,})(?=.*[!@#$&*]{1,})(?=.*[0-9]{1,})(?=.*[a-z]{1,}).{10}$/)
+        ) {
+            toast.error("Please enter valid password");
+            return false;
+        }
+        if (!this.state.password2 ||
+            this.state.password2 === -1 ||
+            this.state.password2 === "" |
+            this.state.password2 === null ||
+            this.state.password2 === undefined ||
+            this.state.password2.replace(/\s/g, "").length <= 0
+        ) {
+            toast.error("Please enter the password again");
+            return false;
+        }
+        if (this.state.password !== this.state.password2) {
+            toast.error("Your password doesn't match");
+            return false;
+        }
+        return true;
+    };
+
     handleClickSubmitClose = () => {
-        this.setState({ dialog: false });
-        this.props.save(this.state.id);
-        this.setState({ oldPassword: "" });
-        this.setState({ password: "" });
-        this.setState({ password2: "" });
+        if (this.validateDataPassword()) {
+            this.setState({ dialog: false });
+            this.props.save(this.state.id);
+            this.setState({ oldPassword: "" });
+            this.setState({ password: "" });
+            this.setState({ password2: "" });    
+        }
     };
 
     handleCheckbox = () => {

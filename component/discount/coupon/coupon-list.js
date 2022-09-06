@@ -56,8 +56,9 @@ export default class CouponList extends Component {
                             <div className="col px-2 text-center">Code</div>
                             <div className="col px-2 text-center">Start Date</div>
                             <div className="col px-2 text-center">End Date</div>
+                            <div className="col-2 text-center">Free Shipping</div>
                             <div className="col-1 text-center">Active</div>
-                            <div className="col-2 text-end">Action</div>
+                            <div className="col-1 text-end">Action</div>
                         </div>
                     </div>
                 </div>
@@ -72,6 +73,13 @@ export default class CouponList extends Component {
                                             <div className="col text-center px-2 elip-text" title={p?.code}>{p?.code}</div>
                                             <div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.start_date)}>{this.convertDateStringToDate(p?.start_date)}</div>
                                             <div className="col text-center px-2 elip-text" title={this.convertDateStringToDate(p?.end_date)}>{this.convertDateStringToDate(p?.end_date)}</div>
+                                            <div className="col-2 text-center">
+                                                {p?.is_free_shipping === true ? (
+                                                    <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                                                ) : (
+                                                    <CancelOutlinedIcon className="cancel-icon" />
+                                                )}
+                                            </div>
                                             <div className="col-1 text-center">
                                                 {p?.is_active === true ? (
                                                     <CheckCircleOutlineOutlinedIcon className="check-icon" />
@@ -79,7 +87,7 @@ export default class CouponList extends Component {
                                                     <CancelOutlinedIcon className="cancel-icon" />
                                                 )}
                                             </div>
-                                            <div className="col-2 text-end">
+                                            <div className="col-1 text-end">
                                                 <RemoveRedEyeIcon
                                                     className="view-icon"
                                                     onClick={() => {

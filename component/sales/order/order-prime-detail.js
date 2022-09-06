@@ -214,7 +214,7 @@ export default class OrderPrimeDetails extends Component {
                                                                     </MenuItem>
                                                                     <MenuItem value={"placed"}>Placed</MenuItem>
                                                                     <MenuItem value={"shipped"}>Shipped</MenuItem>
-                                                                    <MenuItem value={"cancelled"}>cancelled</MenuItem>
+                                                                    <MenuItem value={"cancelled"}>Cancelled</MenuItem>
                                                                     <MenuItem value={"cpayment_pending"}>Pending</MenuItem>
                                                                 </Select>
 

@@ -117,12 +117,12 @@ export default class CouponViewDetails extends Component {
   //       });
   //   };
 
-  customerTypeDropdownDetail = () => {
+  customerTypeDropdownDetail = (model) => {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {
         let list = response.data.data.list;
         for (let i in list) {
-          if (model.indexOf(list[i].user_type) >= 0) {
+          if (model.indexOf(list[i].key) >= 0) {
             list[i]["select"] = true;
           }else{
             list[i]["select"] = false;

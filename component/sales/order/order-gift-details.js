@@ -229,7 +229,7 @@ export default class OrderPrimeDetails extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <span className="orderLine">
+                                                <span className="orderLine align-items-center">
                                                     <span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                     <div data-component="edit-category">
                                                         <div className="sort">
@@ -253,7 +253,7 @@ export default class OrderPrimeDetails extends Component {
                                                                     </MenuItem>
                                                                     <MenuItem value={"placed"}>Placed</MenuItem>
                                                                     <MenuItem value={"shipped"}>Shipped</MenuItem>
-                                                                    <MenuItem value={"cancelled"}>cancelled</MenuItem>
+                                                                    <MenuItem value={"cancelled"}>Cancelled</MenuItem>
                                                                     <MenuItem value={"cpayment_pending"}>Pending</MenuItem>
                                                                 </Select>
 

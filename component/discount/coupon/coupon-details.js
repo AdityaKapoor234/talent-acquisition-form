@@ -15,7 +15,7 @@ export default class CouponDetails extends Component {
     this.state = {
       tab: 1,
       coupon: props?.coupon,
-      userType: [],
+      userType: props?.userType,
       mode: props?.mode,
       createMode: props?.createMode,
       img_icon: "file-input",
@@ -34,6 +34,7 @@ export default class CouponDetails extends Component {
         by_amount_or_percent: props?.coupon?.by_amount_or_percent,
         customer_type: props?.coupon?.customer_type,
         is_active: props?.coupon?.is_active,
+        is_free_shipping: props?.coupon?.is_free_shipping,
       },
     };
   }
@@ -64,6 +65,7 @@ export default class CouponDetails extends Component {
           by_amount_or_percent: nextProps?.coupon?.by_amount_or_percent,
           customer_type: nextProps?.coupon?.customer_type,
           is_active: nextProps?.coupon?.is_active,
+          is_free_shipping: nextProps?.coupon?.is_free_shipping,
         },
       };
     }
@@ -72,14 +74,14 @@ export default class CouponDetails extends Component {
   handleChangeDiet = (event) => {
     let list = this.state.userType;
     let objIndex = list?.findIndex((obj => obj.key === event?.target?.value));
-    if(list[objIndex]){
+    if (list[objIndex]) {
       list[objIndex]["select"] = event?.target?.checked;
     }
     this.setState({
-        userType:list
+      userType: list
     })
     let input = this.state.input;
-    input["customer_type"] = list?.filter(val=>val?.select === true)?.map(val=>val?.key)
+    input["customer_type"] = list?.filter(val => val?.select === true)?.map(val => val?.key)
     this.props?.handle(input);
   }
   handleChange = (event) => {
@@ -435,6 +437,21 @@ export default class CouponDetails extends Component {
                         </div>
                       </div>
 
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="signup-check">
+                            <Checkbox
+                              name="is_free_shipping"
+                              size="small"
+                              style={{ color: "#012169" }}
+                              checked={this.state.input.is_free_shipping}
+                              onChange={this.handleCheck.bind(this)}
+                            />
+                            <label>Free Shipping</label>
+                          </div>
+                        </div>
+                      </div>
+
                       {this.state.createMode === "create" ? (
                         ""
                       ) : (
@@ -641,7 +658,7 @@ export default class CouponDetails extends Component {
                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                 name="by_amount_or_percent"
                                 value={this.state.input?.by_amount_or_percent}
-                                // onChange={this.handleRadio}
+                              // onChange={this.handleRadio}
                               >
                                 <div className="d-flex">
                                   <FormControlLabel
@@ -700,7 +717,7 @@ export default class CouponDetails extends Component {
                                         }
                                         checked={val?.selected}
                                         value={val?.user_type}
-                                        // onChange={this.handleChangeDiet}
+                                      // onChange={this.handleChangeDiet}
                                       />
                                     }
                                     label={val?.user_type}
@@ -711,6 +728,20 @@ export default class CouponDetails extends Component {
                           })}
                         </div>
                       </div>
+
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="signup-check">
+                            <Checkbox
+                              size="small"
+                              style={{ color: "#012169" }}
+                              checked={this.state.input.is_free_shipping}
+                            />
+                            <label>Free Shipping</label>
+                          </div>
+                        </div>
+                      </div>
+
 
                       <div className="row">
                         <div className="col-md-4">

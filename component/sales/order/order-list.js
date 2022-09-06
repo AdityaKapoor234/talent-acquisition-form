@@ -41,7 +41,7 @@ export default class OrderList extends Component {
         ];
 
         let date = new Date(dateStr);
-        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        // date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
         let str =
             date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
         return str;
@@ -60,7 +60,7 @@ export default class OrderList extends Component {
                             <div className="col-2 px-2 text-center">Date</div>
                             <div className="col-2 px-2 text-center">Status</div>
                             <div className="col-2 px-2 text-center">Total</div>
-                            <div className="col-1 text-end">View</div>
+                            <div className="col-1 text-end">Action</div>
                         </div>
                     </div>
                 </div>
@@ -83,12 +83,12 @@ export default class OrderList extends Component {
                                                     Router.push(`/order/${p?.order_number}/view`);
                                                 }}
                                             />
-											{/* <EditOutlinedIcon
+											<EditOutlinedIcon
 												className="edit-icon"
 												onClick={() => {
 													Router.push(`/order/${p?.order_number}/edit`);
 												}}
-											/> */}
+											/>
                                         </div>
                                     </div>
                                 </div>

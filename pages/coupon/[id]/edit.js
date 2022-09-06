@@ -51,6 +51,7 @@ export default class CouponEditDetails extends Component {
         coupon_value: null,
         by_amount_or_percent: "",
         customer_type: "",
+        is_free_shipping: false,
         is_active: false,
       },
     };
@@ -212,6 +213,7 @@ export default class CouponEditDetails extends Component {
         coupon_value: this.state.couponDetails?.coupon_value,
         by_amount_or_percent: this.state.couponDetails?.by_amount_or_percent,
         customer_type: this.state.couponDetails?.customer_type,
+        is_free_shipping: this.state.couponDetails?.is_free_shipping,
         is_active: this.state.couponDetails?.is_active,
       };
       CouponApi.couponListEDIT(this.props.id, data)
@@ -254,6 +256,7 @@ export default class CouponEditDetails extends Component {
             coupon_value: response.data.data.coupon?.coupon_value,
             by_amount_or_percent: response.data.data.coupon?.by_amount_or_percent,
             customer_type: response.data.data.coupon?.customer_type,
+            is_free_shipping: response.data.data.coupon?.is_free_shipping,
             is_active: response.data.data.coupon?.is_active,
           };
           this.setState({

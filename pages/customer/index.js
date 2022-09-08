@@ -74,15 +74,15 @@ export default function Customer() {
 		customerList(page, wordEntered)
 	};
 
-	const handleOnExport = () => {
-		var XLSX = require("xlsx");
-		var wb = XLSX.utils.book_new();
-		var ws = XLSX.utils.json_to_sheet(customerExcel);
+	// const handleOnExport = () => {
+	// 	var XLSX = require("xlsx");
+	// 	var wb = XLSX.utils.book_new();
+	// 	var ws = XLSX.utils.json_to_sheet(customerExcel);
 
-		XLSX.utils.book_append_sheet(wb, ws, "CustomerList");
+	// 	XLSX.utils.book_append_sheet(wb, ws, "CustomerList");
 
-		XLSX.writeFile(wb, "Customer List.xlsx");
-	};
+	// 	XLSX.writeFile(wb, "Customer List.xlsx");
+	// };
 
 
 	const customerList = (page, search) => {
@@ -108,35 +108,36 @@ export default function Customer() {
 	};
 
 
-	const customerExcelList = () => {
-		setIsLoader(true);
-		ExcelApi.CustomerExcelList()
-			.then((response) => {
-				setCustomerExcelList(response.data.data.list);
-				setIsLoader(false);
-			})
-			.catch((error) => {
-				setIsLoader(false);
-				toast.error(
-					error?.response &&
-						error?.response?.data &&
-						error?.response?.data?.message
-						? error.response.data.message
-						: "Unable to process your request, please try after sometime"
-				);
-			});
-	};
+	// const customerExcelList = () => {
+	// 	setIsLoader(true);
+	// 	ExcelApi.CustomerExcelList()
+	// 		.then((response) => {
+	// 			setCustomerExcelList(response.data.data.list);
+	// 			setIsLoader(false);
+	// 		})
+	// 		.catch((error) => {
+	// 			setIsLoader(false);
+	// 			toast.error(
+	// 				error?.response &&
+	// 					error?.response?.data &&
+	// 					error?.response?.data?.message
+	// 					? error.response.data.message
+	// 					: "Unable to process your request, please try after sometime"
+	// 			);
+	// 		});
+	// };
 	useEffect(() => {
 		const token = Cookie.get("access_token_admin");
 		if (token === undefined) {
 			Router.push("/");
 		}
 		customerList(currentPage, "");
-		customerExcelList();
+		// customerExcelList();
 	}, []);
 	return (
 		<div>
-			<div page-component="customer-page">
+			{/* <div page-component="customer-page"> */}
+			<div page-component="category-page">
 				<Head>
 					<title>{APP_NAME} - Customer</title>
 					<meta name="description" content="Trusted Brands. Better Health." />
@@ -146,7 +147,8 @@ export default function Customer() {
 				<main>
 					<DashboardLayoutComponent>
 						<div className="row border-box">
-							<div className="col-md-4">
+							{/* <div className="col-md-4"> */}
+							<div className="col-md-6">
 								<div className="hamburger">
 									<span>customer / </span>customer
 								</div>
@@ -165,7 +167,7 @@ export default function Customer() {
 									<SearchIcon className="search-icon point-but" onClick={handleClickPress} />
 								</div>
 							</div>
-							<div className="col-md-2 btn-save">
+							{/* <div className="col-md-2 btn-save">
 								<div className="custom-btn ">
 									<span
 										onClick={handleOnExport}
@@ -174,7 +176,7 @@ export default function Customer() {
 										Download&nbsp;<FileDownloadIcon />
 									</span>
 								</div>
-							</div>
+							</div> */}
 							<div className="col-md-2 btn-save">
 								<div
 									className="custom-btn "

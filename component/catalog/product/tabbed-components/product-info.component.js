@@ -813,6 +813,7 @@ export default class ProductInfoComponent extends Component {
                                             >
                                                 <FormControlLabel value={true} control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="Yes" />
                                                 <FormControlLabel value={false} control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="No" />
+                                                {/* <FormControlLabel value="" control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="None" /> */}
                                             </RadioGroup>
                                             <small className="form-text text-danger" >{this.state.errors["is_vegetarian"]}</small>
                                         </div>

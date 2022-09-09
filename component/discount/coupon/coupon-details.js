@@ -90,6 +90,12 @@ export default class CouponDetails extends Component {
     this.setState({ input });
     this.props?.handle(input);
   };
+  handleChangeCode = (event) => {
+    let input = this.state.input;
+    input[event.target.name] = event.target.value.toUpperCase().replace(/_/g, '').replace(/ /g, '').replace(/[^\w]+/g, '');
+    this.setState({ input });
+    this.props?.handle(input);
+  };
   handleRadio = (event) => {
     let input = this.state.input;
     input[event.target.name] = event.target.value;
@@ -179,7 +185,7 @@ export default class CouponDetails extends Component {
                               type="text"
                               value={this.state.input?.code}
                               name="code"
-                              onChange={this.handleChange.bind(this)}
+                              onChange={this.handleChangeCode.bind(this)}
                             />
                           </div>
                         </div>

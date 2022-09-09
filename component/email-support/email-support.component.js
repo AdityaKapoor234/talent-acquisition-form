@@ -58,10 +58,11 @@ export default class EmailSupport extends Component {
             <div className="tableRow">
               <div className="col-2 pe-1 ">Name</div>
               {/* <div className="col text-center">Type</div> */}
-              <div className="col-4  text-center ">Email</div>
+              <div className="col  text-center ">Email</div>
+              <div className="col  text-center ">Phone No</div>
               {/* <div className="col-2  text-center ">Category</div> */}
               <div className="col  text-center ">Description</div>
-              <div className="col-2 text-center ">View</div>
+              <div className="col-1 text-center ">View</div>
             </div>
           </div>
         </div>
@@ -75,12 +76,15 @@ export default class EmailSupport extends Component {
                 <div className="tableCell">
                   <div className="tableBody  col-2 pe-1 elip-text" title={p?.name}>{p?.name}</div>
                   {/* <div className="col text-center">{p?.type?p?.type:"General"}</div> */}
-                  <div className="tableBody  col-4 justify-content-center elip-text" title={p?.email}>
+                  <div className="tableBody  col justify-content-center elip-text" title={p?.email}>
                     {p?.email}
+                  </div>
+                  <div className="tableBody  col justify-content-center elip-text" title={p?.phone_number}>
+                    {p?.phone_number}
                   </div>
                   {/* <div className="col-2  text-center elip-text" title={p?.category}>{p?.category}</div> */}
                   <div className="col  text-center elip-text" title={p?.customer_query}>{p?.customer_query}</div>
-                  <div className="col-2 text-center">
+                  <div className="col-1 text-center">
                     <RemoveRedEyeIcon
                       className="view-icon"
                       onClick={() => {

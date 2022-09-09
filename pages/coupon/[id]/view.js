@@ -52,6 +52,7 @@ export default class CouponViewDetails extends Component {
         by_amount_or_percent: "",
         customer_type: "",
         is_active: false,
+        is_free_shipping: false,
       },
     };
   }
@@ -78,6 +79,7 @@ export default class CouponViewDetails extends Component {
             by_amount_or_percent: response.data.data.coupon?.by_amount_or_percent,
             customer_type: response.data.data.coupon?.customer_type,
             is_active: response.data.data.coupon?.is_active,
+            is_free_shipping: response.data.data.coupon?.is_free_shipping,
           };
           this.setState({
             couponDetails: details,

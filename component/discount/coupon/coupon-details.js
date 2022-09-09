@@ -732,7 +732,8 @@ export default class CouponDetails extends Component {
                       <div className="row">
                         <div className="col-md-4">
                           <div className="signup-check">
-                            <Checkbox
+                          <Checkbox
+                              name="is_free_shipping"
                               size="small"
                               style={{ color: "#012169" }}
                               checked={this.state.input.is_free_shipping}

@@ -56,7 +56,7 @@ export default class BulkBuys extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col-2 pe-1">Name</div>
+              <div className="col-2 pe-1">Company Name</div>
               {/* <div className="col text-center">Type</div> */}
               <div className="col-3 px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
@@ -72,7 +72,7 @@ export default class BulkBuys extends Component {
             <div className="row" key={index}>
               <div className="col-md-12">
                 <div className="tableCell">
-                  <div className="tableBody pe-1 col-2 elip-text" title={p?.name}>{p?.name}</div>
+                  <div className="tableBody pe-1 col-2 elip-text" title={p?.company_name}>{p?.company_name}</div>
                   {/* <div className="col text-center">{p?.type?p?.type:"General"}</div> */}
                   <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.email}>
                     {p?.email}

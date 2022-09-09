@@ -62,6 +62,14 @@ export default class AffiliateMarketingView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div>
+                                            <div className="login-form ">
+                                                <label>Name<span className="mandatory-star">*</span></label>
+                                                <input
+                                                    type="text"
+                                                    value={this.state.affiliatemarketingview?.name}
+                                                    readOnly={true}
+                                                />
+                                            </div>
 
                                             <div className="login-form ">
                                                 <label>Description<span className="mandatory-star">*</span></label>
@@ -97,6 +105,14 @@ export default class AffiliateMarketingView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div> 
+                                            <div className="login-form ">
+                                                <label>Social Media / Online platform / Website<span className="mandatory-star">*</span></label>
+                                                <input
+                                                    type="text"
+                                                    value={this.state.affiliatemarketingview?.platform}
+                                                    readOnly={true}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

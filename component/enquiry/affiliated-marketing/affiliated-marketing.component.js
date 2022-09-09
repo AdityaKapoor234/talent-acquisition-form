@@ -56,7 +56,7 @@ export default class AffiliatedMarketing extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col pe-1">Name</div>
+              <div className="col pe-1">Company Name</div>
               {/* <div className="col text-center">Type</div> */}
               <div className="col px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>

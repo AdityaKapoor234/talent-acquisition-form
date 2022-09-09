@@ -94,7 +94,8 @@ export default class ProductInfoComponent extends Component {
 
     handleRadio = (event) => {
         let input = this.state.infoDetails;
-        input["is_vegetarian"] = (event.target.value === "true" ? true : false);
+        input["is_vegetarian"] = event.target.value;
+        // input["is_vegetarian"] = (event.target.value === "true" ? true : false);
         this.setState({ infoDetails: input });
     };
 
@@ -811,9 +812,9 @@ export default class ProductInfoComponent extends Component {
                                                 value={this.state.infoDetails?.is_vegetarian}
                                                 onChange={this.handleRadio}
                                             >
-                                                <FormControlLabel value={true} control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="Yes" />
-                                                <FormControlLabel value={false} control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="No" />
-                                                {/* <FormControlLabel value="" control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="None" /> */}
+                                                <FormControlLabel value="true" control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="Yes" />
+                                                <FormControlLabel value="false" control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="No" />
+                                                <FormControlLabel value="none" control={<Radio disabled={this.state.mode === "view" ? true : false} size={"small"} style={{ color: "#012169" }} />} label="None" />
                                             </RadioGroup>
                                             <small className="form-text text-danger" >{this.state.errors["is_vegetarian"]}</small>
                                         </div>

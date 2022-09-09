@@ -93,6 +93,14 @@ export default class EmailSupportView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div>
+                                            <div className="login-form ">
+                                                <label>Phone No<span className="mandatory-star">*</span></label>
+                                                <input
+                                                    type="text"
+                                                    value={this.state.view?.email_support?.phone_number}
+                                                    readOnly={true}
+                                                />
+                                            </div>
                                             {/* <div className="login-form ">
                                                 <label>Category<span className="mandatory-star">*</span></label>
                                                 <input

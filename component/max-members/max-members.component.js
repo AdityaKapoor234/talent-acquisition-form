@@ -55,9 +55,10 @@ export default class MaxMembersList extends Component {
             <div className="tableRow">
               <div className="col-2 pe-1">Name</div>
               <div className="col text-center">Type</div>
-              <div className="col-3 px-2 text-center">Email</div>
+              <div className="col px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
-              <div className="col px-2 text-center">MemberShip. Date</div>
+              <div className="col px-2 text-center">Membership. Date</div>
+              <div className="col px-2 text-center">Membership Exp</div>
               <div className="col-1 text-center">Premium</div>
               <div className="col-1 text-end">Action</div>
             </div>
@@ -72,11 +73,12 @@ export default class MaxMembersList extends Component {
                 <div className="tableCell">
                   <div className="tableBody pe-1 col-2 elip-text" title={p?.name}>{p?.name}</div>
                   <div className="col text-center">{p?.user_type?p?.user_type:"General"}</div>
-                  <div className="tableBody px-2 col-3 justify-content-center elip-text" title={p?.email}>
+                  <div className="tableBody px-2 col justify-content-center elip-text" title={p?.email}>
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_number}</div>
                   <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.time_to_premium)}>{this.convertDateStringToDate(p?.time_to_premium)}</div>
+                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.valid_premium_till)}>{this.convertDateStringToDate(p?.valid_premium_till)}</div>
                   <div className="col-1 text-center">
                     {p?.is_premium === true ? (
                       <CheckCircleOutlineOutlinedIcon className="check-icon" />

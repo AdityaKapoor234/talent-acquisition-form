@@ -284,7 +284,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.min_cart_amount}
                               name="min_cart_amount"
                               onChange={this.handleChange.bind(this)}
@@ -300,7 +300,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.max_cart_amount}
                               name="max_cart_amount"
                               onChange={this.handleChange.bind(this)}
@@ -316,7 +316,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.uses_per_coupon}
                               name="uses_per_coupon"
                               onChange={this.handleChange.bind(this)}
@@ -332,7 +332,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.uses_per_customer}
                               name="uses_per_customer"
                               onChange={this.handleChange.bind(this)}
@@ -348,7 +348,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.coupon_value}
                               name="coupon_value"
                               onChange={this.handleChange.bind(this)}
@@ -581,7 +581,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.min_cart_amount}
                               readOnly={true}
                             />
@@ -596,7 +596,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.max_cart_amount}
                               readOnly={true}
                             />
@@ -611,7 +611,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.uses_per_coupon}
                               readOnly={true}
                             />
@@ -626,7 +626,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.uses_per_customer}
                               readOnly={true}
                             />
@@ -641,7 +641,7 @@ export default class CouponDetails extends Component {
                               <span className="mandatory-star">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               value={this.state.input?.coupon_value}
                               readOnly={true}
                             />

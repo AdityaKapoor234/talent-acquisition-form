@@ -543,7 +543,7 @@ export default class CustomerDetails extends Component {
 												disableUnderline
 												variant="standard"
 												autoWidth={true}
-												disabled
+												// disabled
 												IconComponent={ExpandMoreIcon}
 												name="user_type"
 												onChange={this.handleChange}

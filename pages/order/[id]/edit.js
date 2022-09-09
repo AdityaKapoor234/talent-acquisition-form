@@ -50,18 +50,20 @@ export default function OrderEditDetails({ id }) {
     }
 
 
-    const saveDetails = (id) => {
-        if (validation()) {
+    const saveDetails = () => {
+        // if (validation()) {
 
             let data = {
-                "status": orderStatus
+                // "status": orderStatus
+                "status": "cancelled"
             }
             OrderApi
-                .AddOrder(id, data)
+                .AddOrder(orderId, data)
                 .then((response) => {
                     if (response.data.httpStatusCode === 200) {
                         toast.success(response.data.message)
                         Router.push(`/order`);
+                        orderDetail(id)
                     }
                 })
                 .catch((error) => {
@@ -73,7 +75,7 @@ export default function OrderEditDetails({ id }) {
                             : "Unable to process your request, please try after sometime"
                     );
                 });
-        }
+        // }
     }
 
     const orderDetail = (id) => {
@@ -136,14 +138,14 @@ export default function OrderEditDetails({ id }) {
                             <div className="page-name">Order - {order?.order?.order_no}</div>
                         </div>
                         <div className="col-md-7 btn-save">
-                            <div
+                            {/* <div
                                 className="custom-btn "
                                 onClick={() => {
                                     saveDetails(id)
                                 }}
                             >
                                 <span>Save </span>
-                            </div>
+                            </div> */}
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
@@ -166,7 +168,7 @@ export default function OrderEditDetails({ id }) {
                                         order?.order?.order_type === "Gift_card" ?
                                             <OrderGiftDetails mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
                                             :
-                                            <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} />
+                                            <OrderDetails order={order} mode={mode} active={activeHandle} error={error} handle={statusHandle.bind(this)} id={orderId} saveDetails={saveDetails.bind(this)} />
                                 }
                             </div>
                         }

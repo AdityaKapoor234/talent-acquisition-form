@@ -28,7 +28,7 @@ export default class OrderDetails extends Component {
             status: props?.order?.order?.status ? props?.order?.order?.status : "0",
             // invoice: props?.invoice ? props?.invoice : "",
             invoice: {},
-            id:props?.id,
+            id: props?.id,
         };
     }
     handleChange = (event) => {
@@ -83,7 +83,7 @@ export default class OrderDetails extends Component {
     orderInvoice = (id) => {
         OrderApi.getOrderInvoice(id)
             .then((response) => {
-                this.setState({ invoice: response.data.data.pdf})
+                this.setState({ invoice: response.data.data.pdf })
             })
             .catch((error) => {
                 toast.error(
@@ -211,7 +211,11 @@ export default class OrderDetails extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <span className="orderLine align-items-center">
+                                            <span className="orderLine">
+                                                    <span className="orderInfo">Status&nbsp;</span>
+                                                    <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}>{this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}</span>
+                                                </span>
+                                                {/* <span className="orderLine align-items-center">
                                                     <span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                     <div data-component="edit-category">
                                                         <div className="sort">
@@ -242,11 +246,11 @@ export default class OrderDetails extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
-                                                    {/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
+                                                    <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
+                                                    <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span>
 
-                                                </span>
-                                                <small className="form-text text-danger" >{this.state.error}</small>
+                                                </span> */}
+                                                {/* <small className="form-text text-danger" >{this.state.error}</small> */}
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Payment Mode:&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.state.order?.order?.payment_mode === "razorpay" ? "Online" : "Cash on Delivery"}>{this.state.order?.order?.payment_mode === "razorpay" ? "Online" : "Cash on Delivery"}</span>
@@ -266,14 +270,23 @@ export default class OrderDetails extends Component {
                                                         ""
                                                         :
                                                         <div
-                                                            className="custom-btn d-flex justify-content-center"
+                                                            className="custom-btn d-flex justify-content-center w-100"
                                                             style={{ width: "fit-content" }}
                                                             onClick={() => { Router.push(this.state.invoice) }}
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-
+                                                {
+                                                    this.state?.status !== "cancelled" &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100" } 
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.props?.saveDetails() }}
+                                                    >
+                                                        <span>Cancel Order</span>
+                                                    </div>
+                                                }
                                                 <div></div>
                                             </div>
                                         </div>

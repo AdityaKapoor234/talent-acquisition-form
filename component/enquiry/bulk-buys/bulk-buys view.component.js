@@ -54,6 +54,14 @@ export default class BulkBuysView extends Component {
                                     <div className="row mt-4">
                                         <div className="col-md-4">
                                             <div className="login-form ">
+                                                <label>Company Name<span className="mandatory-star">*</span></label>
+                                                <input
+                                                    type="text"
+                                                    value={this.state.bulkbuyview?.company_name}
+                                                    readOnly={true}
+                                                />
+                                            </div>
+                                            <div className="login-form ">
                                                 <label>Name<span className="mandatory-star">*</span></label>
                                                 <input
                                                     type="text"
@@ -80,8 +88,9 @@ export default class BulkBuysView extends Component {
 
                                             <div className="login-form ">
                                                 <label>Address.<span className="mandatory-star">*</span></label>
-                                                <input
-                                                    type="text"
+                                                <textarea
+                                                    cols="100"
+                                                    rows="5"
                                                     value={this.state.bulkbuyview?.address}
                                                     readOnly={true}
                                                 />

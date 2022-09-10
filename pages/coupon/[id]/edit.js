@@ -53,6 +53,7 @@ export default class CouponEditDetails extends Component {
         customer_type: "",
         is_free_shipping: false,
         is_active: false,
+        is_show_on_list: false,
       },
     };
   }
@@ -215,6 +216,7 @@ export default class CouponEditDetails extends Component {
         customer_type: this.state.couponDetails?.customer_type,
         is_free_shipping: this.state.couponDetails?.is_free_shipping,
         is_active: this.state.couponDetails?.is_active,
+        is_show_on_list: this.state.couponDetails?.is_show_on_list,
       };
       CouponApi.couponListEDIT(this.props.id, data)
         .then((response) => {
@@ -238,6 +240,54 @@ export default class CouponEditDetails extends Component {
   stateHandle = (value) => {
     this.setState({ couponDetails: value });
   };
+  nameHandle = (value) => {
+    this.state.couponDetails.name = value;
+  };
+  codeHandle = (value) => {
+    this.state.couponDetails.code = value;
+  };
+  descriptionHandle = (value) => {
+    this.state.couponDetails.description = value;
+  };
+  startDateHandle = (value) => {
+    this.state.couponDetails.start_date = value;
+  };
+  EndDateHandle = (value) => {
+    this.state.couponDetails.end_date = value;
+  };
+  discountTypeHandle = (value) => {
+    this.state.couponDetails.discount_type = value;
+  };
+  minCartAmountHandle = (value) => {
+    this.state.couponDetails.min_cart_amount = value;
+  };
+  maxCartAmountHandle = (value) => {
+    this.state.couponDetails.max_cart_amount = value;
+  };
+  usesPerCouponHandle = (value) => {
+    this.state.couponDetails.uses_per_coupon = value;
+  };
+  usesPerCustomerHandle = (value) => {
+    this.state.couponDetails.uses_per_customer = value;
+  };
+  couponValueHandle = (value) => {
+    this.state.couponDetails.coupon_value = value;
+  };
+  byAmountOrPercentHandle = (value) => {
+    this.state.couponDetails.by_amount_or_percent = value;
+  };
+  customerTypeHandle = (value) => {
+    this.state.couponDetails.customer_type = value;
+  };
+  isActiveHandle = (value) => {
+    this.state.couponDetails.is_active = value;
+  };
+  isFreeShippingHandle = (value) => {
+    this.state.couponDetails.is_free_shipping = value;
+  };
+  isShowOnListHandle = (value) => {
+    this.state.couponDetails.is_show_on_list = value;
+  };
   getcouponDetails = (id) => {
     CouponApi.couponViewDetails(id)
       .then((response) => {
@@ -258,6 +308,7 @@ export default class CouponEditDetails extends Component {
             customer_type: response.data.data.coupon?.customer_type,
             is_free_shipping: response.data.data.coupon?.is_free_shipping,
             is_active: response.data.data.coupon?.is_active,
+            is_show_on_list: response.data.data.coupon?.is_show_on_list,
           };
           this.setState({
             couponDetails: details,
@@ -364,6 +415,22 @@ export default class CouponEditDetails extends Component {
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                   userType={this.state.userType}
+                  nameHandle={this.nameHandle.bind(this)}
+                  codeHandle={this.codeHandle.bind(this)}
+                  descriptionHandle={this.descriptionHandle.bind(this)}
+                  startDateHandle={this.startDateHandle.bind(this)}
+                  EndDateHandle={this.EndDateHandle.bind(this)}
+                  discountTypeHandle={this.discountTypeHandle.bind(this)}
+                  minCartAmountHandle={this.minCartAmountHandle.bind(this)}
+                  maxCartAmountHandle={this.maxCartAmountHandle.bind(this)}
+                  usesPerCouponHandle={this.usesPerCouponHandle.bind(this)}
+                  usesPerCustomerHandle={this.usesPerCustomerHandle.bind(this)}
+                  couponValueHandle={this.couponValueHandle.bind(this)}
+                  byAmountOrPercentHandle={this.byAmountOrPercentHandle.bind(this)}
+                  customerTypeHandle={this.customerTypeHandle.bind(this)}
+                  isActiveHandle={this.isActiveHandle.bind(this)}
+                  isFreeShippingHandle={this.isFreeShippingHandle.bind(this)}
+                  isShowOnListHandle={this.isShowOnListHandle.bind(this)}
                 />
               </div>
             </div>

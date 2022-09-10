@@ -53,6 +53,7 @@ export default class CouponViewDetails extends Component {
         customer_type: "",
         is_active: false,
         is_free_shipping: false,
+        is_show_on_list: false,
       },
     };
   }
@@ -80,6 +81,7 @@ export default class CouponViewDetails extends Component {
             customer_type: response.data.data.coupon?.customer_type,
             is_active: response.data.data.coupon?.is_active,
             is_free_shipping: response.data.data.coupon?.is_free_shipping,
+            is_show_on_list: response.data.data.coupon?.is_show_on_list,
           };
           this.setState({
             couponDetails: details,

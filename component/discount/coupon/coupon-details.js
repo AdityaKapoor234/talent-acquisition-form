@@ -89,38 +89,56 @@ export default class CouponDetails extends Component {
   }
   handleChange = (event) => {
     let input = this.state.input;
-    input[event.target.name] = event.target.value;
-    this.setState({ input });
     // this.props?.handle(input);
     if (event.target.name === "name") {
+      input[event.target.name] = event.target.value;
+      this.setState({ input });
       this.props?.nameHandle(event.target.value);
     }
     else if (event.target.name === "description") {
+      input[event.target.name] = event.target.value;
+      this.setState({ input });
       this.props?.descriptionHandle(event.target.value);
     }
     else if (event.target.name === "start_date") {
+      input[event.target.name] = event.target.value;
+      this.setState({ input });
       this.props?.startDateHandle(event.target.value);
     }
     else if (event.target.name === "end_date") {
+      input[event.target.name] = event.target.value;
+      this.setState({ input });
       this.props?.EndDateHandle(event.target.value);
     }
     else if (event.target.name === "discount_type") {
+      input[event.target.name] = event.target.value;
+      this.setState({ input });
       this.props?.discountTypeHandle(event.target.value);
     }
     else if (event.target.name === "min_cart_amount") {
-      this.props?.minCartAmountHandle(event.target.value);
+      input[event.target.name] = event.target.value.replace(/[^\d]/, "")
+      this.setState({ input });
+      this.props?.minCartAmountHandle(event.target.value.replace(/[^\d]/, ""));
     }
     else if (event.target.name === "max_cart_amount") {
-      this.props?.maxCartAmountHandle(event.target.value);
+      input[event.target.name] = event.target.value.replace(/[^\d]/, "")
+      this.setState({ input });
+      this.props?.maxCartAmountHandle(event.target.value.replace(/[^\d]/, ""));
     }
     else if (event.target.name === "uses_per_coupon") {
-      this.props?.usesPerCouponHandle(event.target.value);
+      input[event.target.name] = event.target.value.replace(/[^\d]/, "")
+      this.setState({ input });
+      this.props?.usesPerCouponHandle(event.target.value.replace(/[^\d]/, ""));
     }
     else if (event.target.name === "uses_per_customer") {
-      this.props?.usesPerCustomerHandle(event.target.value);
+      input[event.target.name] = event.target.value.replace(/[^\d]/, "")
+      this.setState({ input });
+      this.props?.usesPerCustomerHandle(event.target.value.replace(/[^\d]/, ""));
     }
     else if (event.target.name === "coupon_value") {
-      this.props?.couponValueHandle(event.target.value);
+      input[event.target.name] = event.target.value.replace(/[^\d]/, "")
+      this.setState({ input });
+      this.props?.couponValueHandle(event.target.value.replace(/[^\d]/, ""));
     }
   };
   handleChangeCode = (event) => {
@@ -524,20 +542,20 @@ export default class CouponDetails extends Component {
                       {/* {this.state.createMode === "create" ? (
                         ""
                       ) : ( */}
-                        <div className="row">
-                          <div className="col-md-4">
-                            <div className="signup-check">
-                              <Checkbox
-                                name="is_active"
-                                size="small"
-                                style={{ color: "#012169" }}
-                                checked={this.state.input.is_active}
-                                onChange={this.handleCheck.bind(this)}
-                              />
-                              <label>Active</label>
-                            </div>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="signup-check">
+                            <Checkbox
+                              name="is_active"
+                              size="small"
+                              style={{ color: "#012169" }}
+                              checked={this.state.input.is_active}
+                              onChange={this.handleCheck.bind(this)}
+                            />
+                            <label>Active</label>
                           </div>
                         </div>
+                      </div>
                       {/* )} */}
                     </div>
                   </div>
@@ -784,6 +802,36 @@ export default class CouponDetails extends Component {
                                         disabled={
                                           this.state.mode === "view" ? true : false
                                         }
+                                        checked={val?.select}
+                                        value={val?.key}
+                                        // onChange={this.handleChangeDiet.bind(this)}
+                                      />
+                                    }
+                                    label={val?.user_type}
+                                  />
+                                </FormGroup>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      {/* <div className="col-md-12 ">
+                        <label className="expertise">
+                          Customer Type<span className="mandatory-star">*</span>
+                        </label>
+                        <div className="signup-check multiselect">
+                          {this.state.userType?.map((val) => {
+                            return (
+                              <div className="d-flex ">
+                                <FormGroup>
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        style={{ color: "#012169" }}
+                                        size="small"
+                                        disabled={
+                                          this.state.mode === "view" ? true : false
+                                        }
                                         checked={val?.selected}
                                         value={val?.user_type}
                                       // onChange={this.handleChangeDiet}
@@ -796,12 +844,12 @@ export default class CouponDetails extends Component {
                             );
                           })}
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="row">
                         <div className="col-md-4">
                           <div className="signup-check">
-                          <Checkbox
+                            <Checkbox
                               name="is_free_shipping"
                               size="small"
                               style={{ color: "#012169" }}
@@ -815,7 +863,7 @@ export default class CouponDetails extends Component {
                       <div className="row">
                         <div className="col-md-4">
                           <div className="signup-check">
-                          <Checkbox
+                            <Checkbox
                               name="is_show_on_list"
                               size="small"
                               style={{ color: "#012169" }}
@@ -825,7 +873,7 @@ export default class CouponDetails extends Component {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="row">
                         <div className="col-md-4">
                           <div className="signup-check">

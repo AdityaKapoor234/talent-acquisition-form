@@ -87,6 +87,7 @@ export default class CouponViewDetails extends Component {
             couponDetails: details,
           });
           this.setState({ coupon: response.data.data.coupon });
+          // this.customerTypeDropdownDetail(response.data.data.coupon?.customer_type);
           this.customerTypeDropdownDetail(response.data.data.coupon?.customer_type);
         }
       })
@@ -121,6 +122,29 @@ export default class CouponViewDetails extends Component {
   //       });
   //   };
 
+  // customerTypeDropdownDetail = (model) => {
+  //   CustomerApi.getCustomerTypeDropdownDetails()
+  //     .then((response) => {
+  //       let list = response.data.data.list;
+  //       for (let i in list) {
+  //         if (model.indexOf(list[i].key) >= 0) {
+  //           list[i]["select"] = true;
+  //         }else{
+  //           list[i]["select"] = false;
+  //         }
+  //       }
+  //       this.setState({ userType:list })
+  //     })
+  //     .catch((error) => {
+  //       toast.error(
+  //         error?.response &&
+  //           error?.response?.data &&
+  //           error?.response?.data?.message
+  //           ? error.response.data.message
+  //           : "Unable to process your request, please try after sometime"
+  //       );
+  //     });
+  // }
   customerTypeDropdownDetail = (model) => {
     CustomerApi.getCustomerTypeDropdownDetails()
       .then((response) => {

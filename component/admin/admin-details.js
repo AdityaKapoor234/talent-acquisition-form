@@ -125,7 +125,13 @@ export default class AdminDetails extends Component {
         this.setState({ dialog: true });
     };
     handleClickClose = () => {
-        this.setState({ dialog: false });
+        this.setState({
+            dialog: false,
+            oldPassword: "",
+            password: "",
+            password2: "",
+        });
+        this.props?.passCheckFalse();
     };
     validateDataPassword = () => {
         if (
@@ -163,7 +169,7 @@ export default class AdminDetails extends Component {
             this.props.save(this.state.id);
             this.setState({ oldPassword: "" });
             this.setState({ password: "" });
-            this.setState({ password2: "" });    
+            this.setState({ password2: "" });
         }
     };
 

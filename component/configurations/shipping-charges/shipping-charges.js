@@ -48,7 +48,7 @@ export default class ShippingChargesComponent extends Component {
     }
     handleChange = (event) => {
         let tmp_input = this.state.input;
-        tmp_input[event.target.name] = event.target.value;
+        tmp_input[event.target.name] = event.target.value.replace(/[^\d]/, "");
 
         this.setState({ input: tmp_input });
         this.props?.handle(tmp_input);

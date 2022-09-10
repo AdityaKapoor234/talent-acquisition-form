@@ -58,6 +58,7 @@ export default class CouponList extends Component {
                             <div className="col px-2 text-center">End Date</div>
                             <div className="col-2 text-center">Free Shipping</div>
                             <div className="col-1 text-center">Active</div>
+                            <div className="col-1 text-center">Visible</div>
                             <div className="col-1 text-end">Action</div>
                         </div>
                     </div>
@@ -82,6 +83,13 @@ export default class CouponList extends Component {
                                             </div>
                                             <div className="col-1 text-center">
                                                 {p?.is_active === true ? (
+                                                    <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                                                ) : (
+                                                    <CancelOutlinedIcon className="cancel-icon" />
+                                                )}
+                                            </div>
+                                            <div className="col-1 text-center">
+                                                {p?.is_show_on_list === true ? (
                                                     <CheckCircleOutlineOutlinedIcon className="check-icon" />
                                                 ) : (
                                                     <CancelOutlinedIcon className="cancel-icon" />

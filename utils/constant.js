@@ -324,10 +324,14 @@ export const SEARCH_TAG_EDIT = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms/e
 export const SEARCH_TAG_CREATE = `${PRODUCT_SERVICE}/manage/product/{{id}}/add_terms`;
 export const SEARCH_TAG_DELETE = `${PRODUCT_SERVICE}/manage/product/{{id}}/terms/delete`;
 
-// TRUSTED HEALTH
+//TRUSTED HEALTH
 export const TRUSTED_HEALTH_BANNER_GET = `${PRODUCT_SERVICE}/manage/trusthealth/content/view`;
 export const TRUSTED_HEALTH_BANNER_EDIT = `${PRODUCT_SERVICE}/manage/trusthealth/{{id}}/content/edit`;
 
-// CHECK MY SUPPLEMENT
+//CHECK MY SUPPLEMENT
 export const CHECK_MY_SUPPLEMENT_GET = `${PRODUCT_SERVICE}/manage/check_my_supp`;
 export const CHECK_MY_SUPPLEMENT_EDIT = `${PRODUCT_SERVICE}/manage/check_my_supp/{{id}}`;
+
+//SHIPPING CHARGES
+export const SHIPPING_CHARGES_GET = `${ORDER_SERVICE}/manage/shipping`;
+export const SHIPPING_CHARGES_EDIT = `${ORDER_SERVICE}/manage/shipping/{{id}}`;

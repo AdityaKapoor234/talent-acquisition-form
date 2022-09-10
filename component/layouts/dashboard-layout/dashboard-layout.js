@@ -40,7 +40,7 @@ export default function DashboardLayoutComponent({ children }) {
     const [tab, setTab] = useState(pathArr);
     const [tabSale, setTabSale] = useState(pathArr === "order" || pathArr === "cancel" ? true : false);
     const [tabDiscount, setDiscount] = useState(pathArr === "coupon" ? true : false);
-    const [tabHsnCode, setHsnCode] = useState(pathArr === "gst" ? true : false);
+    const [tabHsnCode, setHsnCode] = useState(pathArr === "gst" || pathArr === "shipping-charges" ? true : false);
     const [tabTestimonial, setTestimonail] = useState(pathArr === "testimonial" || pathArr === "testimonial-category" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" || pathArr === "product-review" ? true : false);
     const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription" ? true : false || pathArr === "coupon-log" ? true : false || pathArr === "max-members" ? true : false);
@@ -207,6 +207,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabHsnCode &&
                                     <ul>
                                         <li className={categary === "gst" ? "sub_active" : ""} onClick={() => handleCategary("/gst", "gst")}>HSN Master</li>
+                                        <li className={categary === "shipping-charges" ? "sub_active" : ""} onClick={() => handleCategary("/shipping-charges", "shipping-charges")}>Shipping Charges</li>
                                     </ul>
                                 }
 

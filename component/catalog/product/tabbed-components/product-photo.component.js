@@ -187,7 +187,7 @@ export default class ProductPhotoComponent extends Component {
                                 </div>
                             })
                         }
-                        {this.state.mode ==="edit" &&
+                        {this.state.mode ==="edit" && this.state.photos?.length < 10 &&
                             <div  className='photo-upload-box photo-uplaod'>
                                 <input id="img" type="file" accept={".png,.jpg,.jpeg"}  onChange={this.uploadFile} style={{display:"none"}} />
                                 <label for="img" className="file" >Choose File</label>

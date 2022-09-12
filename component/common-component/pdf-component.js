@@ -37,11 +37,18 @@ export default function photo({ label, accept, mode, img, name, setUrl, value, u
         setIsLoader(false);
         setImage(response.data.data?.url);
         setUrl(names, response.data.data?.url)
+        // toast.success(response.data.message)
       })
       .catch((error) => {
         setIsLoader(false);
-        toast.error(error);
-      });
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+        });
   };
   useEffect(() => {
     setImage(img ? img : "");

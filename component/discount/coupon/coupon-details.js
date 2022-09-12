@@ -262,6 +262,7 @@ export default class CouponDetails extends Component {
                             <textarea
                               cols="100"
                               rows="5"
+                              maxLength="200"
                               value={this.state.input?.description}
                               name="description"
                               onChange={this.handleChange.bind(this)}

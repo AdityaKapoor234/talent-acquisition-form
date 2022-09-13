@@ -102,7 +102,7 @@ export default class ShippingChargesComponent extends Component {
                                             </div>
                                             <div className="login-form ">
                                                 <label>
-                                                    Shipping Fee Breakout<span className="mandatory-star">*</span>
+                                                    Maximum Cart Value for Shipping Charges<span className="mandatory-star">*</span>
                                                 </label>
                                                 <input
                                                     type="number"
@@ -135,7 +135,7 @@ export default class ShippingChargesComponent extends Component {
                                             </div>
                                             <div className="login-form ">
                                                 <label>
-                                                    Shipping Fee Breakout<span className="mandatory-star">*</span>
+                                                    Maximum Cart Value for Shipping Charges<span className="mandatory-star">*</span>
                                                 </label>
                                                 <input
                                                     type="number"

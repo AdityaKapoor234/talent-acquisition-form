@@ -371,7 +371,7 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="number"
-                              min={0}
+                              min={1}
                               value={this.state.input?.max_cart_amount}
                               name="max_cart_amount"
                               onChange={this.handleChange.bind(this)}
@@ -388,7 +388,7 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="number"
-                              min={0}
+                              min={1}
                               value={this.state.input?.uses_per_coupon}
                               name="uses_per_coupon"
                               onChange={this.handleChange.bind(this)}
@@ -405,7 +405,7 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="number"
-                              min={0}
+                              min={1}
                               value={this.state.input?.uses_per_customer}
                               name="uses_per_customer"
                               onChange={this.handleChange.bind(this)}

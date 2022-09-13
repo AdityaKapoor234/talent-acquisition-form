@@ -129,7 +129,7 @@ export default class TestimonialCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													Content
+													Content<span className="mandatory-star">*</span>
 												</label>
 												<textarea
 													name="content"
@@ -256,7 +256,7 @@ export default class TestimonialCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													Content
+													Content<span className="mandatory-star">*</span>
 												</label>
 												<textarea
 													readOnly={true}

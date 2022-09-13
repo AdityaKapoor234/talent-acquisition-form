@@ -4,7 +4,7 @@ import cookie from "js-cookie";
 
 export class OrderApi {
 
-    static OrderList(page, search, latest) {
+    static OrderList(page, search, latest, limit) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -12,7 +12,7 @@ export class OrderApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.get(`${ORDERSLIST}`.replace('{{page}}', page).replace('{{search}}', search).replace('{{latest}}', latest), httpOptions)
+        return axios.get(`${ORDERSLIST}`.replace('{{page}}', page).replace('{{search}}', search).replace('{{latest}}', latest).replace('{{limit}}', limit), httpOptions)
     }
 
     static getOrderDetails(id) {

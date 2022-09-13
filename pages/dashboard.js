@@ -77,9 +77,9 @@ export default function Dashboard() {
 
 			});
 	};
-	function orderList(page, search, latest) {
+	function orderList(page, search, latest, limit) {
 		setLoader(true);
-		OrderApi.OrderList(page, search, latest)
+		OrderApi.OrderList(page, search, latest, limit)
 			.then((response) => {
 				setOrder(response.data.data.list);
 				setLoader(false);
@@ -179,7 +179,7 @@ export default function Dashboard() {
 		}
 		customerList(currentPage, "");
 		dashboardStats();
-		orderList(currentPage, "", "latest");
+		orderList(currentPage, "", "latest", 5);
 		orderPaymentStats();
 		topSearchTerm();
 		salesTrendGraph();

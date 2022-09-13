@@ -16,6 +16,9 @@ import Box from "@mui/material/Box";
 import OrderApi from "../../services/orders";
 import ExcelApi from "../../services/excel-export";
 import { useRouter } from "next/router";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Order() {
     const pathArr = useRouter();
@@ -29,6 +32,7 @@ export default function Order() {
     const [totalPage, setTotalPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoader, setIsLoader] = useState(true);
+    const [latest, setLatest] = useState("latest");
 
     const handleKeyPress = (event) => {
         let router_query_object = {};
@@ -41,7 +45,7 @@ export default function Order() {
                 query: router_query_object,
             });
             setCurrentPage(1)
-            orderList(1, wordEntered, "latest");
+            orderList(1, wordEntered, latest);
         }
     };
 
@@ -55,7 +59,7 @@ export default function Order() {
             query: router_query_object,
         });
         setCurrentPage(1)
-        orderList(1, wordEntered, "latest");
+        orderList(1, wordEntered, latest);
     };
 
     const handleFilter = (event) => {
@@ -66,23 +70,28 @@ export default function Order() {
                 pathname: "/order",
                 query: "",
             });
-            orderList(1, "", "latest");
+            orderList(1, "", latest);
         }
     };
 
     const handleOnExport = () => {
         var XLSX = require("xlsx");
-        var wb=XLSX.utils.book_new();
-        var ws=XLSX.utils.json_to_sheet(orderExcel);
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.json_to_sheet(orderExcel);
 
-        XLSX.utils.book_append_sheet(wb,ws,"OrderList");
+        XLSX.utils.book_append_sheet(wb, ws, "OrderList");
 
         XLSX.writeFile(wb, "Order List.xlsx");
     };
 
     let onPageChange = function (e, page) {
         setCurrentPage(page)
-        orderList(page, wordEntered, "latest")
+        orderList(page, wordEntered, latest)
+    };
+
+    let onSortChange = (value) => {
+        setLatest(value)
+        orderList(currentPage, wordEntered, value)
     };
 
     function orderList(page, search, latest) {
@@ -135,12 +144,13 @@ export default function Order() {
         if (token === undefined) {
             Router.push("/");
         }
-        orderList(currentPage, "", "latest");
-        orderExcelList();
+        orderList(currentPage, "", latest);
+        // orderExcelList();
     }, []);
     return (
         <div>
-            <div page-component="category-page">
+            {/* <div page-component="category-page"> */}
+            <div page-component="product-page">
                 <Head>
                     <title>{APP_NAME} - Order</title>
                     <meta name="description" content="Trusted Brands. Better Health." />
@@ -150,7 +160,7 @@ export default function Order() {
                 <main>
                     <DashboardLayoutComponent>
                         <div className="row border-box">
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <div className="hamburger">
                                     <span>order / </span>order
                                 </div>
@@ -167,6 +177,40 @@ export default function Order() {
                                         onKeyPress={handleKeyPress}
                                     />
                                     <SearchIcon className="search-icon point-but" onClick={handleClickPress} />
+                                </div>
+                            </div>
+                            <div className="col-md-2">
+                                <div className="sort w-100">
+                                    {/* <label>
+                                        Status<span className="mandatory-star">*</span>
+                                    </label> */}
+                                    <div className="sort-by-select-wrapper w-100">
+                                        <Select
+                                            disableUnderline
+                                            variant="standard"
+                                            autoWidth={false}
+                                            IconComponent={ExpandMoreIcon}
+                                            name="status"
+                                            onChange={(event) => onSortChange(event.target.value)}
+                                            className="sort-by-select w-100"
+                                            value={latest}
+                                            style={{height: "2.34rem"}}
+                                        >
+                                            <MenuItem
+                                                value={"select"}
+                                                disabled
+                                                className="field_toggle_checked"
+                                            >
+                                                Select Status{" "}
+                                            </MenuItem>
+                                            <MenuItem value={"latest"}>All</MenuItem>
+                                            <MenuItem value={"placed"}>Placed</MenuItem>
+                                            <MenuItem value={"payment_pending"}>Payment Pending</MenuItem>
+                                            <MenuItem value={"shipped"}>Shipped</MenuItem>
+                                            <MenuItem value={"delivered"}>Delivered</MenuItem>
+                                            <MenuItem value={"cancelled"}>Cancelled</MenuItem>
+                                        </Select>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-md-2 btn-save">
@@ -195,7 +239,7 @@ export default function Order() {
                                         </div>
                                     ) : (
                                         // order === undefined ? <div className="not-found">No Data Found</div> :
-                                            <OrderList order={order} />
+                                        <OrderList order={order} />
                                     )
                                 }
 

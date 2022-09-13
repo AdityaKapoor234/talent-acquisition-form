@@ -147,7 +147,8 @@ export default class CouponEditDetails extends Component {
     }
     if (
       this.state.couponDetails?.max_cart_amount === "" ||
-      this.state.couponDetails?.max_cart_amount === null
+      this.state.couponDetails?.max_cart_amount === null ||
+      this.state.couponDetails?.max_cart_amount < 1
       // this.state.couponDetails?.max_cart_amount.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the maximum cart amount");
@@ -155,7 +156,8 @@ export default class CouponEditDetails extends Component {
     }
     if (
       this.state.couponDetails?.uses_per_coupon === "" ||
-      this.state.couponDetails?.uses_per_coupon === null
+      this.state.couponDetails?.uses_per_coupon === null ||
+      this.state.couponDetails?.uses_per_coupon < 1
       // this.state.couponDetails?.uses_per_coupon.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the uses per coupon");
@@ -163,7 +165,8 @@ export default class CouponEditDetails extends Component {
     }
     if (
       this.state.couponDetails?.uses_per_customer === "" ||
-      this.state.couponDetails?.uses_per_customer === null
+      this.state.couponDetails?.uses_per_customer === null ||
+      this.state.couponDetails?.uses_per_customer < 1
       // this.state.couponDetails?.uses_per_customer.replace(/\s/g, "").length <= 0
     ) {
       toast.error("Please enter the uses per customer");

@@ -98,7 +98,7 @@ export const GET_DASHBOARD_SALES_TREND = `${ORDER_SERVICE}/manage/order/sales-tr
 export const GET_DASHBOARD_TOP_SOLD = `${ORDER_SERVICE}/manage/order/top-sold/product`;
 
 //ORDERS
-export const ORDERSLIST = `${ORDER_SERVICE}/manage/order/?page={{page}}&q={{search}}&sort={{latest}}`;
+export const ORDERSLIST = `${ORDER_SERVICE}/manage/order/?page={{page}}&q={{search}}&sort={{latest}}&limit={{limit}}`;
 export const GET_ORDER_DETAILS = `${ORDER_SERVICE}/manage/order/{{id}}`;
 export const ADD_ORDER_STATUS = `${ORDER_SERVICE}/manage/order/{{id}}/status`;
 export const GET_ORDER_INVOICE = `${ORDER_SERVICE}/manage/order/{{id}}/invoice`;
@@ -154,7 +154,7 @@ export const ADMIN_LIST_EDIT = `${USER_SERVICE}/admin/{{id}}/edit`;
 
 //EXCEL EXPORT
 export const CUSTOMER_EXCEL_LIST = `${USER_SERVICE}/customer/all`;
-export const ORDER_EXCEL_LIST = `${ORDER_SERVICE}/manage/order/all`;
+export const ORDER_EXCEL_LIST = `${ORDER_SERVICE}/manage/order/all?page={{page}}&sort={{sort}}&limit={{limit}}`;
 export const PRODUCT_EXCEL_LIST = `${PRODUCT_SERVICE}/manage/product/all`;
 export const SUBSCRIPTION_EXCEL_LIST = `${USER_SERVICE}/manage/subscribe/all`;
 

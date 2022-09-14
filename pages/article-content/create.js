@@ -102,14 +102,14 @@ export default class ContentCreate extends Component {
       toast.error("Please enter the meta description");
       return false;
     }
-    // if (
-    //   this.state.contentDetails?.category_id === "select" ||
-    //   this.state.contentDetails?.category_id === null ||
-    //   this.state.contentDetails?.category_id === undefined
-    // ) {
-    //   toast.error("Please select the category");
-    //   return false;
-    // }
+    if (
+      this.state.contentDetails?.category_id === "select" ||
+      this.state.contentDetails?.category_id === null ||
+      this.state.contentDetails?.category_id === undefined
+    ) {
+      toast.error("Please select the category");
+      return false;
+    }
     if (
       this.state.contentDetails?.type_id === "select" ||
       this.state.contentDetails?.type_id === null ||

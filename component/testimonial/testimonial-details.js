@@ -111,6 +111,7 @@ export default class TestimonialCreate extends Component {
 												</label>
 												<input
 													type="text"
+													maxLength="100"
 													name="name"
 													value={this.state.input.name}
 													onChange={this.handleChange.bind(this)}

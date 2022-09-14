@@ -23,6 +23,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pagination from "@mui/material/Pagination";
 import ProductInfoApi from "../../../../../../services/product-info";
 import CustomerApi from "../../../../../../services/customer";
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import DownloadIcon from '@mui/icons-material/Download';
 
 export default function InventoryImportComponent(props) {
   const [isEdit, setIsEdit] = useState(false);
@@ -37,7 +40,7 @@ export default function InventoryImportComponent(props) {
 
   const [countryList, setCountryList] = useState([]);
   const [stateList, setStateList] = useState([]);
-  
+
 
   const [inventory, setInventory] = useState([]);
   const [active, setActive] = useState();
@@ -110,7 +113,7 @@ export default function InventoryImportComponent(props) {
       isValid = false;
     }
     // if (expire_date === "" || expire_date === null || expire_date.replace(/\s/g, "").length <= 0) {
-      // toast.error("Please enter expiry date");
+    // toast.error("Please enter expiry date");
     //   setIsExpireDate(true);
     //   isValid = false;
     // }
@@ -177,7 +180,7 @@ export default function InventoryImportComponent(props) {
             setCertificateUrl("");
             setCountry("select");
             setWarehouse("select");
-          
+
 
           }
         })
@@ -438,9 +441,9 @@ export default function InventoryImportComponent(props) {
                 <div className="col  text-center">Quantity</div>
                 <div className="col text-center">Mfg Date</div>
                 <div className="col  text-center">Exp Date</div>
-                <div className="col-1 text-center">Active</div>
+                <div className="col-1 text-center">PDF</div>
                 <div className="col-1 text-center">Delete</div>
-                <div className="col-1 text-end">Edit</div>
+                <div className="col-1 text-center">Active</div>
               </div>
             </div>
           </div>
@@ -473,8 +476,10 @@ export default function InventoryImportComponent(props) {
                           {convertDateStringToDateAPI(val?.expire_date)}
                         </div>
                         <div className="col-1 text-center">
-                          {val?.is_active ? (
-                            <CheckCircleOutlineOutlinedIcon className="check-icon" />
+                          {val?.certificate_url ? (
+                            <a href={val?.certificate_url}>
+                              <DownloadIcon className="check-icon" />
+                            </a>
                           ) : (
                             <CancelOutlinedIcon className="cancel-icon" />
                           )}
@@ -482,13 +487,28 @@ export default function InventoryImportComponent(props) {
                         <div className="col-1 text-center">
                           <DeleteIcon className="delete-icon" onClick={() => DialogOpen(val?.id)} />
                         </div>
-                        <div className="col-1 text-end">
-                          <EditOutlinedIcon
+                        <div className="col-1 text-center">
+                          {val?.is_active ? (
+                            <ToggleOnIcon
+                              className="check-icon"
+                              onClick={() => {
+                                activeOpen(val?.id, val?.is_active)
+                              }}
+                            />
+                          ) : (
+                            <ToggleOffIcon
+                              className="delete-icon"
+                              onClick={() => {
+                                activeOpen(val?.id, val?.is_active)
+                              }}
+                            />
+                          )}
+                          {/* <EditOutlinedIcon
                             className="edit-icon"
                             onClick={() => {
                               activeOpen(val?.id, val?.is_active)
                             }}
-                          />
+                          /> */}
                         </div>
                       </div>
                     </div>
@@ -643,7 +663,7 @@ export default function InventoryImportComponent(props) {
               <div data-component="inventoryCountry">
                 <div className="login-form select-dropdown">
                   <label>
-                  Warehouse Location<span className="mandatory-star">*</span>
+                    Warehouse Location<span className="mandatory-star">*</span>
                   </label>
 
 

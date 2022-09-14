@@ -333,7 +333,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort">
 												<label>
-													Category
+													Category<span className="mandatory-star">*</span>
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select
@@ -598,7 +598,7 @@ export default class ContentCreate extends Component {
 											</div>
 											<div className="sort">
 												<label>
-													Category
+													Category<span className="mandatory-star">*</span>
 												</label>
 												<div className="sort-by-select-wrapper">
 													<Select

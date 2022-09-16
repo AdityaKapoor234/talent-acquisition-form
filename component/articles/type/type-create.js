@@ -125,13 +125,14 @@ export default class TypeCreate extends Component {
                         </label>
                         <input
                           type="text"
+                          maxLength="100"
                           name="name"
                           value={this.state.input.name}
                           onChange={this.handleChange.bind(this)}
                         />
                       </div>
                       <div className="login-form ">
-                        <label>Description</label>
+                        <label>Description<span className="mandatory-star">*</span></label>
                         <textarea
                           name="description"
                           cols="100"
@@ -141,7 +142,7 @@ export default class TypeCreate extends Component {
                         />
                       </div>
                       <div className="login-form ">
-                        <label>Short Description</label>
+                        <label>Short Description<span className="mandatory-star">*</span></label>
                         <textarea
                           name="short_description"
                           cols="100"

@@ -66,7 +66,7 @@ export default function CancelViewDetails({ id }) {
             Router.push("/");
         }
         orderDetail(id)
-        orderInvoice(id)
+        // orderInvoice(id)
     }, [id]);
     return (
         <div>
@@ -99,7 +99,7 @@ export default function CancelViewDetails({ id }) {
                     </div>
                     <div className="row">
                         <div className="col-m-12">
-                            <OrderDetail order={order} invoice={invoice} mode={mode} />
+                            <OrderDetail order={order} invoice={invoice} mode={mode} id={id} />
                         </div>
                     </div>
                 </DashboardLayoutComponent>

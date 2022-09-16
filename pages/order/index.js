@@ -44,7 +44,8 @@ export default function Order() {
     const [downloadOpen, setDownloadOpen] = useState(false);
     const [latest, setLatest] = useState("latest");
     const [limit, setLimit] = useState(15);
-    const [downloadPage, setDownloadPage] = useState("select");
+    const [downloadPage, setDownloadPage] = useState(1);
+    // const [downloadPage, setDownloadPage] = useState("select");
     const [downloadStatus, setDownloadStatus] = useState("select");
     const [downloadPageLimit, setDownloadPageLimit] = useState("select");
     const [remainingDownPage, setRemainingDownPage] = useState([]);
@@ -111,7 +112,8 @@ export default function Order() {
 
     let onLimitChange = (value) => {
         setLimit(value)
-        orderList(currentPage, wordEntered, latest, value)
+        setCurrentPage(1)
+        orderList(1, wordEntered, latest, value)
     };
 
     function orderList(page, search, latest, limit) {
@@ -138,10 +140,10 @@ export default function Order() {
     };
 
     const validateDownload = () => {
-        if (downloadPage === "" || downloadPage === "select" || downloadPage === null) {
-            toast.error("Please enter page number");
-            return false;
-        }
+        // if (downloadPage === "" || downloadPage === "select" || downloadPage === null) {
+        //     toast.error("Please enter page number");
+        //     return false;
+        // }
 
         if (downloadStatus === "" || downloadStatus === "select" || downloadStatus === null || downloadStatus.replace(/\s/g, "").length <= 0) {
             toast.error("Please enter order status");
@@ -161,7 +163,7 @@ export default function Order() {
         if (validateDownload()) {
             // setIsLoader(true);
             // ExcelApi.OrderExcelList(page, sort, limit)
-            ExcelApi.OrderExcelList(downloadPage, downloadStatus, downloadPageLimit)
+            ExcelApi.OrderExcelList(1, downloadStatus, downloadPageLimit)
                 .then((response) => {
                     // setOrderExcel(response.data.data.list);
                     // setIsLoader(false);
@@ -280,6 +282,7 @@ export default function Order() {
                                             <MenuItem value={"shipped"}>Shipped</MenuItem>
                                             <MenuItem value={"delivered"}>Delivered</MenuItem>
                                             <MenuItem value={"cancelled"}>Cancelled</MenuItem>
+                                            <MenuItem value={"rto_delivered"}>Returned</MenuItem>
                                         </Select>
                                     </div>
                                 </div>
@@ -416,6 +419,7 @@ export default function Order() {
                         <Typography style={{ color: "#7e8f99" }}>
                             <OrderExcelDownload
                                 totalPage={totalPage}
+                                limit={limit}
                                 handleDownloadPage={handleDownloadPage.bind(this)}
                                 handleDownloadStatus={handleDownloadStatus.bind(this)}
                                 handleDownloadPageLimit={handleDownloadPageLimit.bind(this)}
@@ -501,7 +505,7 @@ export default function Order() {
 
                             <div className="row mt-3">
                                 <div className="col d-flex align-items-center">
-                                    Items Per Page
+                                    No of Records
                                 </div>
                                 <div className="col">
                                     <div className="sort w-100">

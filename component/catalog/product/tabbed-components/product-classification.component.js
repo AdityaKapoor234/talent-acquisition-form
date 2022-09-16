@@ -17,150 +17,194 @@ export default class ProductClassificationComponent extends Component {
     this.state = {
       id: props?.id,
       mode: props?.mode,
+      details: [],
       classifiction: {},
+      classificationList: [],
       sport: [],
       goal: [],
       diet: [],
-      allSelectedSport:false,
-      allSelectedGoal:false,
-      allSelectedDiet:false,
       isLoader: false,
     };
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      prevState.id !== nextProps.id ||
+      prevState.mode !== nextProps.mode
+    ) {
+      return {
+        id: nextProps?.id,
+        mode: nextProps?.mode,
+      };
+    }
+    return null;
+  }
 
-  handleChangeSport = (event) => {
-    let list = this.state.sport;
-    let objIndex = list?.findIndex(
-      (obj) => obj.id === parseInt(event?.target?.value)
-    );
-    if (list[objIndex]) {
-      list[objIndex]["select_all"] = event?.target?.checked;
-    }
-    if(list?.length === list?.filter(val=>val?.select_all === true)?.length){
-      this.setState({
-        allSelectedSport:true
-      })
-    }else{
-      this.setState({
-        allSelectedSport:false
-      })
-    }
-    this.setState({
-      sport: list,
-    });
-  };
-  handleChangeSportAll = (event) => {
-    let list = this.state.sport;
-    let selected = false
-    if(event?.target?.value === "true"){
-      for (let i in list) {
-        list[i]["select_all"] = false;
-        selected = false;
-      }
-    }else if(event?.target?.value === "false"){
-      for (let i in list) {
-        list[i]["select_all"] = true;
-        selected = true
-      }
-    }
-    this.setState({
-        allSelectedSport:selected,
-        sport: list,
-    })
-  };
-  handleChangeGoalAll = (event) => {
-    let list = this.state.goal;
-    let selected = false
-    if(event?.target?.value === "true"){
-      for (let i in list) {
-        list[i]["select_all"] = false;
-        selected = false;
-      }
-    }else if(event?.target?.value === "false"){
-      for (let i in list) {
-        list[i]["select_all"] = true;
-        selected = true
-      }
-    }
-    this.setState({
-        allSelectedGoal:selected,
-        goal: list,
-    })
-  };
-  handleChangeDietAll = (event) => {
+  handleChangeAllDiet = (event) => {
     let list = this.state.diet;
-    let selected = false
-    if(event?.target?.value === "true"){
-      for (let i in list) {
-        list[i]["select_all"] = false;
-        selected = false;
-      }
-    }else if(event?.target?.value === "false"){
-      for (let i in list) {
-        list[i]["select_all"] = true;
-        selected = true
-      }
+    list["select_all"] = event?.target?.checked;
+    if (event?.target?.checked) {
+      list["select_minus"] = !event?.target?.checked;
     }
-    this.setState({
-        allSelectedDiet:selected,
-        diet: list,
-    })
-  };
+    else{
+      list["select_minus"] = event?.target?.checked;
+    }
 
-  handleChangeGoal = (event) => {
-    let list = this.state.goal;
-    let objIndex = list?.findIndex(
-      (obj) => obj.id === parseInt(event?.target?.value)
-    );
-    if (list[objIndex]) {
-      list[objIndex]["select_all"] = event?.target?.checked;
+    if (list.select_all && (list.id === parseInt(event?.target?.value))) {
+      let sub = list?.sub
+      for (let j in sub) {
+        sub[j].select_all = event?.target?.checked;
+      }
+    } else if ((list.id === parseInt(event?.target?.value)) && list.select_all === false) {
+      let sub = list?.sub
+      for (let j in sub) {
+        sub[j].select_all = event?.target?.checked;
+      }
     }
-    if(list?.length === list?.filter(val=>val?.select_all === true)?.length){
-      this.setState({
-        allSelectedGoal:true
-      })
-    }else{
-      this.setState({
-        allSelectedGoal:false
-      })
-    }
-    this.setState({
-      goal: list,
-    });
+    this.setState({ diet: list });
   };
-
   handleChangeDiet = (event) => {
     let list = this.state.diet;
-    let objIndex = list?.findIndex(
-      (obj) => obj.id === parseInt(event?.target?.value)
-    );
-    if (list[objIndex]) {
-      list[objIndex]["select_all"] = event?.target?.checked;
+    let sub = list?.sub;
+    let objIndex = sub?.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+    if (sub[objIndex]) {
+      sub[objIndex]["select_all"] = event?.target?.checked;
     }
-    if(list?.length === list?.filter(val=>val?.select_all === true)?.length){
-      this.setState({
-        allSelectedDiet:true
-      })
-    }else{
-      this.setState({
-        allSelectedDiet:false
-      })
+    let count = 0
+    for (let j in sub) {
+      if (sub[j].select_all === true) {
+        count = count + 1
+      }
     }
-    this.setState({
-      diet: list,
-    });
+    if (count === sub?.length) {
+      list["select_all"] = true;
+      list.select_minus = false;
+    } else {
+      list["select_all"] = false;
+      if (count > 0){
+        list.select_minus = true;
+      }
+      else{
+        list.select_minus = false;
+      }
+    }
+    this.setState({ diet: list })
   };
+
+  handleChangeAllGoal = (event) => {
+    let list = this.state.goal;
+    list["select_all"] = event?.target?.checked;
+    if (event?.target?.checked) {
+      list["select_minus"] = !event?.target?.checked;
+    }
+    else{
+      list["select_minus"] = event?.target?.checked;
+    }
+
+    if (list.select_all && (list.id === parseInt(event?.target?.value))) {
+      let sub = list?.sub
+      for (let j in sub) {
+        sub[j].select_all = event?.target?.checked;
+      }
+    } else if ((list.id === parseInt(event?.target?.value)) && list.select_all === false) {
+      let sub = list?.sub
+      for (let j in sub) {
+        sub[j].select_all = event?.target?.checked;
+      }
+    }
+    this.setState({ goal: list });
+  };
+  handleChangeGoal = (event) => {
+    let list = this.state.goal;
+    let sub = list?.sub;
+    let objIndex = sub?.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+    if (sub[objIndex]) {
+      sub[objIndex]["select_all"] = event?.target?.checked;
+    }
+    let count = 0
+    for (let j in sub) {
+      if (sub[j].select_all === true) {
+        count = count + 1
+      }
+    }
+    if (count === sub?.length) {
+      list["select_all"] = true;
+      list.select_minus = false;
+    } else {
+      list["select_all"] = false;
+      if (count > 0){
+        list.select_minus = true;
+      }
+      else{
+        list.select_minus = false;
+      }
+    }
+    this.setState({ goal: list })
+  };
+
+
+  handleChangeAllSport = (event) => {
+    let list = this.state.sport;
+    list["select_all"] = event?.target?.checked;
+    if (event?.target?.checked) {
+      list["select_minus"] = !event?.target?.checked;
+    }
+    else{
+      list["select_minus"] = event?.target?.checked;
+    }
+
+    if (list.select_all && (list.id === parseInt(event?.target?.value))) {
+      let sub = list?.sub
+      for (let j in sub) {
+        sub[j].select_all = event?.target?.checked;
+      }
+    } else if ((list.id === parseInt(event?.target?.value)) && list.select_all === false) {
+      let sub = list?.sub
+      for (let j in sub) {
+        sub[j].select_all = event?.target?.checked;
+      }
+    }
+    this.setState({ sport: list });
+  };
+  handleChangeSport = (event) => {
+    let list = this.state.sport;
+    let sub = list?.sub;
+    let objIndex = sub?.findIndex((obj => obj.id === parseInt(event?.target?.value)));
+    if (sub[objIndex]) {
+      sub[objIndex]["select_all"] = event?.target?.checked;
+    }
+    let count = 0
+    for (let j in sub) {
+      if (sub[j].select_all === true) {
+        count = count + 1
+      }
+    }
+    if (count === sub?.length) {
+      list["select_all"] = true;
+      list.select_minus = false;
+    } else {
+      list["select_all"] = false;
+      if (count > 0){
+        list.select_minus = true;
+      }
+      else{
+        list.select_minus = false;
+      }
+    }
+    this.setState({ sport: list })
+  };
+
+
 
   updateClassifiction = (id, button) => {
     let data = {
       data: {
-        goal: this.state.goal
+        goal: this.state.goal?.sub
           ?.filter((val) => val?.select_all === true)
           ?.map((val) => val?.id),
-        diet: this.state.diet
+        diet: this.state.diet?.sub
           ?.filter((val) => val?.select_all === true)
           ?.map((val) => val?.id),
-        sport: this.state.sport
+        sport: this.state.sport?.sub
           ?.filter((val) => val?.select_all === true)
           ?.map((val) => val?.id),
       },
@@ -195,74 +239,94 @@ export default class ProductClassificationComponent extends Component {
     this.updateClassifiction(this.state.id, "continue");
   };
 
-  getList = (model) => {
+
+  getList = (modelDiet, modelGoal, modelSport) => {
     this.setState({ isLoader: true });
     ProductApi.classifictionList()
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-          let listDiet = response.data.data?.diet;
-          let listGoal = response.data.data?.goal;
-          let listSport = response.data.data?.sport;
-
-          let diet = model?.diet?.map((val) => val?.id);
-          let sport = model?.sport?.map((val) => val?.id);
-          let goal = model?.goal?.map((val) => val?.id);
-
-          let countDiet = 0;
-          let countSport = 0;
-          let countGoal = 0;
-
-          for (let i in listDiet) {
-            if (diet.indexOf(listDiet[i].id) >= 0) {
-              listDiet[i]["select_all"] = true;
-              countDiet = countDiet+1;
+          let list = response.data.data.data
+          for (let i in list) {
+            let sub_diet = list[0]?.sub
+            let sub_goal = list[1]?.sub
+            let sub_sport = list[2]?.sub
+            let count_diet = 0
+            let count_goal = 0
+            let count_sport = 0
+            if (list[i]?.name === "diet") {
+              this.setState({ diet: list[i] })
             }
-          }
-          if(listDiet?.length === countDiet){
-            this.setState({
-              allSelectedDiet:true
-            })
-          }else{
-            this.setState({
-              allSelectedDiet:false
-            })
-          }
-          for (let i in listGoal) {
-            if (goal.indexOf(listGoal[i].id) >= 0) {
-              listGoal[i]["select_all"] = true;
-              countGoal=countGoal+1;
+            else if (list[i]?.name === "goal") {
+              this.setState({ goal: list[i] })
             }
-          }
-          if(listGoal?.length === countGoal){
-            this.setState({
-              allSelectedGoal:true
-            })
-          }else{
-            this.setState({
-              allSelectedGoal:false
-            })
-          }
-          for (let i in listSport) {
-            if (sport.indexOf(listSport[i].id) >= 0) {
-              listSport[i]["select_all"] = true;
-              countSport = countSport+1;
+            else if (list[i]?.name === "sport") {
+              this.setState({ sport: list[i] })
             }
-          }
-          if(listSport?.length === countSport){
-            this.setState({
-              allSelectedSport:true
-            })
-          }else{
-            this.setState({
-              allSelectedSport:false
-            })
+            for (let j in sub_diet) {
+              if (modelDiet?.indexOf(sub_diet[j].id) >= 0) {
+                sub_diet[j].select_all = true;
+                count_diet = count_diet + 1
+              }
+            }
+            if (modelDiet?.indexOf(list[0].id) >= 0 && count_diet === sub_diet?.length) {
+              list[0].select_all = true;
+            }
+            if (count_diet > 0) {
+              if (sub_diet?.length === count_diet){
+                list[0]["select_all"] = true;
+                list[0]["select_minus"] = false;
+              }
+              else {
+                list[0]["select_minus"] = true;
+              }              
+            }
+
+            for (let j in sub_goal) {
+              if (modelGoal?.indexOf(sub_goal[j].id) >= 0) {
+                sub_goal[j].select_all = true;
+                count_goal = count_goal + 1
+              }
+            }
+            if (modelGoal?.indexOf(list[1].id) >= 0 && count_goal === sub_goal?.length) {
+              list[1].select_all = true;
+            }
+            if (count_goal > 0) {
+              if (sub_goal?.length === count_goal){
+                list[1]["select_all"] = true;
+                list[1]["select_minus"] = false;
+              }
+              else {
+                list[1]["select_minus"] = true;
+              }
+            }
+
+            for (let j in sub_sport) {
+              if (modelSport?.indexOf(sub_sport[j].id) >= 0) {
+                sub_sport[j].select_all = true;
+                count_sport = count_sport + 1
+              }
+            }
+            if (modelSport?.indexOf(list[2].id) >= 0 && count_sport === sub_sport?.length) {
+              list[2].select_all = true;
+            }
+            if (count_sport > 0) {
+              if (sub_sport?.length === count_sport){
+                list[2]["select_all"] = true;
+                list[2]["select_minus"] = false;
+              }
+              else {
+                list[2]["select_minus"] = true;
+              }
+            }
           }
           this.setState({
-            sport: listSport,
-            goal: listGoal,
-            diet: listDiet,
+            classificationList: list,
+            diet: list[0],
+            goal: list[1],
+            sport: list[2],
             isLoader: false,
           });
+
         }
       })
       .catch((error) => {
@@ -282,10 +346,27 @@ export default class ProductClassificationComponent extends Component {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
           let list = response.data.data;
+          let subListDiet = [];
+          let subListGoal = [];
+          let subListSport = [];
           this.setState({
             classifiction: list,
           });
-          this.getList(list);
+          response.data.data?.data?.map(elem => {
+            elem?.sub?.map(e => {
+              if (elem?.name === "diet"){
+                subListDiet.push(e?.id)
+              }
+              else if (elem?.name === "goal"){
+                subListGoal.push(e?.id)
+              }
+              else if (elem?.name === "sport"){
+                subListSport.push(e?.id)
+              }
+            })
+          })
+
+          this.getList(subListDiet,subListGoal,subListSport);
         }
       })
       .catch((error) => {
@@ -312,7 +393,7 @@ export default class ProductClassificationComponent extends Component {
           mode={this.state.mode}
           showSaveContinueButton={true}
         >
-          Classifiction
+          Classification
         </ProductTabEditorHeader>
         {this.state.isLoader ? (
           <div className="row justify-content-center">
@@ -323,27 +404,26 @@ export default class ProductClassificationComponent extends Component {
             </div>
           </div>
         ) : (
-          <div className="row">
-            <div className="col-md-12">
-              <div className="section-heading ">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        style={{ color: "#012169" }}
-                        size="small"
-                        disabled={this.state.mode === "view" ? true : false}
-                        checked={this.state.allSelectedSport}
-                        value={this.state.allSelectedSport}
-                        onChange={this.handleChangeSportAll}
-                      />
-                    }
-                    label="Sports"
-                  />
-                </FormGroup>
-              </div>
-              <div className="mt-2 row cat-check">
-                {this.state.sport?.map((val) => {
+          <>
+            <div className="cat-check">
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      style={{ color: "#012169" }}
+                      size="small"
+                      disabled={this.state.mode === "view" ? true : false}
+                      checked={this.state.diet?.select_all}
+                      value={this.state.diet?.id}
+                      indeterminate={this.state.diet?.select_minus}
+                      onChange={this.handleChangeAllDiet}
+                    />
+                  }
+                  label={<span className="text-capitalize">{this.state.diet?.name}</span>}
+                />
+              </FormGroup>
+              <div className="row margin-check">
+                {this.state.diet?.sub?.map((p) => {
                   return (
                     <div className="col-md-4">
                       <FormGroup>
@@ -352,101 +432,13 @@ export default class ProductClassificationComponent extends Component {
                             <Checkbox
                               style={{ color: "#012169" }}
                               size="small"
-                              disabled={
-                                this.state.mode === "view" ? true : false
-                              }
-                              checked={val?.select_all}
-                              value={val?.id}
-                              onChange={this.handleChangeSport}
-                            />
-                          }
-                          label={val?.name}
-                        />
-                      </FormGroup>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="col-md-12">
-              <div className="section-heading ">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        style={{ color: "#012169" }}
-                        size="small"
-                        disabled={this.state.mode === "view" ? true : false}
-                        checked={this.state.allSelectedGoal}
-                        value={this.state.allSelectedGoal}
-                        onChange={this.handleChangeGoalAll}
-                      />
-                    }
-                    label="Goals"
-                  />
-                </FormGroup></div>
-              <div className="mt-2 row cat-check">
-                {this.state.goal?.map((val) => {
-                  return (
-                    <div className="col-md-4">
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              style={{ color: "#012169" }}
-                              size="small"
-                              disabled={
-                                this.state.mode === "view" ? true : false
-                              }
-                              checked={val?.select_all}
-                              value={val?.id}
-                              onChange={this.handleChangeGoal}
-                            />
-                          }
-                          label={val?.name}
-                        />
-                      </FormGroup>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="col-md-12">
-              <div className="section-heading ">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        style={{ color: "#012169" }}
-                        size="small"
-                        disabled={this.state.mode === "view" ? true : false}
-                        checked={this.state.allSelectedDiet}
-                        value={this.state.allSelectedDiet}
-                        onChange={this.handleChangeDietAll}
-                      />
-                    }
-                    label="Diets"
-                  />
-                </FormGroup></div>
-              <div className="mt-2 row cat-check">
-                {this.state.diet?.map((val) => {
-                  return (
-                    <div className="col-md-4">
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              style={{ color: "#012169" }}
-                              size="small"
-                              disabled={
-                                this.state.mode === "view" ? true : false
-                              }
-                              checked={val?.select_all}
-                              value={val?.id}
+                              disabled={this.state.mode === "view" ? true : false}
+                              checked={p?.select_all}
+                              value={p?.id}
                               onChange={this.handleChangeDiet}
                             />
                           }
-                          label={val?.name}
+                          label={p?.name}
                         />
                       </FormGroup>
                     </div>
@@ -454,7 +446,94 @@ export default class ProductClassificationComponent extends Component {
                 })}
               </div>
             </div>
-          </div>
+
+
+            <div className="cat-check">
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      style={{ color: "#012169" }}
+                      size="small"
+                      disabled={this.state.mode === "view" ? true : false}
+                      checked={this.state.goal?.select_all}
+                      value={this.state.goal?.id}
+                      indeterminate={this.state.goal?.select_minus}
+                      onChange={this.handleChangeAllGoal}
+                    />
+                  }
+                  label={<span className="text-capitalize">{this.state.goal?.name}</span>}
+                />
+              </FormGroup>
+              <div className="row margin-check">
+                {this.state.goal?.sub?.map((p) => {
+                  return (
+                    <div className="col-md-4">
+                      <FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              style={{ color: "#012169" }}
+                              size="small"
+                              disabled={this.state.mode === "view" ? true : false}
+                              checked={p?.select_all}
+                              value={p?.id}
+                              onChange={this.handleChangeGoal}
+                            />
+                          }
+                          label={p?.name}
+                        />
+                      </FormGroup>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="cat-check">
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      style={{ color: "#012169" }}
+                      size="small"
+                      disabled={this.state.mode === "view" ? true : false}
+                      checked={this.state.sport?.select_all}
+                      value={this.state.sport?.id}
+                      indeterminate={this.state.sport?.select_minus}
+                      onChange={this.handleChangeAllSport}
+                    />
+                  }
+                  label={<span className="text-capitalize">{this.state.sport?.name}</span>}
+                />
+              </FormGroup>
+              <div className="row margin-check">
+                {this.state.sport?.sub?.map((p) => {
+                  return (
+                    <div className="col-md-4">
+                      <FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              style={{ color: "#012169" }}
+                              size="small"
+                              disabled={this.state.mode === "view" ? true : false}
+                              checked={p?.select_all}
+                              value={p?.id}
+                              onChange={this.handleChangeSport}
+                            />
+                          }
+                          label={p?.name}
+                        />
+                      </FormGroup>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+          </>
+
         )}
       </div>
     );

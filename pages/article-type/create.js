@@ -43,10 +43,6 @@ export default class TypeCreate extends Component {
       toast.error("Please enter name");
       return false;
     }
-    if (this.state.TypeDetails.label === "" || this.state.TypeDetails?.label.replace(/\s/g, "").length <=0) {
-      toast.error("Please Choose one option");
-      return false;
-    }
     if (this.state.TypeDetails.description === "" || this.state.TypeDetails?.description.replace(/\s/g, "").length <=0) {
       toast.error("Please enter description");
       return false;
@@ -55,11 +51,27 @@ export default class TypeCreate extends Component {
       toast.error("Please enter short description");
       return false;
     }
+    if (this.state.TypeDetails.label === "" || this.state.TypeDetails?.label.replace(/\s/g, "").length <=0) {
+      toast.error("Please Choose one option");
+      return false;
+    }
     if (
       this.state.TypeDetails.sort_order === "" ||
       this.state.TypeDetails.sort_order === null
     ) {
       toast.error("Please enter Display Order ");
+      return false;
+    }
+    if (this.state.TypeDetails.bg_img === "" || this.state.TypeDetails.bg_img === null || this.state.TypeDetails?.bg_img.replace(/\s/g, "").length <=0) {
+      toast.error("Please enter icon");
+      return false;
+    }
+    if (this.state.TypeDetails.banner_sm_url === "" || this.state.TypeDetails.banner_sm_url === null || this.state.TypeDetails?.banner_sm_url.replace(/\s/g, "").length <=0) {
+      toast.error("Please enter short banner image");
+      return false;
+    }
+    if (this.state.TypeDetails.banner_url === "" || this.state.TypeDetails.banner_url === null || this.state.TypeDetails?.banner_url.replace(/\s/g, "").length <=0) {
+      toast.error("Please enter full banner image");
       return false;
     }
 

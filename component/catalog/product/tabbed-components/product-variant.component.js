@@ -68,7 +68,7 @@ export default class ProductVariantComponent extends Component {
   };
 
 
-  updateVariants = (id) => {
+  updateVariants = (id, button) => {
     let payload = {}
     if (this.state.variantSelectorConfig.selected.size && this.state.variantSelectorConfig.selected.size.id) {
       payload.size = this.state.variantSelectorConfig.selected.size.id
@@ -84,7 +84,7 @@ export default class ProductVariantComponent extends Component {
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
 
-          toast.success("Update variants successfully");
+          // toast.success("Update variants successfully");
           if (response.data && response.data.data) {
             this.setState({
               variants: response.data.data,
@@ -97,7 +97,14 @@ export default class ProductVariantComponent extends Component {
               }
             });
           }
-
+          
+          if (button === "continue") {
+            toast.success("Update variants successfully");
+            this.props?.tab("classification");
+          } else if (button === "save") {
+            toast.success("Update variants successfully");
+            Router.push("/product");
+          }
           /*if (button === "continue") {
             this.props?.tab("photos");
           } else if (button === "save") {
@@ -107,6 +114,13 @@ export default class ProductVariantComponent extends Component {
         }
       })
       .catch((error) => {
+        this.setState({variantSelectorConfig: {
+            show: false,
+            selected: {
+              size: {},
+              flavor: {}
+            }
+          }})
         toast.error(
           error?.response &&
             error?.response?.data &&
@@ -201,16 +215,22 @@ export default class ProductVariantComponent extends Component {
   }
 
   onSaveAndContinue() {
-    if (this.state.prices?.filter((val) => val?.id === 0)?.length > 0) {
-      if (this.validation()) {
-        this.updatePrice(this.state.id, "continue");
-      }
+    if (this.state.variantSelectorConfig.selected.size.id || this.state.variantSelectorConfig.selected.flavor.id) {
+      this.updateVariants(this.state.id, "continue");
     } else {
-      this.setState({
-        isunsaved: false,
-      });
+      toast.success("Update variants successfully");
       this.props?.tab("classification");
     }
+    // if (this.state.prices?.filter((val) => val?.id === 0)?.length > 0) {
+    //   if (this.validation()) {
+    //     this.updatePrice(this.state.id, "continue");
+    //   }
+    // } else {
+    //   this.setState({
+    //     isunsaved: false,
+    //   });
+    //   this.props?.tab("classification");
+    // }
   }
 
   getVariants = (id) => {

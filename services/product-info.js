@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CATEGORY_INFO,GET_BRAND_INFO,GET_FLAVOR_INFO,GET_CERTIFICATION,GET_INFO,GET_COUNTRY} from "../utils/constant";
+import { GET_CATEGORY_INFO,GET_BRAND_INFO,GET_FLAVOR_INFO,GET_CERTIFICATION,GET_INFO,GET_COUNTRY, SOFT_DELETE_PRODUCT} from "../utils/constant";
 import cookie from "js-cookie";
 
 
@@ -96,5 +96,17 @@ export class productInfoApi {
         },httpOptions)
     }
 
+    static productSoftDelete(id,data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+                // 'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTQ2ODA2NzcsImlhdCI6MTY2MzE0NDY3NywidXNlcl9pZCI6NX0.gRmgDpk1HguMv6QxAWk3CT3fe0Xf8nqFLQwpUNQjcFM`
+            }
+        };
+        return axios.post(`${SOFT_DELETE_PRODUCT}`.replace('{{id}}', id),data,httpOptions)
+    }
+    
 }
 export default productInfoApi;

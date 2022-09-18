@@ -25,6 +25,7 @@ export default class CertificationCreate extends Component {
             img_icon: "file-input-icon",
             input: {
                 name: props?.certification?.name ? props?.certification?.name : "",
+                certificate_number: props?.certification?.certificate_number ? props?.certification?.certificate_number : "",
                 content: props?.certification?.content ? props?.certification?.content : "",
                 path: props?.certification?.path ? props?.certification?.path : "",
                 is_trust_health: props?.certification?.is_trust_health ? props?.certification?.is_trust_health : false,
@@ -45,6 +46,7 @@ export default class CertificationCreate extends Component {
                 mode: nextProps?.mode,
                 input: {
                     name: nextProps?.certification?.name ? nextProps?.certification?.name : "",
+                    certificate_number: nextProps?.certification?.certificate_number ? nextProps?.certification?.certificate_number : "",
                     content: nextProps?.certification?.content ? nextProps?.certification?.content : "",
                     path: nextProps?.certification?.path ? nextProps?.certification?.path : "",
                     is_trust_health: nextProps?.certification?.is_trust_health ? nextProps?.certification?.is_trust_health : false,
@@ -118,6 +120,21 @@ export default class CertificationCreate extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="row mt-4">
+                                        <div className="col-md-4">
+                                            <div className="login-form ">
+                                                <label>
+                                                    Certificate No<span className="mandatory-star">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="certificate_number"
+                                                    value={this.state.input.certificate_number}
+                                                    onChange={this.handleChange.bind(this)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="mt-4">
                                         <Photo
                                             mode={this.state.mode}
@@ -160,6 +177,20 @@ export default class CertificationCreate extends Component {
                                                     type="text"
                                                     readonly="readonly"
                                                     value={this.state.input?.name}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row ">
+                                        <div className="col-md-4">
+                                            <div className="login-form ">
+                                                <label>
+                                                    Certificate No<span className="mandatory-star">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    readonly="readonly"
+                                                    value={this.state.input?.certificate_number}
                                                 />
                                             </div>
                                         </div>

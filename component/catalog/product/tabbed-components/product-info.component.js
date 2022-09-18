@@ -38,16 +38,16 @@ export default class ProductInfoComponent extends Component {
                 weight_unit: "",
                 status: "select",
                 hsn_code_id: null,
-                igst:"",
-                cgst:"",
-                sgst:"",
-                height:null,
-                breadth:null,
-                length:null
+                igst: "",
+                cgst: "",
+                sgst: "",
+                height: null,
+                breadth: null,
+                length: null
             },
             id: props?.id,
             mode: props?.mode,
-            gst:[],
+            gst: [],
             errors: {},
             brand: [],
             flavor: [],
@@ -72,18 +72,19 @@ export default class ProductInfoComponent extends Component {
         let input = this.state.infoDetails;
 
         if (event.target.name === "height" || event.target.name === "breadth" || event.target.name === "length") {
-            input[event.target.name] = parseInt(event.target.value);
+            // input[event.target.name] = parseInt(event.target.value);
+            input[event.target.name] = parseFloat(event.target.value.replace(/-/g, ""));
         }
-        else{
+        else {
             input[event.target.name] = event.target.value;
         }
-        
+
         this.setState({ infoDetails: input });
     };
     handleChangeGst = (event) => {
         let input = this.state.infoDetails;
-        let gst = this.state.gst?.filter(val=>val?.id===parseInt(event.target.value));
-        if(gst?.length>0){
+        let gst = this.state.gst?.filter(val => val?.id === parseInt(event.target.value));
+        if (gst?.length > 0) {
             input["cgst"] = gst[0]?.cgst;
             input['igst'] = gst[0]?.igst;
             input['sgst'] = gst[0]?.sgst;
@@ -355,7 +356,7 @@ export default class ProductInfoComponent extends Component {
             .catch((error) => {
             });
     }
-    getGst=()=>{
+    getGst = () => {
         GstApi.gstHsnCodeDropdownDetails()
             .then((response) => {
                 if (response.data.httpStatusCode === 200) {
@@ -518,7 +519,7 @@ export default class ProductInfoComponent extends Component {
 
                             <div className="row">
                                 <div className="col-md-4">
-                                <div className="sort fc-select-form-group">
+                                    <div className="sort fc-select-form-group">
                                         <label>HSN/SAC Code</label>
                                         <div className="sort-by-select-wrapper">
                                             <Select
@@ -538,33 +539,35 @@ export default class ProductInfoComponent extends Component {
                                                 >
                                                     Select HSN code{" "}
                                                 </MenuItem>
-                                                {this.state.gst?.map(val=>{return(
-                                                    <MenuItem value={val?.id}>
-                                                        {val?.hsn_code}-CGST({val?.cgst}%)-SGST({val?.sgst}%)-IGST({val?.igst}%)
-                                                    </MenuItem>
-                                                )})}
-                                                
+                                                {this.state.gst?.map(val => {
+                                                    return (
+                                                        <MenuItem value={val?.id}>
+                                                            {val?.hsn_code}-CGST({val?.cgst}%)-SGST({val?.sgst}%)-IGST({val?.igst}%)
+                                                        </MenuItem>
+                                                    )
+                                                })}
+
                                             </Select>
                                             {/* <small className="form-text text-danger" >{this.state.errors["status"]}</small> */}
                                         </div>
                                     </div>
                                 </div>
-                                {this.state.infoDetails?.hsn_code !== "" &&<>
-                                <div className="col-md-3">
-                                    <div className="fc-form-group d-flex align-items-center h-100">
-                                        <label>CGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.cgst)?.toFixed(2)}</span></label>
+                                {this.state.infoDetails?.hsn_code !== "" && <>
+                                    <div className="col-md-3">
+                                        <div className="fc-form-group d-flex align-items-center h-100">
+                                            <label>CGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.cgst)?.toFixed(2)}</span></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-md-3">
-                                    <div className="fc-form-group d-flex align-items-center h-100">
-                                        <label>SGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.sgst)?.toFixed(2)}</span></label>
+                                    <div className="col-md-3">
+                                        <div className="fc-form-group d-flex align-items-center h-100">
+                                            <label>SGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.sgst)?.toFixed(2)}</span></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-md-2">
-                                    <div className="fc-form-group d-flex align-items-center h-100">
-                                        <label>IGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.igst)?.toFixed(2)}</span></label>
+                                    <div className="col-md-2">
+                                        <div className="fc-form-group d-flex align-items-center h-100">
+                                            <label>IGST(%): <span style={{ fontWeight: "400" }}>{parseFloat(this.state.infoDetails?.igst)?.toFixed(2)}</span></label>
+                                        </div>
                                     </div>
-                                </div>
                                 </>}
                             </div>
 
@@ -631,7 +634,7 @@ export default class ProductInfoComponent extends Component {
                                     </div>
                                 </div>
 
-                                
+
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="fc-form-group">
@@ -672,8 +675,8 @@ export default class ProductInfoComponent extends Component {
                                                 {/* <span className="mandatory-star">*</span> */}
                                             </label>
                                             <input
-                                                 type="number"
-                                                 min="0"
+                                                type="number"
+                                                min="0"
                                                 name="length"
                                                 readOnly={this.state.mode === "view" ? true : false}
                                                 value={this.state.infoDetails?.length}

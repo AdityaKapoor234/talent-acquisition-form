@@ -34,6 +34,7 @@ export default class certificationList extends Component {
                         <div className="tableRow">
                             <div className="col-2 pe-1">Icon</div>
                             <div className="col text-center">Name</div>
+                            <div className="col text-center">Certificate No.</div>
                             <div className="col text-center">Display Order</div>
                             {/* <div className="col-2 text-center">Trusted Health</div> */}
                             <div className="col text-center">Active</div>
@@ -56,8 +57,9 @@ export default class certificationList extends Component {
                                                     img={p?.path}
                                                 />
                                             </div>
-                                            <div className="col text-center" title={p?.name}>{p?.name}</div>
-                                            <div className="col text-center elip-text" title={p?.sort_order}>{p?.sort_order}</div>
+                                            <div className="col text-center elip-text px-2" title={p?.name}>{p?.name}</div>
+                                            <div className="col text-center elip-text px-2" title={p?.certificate_number}>{p?.certificate_number ? p?.certificate_number : "-"}</div>
+                                            <div className="col text-center elip-text px-2" title={p?.sort_order}>{p?.sort_order}</div>
                                             {/* <div className="col text-center">
                                                 {p?.is_trust_health === true ? (
                                                     <CheckCircleOutlineOutlinedIcon className="check-icon" />

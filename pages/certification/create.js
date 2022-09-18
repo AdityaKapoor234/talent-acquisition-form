@@ -39,9 +39,11 @@ export default class CertificationEditDetails extends Component {
 			is_name: false,
 			certificationDetails: {
 				name: "",
+				certificate_number: "",
 				content: "",
 				path: "",
 				is_trust_health: false,
+				is_certificate_number: false,
 				is_active: false,
 				sort_order: null,
 				read_more_url: "",
@@ -51,6 +53,7 @@ export default class CertificationEditDetails extends Component {
 	validateData = () => {
 		this.setState({ is_all: false });
 		this.setState({ is_name: false });
+		this.setState({ is_certificate_number: false});
 
 		if (
 			this.state.certificationDetails?.name === "" ||
@@ -65,6 +68,25 @@ export default class CertificationEditDetails extends Component {
 			if (this.state.certificationDetails?.name.replace(/\s/g, "").length <= 0) {
 				if (this.state.is_name === false) {
 					toast.error("Please enter the name");
+					this.state.is_name = true;
+					this.state.is_all = true;
+				}
+			}
+		}
+		if (
+			this.state.certificationDetails?.certificate_number === "" ||
+			this.state.certificationDetails?.certificate_number === null ||
+			this.state.certificationDetails?.certificate_number === undefined
+		) {
+			toast.error("Please enter the certificate number");
+			this.state.is_certificate_number = true;
+			this.state.is_all = true;
+		}
+		if (this.state.certificationDetails?.certificate_number !== undefined) {
+			if (this.state.certificationDetails?.certificate_number.replace(/\s/g, "").length <= 0) {
+				if (this.state.is_certificate_number === false) {
+					toast.error("Please enter the certificate number");
+					this.state.is_certificate_number = true;
 					this.state.is_all = true;
 				}
 			}
@@ -92,6 +114,7 @@ export default class CertificationEditDetails extends Component {
 			let data = {
 				name: this.state.certificationDetails?.name,
 				path: this.state.certificationDetails?.path,
+				certificate_number: this.state.certificationDetails?.certificate_number,
 				is_active: true,
 			};
 			CertificationApi.certificationCreate(data)
@@ -141,7 +164,7 @@ export default class CertificationEditDetails extends Component {
 									<span>CMS / Certification / </span>Edit Certification
 								</div>
 								<div className="page-name">
-									Edit Certification Details - {this.state.certificationDetails?.name}
+									Add Certification Details
 								</div>
 							</div>
 							<div className="col-md-7 btn-save">

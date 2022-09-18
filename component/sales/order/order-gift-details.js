@@ -97,6 +97,25 @@ export default class OrderPrimeDetails extends Component {
     //         });
     // }
 
+    orderEMailRegenerate = (id, mail) => {
+        let data = {
+            "email": mail
+        }
+        OrderApi.orderEMailRegenerate(id, data)
+            .then((response) => {
+                toast.success(response.data.message)
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
     orderDetail = (id) => {
         OrderApi.getOrderGiftDetails(id)
             .then((response) => {
@@ -275,13 +294,20 @@ export default class OrderPrimeDetails extends Component {
                                                         ""
                                                         :
                                                         <div
-                                                            className="custom-btn d-flex justify-content-center"
+                                                            className="custom-btn d-flex justify-content-center w-100"
                                                             style={{ width: "fit-content" }}
                                                             onClick={() => { Router.push(this.state.invoice) }}
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
+                                                <div
+                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                    style={{ width: "fit-content" }}
+                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.gift_card_details?.receiver_email) }}
+                                                >
+                                                    <span>Resend Mail</span>
+                                                </div>
 
 
                                             </div>
@@ -488,13 +514,20 @@ export default class OrderPrimeDetails extends Component {
                                                         ""
                                                         :
                                                         <div
-                                                            className="custom-btn d-flex justify-content-center"
+                                                            className="custom-btn d-flex justify-content-center w-100"
                                                             style={{ width: "fit-content" }}
                                                             onClick={() => { Router.push(this.state.invoice) }}
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
+                                                <div
+                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                    style={{ width: "fit-content" }}
+                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.gift_card_details?.receiver_email) }}
+                                                >
+                                                    <span>Resend Mail</span>
+                                                </div>
 
 
                                             </div>

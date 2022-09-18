@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ORDERSLIST, GET_ORDER_DETAILS, ADD_ORDER_STATUS, CANCEL, GET_ORDER_INVOICE, GET_ORDER_INVOICE_PRIME, GET_ORDER_GIFT_DETAILS } from "../utils/constant";
+import { ORDERSLIST, GET_ORDER_DETAILS, ADD_ORDER_STATUS, CANCEL, GET_ORDER_INVOICE, GET_ORDER_INVOICE_PRIME, GET_ORDER_GIFT_DETAILS, ORDER_EMAIL_REGENERATE } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class OrderApi {
@@ -79,6 +79,17 @@ export class OrderApi {
             }
         };
         return axios.get(`${GET_ORDER_GIFT_DETAILS}`.replace('{{id}}', id),httpOptions)
+    }
+
+    static orderEMailRegenerate(id,data) {
+        const  token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.post(`${ORDER_EMAIL_REGENERATE}`.replace('{{id}}', id),data, httpOptions)
     }
 
 }

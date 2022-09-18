@@ -41,8 +41,10 @@ export default class CertificationEditDetails extends Component {
 				name: "",
 				content: "",
 				path: "",
+				certificate_number: "",
 				is_trust_health: false,
 				is_active: false,
+				is_certificate_number: false,
 				sort_order: null,
 				read_more_url: "",
 			},
@@ -65,6 +67,26 @@ export default class CertificationEditDetails extends Component {
 			if (this.state.certificationDetails?.name.replace(/\s/g, "").length <= 0) {
 				if (this.state.is_name === false) {
 					toast.error("Please enter the name");
+					this.state.is_name = true;
+					this.state.is_all = true;
+				}
+			}
+		}
+		
+		if (
+			this.state.certificationDetails?.certificate_number === "" ||
+			this.state.certificationDetails?.certificate_number === null ||
+			this.state.certificationDetails?.certificate_number === undefined
+		) {
+			toast.error("Please enter the certificate number");
+			this.state.is_certificate_number = true;
+			this.state.is_all = true;
+		}
+		if (this.state.certificationDetails?.certificate_number !== undefined) {
+			if (this.state.certificationDetails?.certificate_number.replace(/\s/g, "").length <= 0) {
+				if (this.state.is_certificate_number === false) {
+					toast.error("Please enter the certificate number");
+					this.state.is_certificate_number = true;
 					this.state.is_all = true;
 				}
 			}
@@ -92,6 +114,7 @@ export default class CertificationEditDetails extends Component {
 			let data = {
 				name: this.state.certificationDetails?.name,
 				path: this.state.certificationDetails?.path,
+				certificate_number: this.state.certificationDetails?.certificate_number,
 				is_active: this.state.certificationDetails?.is_active,
 			};
 			CertificationApi.certificationListEDIT(this.props.id, data)
@@ -124,6 +147,7 @@ export default class CertificationEditDetails extends Component {
 						name: response.data.data.certification?.name,
 						content: response.data.data.certification?.content,
 						path: response.data.data.certification?.path,
+						certificate_number: response.data.data.certification?.certificate_number,
 						is_trust_health: response.data.data.certification?.is_trust_health,
 						is_active: response.data.data.certification?.is_active,
 						sort_order: response.data.data.certification?.sort_order,

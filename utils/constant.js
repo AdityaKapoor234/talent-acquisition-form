@@ -104,6 +104,7 @@ export const ADD_ORDER_STATUS = `${ORDER_SERVICE}/manage/order/{{id}}/status`;
 export const GET_ORDER_INVOICE = `${ORDER_SERVICE}/manage/order/{{id}}/invoice`;
 export const GET_ORDER_INVOICE_PRIME = `${ORDER_SERVICE}/manage/order/{{id}}/plan/invoice`;
 export const GET_ORDER_GIFT_DETAILS = `${ORDER_SERVICE}/manage/gift/details/{{id}}`;
+export const ORDER_EMAIL_REGENERATE = `${ORDER_SERVICE}/manage/order/{{id}}/resend/email`;
 
 //PRODUCT
 export const GET_INGREDIENT = `${PRODUCT_SERVICE}/manage/ingredient/all`;
@@ -143,6 +144,7 @@ export const GET_PHOTO =`${PRODUCT_SERVICE}/manage/product/{{id}}/images`;
 export const GET_COUNTRY =`${PRODUCT_SERVICE}/manage/country`;
 export const GET_PRICE =`${PRODUCT_SERVICE}/manage/product/{{id}}/price`;
 export const DELETE_PRICE =`${PRODUCT_SERVICE}/manage/product/{{id}}/price/delete`;
+export const SOFT_DELETE_PRODUCT =`${PRODUCT_SERVICE}/manage/product/{{id}}/delete_product`
 
 
 //USERS

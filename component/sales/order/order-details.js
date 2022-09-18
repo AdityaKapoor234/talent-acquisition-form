@@ -96,6 +96,25 @@ export default class OrderDetails extends Component {
             });
     }
 
+    orderEMailRegenerate = (id, mail) => {
+        let data = {
+            "email": mail
+        }
+        OrderApi.orderEMailRegenerate(id, data)
+            .then((response) => {
+                toast.success(response.data.message)
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
+
     convertDateStringToDate = (dateStr) => {
         let months = [
             "Jan",
@@ -211,7 +230,7 @@ export default class OrderDetails extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                            <span className="orderLine">
+                                                <span className="orderLine">
                                                     <span className="orderInfo">Status&nbsp;</span>
                                                     <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}>{this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}</span>
                                                 </span>
@@ -277,10 +296,17 @@ export default class OrderDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
+                                                <div
+                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                    style={{ width: "fit-content" }}
+                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
+                                                >
+                                                    <span>Resend Mail</span>
+                                                </div>
                                                 {
                                                     this.state?.status !== "cancelled" &&
                                                     <div
-                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100" } 
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
                                                         style={{ width: "fit-content" }}
                                                         onClick={() => { this.props?.saveDetails() }}
                                                     >
@@ -502,13 +528,20 @@ export default class OrderDetails extends Component {
                                                         ""
                                                         :
                                                         <div
-                                                            className="custom-btn d-flex justify-content-center"
+                                                            className="custom-btn d-flex justify-content-center w-100"
                                                             style={{ width: "fit-content" }}
                                                             onClick={() => { Router.push(this.state.invoice) }}
                                                         >
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
+                                                <div
+                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                    style={{ width: "fit-content" }}
+                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
+                                                >
+                                                    <span>Resend Mail</span>
+                                                </div>
 
 
                                             </div>

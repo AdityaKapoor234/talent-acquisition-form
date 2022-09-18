@@ -8,6 +8,7 @@ import ProductEditComponent from "../../../component/catalog/product/product-edi
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ProductApi from "../../../services/product";
+import ProductInfoApi from "../../../services/product-info";
 import Router from "next/router";
 import Cookie from "js-cookie";
 
@@ -20,7 +21,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function ProductViewDetails({id}) {
+export default function ProductViewDetails({ id }) {
 
     const mode = "view";
     const [productId, setProductId] = useState(id);
@@ -46,6 +47,24 @@ export default function ProductViewDetails({id}) {
                 );
             });
     };
+
+    const productSoftDelete = (id) => {
+        let data={}
+        ProductInfoApi.productSoftDelete(id,data)
+            .then((response) => {
+                toast.success(response.data.message)
+                Router.push(`/product`);
+            })
+            .catch((error) => {
+                toast.error(
+                    error?.response &&
+                        error?.response?.data &&
+                        error?.response?.data?.message
+                        ? error.response.data.message
+                        : "Unable to process your request, please try after sometime"
+                );
+            });
+    }
 
 
     useEffect(() => {
@@ -74,14 +93,14 @@ export default function ProductViewDetails({id}) {
                             <div className="page-name">Product Details</div>
                         </div>
                         <div className="col-md-7 btn-save">
-                            {/* <div
+                            <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {
-                                    Router.push(`/product`);
+                                    productSoftDelete(productId)
                                 }}
                             >
                                 <span>Delete </span>
-                            </div> */}
+                            </div>
                             <div
                                 className="Cancel-btn custom-btn"
                                 onClick={() => {

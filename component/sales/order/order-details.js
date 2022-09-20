@@ -296,15 +296,18 @@ export default class OrderDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-                                                <div
-                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
-                                                    style={{ width: "fit-content" }}
-                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
-                                                >
-                                                    <span>Resend Mail</span>
-                                                </div>
                                                 {
-                                                    this.state?.status !== "cancelled" &&
+                                                    (this.state?.status === "placed" || this.state?.status === "shipped") &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
+                                                    >
+                                                        <span>Resend Mail</span>
+                                                    </div>
+                                                }
+                                                {
+                                                    (this.state?.status === "placed" || this.state?.status === "shipped") &&
                                                     <div
                                                         className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
                                                         style={{ width: "fit-content" }}
@@ -535,13 +538,16 @@ export default class OrderDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-                                                <div
-                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
-                                                    style={{ width: "fit-content" }}
-                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
-                                                >
-                                                    <span>Resend Mail</span>
-                                                </div>
+                                                {
+                                                    (this.state?.status === "placed" || this.state?.status === "shipped") &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
+                                                    >
+                                                        <span>Resend Mail</span>
+                                                    </div>
+                                                }
 
 
                                             </div>

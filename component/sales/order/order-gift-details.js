@@ -244,13 +244,14 @@ export default class OrderPrimeDetails extends Component {
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}>{this.convertDateStringToDate(this.state.order?.gift_card_details?.expire_date)}</span>
                                                 </span>
 
-                                                
+
 
                                             </div>
                                             <div className="col-3">
                                                 <span className="orderLine align-items-center">
                                                     <span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                    <div data-component="edit-category">
+                                                    <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}>{this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}</span>
+                                                    {/* <div data-component="edit-category">
                                                         <div className="sort">
                                                             <div className="sort-by-select-wrapper">
                                                                 <Select
@@ -278,7 +279,7 @@ export default class OrderPrimeDetails extends Component {
 
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </span>
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Payment Mode:&nbsp;</span>
@@ -301,13 +302,16 @@ export default class OrderPrimeDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-                                                <div
-                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
-                                                    style={{ width: "fit-content" }}
-                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.gift_card_details?.receiver_email) }}
-                                                >
-                                                    <span>Resend Mail</span>
-                                                </div>
+                                                {
+                                                    (this.state.order?.order?.status === "placed" || this.state.order?.order?.status === "shipped") &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.gift_card_details?.receiver_email) }}
+                                                    >
+                                                        <span>Resend Mail</span>
+                                                    </div>
+                                                }
 
 
                                             </div>
@@ -521,13 +525,16 @@ export default class OrderPrimeDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-                                                <div
-                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
-                                                    style={{ width: "fit-content" }}
-                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.gift_card_details?.receiver_email) }}
-                                                >
-                                                    <span>Resend Mail</span>
-                                                </div>
+                                                {
+                                                    (this.state.order?.order?.status === "placed" || this.state.order?.order?.status === "shipped") &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.gift_card_details?.receiver_email) }}
+                                                    >
+                                                        <span>Resend Mail</span>
+                                                    </div>
+                                                }
 
 
                                             </div>

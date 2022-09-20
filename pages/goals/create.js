@@ -45,18 +45,18 @@ export default class GoalsCreate extends Component {
       toast.error("Please enter display order ");
       this.state.is_all = true;
     }
-    // if (this.state.goalsDetails.icon_url === "" || this.state.goalsDetails.icon_url === null || this.state.goalsDetails.icon_url.replace(/\s/g, "").length <= 0) {
-    //   toast.error("Please enter icon ");
-    //   this.state.is_all = true;
-    // }
-    // if (this.state.goalsDetails.banner_url === "" || this.state.goalsDetails.banner_url === null || this.state.goalsDetails.banner_url.replace(/\s/g, "").length <= 0) {
-    //   toast.error("Please enter full banner image ");
-    //   this.state.is_all = true;
-    // }
-    // if (this.state.goalsDetails.banner_url_sm === "" || this.state.goalsDetails.banner_url_sm === null || this.state.goalsDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
-    //   toast.error("Please enter short banner image ");
-    //   this.state.is_all = true;
-    // }
+    if (this.state.goalsDetails.icon_url === "" || this.state.goalsDetails.icon_url === null || this.state.goalsDetails.icon_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter icon ");
+      this.state.is_all = true;
+    }
+    if (this.state.goalsDetails.banner_url === "" || this.state.goalsDetails.banner_url === null || this.state.goalsDetails.banner_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter full banner image ");
+      this.state.is_all = true;
+    }
+    if (this.state.goalsDetails.banner_url_sm === "" || this.state.goalsDetails.banner_url_sm === null || this.state.goalsDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter short banner image ");
+      this.state.is_all = true;
+    }
 
 
     if (this.state.is_all === true) {

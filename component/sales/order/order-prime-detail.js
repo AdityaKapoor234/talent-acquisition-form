@@ -29,7 +29,7 @@ export default class OrderPrimeDetails extends Component {
             status: props?.order?.order?.status ? props?.order?.order?.status : "0",
             // invoice: props?.invoice ? props?.invoice : "",
             invoice: "",
-            id:props?.id,
+            id: props?.id,
         };
     }
     handleChange = (event) => {
@@ -83,7 +83,7 @@ export default class OrderPrimeDetails extends Component {
     orderInvoice = (id) => {
         OrderApi.getOrderInvoicePrime(id)
             .then((response) => {
-                this.setState({ invoice: response.data.data.pdf})
+                this.setState({ invoice: response.data.data.pdf })
             })
             .catch((error) => {
                 toast.error(
@@ -194,16 +194,16 @@ export default class OrderPrimeDetails extends Component {
                                             </div>
                                             <div className="col-3">
 
-                                            <span className="orderLine">
+                                                <span className="orderLine">
                                                     <span className="orderInfo">Reg.Date&nbsp;</span>
                                                     <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.order?.created_at)}>{this.convertDateStringToDate(this.state.order?.order?.created_at)}</span>
                                                 </span>
-                                               
+
                                             </div>
                                             <div className="col-3">
-                                            <span className="orderLine">
+                                                <span className="orderLine">
                                                     <span className="orderInfo">Valid Till&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till) )}</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till))}</span>
                                                 </span>
 
 
@@ -211,7 +211,8 @@ export default class OrderPrimeDetails extends Component {
                                             <div className="col-3">
                                                 <span className="orderLine align-items-center">
                                                     <span className="orderInfo">Status&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                    <div data-component="edit-category">
+                                                    <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}>{this.state.order?.order?.status === "payment_pending" ? "Pending" : this.state.order?.order?.status}</span>
+                                                    {/* <div data-component="edit-category">-
                                                         <div className="sort">
                                                             <div className="sort-by-select-wrapper">
                                                                 <Select
@@ -239,7 +240,7 @@ export default class OrderPrimeDetails extends Component {
 
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     {/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
                                                     {/* <span className="orderInfoValHigh elip-text" title={this.state.order?.order?.status}>{this.state.order?.order?.status}</span> */}
 
@@ -271,13 +272,16 @@ export default class OrderPrimeDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-                                                <div
-                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
-                                                    style={{ width: "fit-content" }}
-                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
-                                                >
-                                                    <span>Resend Mail</span>
-                                                </div>
+                                                {
+                                                    (this.state?.status === "placed" || this.state?.status === "shipped") &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
+                                                    >
+                                                        <span>Resend Mail</span>
+                                                    </div>
+                                                }
 
                                                 <div></div>
                                             </div>
@@ -447,7 +451,7 @@ export default class OrderPrimeDetails extends Component {
                                             <div className="col-3">
                                                 <span className="orderLine">
                                                     <span className="orderInfo">Valid Till&nbsp;</span>
-                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till) )}</span>
+                                                    <span className="orderInfoVal elip-text" title={this.convertDateStringToDate(this.state.order?.products?.valid_till)}>{this.convertDateStringToDate(this.state.order?.products?.map(elem => elem?.valid_till))}</span>
                                                 </span>
 
                                             </div>
@@ -478,13 +482,16 @@ export default class OrderPrimeDetails extends Component {
                                                             <span>Download Invoice</span>
                                                         </div>
                                                 }
-                                                <div
-                                                    className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
-                                                    style={{ width: "fit-content" }}
-                                                    onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
-                                                >
-                                                    <span>Resend Mail</span>
-                                                </div>
+                                                {
+                                                    (this.state?.status === "placed" || this.state?.status === "shipped") &&
+                                                    <div
+                                                        className={this.state.invoice ? "custom-btn d-flex justify-content-center w-100 mt-2" : "custom-btn d-flex justify-content-center w-100"}
+                                                        style={{ width: "fit-content" }}
+                                                        onClick={() => { this.orderEMailRegenerate(this.state.order?.order?.order_no, this.state.order?.email) }}
+                                                    >
+                                                        <span>Resend Mail</span>
+                                                    </div>
+                                                }
 
 
                                             </div>

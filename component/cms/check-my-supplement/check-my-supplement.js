@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo-non-merge";
 import CertificationApi from "../../../services/certification";
 import {PRODUCT_SERVICE} from "../../../utils/constant";
+
 export default class CheckMySupplementComponent extends Component {
     constructor(props) {
         super(props);
@@ -70,6 +71,22 @@ export default class CheckMySupplementComponent extends Component {
         this.props?.handle(tmp_input);
     };
 
+    handleShortDesc = (value) => {
+        let tmp_input = this.state.input;
+        tmp_input["short_description"] = value;
+
+        this.setState({ input: tmp_input });
+        this.props?.handle(tmp_input);
+    };
+
+    handleLongDesc = (value) => {
+        let tmp_input = this.state.input;
+        tmp_input["description"] = value;
+
+        this.setState({ input: tmp_input });
+        this.props?.handle(tmp_input);
+    };
+
     handlePhotoUrl = (name, url) => {
         let tmp_input = this.state.input;
         tmp_input[name] = url;
@@ -101,58 +118,81 @@ export default class CheckMySupplementComponent extends Component {
                     <>
                         {this.state.mode === "edit" && (
                             <div className="row sticky-scroll scroll">
-                                <div className="col">
-                                    <div className="row mt-4">
-                                        <div className="col-md-4">
-                                            <div className="login-form ">
-                                                <label>
-                                                  Full Description<span className="mandatory-star">*</span>
-                                                </label>
-                                                <textarea
-                                                  cols="100"
-                                                  rows="5"
-                                                  name="description"
-                                                  value={this.state.input.description}
-                                                  onChange={this.handleChange.bind(this)}
-                                                />
-                                            </div>
-                                            <div className="login-form ">
-                                                <label>
-                                                Short Description<span className="mandatory-star">*</span>
-                                                </label>
-                                                <textarea
-                                                cols="100"
-                                                rows="5"
-                                                name="short_description"
-                                                value={this.state.input.short_description}
-                                                onChange={this.handleChange.bind(this)}
-                                                />
-                                            </div>
-                                            <div className="mb-4">
-                                                <Photo
-                                                mode= "edit"
-                                                label={"Banner"}
-                                                accept=".jpg,.jpeg,.png"
-                                                name="banner"
-                                                img={this.state.input.banner}
-                                                setUrl={this.handlePhotoUrl.bind(this)}
-                                                value={this.state.img_lg}
-                                                urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
-                                                />
-                                            </div>
-                                            <div className="mb-4">
-                                                <Photo
-                                                mode= "edit"
-                                                label={"Short Banner"}
-                                                accept=".jpg,.jpeg,.png"
-                                                name="sm_banner"
-                                                img={this.state.input.sm_banner}
-                                                setUrl={this.handlePhotoUrl.bind(this)}
-                                                value={this.state.img_sm}
-                                                urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
-                                                />
-                                            </div>
-                                        </div>
+                                <div className="col mt-4">
+                                    {/* <div className="login-form ">
+                                        <label>
+                                          Full Description<span className="mandatory-star">*</span>
+                                        </label>
+                                        <textarea
+                                          cols="100"
+                                          rows="5"
+                                          name="description"
+                                          value={this.state.input.description}
+                                          onChange={this.handleChange.bind(this)}
+                                        />
+                                    </div> */}
+                                    <div className="fc-form-group editor">
+                                        <label>
+                                            Full Description<span className="mandatory-star">*</span>
+                                        </label>
+                                        <br />
+                                        <ArticleEditor
+                                            value={this.state.input.description}
+                                            mode={this.state.mode}
+                                            handleContent={this.handleLongDesc.bind(this)}
+                                            articleProd="edit"
+                                            name="description"
+                                        />
+                                    </div>
+                                    {/* <div className="login-form ">
+                                        <label>
+                                        Short Description<span className="mandatory-star">*</span>
+                                        </label>
+                                        <textarea
+                                        cols="100"
+                                        rows="5"
+                                        name="short_description"
+                                        value={this.state.input.short_description}
+                                        onChange={this.handleChange.bind(this)}
+                                        />
+                                    </div> */}
+                                    <div className="fc-form-group editor">
+                                        <label>
+                                            Short Description<span className="mandatory-star">*</span>
+                                        </label>
+                                        <br />
+                                        <ArticleEditor
+                                            value={this.state.input.short_description}
+                                            mode={this.state.mode}
+                                            handleContent={this.handleShortDesc.bind(this)}
+                                            articleProd="edit"
+                                            name="short_description"
+                                        />
+                                        {/* <small className="form-text text-danger" >{this.state.errors["short_description"]}</small> */}
+                                    </div>
+                                    <div className="mb-4">
+                                        <Photo
+                                        mode= "edit"
+                                        label={"Banner"}
+                                        accept=".jpg,.jpeg,.png"
+                                        name="banner"
+                                        img={this.state.input.banner}
+                                        setUrl={this.handlePhotoUrl.bind(this)}
+                                        value={this.state.img_lg}
+                                        urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <Photo
+                                        mode= "edit"
+                                        label={"Short Banner"}
+                                        accept=".jpg,.jpeg,.png"
+                                        name="sm_banner"
+                                        img={this.state.input.sm_banner}
+                                        setUrl={this.handlePhotoUrl.bind(this)}
+                                        value={this.state.img_sm}
+                                        urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -160,11 +200,11 @@ export default class CheckMySupplementComponent extends Component {
                         {this.state.mode === "view" && (
                             <div className="row sticky-scroll scroll">
                                 <div className="col">
-                                    <div className="row mt-4">
+                                    {/* <div className="row mt-4">
                                         <div className="col-md-4">
                                             <div className="login-form ">
                                                 <label>
-                                                  Full Description<span className="mandatory-star">*</span>
+                                                  Full DescriptionN<span className="mandatory-star">*</span>
                                                 </label>
                                                 <textarea
                                                   cols="100"
@@ -174,8 +214,20 @@ export default class CheckMySupplementComponent extends Component {
                                                 />
                                             </div>
                                         </div>
+                                    </div> */}
+                                    <div className="fc-form-group editor">
+                                        <label>
+                                        Full Description<span className="mandatory-star">*</span>
+                                        </label>
+                                        <br />
+                                        <ArticleEditor
+                                            value={this.state.input?.description}
+                                            mode={this.state.mode}
+                                            handleContent={this.handleLongDesc.bind(this)}
+                                            articleProd="view"
+                                        />
                                     </div>
-                                    <div className="row mt-4">
+                                    {/* <div className="row mt-4">
                                         <div className="col-md-4">
                                             <div className="login-form ">
                                                 <label>
@@ -189,6 +241,18 @@ export default class CheckMySupplementComponent extends Component {
                                                 />
                                             </div>
                                         </div>
+                                    </div> */}
+                                    <div className="fc-form-group editor">
+                                        <label>
+                                        Short Description<span className="mandatory-star">*</span>
+                                        </label>
+                                        <br />
+                                        <ArticleEditor
+                                            value={this.state.input?.short_description}
+                                            mode={this.state.mode}
+                                            handleContent={this.handleShortDesc.bind(this)}
+                                            articleProd="view"
+                                        />
                                     </div>
                                     <div className="row mt-4">
                                         <div className="col-md-4">

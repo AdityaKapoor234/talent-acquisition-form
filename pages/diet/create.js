@@ -45,18 +45,18 @@ export default class DietCreate extends Component {
       toast.error("Please enter display order ");
       this.state.is_all = true;
     }
-    // if (this.state.dietDetails.icon_url === "" || this.state.dietDetails.icon_url === null || this.state.dietDetails.icon_url.replace(/\s/g, "").length <= 0) {
-    //   toast.error("Please enter icon ");
-    //   this.state.is_all = true;
-    // }
-    // if (this.state.dietDetails.banner_url === "" || this.state.dietDetails.banner_url === null || this.state.dietDetails.banner_url.replace(/\s/g, "").length <= 0) {
-    //   toast.error("Please enter full banner image ");
-    //   this.state.is_all = true;
-    // }
-    // if (this.state.dietDetails.banner_url_sm === "" || this.state.dietDetails.banner_url_sm === null || this.state.dietDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
-    //   toast.error("Please enter short banner image ");
-    //   this.state.is_all = true;
-    // }
+    if (this.state.dietDetails.icon_url === "" || this.state.dietDetails.icon_url === null || this.state.dietDetails.icon_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter icon ");
+      this.state.is_all = true;
+    }
+    if (this.state.dietDetails.banner_url === "" || this.state.dietDetails.banner_url === null || this.state.dietDetails.banner_url.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter full banner image ");
+      this.state.is_all = true;
+    }
+    if (this.state.dietDetails.banner_url_sm === "" || this.state.dietDetails.banner_url_sm === null || this.state.dietDetails.banner_url_sm.replace(/\s/g, "").length <= 0) {
+      toast.error("Please enter short banner image ");
+      this.state.is_all = true;
+    }
 
 
     if (this.state.is_all === true) {

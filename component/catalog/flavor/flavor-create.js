@@ -85,6 +85,7 @@ export default class FlavorCreate extends Component {
                         <input
                           type="text"
                           name="name"
+													maxLength="200"
                           value={this.state.input.name}
                           onChange={this.handleChange.bind(this)}
                         />

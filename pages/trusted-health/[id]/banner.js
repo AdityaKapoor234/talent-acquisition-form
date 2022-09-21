@@ -45,11 +45,11 @@ export default function TrustedHealthEditDetails({ id }) {
 	
 
 	const validateData = () => {
-		if (description === "" || description === null || description.replace(/\s/g, "").length <= 0) {
+		if (!description || description ==="<p></p>\n" || description.replace(/&nbsp;/g, "").length <=8) {
 			toast.error("Please enter the full description");
 			return false;
 		}
-		if (shortDescription === "" || shortDescription === null || shortDescription.replace(/\s/g, "").length <= 0) {
+		if (!shortDescription || shortDescription ==="<p></p>\n" || shortDescription.replace(/&nbsp;/g, "").length <=8){
 			toast.error("Please enter the short description");
 			return false;
 		}

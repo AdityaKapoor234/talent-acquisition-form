@@ -15,6 +15,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { PRODUCT_SERVICE } from "../../../utils/constant";
+import ArticleEditor from "../../common-component/text-editer";
 
 export default class TrustedHealthDetails extends Component {
   constructor(props) {
@@ -165,6 +166,16 @@ export default class TrustedHealthDetails extends Component {
 	this.props?.description(event.target.value);
   }
 
+  handleLongDesc = (value) => {
+    this.setState({description: value});
+	  this.props?.description(value);
+  }
+
+  handleShortDesc = (value) => {
+    this.setState({shortDescription: value});
+    this.props?.shortDescription(value);
+  }
+
   shortDescriptionHandle = (event) => {
 	this.setState({shortDescription: event.target.value});
 	this.props?.shortDescription(event.target.value);
@@ -241,57 +252,82 @@ export default class TrustedHealthDetails extends Component {
               <div className="row sticky-scroll scroll">
                 <div className="col">
                   <div className="row mt-4">
-                    <div className="col-md-4">
-                      <div className="login-form ">
-                        <label>
+                    {/* <div className="login-form ">
+                      <label>
+                        Full Description<span className="mandatory-star">*</span>
+                      </label>
+                      <textarea
+                        cols="100"
+                        rows="5"
+                        value={this.state.description}
+                        //onChange={(event) => {
+                        //  this.descriptionHandle(event);
+                        //}}
+                        onChange={this.descriptionHandle.bind(this)}
+                      />
+                    </div> */}
+                    <div className="fc-form-group editor">
+                      <label>
                           Full Description<span className="mandatory-star">*</span>
-                        </label>
-                        <textarea
-                          cols="100"
-                          rows="5"
+                      </label>
+                      <br />
+                      <ArticleEditor
                           value={this.state.description}
-                          onChange={(event) => {
-                            this.descriptionHandle(event);
-                          }}
-                        />
-                      </div>
-					  <div className="login-form ">
-                        <label>
-                          Short Description<span className="mandatory-star">*</span>
-                        </label>
-                        <textarea
-                          cols="100"
-                          rows="5"
+                          mode="edit"
+                          handleContent={this.handleLongDesc}
+                          articleProd="edit"
+                          name="description"
+                      />
+                    </div>
+					          {/* <div className="login-form ">
+                      <label>
+                        Short Description<span className="mandatory-star">*</span>
+                      </label>
+                      <textarea
+                        cols="100"
+                        rows="5"
+                        value={this.state.shortDescription}
+                        onChange={(event) => {
+                          this.shortDescriptionHandle(event);
+                        }}
+                      />
+                    </div> */}
+                    <div className="fc-form-group editor">
+                      <label>
+                        Short Description<span className="mandatory-star">*</span>
+                      </label>
+                      <br />
+                      <ArticleEditor
                           value={this.state.shortDescription}
-                          onChange={(event) => {
-                            this.shortDescriptionHandle(event);
-                          }}
-                        />
-                      </div>
-					  <div className="mb-4">
-                        <Photo
-                          mode= "edit"
-                          label={"Banner"}
-                          accept=".jpg,.jpeg,.png"
-                          name="banner"
-                          img={this.state.banner}
-                          setUrl={this.bannerHandle.bind(this)}
-                          value={this.state.img_lg}
-                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
-                        />
-                      </div>
-					  <div className="mb-4">
-                        <Photo
-                          mode= "edit"
-                          label={"Short Banner"}
-                          accept=".jpg,.jpeg,.png"
-                          name="banner"
-                          img={this.state.smBanner}
-                          setUrl={this.smBannerHandle.bind(this)}
-                          value={this.state.img_sm}
-                          urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
-                        />
-                      </div>
+                          mode="edit"
+                          handleContent={this.handleShortDesc}
+                          articleProd="edit"
+                          name="description"
+                      />
+                    </div>
+					          <div className="mb-4">
+                      <Photo
+                        mode= "edit"
+                        label={"Banner"}
+                        accept=".jpg,.jpeg,.png"
+                        name="banner"
+                        img={this.state.banner}
+                        setUrl={this.bannerHandle.bind(this)}
+                        value={this.state.img_lg}
+                        urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
+                      />
+                    </div>
+					          <div className="mb-4">
+                      <Photo
+                        mode= "edit"
+                        label={"Short Banner"}
+                        accept=".jpg,.jpeg,.png"
+                        name="banner"
+                        img={this.state.smBanner}
+                        setUrl={this.smBannerHandle.bind(this)}
+                        value={this.state.img_sm}
+                        urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
+                      />
                     </div>
                   </div>
                 </div>

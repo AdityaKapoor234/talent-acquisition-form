@@ -54,24 +54,29 @@ export default class CheckMySupplement extends Component {
 	validateData = () => {
 		this.setState({ is_all: false });
 
-		if (this.state.checkMySupplementDetails.description === "" || this.state.checkMySupplementDetails.description === null || 
-		this.state.checkMySupplementDetails.description.replace(/\s/g, "").length <= 0) {
+		if (!this.state.checkMySupplementDetails.description || this.state.checkMySupplementDetails.description ==="<p></p>\n" || 
+		this.state.checkMySupplementDetails.description.replace(/&nbsp;/g, "").length <=8)
+		{
 			this.state.is_all = true;
 			toast.error("Please enter the full description");
 			return false;
 		}
-		if (this.state.checkMySupplementDetails.short_description === "" || this.state.checkMySupplementDetails.short_description === null || 
-		this.state.checkMySupplementDetails.short_description.replace(/\s/g, "").length <= 0) {
+		
+		if (!this.state.checkMySupplementDetails.short_description || this.state.checkMySupplementDetails.short_description ==="<p></p>\n" || 
+		this.state.checkMySupplementDetails.short_description.replace(/&nbsp;/g, "").length <=8)
+		 {
 			this.state.is_all = true;
 			toast.error("Please enter the short description");
 			return false;
 		}
+
 		if (this.state.checkMySupplementDetails.banner === "" || this.state.checkMySupplementDetails.banner === null || 
 		this.state.checkMySupplementDetails.banner.replace(/\s/g, "").length <= 0) {
 			this.state.is_all = true;
 			toast.error("Please enter the banner");
 			return false;
 		}
+		
         if (this.state.checkMySupplementDetails.sm_banner === "" || this.state.checkMySupplementDetails.sm_banner === null || 
 		this.state.checkMySupplementDetails.sm_banner.replace(/\s/g, "").length <= 0) {
 			this.state.is_all = true;

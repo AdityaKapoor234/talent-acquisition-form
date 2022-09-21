@@ -24,6 +24,13 @@ export default class IngredientCreate extends Component {
         };
     }
 
+    ValidateName = (name) => {
+        // return /[A-Za-z]+$/.test(
+        return /^[a-zA-Z ]*$/.test(
+            name
+        )
+    }
+
     validateData = () => {
         if (
             this.state.ingredientDetails.name === "" &&
@@ -34,7 +41,7 @@ export default class IngredientCreate extends Component {
             toast.error("Please enter name");
             return false;
         }
-        if (this.state.ingredientDetails.name === "" || this.state.ingredientDetails?.name.replace(/\s/g, "").length <=0) {
+        if (this.state.ingredientDetails.name === "" || !this.ValidateName(this.state.ingredientDetails.name) || this.state.ingredientDetails?.name.replace(/\s/g, "").length <=0) {
             toast.error("Please enter name");
             return false;
         }

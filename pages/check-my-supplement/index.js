@@ -148,7 +148,7 @@ export default class CheckMySupplement extends Component {
 		return (
 			<div>
 				<Head>
-					<title>{APP_NAME} - Certification</title>
+					<title>{APP_NAME} - Check My Supplement</title>
 					<meta name="description" content="Trusted Brands. Better Health." />
 					<link rel="icon" href="/fitcart.ico" />
 				</Head>

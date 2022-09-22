@@ -15,7 +15,8 @@ export default class BulkEditProductComponent extends Component {
       list: props?.list,
       editId: null,
       price: 0,
-      special_price: 0
+      special_price: 0,
+      max_member_price: 0,
     };
   }
 
@@ -56,7 +57,8 @@ export default class BulkEditProductComponent extends Component {
   update(id) {
     let data = {
       price: parseInt(this.state.price),
-      special_price: parseInt(this.state.special_price)
+      special_price: parseInt(this.state.special_price),
+      max_member_price: parseInt(this.state.max_member_price)
     };
 
     BulkEditProductApi.updatePrice(id, data)
@@ -85,10 +87,11 @@ export default class BulkEditProductComponent extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="tableRow">
-              <div className="col-5 pe-1">Name</div>
+              <div className="col-3 pe-1">Name</div>
               {/* <div className="col text-center">Type</div> */}
               <div className="col-2 px-2 text-center">Regular Price</div>
               <div className="col-2 px-2 text-center">Special Price</div>
+              <div className="col-2 px-2 text-center">Max Member Price</div>
               <div className="col-1 px-2 text-center">Active</div>
               <div className="col-2 text-center">Action</div>
               {/* <div className="col-1 text-end">Action</div> */}
@@ -107,7 +110,7 @@ export default class BulkEditProductComponent extends Component {
                     <div className="tableCell">
 
 
-                      <div className="tableBody  col-5 elip-text ">
+                      <div className="tableBody  col-3 elip-text pe-2 ">
                         {ele.name}
                       </div>
                       <div className="col-2  text-center elip-text ">
@@ -118,6 +121,11 @@ export default class BulkEditProductComponent extends Component {
 
 
                         {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.special_price} onChange={(e) => { this.setState({ special_price: e.target.value }) }} /> : ele.special_price}
+                      </div>
+                      <div className="col-2  text-center elip-text">
+
+
+                        {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.max_member_price} onChange={(e) => { this.setState({ max_member_price: e.target.value }) }} /> : ele.max_member_price}
                       </div>
                       <div className="col-1  text-center ">
 
@@ -132,7 +140,7 @@ export default class BulkEditProductComponent extends Component {
                             <button className="custom-btn Cancel-btn w-50" onClick={() => { this.setState({ editId: null }) }}>Cancel</button>
                           </div> : <EditOutlinedIcon
                             className="edit-icon"
-                            onClick={() => { this.setState({ editId: ele.id, special_price: ele.special_price, price: ele.price }) }}
+                            onClick={() => { this.setState({ editId: ele.id, special_price: ele.special_price, price: ele.price, max_member_price: ele.max_member_price }) }}
                           />}
 
                       </div>

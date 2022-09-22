@@ -26,7 +26,7 @@ export default class IngredientCreate extends Component {
 
     ValidateName = (name) => {
         // return /[A-Za-z]+$/.test(
-        return /^[a-zA-Z ]*$/.test(
+        return /^[a-zA-Z0-9 ]*$/.test(
             name
         )
     }

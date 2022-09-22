@@ -95,6 +95,7 @@ export default class IngredientCreate extends Component {
                                                 <input
                                                     type="text"
                                                     name="name"
+                                                    maxLength="225"
                                                     value={this.state.input.name}
                                                     onChange={this.handleChange.bind(this)}
                                                 />

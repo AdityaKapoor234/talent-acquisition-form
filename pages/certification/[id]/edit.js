@@ -73,24 +73,24 @@ export default class CertificationEditDetails extends Component {
 			}
 		}
 		
-		if (
-			this.state.certificationDetails?.certificate_number === "" ||
-			this.state.certificationDetails?.certificate_number === null ||
-			this.state.certificationDetails?.certificate_number === undefined
-		) {
-			toast.error("Please enter the certificate number");
-			this.state.is_certificate_number = true;
-			this.state.is_all = true;
-		}
-		if (this.state.certificationDetails?.certificate_number !== undefined) {
-			if (this.state.certificationDetails?.certificate_number.replace(/\s/g, "").length <= 0) {
-				if (this.state.is_certificate_number === false) {
-					toast.error("Please enter the certificate number");
-					this.state.is_certificate_number = true;
-					this.state.is_all = true;
-				}
-			}
-		}
+		// if (
+		// 	this.state.certificationDetails?.certificate_number === "" ||
+		// 	this.state.certificationDetails?.certificate_number === null ||
+		// 	this.state.certificationDetails?.certificate_number === undefined
+		// ) {
+		// 	toast.error("Please enter the certificate number");
+		// 	this.state.is_certificate_number = true;
+		// 	this.state.is_all = true;
+		// }
+		// if (this.state.certificationDetails?.certificate_number !== undefined) {
+		// 	if (this.state.certificationDetails?.certificate_number.replace(/\s/g, "").length <= 0) {
+		// 		if (this.state.is_certificate_number === false) {
+		// 			toast.error("Please enter the certificate number");
+		// 			this.state.is_certificate_number = true;
+		// 			this.state.is_all = true;
+		// 		}
+		// 	}
+		// }
 		if (
 			this.state.certificationDetails?.path === "" ||
 			this.state.certificationDetails?.path === null ||
@@ -100,6 +100,15 @@ export default class CertificationEditDetails extends Component {
 			toast.error("Please enter the icon");
 			this.state.is_all = true;
 		}
+
+		if (
+            this.state.certificationDetails?.sort_order === "" ||
+            this.state.certificationDetails?.sort_order === null ||
+			this.state.certificationDetails?.sort_order < 1
+        ) {
+            toast.error("Please enter Display Order ");
+            this.state.is_all=true;
+        }
 
 		if (this.state.is_all === true) {
 			return false;
@@ -115,6 +124,7 @@ export default class CertificationEditDetails extends Component {
 				name: this.state.certificationDetails?.name,
 				path: this.state.certificationDetails?.path,
 				certificate_number: this.state.certificationDetails?.certificate_number,
+				display_order: this.state.certificationDetails?.sort_order,
 				is_active: this.state.certificationDetails?.is_active,
 			};
 			CertificationApi.certificationListEDIT(this.props.id, data)

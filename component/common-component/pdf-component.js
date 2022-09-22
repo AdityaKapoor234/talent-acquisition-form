@@ -38,7 +38,7 @@ export default function photo({ label, accept, mode, img, name, setUrl, value, u
         setImage(response.data.data?.url);
         setUrl(names, response.data.data?.url)
         // toast.success(response.data.message)
-        toast.success("File Loaded Successfully")
+        toast.success("File Uploaded Successfully")
       })
       .catch((error) => {
         setIsLoader(false);

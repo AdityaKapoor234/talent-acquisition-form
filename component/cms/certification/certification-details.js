@@ -124,7 +124,7 @@ export default class CertificationCreate extends Component {
                                         <div className="col-md-4">
                                             <div className="login-form ">
                                                 <label>
-                                                    Certificate No<span className="mandatory-star">*</span>
+                                                    Certificate No
                                                 </label>
                                                 <input
                                                     type="text"
@@ -146,6 +146,22 @@ export default class CertificationCreate extends Component {
                                             value={this.state.img_lg}
                                             urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner`}
                                         />
+                                    </div>
+                                    <div className="row mt-4">
+                                        <div className="col-md-4">
+                                            <div className="login-form ">
+                                                <label>
+                                                    Display Order<span className="mandatory-star">*</span>
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    name="sort_order"
+                                                    value={this.state.input.sort_order}
+                                                    onChange={this.handleChange.bind(this)}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="row mt-4">
                                         <div className="col-md-4">
@@ -185,7 +201,7 @@ export default class CertificationCreate extends Component {
                                         <div className="col-md-4">
                                             <div className="login-form ">
                                                 <label>
-                                                    Certificate No<span className="mandatory-star">*</span>
+                                                    Certificate No
                                                 </label>
                                                 <input
                                                     type="text"

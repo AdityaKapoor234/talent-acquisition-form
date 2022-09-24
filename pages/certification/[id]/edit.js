@@ -42,9 +42,11 @@ export default class CertificationEditDetails extends Component {
 				content: "",
 				path: "",
 				certificate_number: "",
+				certificate_doc: "",
 				is_trust_health: false,
 				is_active: false,
 				is_certificate_number: false,
+				is_certificate_doc: false,
 				sort_order: null,
 				read_more_url: "",
 			},
@@ -101,6 +103,25 @@ export default class CertificationEditDetails extends Component {
 			this.state.is_all = true;
 		}
 
+		// if (
+		// 	this.state.certificationDetails?.certificate_doc === "" ||
+		// 	this.state.certificationDetails?.certificate_doc === null ||
+		// 	this.state.certificationDetails?.certificate_doc === undefined
+		// ) {
+		// 	toast.error("Please enter the certificate document");
+		// 	this.state.is_certificate_doc = true;
+		// 	this.state.is_all = true;
+		// }
+		// if (this.state.certificationDetails?.certificate_doc !== undefined) {
+		// 	if (this.state.certificationDetails?.certificate_doc.replace(/\s/g, "").length <= 0) {
+		// 		if (this.state.is_certificate_doc === false) {
+		// 			toast.error("Please enter the certificate document");
+		// 			this.state.is_certificate_doc = true;
+		// 			this.state.is_all = true;
+		// 		}
+		// 	}
+		// }
+
 		if (
             this.state.certificationDetails?.sort_order === "" ||
             this.state.certificationDetails?.sort_order === null ||
@@ -124,6 +145,7 @@ export default class CertificationEditDetails extends Component {
 				name: this.state.certificationDetails?.name,
 				path: this.state.certificationDetails?.path,
 				certificate_number: this.state.certificationDetails?.certificate_number,
+				certificate_doc: this.state.certificationDetails?.certificate_doc,
 				display_order: this.state.certificationDetails?.sort_order,
 				is_active: this.state.certificationDetails?.is_active,
 			};
@@ -158,6 +180,7 @@ export default class CertificationEditDetails extends Component {
 						content: response.data.data.certification?.content,
 						path: response.data.data.certification?.path,
 						certificate_number: response.data.data.certification?.certificate_number,
+						certificate_doc: response.data.data.certification?.certificate_doc,
 						is_trust_health: response.data.data.certification?.is_trust_health,
 						is_active: response.data.data.certification?.is_active,
 						sort_order: response.data.data.certification?.sort_order,

@@ -47,7 +47,7 @@ export default function InventoryImportComponent(props) {
   const [input, setInput] = useState({
     "count": null,
     "batch_number": null,
-    "best_before_months": "",
+    "best_before_months": null,
     "manufacture_date": "",
     "expire_date": "",
     "certificate_url": "",
@@ -61,6 +61,7 @@ export default function InventoryImportComponent(props) {
   const [count, setCount] = useState(null);
   const [manufacture_date, setManufactureDate] = useState("");
   const [expire_date, setExpireDate] = useState("");
+  const [best_before_months, setBestBeforeMonths] = useState(null);
   const [is_active, setIsActive] = useState(false);
   const [certificate_url, setCertificateUrl] = useState("");
   const [country, setCountry] = useState("select");
@@ -71,6 +72,7 @@ export default function InventoryImportComponent(props) {
   const [is_count, setIsCount] = useState(false);
   const [is_manufacture_date, setIsManufactureDate] = useState(false);
   const [is_expire_date, setIsExpireDate] = useState(false);
+  const [is_best_before_months, setIsBestBeforeMonths] = useState(false);
   const [is_certificate_url, setIsCertificateUrl] = useState(false);
   const [is_warehouse_location, setIsWarehouseLocation] = useState(false);
   const [is_country, setIsCountry] = useState(false);
@@ -87,6 +89,7 @@ export default function InventoryImportComponent(props) {
     setIsCount(false);
     setIsManufactureDate(false);
     setIsExpireDate(false);
+    setIsBestBeforeMonths(false);
     setIsCertificateUrl(false);
     setIsWarehouseLocation(false);
     setIsCountry(false);
@@ -117,6 +120,26 @@ export default function InventoryImportComponent(props) {
     //   setIsExpireDate(true);
     //   isValid = false;
     // }
+    // if (best_before_months === "" || best_before_months === null || best_before_months.replace(/\s/g, "").length <= 0) {
+    //   // toast.error("Please enter quantity");
+    //   setIsBestBeforeMonths(true);
+    //   isValid = false;
+    // }
+
+    if (!best_before_months && !expire_date) {
+      // toast.error("Please enter quantity");
+      setIsBestBeforeMonths(true);
+      setIsExpireDate(true);
+      isValid = false;
+    }
+
+    if (best_before_months && expire_date) {
+      // toast.error("Please enter quantity");
+      setIsBestBeforeMonths(true);
+      setIsExpireDate(true);
+      isValid = false;
+    }
+
     // if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
     //   toast.error("Please enter certific ate");
     //   setIsCertificateUrl(true);
@@ -151,7 +174,7 @@ export default function InventoryImportComponent(props) {
         count: parseInt(count),
         manufacture_date: convertDateStringToDateAPI(manufacture_date),
         expire_date: convertDateStringToDateAPI(expire_date),
-        best_before_months: "",
+        best_before_months: parseInt(best_before_months),
         is_active: is_active,
         certificate_url: certificate_url,
         country_id: parseInt(country),
@@ -420,7 +443,29 @@ export default function InventoryImportComponent(props) {
               <div className="col-md-2 d-grid cancel">
                 <button
                   className="btn btn-primary full-width btn-sm"
-                  onClick={() => setIsEdit(false)}
+                  onClick={() => {
+                    setIsEdit(false);
+                    setUpcCode("");
+                    setBatchNumber(null);
+                    setCount(null);
+                    setManufactureDate("");
+                    setExpireDate("");
+                    setBestBeforeMonths(null);
+                    setIsActive(false);
+                    setCertificateUrl("");
+                    setCountry("select");
+                    setWarehouse("select");
+                    setIsAll(false);
+                    setIsUpcCode(false);
+                    setIsBatchNumber(false);
+                    setIsCount(false);
+                    setIsManufactureDate(false);
+                    setIsExpireDate(false);
+                    setIsBestBeforeMonths(false);
+                    setIsCertificateUrl(false);
+                    setIsWarehouseLocation(false);
+                    setIsCountry(false);
+                  }}
                 >
                   Back
                 </button>
@@ -441,6 +486,7 @@ export default function InventoryImportComponent(props) {
                 <div className="col  text-center">Quantity</div>
                 <div className="col text-center">Mfg Date</div>
                 <div className="col  text-center">Exp Date</div>
+                <div className="col  text-center">Best Before</div>
                 <div className="col-1 text-center">PDF</div>
                 <div className="col-1 text-center">Delete</div>
                 <div className="col-1 text-center">Active</div>
@@ -474,6 +520,9 @@ export default function InventoryImportComponent(props) {
                         </div>
                         <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.expire_date)}>
                           {convertDateStringToDateAPI(val?.expire_date)}
+                        </div>
+                        <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.best_before_months)}>
+                          {val?.best_before_months ? val?.best_before_months : "-"}
                         </div>
                         <div className="col-1 text-center">
                           {val?.certificate_url ? (
@@ -599,7 +648,7 @@ export default function InventoryImportComponent(props) {
             <div className="col-md-4">
               <div className="login-form ">
                 <label>
-                  manufacture Date<span className="mandatory-star">*</span>
+                  Manufacture Date<span className="mandatory-star">*</span>
                 </label>
                 <input
                   type="date"
@@ -621,21 +670,25 @@ export default function InventoryImportComponent(props) {
                   value={convertDateStringToDate(expire_date)}
                   onChange={(e) => { setExpireDate(e.target.value) }}
                 />
-                {is_expire_date === true ? <small className="form-text text-danger" >Please Enter Expiry Date</small> : ""}
+                {is_expire_date === true ? <small className="form-text text-danger" >Please Enter Either Expiry Date or Best Before (Months)</small> : ""}
               </div>
             </div>
-            <div className="col-md-4 mt-4">
-              <div className="signup-check">
-                <Checkbox
-                  size="small"
-                  style={{ color: "#012169" }}
-                  checked={is_active}
-                  name="is_active"
-                  onChange={(e) => { setIsActive(e.target.checked) }}
+            <div className="col-md-4">
+              <div className="login-form ">
+                <label>
+                  Best Before (Months)
+                </label>
+                <input
+                  type="number"
+                  name="best_before_months"
+                  min={0}
+                  value={best_before_months}
+                  onChange={(e) => { setBestBeforeMonths(e.target.value) }}
                 />
-                <label>Active</label>
+                {is_best_before_months === true ? <small className="form-text text-danger" >Please Enter Either Best Before (Months) or Expiry Date</small> : ""}
               </div>
             </div>
+
 
 
 
@@ -783,6 +836,20 @@ export default function InventoryImportComponent(props) {
                 </div>
               </div>
             </div>
+
+            <div className="col-md-4 mt-4">
+              <div className="signup-check">
+                <Checkbox
+                  size="small"
+                  style={{ color: "#012169" }}
+                  checked={is_active}
+                  name="is_active"
+                  onChange={(e) => { setIsActive(e.target.checked) }}
+                />
+                <label>Active</label>
+              </div>
+            </div>
+
 
 
 

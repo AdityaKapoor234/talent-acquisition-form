@@ -12,7 +12,9 @@ import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Photo from "../../common-component/photo-non-merge";
 import CertificationApi from "../../../services/certification";
-import {PRODUCT_SERVICE} from "../../../utils/constant";
+import { PRODUCT_SERVICE } from "../../../utils/constant";
+import PDF from "../../common-component/pdf-component";
+
 export default class CertificationCreate extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +28,7 @@ export default class CertificationCreate extends Component {
             input: {
                 name: props?.certification?.name ? props?.certification?.name : "",
                 certificate_number: props?.certification?.certificate_number ? props?.certification?.certificate_number : "",
+                certificate_doc: props?.certification?.certificate_doc ? props?.certification?.certificate_doc : "",
                 content: props?.certification?.content ? props?.certification?.content : "",
                 path: props?.certification?.path ? props?.certification?.path : "",
                 is_trust_health: props?.certification?.is_trust_health ? props?.certification?.is_trust_health : false,
@@ -47,6 +50,7 @@ export default class CertificationCreate extends Component {
                 input: {
                     name: nextProps?.certification?.name ? nextProps?.certification?.name : "",
                     certificate_number: nextProps?.certification?.certificate_number ? nextProps?.certification?.certificate_number : "",
+                    certificate_doc: nextProps?.certification?.certificate_doc ? nextProps?.certification?.certificate_doc : "",
                     content: nextProps?.certification?.content ? nextProps?.certification?.content : "",
                     path: nextProps?.certification?.path ? nextProps?.certification?.path : "",
                     is_trust_health: nextProps?.certification?.is_trust_health ? nextProps?.certification?.is_trust_health : false,
@@ -65,6 +69,12 @@ export default class CertificationCreate extends Component {
         } else {
             input[event.target.name] = event.target.value;
         }
+        this.setState({ input });
+        this.props?.handle(input);
+    };
+    handleChangeDoc = (value, url) => {
+        let input = this.state.input;
+        input["certificate_doc"] = url;
         this.setState({ input });
         this.props?.handle(input);
     };
@@ -145,6 +155,19 @@ export default class CertificationCreate extends Component {
                                             setUrl={this.handlePhotoUrl.bind(this)}
                                             value={this.state.img_lg}
                                             urlLink={`${PRODUCT_SERVICE}/manage/category/photo/full_banner`}
+                                        />
+                                    </div>
+                                    <div className="mt-4">
+                                        <PDF
+                                            mode="edit"
+                                            label={"Certificate PDF"}
+                                            accept=".pdf"
+                                            name="certificate_doc"
+                                            img={this.state.input?.certificate_doc}
+                                            setUrl={this.handleChangeDoc.bind(this)}
+                                            value="file-input"
+                                            urlName="avatar"
+                                            validation={false}
                                         />
                                     </div>
                                     <div className="row mt-4">
@@ -238,6 +261,19 @@ export default class CertificationCreate extends Component {
                                                 />
                                             </div>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <PDF
+                                            mode="view"
+                                            label={"Certificate PDF"}
+                                            accept=".pdf"
+                                            name="certificate_doc"
+                                            img={this.state.input?.certificate_doc}
+                                            // setUrl={this.handleChange.bind(this)}
+                                            value="file-input"
+                                            urlName="avatar"
+                                            validation={false}
+                                        />
                                     </div>
                                     <div className="row">
                                         <div className="col-md-4">

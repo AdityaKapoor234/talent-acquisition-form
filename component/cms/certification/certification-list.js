@@ -3,6 +3,7 @@ import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutli
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import DownloadIcon from '@mui/icons-material/Download';
 import Router from "next/router";
 import Photo from "../banner/banner-photo";
 
@@ -37,7 +38,8 @@ export default class certificationList extends Component {
                             <div className="col text-center">Certificate No.</div>
                             <div className="col text-center">Display Order</div>
                             {/* <div className="col-2 text-center">Trusted Health</div> */}
-                            <div className="col text-center">Active</div>
+                            <div className="col-1 text-center">PDF</div>
+                            <div className="col-1 text-center">Active</div>
                             <div className="col-1 text-end">Action</div>
                         </div>
                     </div>
@@ -67,7 +69,16 @@ export default class certificationList extends Component {
                                                     <CancelOutlinedIcon className="cancel-icon" />
                                                 )}
                                             </div> */}
-                                            <div className="col text-center">
+                                            <div className="col-1 text-center">
+                                                {p?.certificate_doc ? (
+                                                    <div className="point-text" onClick={() => {Router.push(p?.certificate_doc)}}>
+                                                        <DownloadIcon className="check-icon" />
+                                                    </div>
+                                                ) : (
+                                                    <CancelOutlinedIcon className="cancel-icon" />
+                                                )}
+                                            </div>
+                                            <div className="col-1 text-center">
                                                 {p?.is_active === true ? (
                                                     <CheckCircleOutlineOutlinedIcon className="check-icon" />
                                                 ) : (

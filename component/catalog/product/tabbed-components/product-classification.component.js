@@ -45,7 +45,7 @@ export default class ProductClassificationComponent extends Component {
     if (event?.target?.checked) {
       list["select_minus"] = !event?.target?.checked;
     }
-    else{
+    else {
       list["select_minus"] = event?.target?.checked;
     }
 
@@ -80,10 +80,10 @@ export default class ProductClassificationComponent extends Component {
       list.select_minus = false;
     } else {
       list["select_all"] = false;
-      if (count > 0){
+      if (count > 0) {
         list.select_minus = true;
       }
-      else{
+      else {
         list.select_minus = false;
       }
     }
@@ -96,7 +96,7 @@ export default class ProductClassificationComponent extends Component {
     if (event?.target?.checked) {
       list["select_minus"] = !event?.target?.checked;
     }
-    else{
+    else {
       list["select_minus"] = event?.target?.checked;
     }
 
@@ -131,10 +131,10 @@ export default class ProductClassificationComponent extends Component {
       list.select_minus = false;
     } else {
       list["select_all"] = false;
-      if (count > 0){
+      if (count > 0) {
         list.select_minus = true;
       }
-      else{
+      else {
         list.select_minus = false;
       }
     }
@@ -148,7 +148,7 @@ export default class ProductClassificationComponent extends Component {
     if (event?.target?.checked) {
       list["select_minus"] = !event?.target?.checked;
     }
-    else{
+    else {
       list["select_minus"] = event?.target?.checked;
     }
 
@@ -183,10 +183,10 @@ export default class ProductClassificationComponent extends Component {
       list.select_minus = false;
     } else {
       list["select_all"] = false;
-      if (count > 0){
+      if (count > 0) {
         list.select_minus = true;
       }
-      else{
+      else {
         list.select_minus = false;
       }
     }
@@ -247,9 +247,9 @@ export default class ProductClassificationComponent extends Component {
         if (response.data.httpStatusCode === 200) {
           let list = response.data.data.data
           for (let i in list) {
-            let sub_diet = list[0]?.sub
+            let sub_sport = list[0]?.sub
             let sub_goal = list[1]?.sub
-            let sub_sport = list[2]?.sub
+            let sub_diet = list[2]?.sub
             let count_diet = 0
             let count_goal = 0
             let count_sport = 0
@@ -262,23 +262,23 @@ export default class ProductClassificationComponent extends Component {
             else if (list[i]?.name === "sport") {
               this.setState({ sport: list[i] })
             }
-            for (let j in sub_diet) {
-              if (modelDiet?.indexOf(sub_diet[j].id) >= 0) {
-                sub_diet[j].select_all = true;
-                count_diet = count_diet + 1
+            for (let j in sub_sport) {
+              if (modelSport?.indexOf(sub_sport[j].id) >= 0) {
+                sub_sport[j].select_all = true;
+                count_sport = count_sport + 1
               }
             }
-            if (modelDiet?.indexOf(list[0].id) >= 0 && count_diet === sub_diet?.length) {
+            if (modelSport?.indexOf(list[0].id) >= 0 && count_sport === sub_sport?.length) {
               list[0].select_all = true;
             }
-            if (count_diet > 0) {
-              if (sub_diet?.length === count_diet){
+            if (count_sport > 0) {
+              if (sub_sport?.length === count_sport) {
                 list[0]["select_all"] = true;
                 list[0]["select_minus"] = false;
               }
               else {
                 list[0]["select_minus"] = true;
-              }              
+              }
             }
 
             for (let j in sub_goal) {
@@ -291,7 +291,7 @@ export default class ProductClassificationComponent extends Component {
               list[1].select_all = true;
             }
             if (count_goal > 0) {
-              if (sub_goal?.length === count_goal){
+              if (sub_goal?.length === count_goal) {
                 list[1]["select_all"] = true;
                 list[1]["select_minus"] = false;
               }
@@ -300,17 +300,17 @@ export default class ProductClassificationComponent extends Component {
               }
             }
 
-            for (let j in sub_sport) {
-              if (modelSport?.indexOf(sub_sport[j].id) >= 0) {
-                sub_sport[j].select_all = true;
-                count_sport = count_sport + 1
+            for (let j in sub_diet) {
+              if (modelDiet?.indexOf(sub_diet[j].id) >= 0) {
+                sub_diet[j].select_all = true;
+                count_diet = count_diet + 1
               }
             }
-            if (modelSport?.indexOf(list[2].id) >= 0 && count_sport === sub_sport?.length) {
+            if (modelDiet?.indexOf(list[2].id) >= 0 && count_diet === sub_diet?.length) {
               list[2].select_all = true;
             }
-            if (count_sport > 0) {
-              if (sub_sport?.length === count_sport){
+            if (count_diet > 0) {
+              if (sub_diet?.length === count_diet) {
                 list[2]["select_all"] = true;
                 list[2]["select_minus"] = false;
               }
@@ -318,12 +318,13 @@ export default class ProductClassificationComponent extends Component {
                 list[2]["select_minus"] = true;
               }
             }
+
           }
           this.setState({
             classificationList: list,
-            diet: list[0],
+            sport: list[0],
             goal: list[1],
-            sport: list[2],
+            diet: list[2],
             isLoader: false,
           });
 
@@ -354,19 +355,19 @@ export default class ProductClassificationComponent extends Component {
           });
           response.data.data?.data?.map(elem => {
             elem?.sub?.map(e => {
-              if (elem?.name === "diet"){
+              if (elem?.name === "diet") {
                 subListDiet.push(e?.id)
               }
-              else if (elem?.name === "goal"){
+              else if (elem?.name === "goal") {
                 subListGoal.push(e?.id)
               }
-              else if (elem?.name === "sport"){
+              else if (elem?.name === "sport") {
                 subListSport.push(e?.id)
               }
             })
           })
 
-          this.getList(subListDiet,subListGoal,subListSport);
+          this.getList(subListDiet, subListGoal, subListSport);
         }
       })
       .catch((error) => {
@@ -413,17 +414,17 @@ export default class ProductClassificationComponent extends Component {
                       style={{ color: "#012169" }}
                       size="small"
                       disabled={this.state.mode === "view" ? true : false}
-                      checked={this.state.diet?.select_all}
-                      value={this.state.diet?.id}
-                      indeterminate={this.state.diet?.select_minus}
-                      onChange={this.handleChangeAllDiet}
+                      checked={this.state.sport?.select_all}
+                      value={this.state.sport?.id}
+                      indeterminate={this.state.sport?.select_minus}
+                      onChange={this.handleChangeAllSport}
                     />
                   }
-                  label={<span className="text-capitalize">{this.state.diet?.name}</span>}
+                  label={<span className="text-capitalize">{this.state.sport?.name}</span>}
                 />
               </FormGroup>
               <div className="row margin-check">
-                {this.state.diet?.sub?.map((p) => {
+                {this.state.sport?.sub?.map((p) => {
                   return (
                     <div className="col-md-4">
                       <FormGroup>
@@ -435,7 +436,7 @@ export default class ProductClassificationComponent extends Component {
                               disabled={this.state.mode === "view" ? true : false}
                               checked={p?.select_all}
                               value={p?.id}
-                              onChange={this.handleChangeDiet}
+                              onChange={this.handleChangeSport}
                             />
                           }
                           label={p?.name}
@@ -446,7 +447,6 @@ export default class ProductClassificationComponent extends Component {
                 })}
               </div>
             </div>
-
 
             <div className="cat-check">
               <FormGroup>
@@ -490,6 +490,7 @@ export default class ProductClassificationComponent extends Component {
               </div>
             </div>
 
+
             <div className="cat-check">
               <FormGroup>
                 <FormControlLabel
@@ -498,17 +499,17 @@ export default class ProductClassificationComponent extends Component {
                       style={{ color: "#012169" }}
                       size="small"
                       disabled={this.state.mode === "view" ? true : false}
-                      checked={this.state.sport?.select_all}
-                      value={this.state.sport?.id}
-                      indeterminate={this.state.sport?.select_minus}
-                      onChange={this.handleChangeAllSport}
+                      checked={this.state.diet?.select_all}
+                      value={this.state.diet?.id}
+                      indeterminate={this.state.diet?.select_minus}
+                      onChange={this.handleChangeAllDiet}
                     />
                   }
-                  label={<span className="text-capitalize">{this.state.sport?.name}</span>}
+                  label={<span className="text-capitalize">{this.state.diet?.name}</span>}
                 />
               </FormGroup>
               <div className="row margin-check">
-                {this.state.sport?.sub?.map((p) => {
+                {this.state.diet?.sub?.map((p) => {
                   return (
                     <div className="col-md-4">
                       <FormGroup>
@@ -520,7 +521,7 @@ export default class ProductClassificationComponent extends Component {
                               disabled={this.state.mode === "view" ? true : false}
                               checked={p?.select_all}
                               value={p?.id}
-                              onChange={this.handleChangeSport}
+                              onChange={this.handleChangeDiet}
                             />
                           }
                           label={p?.name}

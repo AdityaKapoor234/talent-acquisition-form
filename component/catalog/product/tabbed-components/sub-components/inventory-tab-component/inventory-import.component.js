@@ -73,6 +73,7 @@ export default function InventoryImportComponent(props) {
   const [is_manufacture_date, setIsManufactureDate] = useState(false);
   const [is_expire_date, setIsExpireDate] = useState(false);
   const [is_best_before_months, setIsBestBeforeMonths] = useState(false);
+  const [is_best_before_months_value, setIsBestBeforeMonthsValue] = useState(false);
   const [is_certificate_url, setIsCertificateUrl] = useState(false);
   const [is_warehouse_location, setIsWarehouseLocation] = useState(false);
   const [is_country, setIsCountry] = useState(false);
@@ -90,6 +91,7 @@ export default function InventoryImportComponent(props) {
     setIsManufactureDate(false);
     setIsExpireDate(false);
     setIsBestBeforeMonths(false);
+    setIsBestBeforeMonthsValue(false);
     setIsCertificateUrl(false);
     setIsWarehouseLocation(false);
     setIsCountry(false);
@@ -126,18 +128,26 @@ export default function InventoryImportComponent(props) {
     //   isValid = false;
     // }
 
-    if (!best_before_months && !expire_date) {
-      // toast.error("Please enter quantity");
-      setIsBestBeforeMonths(true);
-      setIsExpireDate(true);
-      isValid = false;
-    }
+    // if (!best_before_months && !expire_date) {
+    //   // toast.error("Please enter quantity");
+    //   setIsBestBeforeMonths(true);
+    //   setIsExpireDate(true);
+    //   isValid = false;
+    // }
 
     if (best_before_months && expire_date) {
       // toast.error("Please enter quantity");
       setIsBestBeforeMonths(true);
       setIsExpireDate(true);
       isValid = false;
+    }
+
+    if (best_before_months) {
+      if (best_before_months < 1){
+        setIsBestBeforeMonthsValue(true);
+        setIsExpireDate(true);
+        isValid = false;  
+      }
     }
 
     // if (certificate_url === "" || certificate_url === null || certificate_url.replace(/\s/g, "").length <= 0) {
@@ -173,7 +183,7 @@ export default function InventoryImportComponent(props) {
         batch_number: batch_number,
         count: parseInt(count),
         manufacture_date: convertDateStringToDateAPI(manufacture_date),
-        expire_date: convertDateStringToDateAPI(expire_date),
+        expire_date: expire_date ? convertDateStringToDateAPI(expire_date) : null,
         best_before_months: parseInt(best_before_months),
         is_active: is_active,
         certificate_url: certificate_url,
@@ -199,11 +209,23 @@ export default function InventoryImportComponent(props) {
             setCount(null);
             setManufactureDate("");
             setExpireDate("");
+            setBestBeforeMonths(null);
             setIsActive(false);
             setCertificateUrl("");
             setCountry("select");
             setWarehouse("select");
 
+            setIsAll(false);
+            setIsUpcCode(false);
+            setIsBatchNumber(false);
+            setIsCount(false);
+            setIsManufactureDate(false);
+            setIsExpireDate(false);
+            setIsBestBeforeMonths(false);
+            setIsBestBeforeMonthsValue(false);
+            setIsCertificateUrl(false);
+            setIsWarehouseLocation(false);
+            setIsCountry(false);
 
           }
         })
@@ -462,6 +484,7 @@ export default function InventoryImportComponent(props) {
                     setIsManufactureDate(false);
                     setIsExpireDate(false);
                     setIsBestBeforeMonths(false);
+                    setIsBestBeforeMonthsValue(false);
                     setIsCertificateUrl(false);
                     setIsWarehouseLocation(false);
                     setIsCountry(false);
@@ -683,9 +706,10 @@ export default function InventoryImportComponent(props) {
                   name="best_before_months"
                   min={0}
                   value={best_before_months}
-                  onChange={(e) => { setBestBeforeMonths(e.target.value) }}
+                  onChange={(e) => { setBestBeforeMonths(e.target.value.replace(/[^0-9]/, "")) }}
                 />
                 {is_best_before_months === true ? <small className="form-text text-danger" >Please Enter Either Best Before (Months) or Expiry Date</small> : ""}
+                {is_best_before_months_value === true ? <small className="form-text text-danger" >Best Before (Months) should be greater than 0</small> : ""}
               </div>
             </div>
 

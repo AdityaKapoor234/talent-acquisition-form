@@ -37,10 +37,12 @@ export default class ProductInventoryComponent extends Component {
   };
 
   onSave = () => {
+    toast.success("Inventory added successfully");
     Router.push("/product");
   };
 
   onSaveAndContinue = () => {
+    toast.success("Inventory added successfully");
     this.props?.tab("prices");
   };
 

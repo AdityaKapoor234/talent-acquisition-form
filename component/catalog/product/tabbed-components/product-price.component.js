@@ -113,6 +113,7 @@ export default class ProductPriceComponent extends Component {
       });
       toast.success("Update price successfully");
       Router.push("/product");
+      
     }
   }
 
@@ -127,6 +128,7 @@ export default class ProductPriceComponent extends Component {
       });
       toast.success("Update price successfully");
       this.props?.tab("photos");
+
     }
   }
 

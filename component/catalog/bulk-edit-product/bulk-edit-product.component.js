@@ -110,19 +110,19 @@ export default class BulkEditProductComponent extends Component {
                     <div className="tableCell">
 
 
-                      <div className="tableBody  col-3 elip-text pe-2 ">
+                      <div className="tableBody  col-3 elip-text pe-2 " title={ele.name}>
                         {ele.name}
                       </div>
-                      <div className="col-2  text-center elip-text ">
+                      <div className="col-2  text-center elip-text px-2" title={this.state.editId && this.state.editId === ele.id ? "" : ele.price}>
 
                         {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.price} onChange={(e) => { this.setState({ price: e.target.value }) }} /> : ele.price}
                       </div>
-                      <div className="col-2  text-center elip-text">
+                      <div className="col-2  text-center elip-text px-2" title={this.state.editId && this.state.editId === ele.id ? "" : ele.special_price}>
 
 
                         {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.special_price} onChange={(e) => { this.setState({ special_price: e.target.value }) }} /> : ele.special_price}
                       </div>
-                      <div className="col-2  text-center elip-text">
+                      <div className="col-2  text-center elip-text px-2" title={this.state.editId && this.state.editId === ele.id ? "" : ele.max_member_price}>
 
 
                         {this.state.editId && this.state.editId === ele.id ? <input type="number" value={this.state.max_member_price} onChange={(e) => { this.setState({ max_member_price: e.target.value }) }} /> : ele.max_member_price}

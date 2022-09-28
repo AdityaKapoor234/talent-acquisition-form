@@ -538,11 +538,11 @@ export default function InventoryImportComponent(props) {
                         <div className="col text-center px-2 elip-text" title={val?.count ? val?.count : "-"}>
                           {val?.count ? val?.count : "-"}
                         </div>
-                        <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.manufacture_date)}>
-                          {convertDateStringToDateAPI(val?.manufacture_date)}
+                        <div className="col text-center px-2 elip-text" title={val?.manufacture_date ? convertDateStringToDateAPI(val?.manufacture_date) : "-"}>
+                          {val?.manufacture_date ? convertDateStringToDateAPI(val?.manufacture_date) : "-"}
                         </div>
                         <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.expire_date)}>
-                          {convertDateStringToDateAPI(val?.expire_date)}
+                          {val?.expire_date ? convertDateStringToDateAPI(val?.expire_date): "-"}
                         </div>
                         <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.best_before_months)}>
                           {val?.best_before_months ? val?.best_before_months : "-"}

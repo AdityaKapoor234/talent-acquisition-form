@@ -78,7 +78,7 @@ export default class CustomerList extends Component {
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_number}>{p?.phone_number}</div>
-                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
+                  <div className="col px-2 text-center elip-text" title={p?.created_at ? this.convertDateStringToDate(p?.created_at) : "-"}>{p?.created_at ? this.convertDateStringToDate(p?.created_at) : "-"}</div>
                   <div className="col-1 text-center">
                     {p?.is_active === true ? (
                       <CheckCircleOutlineOutlinedIcon className="check-icon" />

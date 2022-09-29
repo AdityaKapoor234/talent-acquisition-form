@@ -27,6 +27,7 @@ export default class CategoryCreate extends Component {
       parentCategory:[],
       input: {
         banner_img: 'https://fitcart-qa.s3.ap-south-1.amazonaws.com/static/category_icon.png',
+        // banner_img: "",
         description: "",
         full_banner_img: "",
         full_banner_img_sm: "",
@@ -151,7 +152,7 @@ export default class CategoryCreate extends Component {
                     </div>
                   </div>
                   <div className="row mt-2">
-                    <div className="col-md-12">
+                    <div className="col-md-4">
                       <div className="login-form">
                         <label>Short Description</label>
                         <br />

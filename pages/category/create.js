@@ -51,13 +51,30 @@ export default class CategoryCreate extends Component {
       toast.error("Please enter the name");
       return false;
     }
-    // if (
-    //   this.state.categoryDetails?.banner_img === "" ||
-    //   this.state.categoryDetails?.banner_img === null
-    // ) {
-    //   toast.error("Please upload icon");
-    //   return false;
-    // }
+    if (
+      this.state.categoryDetails?.description === "" ||
+      this.state.categoryDetails?.description === null || 
+      this.state.categoryDetails?.description.replace(/\s/g, "").length <=0
+    ) {
+      toast.error("Please enter the full description");
+      return false;
+    }
+    if (
+      this.state.categoryDetails?.parent_id === "" ||
+      this.state.categoryDetails?.parent_id === "select" ||
+      this.state.categoryDetails?.parent_id === null || 
+      this.state.categoryDetails?.parent_id.replace(/\s/g, "").length <=0
+    ) {
+      toast.error("Please enter the parent category");
+      return false;
+    }
+    if (
+      this.state.categoryDetails?.banner_img === "" ||
+      this.state.categoryDetails?.banner_img === null
+    ) {
+      toast.error("Please upload icon");
+      return false;
+    }
     if (
       this.state.categoryDetails?.full_banner_img === "" ||
       this.state.categoryDetails?.full_banner_img === null
@@ -79,14 +96,6 @@ export default class CategoryCreate extends Component {
     //   toast.error("Please enter the short description");
     //   return false;
     // }
-    if (
-      this.state.categoryDetails?.description === "" ||
-      this.state.categoryDetails?.description === null || 
-      this.state.categoryDetails?.description.replace(/\s/g, "").length <=0
-    ) {
-      toast.error("Please enter the full description");
-      return false;
-    }
     if (
       this.state.categoryDetails?.sort_order === "" ||
       this.state.categoryDetails?.sort_order === null

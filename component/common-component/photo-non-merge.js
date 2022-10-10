@@ -58,7 +58,8 @@ export default function photo({
       })
       .catch((error) => {
         setIsLoader(false);
-        toast.error(error);
+        // toast.error(error);
+        toast.error("File size is more than 3 MB.");
       });
   };
   useEffect(() => {

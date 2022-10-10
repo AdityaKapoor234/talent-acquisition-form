@@ -62,8 +62,7 @@ export default class CategoryCreate extends Component {
     if (
       this.state.categoryDetails?.parent_id === "" ||
       this.state.categoryDetails?.parent_id === "select" ||
-      this.state.categoryDetails?.parent_id === null || 
-      this.state.categoryDetails?.parent_id.replace(/\s/g, "").length <=0
+      this.state.categoryDetails?.parent_id === null
     ) {
       toast.error("Please enter the parent category");
       return false;

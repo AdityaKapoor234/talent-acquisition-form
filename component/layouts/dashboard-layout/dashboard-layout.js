@@ -28,6 +28,8 @@ import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import StoreIcon from '@mui/icons-material/Store';
+import StoreMallDirectoryOutlinedIcon from '@mui/icons-material/StoreMallDirectoryOutlined';
 import Cookies from "js-cookie";
 import { loginAPI } from "../../../services/login-service";
 import { toast } from 'react-toastify';
@@ -43,7 +45,8 @@ export default function DashboardLayoutComponent({ children }) {
     const [tabHsnCode, setHsnCode] = useState(pathArr === "gst" || pathArr === "shipping-charges" ? true : false);
     const [tabTestimonial, setTestimonail] = useState(pathArr === "testimonial" || pathArr === "testimonial-category" ? true : false);
     const [tabCatalog, setTabCatalog] = useState(pathArr === "category" || pathArr === "ingredient" || pathArr === "classification" || pathArr === "brand" || pathArr === "sports" || pathArr === "goals" || pathArr === "diet" || pathArr === "product" || pathArr === "flavor" || pathArr === "bulk-edit-product" || pathArr === "product-review" ? true : false);
-    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription" ? true : false || pathArr === "coupon-log" ? true : false || pathArr === "max-members" ? true : false);
+    const [tabCustomer, setTabCustomer] = useState(pathArr === "customer" || pathArr === "customer-support-information" || pathArr === "customer-type" || pathArr === "subscription" || pathArr === "coupon-log" || pathArr === "max-members" ? true : false);
+    const [tabSeller, setTabSeller] = useState(pathArr === "seller" ? true : false);
     const [tabAdmin, setTabAdmin] = useState(pathArr === "admin" || pathArr === "admin" ? true : false);
     const [tabAskthePros, setAskthePros] = useState(pathArr === "ask-the-pros" || pathArr === "query" ? true : false);
     const [tabInquiry, setTabInquiry] = useState(pathArr === "inquiry" || pathArr === "feedback" || pathArr === "advertise-with-us" || pathArr === "affiliate-marketing" || pathArr === "marketing-and-sponsorships" || pathArr === "sell-on-fitcart" || pathArr === "bulk-buys" || pathArr === "email-support" ? true : false);
@@ -164,6 +167,18 @@ export default function DashboardLayoutComponent({ children }) {
                                     <ul>
                                         <li className={categary === "ask-the-pros" ? "sub_active" : ""} onClick={() => handleCategary("/ask-the-pros", "ask-the-pros")}>trust the pros</li>
                                         <li className={categary === "query" ? "sub_active" : ""} onClick={() => handleCategary("/query", "query")}>query</li>
+                                    </ul>
+                                }
+                                <div className={tabSeller ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabSeller(!tabSeller)}>
+                                    <span>
+                                        {tabSeller ? <StoreIcon className='outline-icon' /> : <StoreMallDirectoryOutlinedIcon className='outline-icon' />}
+                                        seller
+                                    </span>
+                                    <ArrowDropDownIcon className='drop-icon' />
+                                </div>
+                                {tabSeller &&
+                                    <ul>
+                                        <li className={categary === "seller" ? "sub_active" : ""} onClick={() => handleCategary("/seller", "seller")}>seller</li>
                                     </ul>
                                 }
                                 <div className={tabCustomer ? 'menu-btn active' : 'menu-btn'} onClick={() => setTabCustomer(!tabCustomer)}>

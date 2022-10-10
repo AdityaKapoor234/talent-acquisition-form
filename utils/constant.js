@@ -337,3 +337,17 @@ export const CHECK_MY_SUPPLEMENT_EDIT = `${PRODUCT_SERVICE}/manage/check_my_supp
 //SHIPPING CHARGES
 export const SHIPPING_CHARGES_GET = `${ORDER_SERVICE}/manage/shipping`;
 export const SHIPPING_CHARGES_EDIT = `${ORDER_SERVICE}/manage/shipping/{{id}}`;
+
+
+//SELLER
+export const SELLER_LIST = `${PRODUCT_SERVICE}/manage/seller?page={{page}}&q={{search}}`;
+export const SELLER_VIEW = `${PRODUCT_SERVICE}/manage/seller/{{id}}`;
+export const SELLER_EDIT = `${PRODUCT_SERVICE}/manage/seller/{{id}}`;
+export const SELLER_CREATE = `${PRODUCT_SERVICE}/manage/seller`;
+export const SELLER_DELETE = `${PRODUCT_SERVICE}/manage/seller/{{id}}/delete`;
+export const SELLER_DROPDOWN_ALL = `${PRODUCT_SERVICE}/manage/seller/all`;
+
+//SELLER Address
+export const SELLER_ADDRESS_EDIT = `${PRODUCT_SERVICE}/manage/seller/{{id}}/address/edit`;
+export const SELLER_ADDRESS_CREATE = `${PRODUCT_SERVICE}/manage/seller/{{id}}/address`;
+export const SELLER_ADDRESS_DELETE = `${PRODUCT_SERVICE}/manage/seller/{{id}}/address/delete`;

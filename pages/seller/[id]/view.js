@@ -31,12 +31,14 @@ export default function SellerViewDetails({ id }) {
   const mode = "view";
 
   const [seller, setSeller] = useState([]);
+  const [sellerAddress, setSellerAddress] = useState([]);
   const [open, setOpen] = useState(false);
 
   const sellerDetail = (id) => {
     SellerApi.getSellerViewDetails(id)
       .then((response) => {
         setSeller(response.data.data.seller);
+        setSellerAddress(response.data.data.seller_address);
       })
       .catch((error) => {
         toast.error(
@@ -115,7 +117,7 @@ export default function SellerViewDetails({ id }) {
           </div>
           <div className="row">
             <div className="col-m-12">
-              <SellerCreateComponent seller={seller} mode={mode} />
+              <SellerCreateComponent seller={seller} sellerAddress={sellerAddress} mode={mode} />
             </div>
           </div>
         </DashboardLayoutComponent>

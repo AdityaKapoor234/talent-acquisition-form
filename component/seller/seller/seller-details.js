@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CustomerApi from "../../../services/customer";
+import WarehouseForm from "./tabbed-components/warehouse-form";
+import WarehouseView from "./tabbed-components/warehouse-view";
 
 export default class SellerCreate extends Component {
 	constructor(props) {
@@ -16,11 +18,13 @@ export default class SellerCreate extends Component {
 			tab: 1,
 			mode: props?.mode,
 			seller: props?.seller,
+			sellerAddress: props?.sellerAddress,
 			img_sm: "file-input-sm",
 			img_lg: "file-input-lg",
 			img_icon: "file-input-icon",
 			createMode: props?.createMode ? props.createMode : "",
 			stateList: [],
+			add_warehouse: false,
 			input: {
 				name: props?.seller?.name ? props.seller?.name : "",
 				status: props?.seller?.status ? props.seller?.status : "",
@@ -42,10 +46,12 @@ export default class SellerCreate extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (
 			prevState.seller !== nextProps.seller ||
+			prevState.sellerAddress !== nextProps?.sellerAddress ||
 			prevState.mode !== nextProps.mode
 		) {
 			return {
 				seller: nextProps?.seller,
+				sellerAddress: nextProps?.sellerAddress,
 				mode: nextProps?.mode,
 				createMode: nextProps?.createMode ? nextProps.createMode : "",
 				input: {
@@ -109,6 +115,11 @@ export default class SellerCreate extends Component {
 					}
 				);
 			});
+	};
+
+	closeAddress = () => {
+		this.setState({ add_warehouse: false });
+		window.scrollTo(0, 0);
 	};
 
 	componentDidMount() {
@@ -235,7 +246,7 @@ export default class SellerCreate extends Component {
 															disabled
 															className="field_toggle_checked"
 														>
-															Select Status{" "}
+															Select State{" "}
 														</MenuItem>
 														{this.state.stateList?.map(val => {
 															return (
@@ -429,7 +440,7 @@ export default class SellerCreate extends Component {
 															disabled
 															className="field_toggle_checked"
 														>
-															Select Status{" "}
+															Select State{" "}
 														</MenuItem>
 														{this.state.stateList?.map(val => {
 															return (
@@ -535,6 +546,57 @@ export default class SellerCreate extends Component {
 
 				{this.state.tab === 2 && (
 					<>
+						<div data-component="address-view">
+							<div className="row mt-4">
+
+								{(this.state.mode === "edit") && (
+									<div data-component="account-setting" className="mb-4">
+
+										{this.state.add_warehouse === true ? (
+											<div id="account">
+												<span className="add-new-address">Add new warehouse</span>
+												<div className="bg-white">
+													<WarehouseForm
+														onClose={() => this.closeAddress()}
+														mode="create"
+														id={this.state.seller?.id}
+													/>
+												</div>
+
+											</div>
+										) : (
+											<a href="#account">
+												<div
+													className="custom-btn add-address my-0"
+													onClick={() => {
+														this.setState({ add_warehouse: true });
+													}}
+												>
+													<span>Add new address </span>
+												</div>
+											</a>
+										)}
+
+
+
+									</div>
+								)}
+
+								{this.state.sellerAddress?.map((p) => {
+									return (
+										<>
+											<div className="col-xl-4 col-lg-6 col-sm-6 mb-3">
+												<WarehouseView
+													warehouseDetails={p}
+													mode={this.state.mode}
+													id={p?.id}
+												/>
+											</div>
+										</>
+									);
+								})}
+							</div>
+						</div>
 					</>
 				)}
 

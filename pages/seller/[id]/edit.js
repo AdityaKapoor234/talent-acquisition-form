@@ -36,6 +36,7 @@ export default class SellerEditDetails extends Component {
             seller: {},
             open: false,
             is_all: false,
+            sellerAddress: [],
             sellerDetails: {
                 name: "",
                 status: "",
@@ -195,6 +196,7 @@ export default class SellerEditDetails extends Component {
                     this.setState({
                         sellerDetails: details,
                         seller: response.data.data.seller,
+                        sellerAddress: response.data.data.seller_address,
                     });
                 }
             })
@@ -288,6 +290,7 @@ export default class SellerEditDetails extends Component {
                             <div className="col-m-12">
                                 <SellerCreateComponent
                                     seller={this.state.seller}
+                                    sellerAddress={this.state.sellerAddress}
                                     mode={this.state.mode}
                                     handle={this.stateHandle.bind(this)}
                                 />

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import Checkbox from "@mui/material/Checkbox";
 import Photo from "../../common-component/photo-non-merge";
 import { PRODUCT_SERVICE } from "../../../utils/constant";
@@ -6,6 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CustomerApi from "../../../services/customer";
 
 export default class SellerCreate extends Component {
 	constructor(props) {
@@ -18,6 +20,7 @@ export default class SellerCreate extends Component {
 			img_lg: "file-input-lg",
 			img_icon: "file-input-icon",
 			createMode: props?.createMode ? props.createMode : "",
+			stateList: [],
 			input: {
 				name: props?.seller?.name ? props.seller?.name : "",
 				status: props?.seller?.status ? props.seller?.status : "",
@@ -27,7 +30,11 @@ export default class SellerCreate extends Component {
 				logo: props?.seller?.logo ? props.seller?.logo : "",
 				gst: props?.seller?.gst ? props.seller?.gst : "",
 				pan_number: props?.seller?.pan_number ? props.seller?.pan_number : "",
-				sort_order: props?.seller?.sort_order ? props.seller?.sort_order : "",
+				// sort_order: props?.seller?.sort_order ? props.seller?.sort_order : "",
+				pin_code: props?.seller?.pin_code ? props.seller?.pin_code : "",
+				city: props?.seller?.city ? props.seller?.city : "",
+				state: props?.seller?.state ? props.seller?.state : "",
+				address: props?.seller?.address ? props.seller?.address : "",
 			},
 		};
 	}
@@ -50,7 +57,11 @@ export default class SellerCreate extends Component {
 					logo: nextProps?.seller?.logo ? nextProps.seller?.logo : "",
 					gst: nextProps?.seller?.gst ? nextProps.seller?.gst : "",
 					pan_number: nextProps?.seller?.pan_number ? nextProps.seller?.pan_number : "",
-					sort_order: nextProps?.seller?.sort_order ? nextProps.seller?.sort_order : "",
+					// sort_order: nextProps?.seller?.sort_order ? nextProps.seller?.sort_order : "",
+					pin_code: nextProps?.seller?.pin_code ? nextProps.seller?.pin_code : "",
+					city: nextProps?.seller?.city ? nextProps.seller?.city : "",
+					state: nextProps?.seller?.state ? nextProps.seller?.state : "",
+					address: nextProps?.seller?.address ? nextProps.seller?.address : "",
 				},
 			};
 		}
@@ -78,6 +89,31 @@ export default class SellerCreate extends Component {
 		this.setState({ input });
 		this.props?.handle(input);
 	};
+
+	getState = () => {
+		CustomerApi.getState()
+			.then((response) => {
+				if (response?.data?.httpStatusCode === 200) {
+					this.setState({ stateList: response?.data.data?.list });
+				}
+			})
+			.catch((error) => {
+				toast.error(
+					error?.response &&
+						error?.response?.data &&
+						error?.response?.data?.message
+						? error.response.data.message
+						: "Unable to process your request, please try after sometime.",
+					{
+						autoClose: 5000,
+					}
+				);
+			});
+	};
+
+	componentDidMount() {
+		this.getState();
+	}
 
 	render() {
 		return (
@@ -156,7 +192,74 @@ export default class SellerCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													PAN Number<span className="mandatory-star">*</span>
+													PIN Code
+												</label>
+												<input
+													type="number"
+													name="pin_code"
+													maxLength="200"
+													value={this.state.input?.pin_code}
+													onChange={this.handleChange.bind(this)}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													City
+												</label>
+												<input
+													type="text"
+													name="city"
+													maxLength="200"
+													value={this.state.input?.city}
+													onChange={this.handleChange.bind(this)}
+												/>
+											</div>
+											<div className="login-form sort">
+												<label>
+													State
+												</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														disabled={this.state.mode === "view" ? true : false}
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="state"
+														onChange={this.handleChange.bind(this)}
+														className="sort-by-select"
+														value={this.state.input?.state ? this.state.input?.state : "select"}
+													>
+														<MenuItem
+															value="select"
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Status{" "}
+														</MenuItem>
+														{this.state.stateList?.map(val => {
+															return (
+																<MenuItem value={val?.name}>{val?.name}</MenuItem>
+															)
+														})}
+													</Select>
+												</div>
+											</div>
+											<div className="login-form ">
+												<label>
+													Address
+												</label>
+												<textarea
+													name="address"
+													cols="100"
+													rows="5"
+													value={this.state.input?.address}
+													onChange={this.handleChange.bind(this)}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													PAN Number
 												</label>
 												<input
 													type="text"
@@ -168,7 +271,7 @@ export default class SellerCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													GST<span className="mandatory-star">*</span>
+													GST
 												</label>
 												<input
 													type="text"
@@ -178,7 +281,7 @@ export default class SellerCreate extends Component {
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
-											<div className="login-form mt-3 sort">
+											<div className="login-form sort">
 												<label>
 													Status<span className="mandatory-star">*</span>
 												</label>
@@ -207,7 +310,7 @@ export default class SellerCreate extends Component {
 													</Select>
 												</div>
 											</div>
-											<div className="mt-4">
+											<div className="mt-0">
 												<Photo
 													mode={this.state.mode}
 													label={"Logo"}
@@ -215,6 +318,7 @@ export default class SellerCreate extends Component {
 													name="logo"
 													size="900x300"
 													img={this.state.input?.logo}
+													notMandatory={true}
 													setUrl={this.handlePhotoUrl.bind(this)}
 													value={this.state.img_icon}
 													urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
@@ -222,7 +326,7 @@ export default class SellerCreate extends Component {
 											</div>
 											<div className="login-form mt-4">
 												<label>
-													Website URL<span className="mandatory-star">*</span>
+													Website URL
 												</label>
 												<input
 													type="text"
@@ -232,7 +336,7 @@ export default class SellerCreate extends Component {
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
-											<div className="login-form ">
+											{/* <div className="login-form ">
 												<label>
 													Display Order<span className="mandatory-star">*</span>
 												</label>
@@ -243,7 +347,7 @@ export default class SellerCreate extends Component {
 													value={this.state.input?.sort_order}
 													onChange={this.handleChange.bind(this)}
 												/>
-											</div>
+											</div> */}
 										</div>
 									</div>
 								</div>
@@ -286,7 +390,69 @@ export default class SellerCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													PAN Number<span className="mandatory-star">*</span>
+													PIN Code
+												</label>
+												<input
+													type="number"
+													readOnly={true}
+													value={this.state.input?.pin_code}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													City
+												</label>
+												<input
+													type="text"
+													readOnly={true}
+													value={this.state.input?.city}
+												/>
+											</div>
+											<div className="login-form sort">
+												<label>
+													State
+												</label>
+												<div className="sort-by-select-wrapper">
+													<Select
+														disableUnderline
+														variant="standard"
+														disabled={this.state.mode === "view" ? true : false}
+														autoWidth={true}
+														IconComponent={ExpandMoreIcon}
+														name="state"
+														// onChange={this.handleChange.bind(this)}
+														className="sort-by-select"
+														value={this.state.input?.state ? this.state.input?.state : "select"}
+													>
+														<MenuItem
+															value="select"
+															disabled
+															className="field_toggle_checked"
+														>
+															Select Status{" "}
+														</MenuItem>
+														{this.state.stateList?.map(val => {
+															return (
+																<MenuItem value={val?.name}>{val?.name}</MenuItem>
+															)
+														})}
+													</Select>
+												</div>
+											</div>
+											<div className="login-form ">
+												<label>
+													Address
+												</label>
+												<textarea
+													cols="100"
+													rows="5"
+													readOnly={true}
+													value={this.state.input?.address}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>
+													PAN Number
 												</label>
 												<input
 													type="text"
@@ -296,7 +462,7 @@ export default class SellerCreate extends Component {
 											</div>
 											<div className="login-form ">
 												<label>
-													GST<span className="mandatory-star">*</span>
+													GST
 												</label>
 												<input
 													type="text"
@@ -304,7 +470,7 @@ export default class SellerCreate extends Component {
 													value={this.state.input?.gst}
 												/>
 											</div>
-											<div className="login-form mt-3 sort">
+											<div className="login-form sort">
 												<label>
 													Status<span className="mandatory-star">*</span>
 												</label>
@@ -333,12 +499,13 @@ export default class SellerCreate extends Component {
 													</Select>
 												</div>
 											</div>
-											<div className="mt-4">
+											<div className="mt-0">
 												<Photo
 													mode={this.state.mode}
 													label={"Logo"}
 													accept=".jpg,.jpeg,.png"
 													img={this.state.input?.logo}
+													notMandatory={true}
 												/>
 											</div>
 											{
@@ -347,7 +514,7 @@ export default class SellerCreate extends Component {
 													<a href={this.state.input?.website_url}><button className="custom-btn w-50 mb-4">URL PREVIEW<ArrowForwardIosIcon className='arrow-icon' /></button></a>
 												</div>
 											}
-											<div className="login-form ">
+											{/* <div className="login-form ">
 												<label>
 													Display Order<span className="mandatory-star">*</span>
 												</label>
@@ -357,7 +524,7 @@ export default class SellerCreate extends Component {
 													readOnly={true}
 													value={this.state.input?.sort_order}
 												/>
-											</div>
+											</div> */}
 										</div>
 									</div>
 								</div>

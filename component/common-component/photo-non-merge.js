@@ -18,11 +18,13 @@ export default function photo({
   setUrl,
   value,
   urlLink,
-  size
+  size,
+  notMandatory,
 }) {
   const [image, setImage] = useState(img ? img : "");
   const [isLoader, setIsLoader] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notMandatoryField, setNotMandatory] = useState(notMandatory ? notMandatory : false);
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,7 +66,8 @@ export default function photo({
   };
   useEffect(() => {
     setImage(img ? img : "");
-  }, [img]);
+    setNotMandatory(notMandatory ? notMandatory : false);
+  }, [img, notMandatory]);
 
   return (
     <div className="photo">
@@ -76,7 +79,12 @@ export default function photo({
       </Backdrop>
       <div className="label">
         {label}
-        <span className="mandatory-star">*</span>
+        {
+          notMandatoryField ?
+            <></>
+            :
+            <span className="mandatory-star">*</span>
+        }
         {size && <InfoIcon
           className="info-icon"
           aria-owns={open ? "mouse-over-popover" : undefined}

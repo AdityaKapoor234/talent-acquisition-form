@@ -25,6 +25,10 @@ export default class SellerCreate extends Component {
                 logo: "",
                 gst: "",
                 pan_number: "",
+                pin_code: "",
+                state: "",
+                city: "",
+                address: "",
             },
         };
     }
@@ -53,30 +57,52 @@ export default class SellerCreate extends Component {
             toast.error("Please enter phone number");
             this.state.is_all = true;
         }
-        if (!this.state.sellerDetails.pan_number || this.state.sellerDetails.pan_number === "" || this.state.sellerDetails.pan_number === null || this.state.sellerDetails.pan_number.replace(/\s/g, "").length <= 0) {
-            toast.error("Please enter your PAN Number");
-            this.state.is_all = true;
+        if (this.state.sellerDetails.pin_code){
+            if (!this.state.sellerDetails.pin_code || this.state.sellerDetails.pin_code === "" || this.state.sellerDetails.pin_code === null || !this.state.sellerDetails.pin_code.match(/^[0-9]{6}$/)) {
+                toast.error("Please enter valid pin code");
+                this.state.is_all = true;
+            }                
         }
-        if (!this.state.sellerDetails.gst || this.state.sellerDetails.gst === "" || this.state.sellerDetails.gst === null || this.state.sellerDetails.gst.replace(/\s/g, "").length <= 0) {
-            toast.error("Please enter your gst");
-            this.state.is_all = true;
-        }
+        // if (!this.state.sellerDetails.pin_code || this.state.sellerDetails.pin_code === "" || this.state.sellerDetails.pin_code === null || !this.state.sellerDetails.pin_code.match(/^[0-9]{6}$/)) {
+        //     toast.error("Please enter your pin code");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.city || this.state.sellerDetails.city === "" || this.state.sellerDetails.city === null || this.state.sellerDetails.city.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter your city");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.state || this.state.sellerDetails.state === "" || this.state.sellerDetails.state === null || this.state.sellerDetails.state.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter your state");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.address || this.state.sellerDetails.address === "" || this.state.sellerDetails.address === null || this.state.sellerDetails.address.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter your address");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.pan_number || this.state.sellerDetails.pan_number === "" || this.state.sellerDetails.pan_number === null || this.state.sellerDetails.pan_number.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter your PAN Number");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.gst || this.state.sellerDetails.gst === "" || this.state.sellerDetails.gst === null || this.state.sellerDetails.gst.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter your gst");
+        //     this.state.is_all = true;
+        // }
         if (!this.state.sellerDetails.status || this.state.sellerDetails.status === "" || this.state.sellerDetails.status === "select" || this.state.sellerDetails.status === null || this.state.sellerDetails.status.replace(/\s/g, "").length <= 0) {
             toast.error("Please enter your status");
             this.state.is_all = true;
         }
-        if (!this.state.sellerDetails.logo || this.state.sellerDetails.logo === "" || this.state.sellerDetails.logo === null || this.state.sellerDetails.logo.replace(/\s/g, "").length <= 0) {
-            toast.error("Please enter the logo");
-            this.state.is_all = true;
-        }
-        if (!this.state.sellerDetails.website_url || this.state.sellerDetails.website_url === "" || this.state.sellerDetails.website_url === null || this.state.sellerDetails.website_url.replace(/\s/g, "").length <= 0) {
-            toast.error("Please enter the website url");
-            this.state.is_all = true;
-        }
-        if (!this.state.sellerDetails.sort_order || this.state.sellerDetails.sort_order === "" || this.state.sellerDetails.sort_order === null || this.state.sellerDetails.sort_order === undefined) {
-            toast.error("Please enter display order ");
-            this.state.is_all = true;
-        }
+        // if (!this.state.sellerDetails.logo || this.state.sellerDetails.logo === "" || this.state.sellerDetails.logo === null || this.state.sellerDetails.logo.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter the logo");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.website_url || this.state.sellerDetails.website_url === "" || this.state.sellerDetails.website_url === null || this.state.sellerDetails.website_url.replace(/\s/g, "").length <= 0) {
+        //     toast.error("Please enter the website url");
+        //     this.state.is_all = true;
+        // }
+        // if (!this.state.sellerDetails.sort_order || this.state.sellerDetails.sort_order === "" || this.state.sellerDetails.sort_order === null || this.state.sellerDetails.sort_order === undefined) {
+        //     toast.error("Please enter display order ");
+        //     this.state.is_all = true;
+        // }
 
 
         if (this.state.is_all === true) {
@@ -98,6 +124,10 @@ export default class SellerCreate extends Component {
                 logo: this.state.sellerDetails?.logo,
                 gst: this.state.sellerDetails?.gst,
                 pan_number: this.state.sellerDetails?.pan_number,
+                pin_code: this.state.sellerDetails?.pin_code,
+                state: this.state.sellerDetails?.state,
+                city: this.state.sellerDetails?.city,
+                address: this.state.sellerDetails?.address,
             };
             SellerApi.sellerCreate(data)
                 .then((response) => {

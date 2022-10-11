@@ -76,7 +76,8 @@ export class SellerApi {
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token} `
+                'Authorization': `Bearer ${token}`
+                // 'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTY2NjE5NzEsImlhdCI6MTY2NTEyNTk3MSwidXNlcl9pZCI6NX0.hGX1snM_e0fRrA7_04OA9svX7aBstmDDeyvtAwtJe6E`
             }
         };
         return axios.post(`${SELLER_ADDRESS_EDIT}`.replace('{{id}}', id), data, httpOptions)
@@ -95,6 +96,7 @@ export class SellerApi {
 
     static sellerAddressDelete(id,data) {
         const  token = cookie.get('access_token_admin');
+        console.log(id,"this.state.warehouseDetails?.id")
         const httpOptions = {
             headers: {
                 'Content-Type': 'application/json', 

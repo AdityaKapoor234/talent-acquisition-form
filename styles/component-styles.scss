@@ -765,6 +765,18 @@
       outline: none;
     }
 
+    textarea {
+      border: 1px solid $clr-dark-blue;
+      width: 100%;
+      padding: 10px;
+      // height: 45px;
+      color: $clr-dark-blue;
+    }
+
+    textarea:focus {
+      outline: none;
+    }
+
     .custom-btn {
       background-color: $clr-dark-orange;
       font-weight: 400;

@@ -222,7 +222,7 @@ export default function DashboardLayoutComponent({ children }) {
                                 {tabHsnCode &&
                                     <ul>
                                         <li className={categary === "gst" ? "sub_active" : ""} onClick={() => handleCategary("/gst", "gst")}>HSN Master</li>
-                                        <li className={categary === "shipping-charges" ? "sub_active" : ""} onClick={() => handleCategary("/shipping-charges", "shipping-charges")}>Shipping Charges</li>
+                                        {/* <li className={categary === "shipping-charges" ? "sub_active" : ""} onClick={() => handleCategary("/shipping-charges", "shipping-charges")}>Shipping Charges</li> */}
                                     </ul>
                                 }
 

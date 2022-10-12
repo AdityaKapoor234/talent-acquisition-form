@@ -23,6 +23,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pagination from "@mui/material/Pagination";
 import ProductInfoApi from "../../../../../../services/product-info";
 import CustomerApi from "../../../../../../services/customer";
+import SellerApi from "../../../../../../services/seller";
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -40,6 +41,10 @@ export default function InventoryImportComponent(props) {
 
   const [countryList, setCountryList] = useState([]);
   const [stateList, setStateList] = useState([]);
+  const [warehouseList, setWarehouseList] = useState([]);
+  const [sellerWarehouseList, setSellerWarehouseList] = useState([]);
+
+  const [warehouseLocationField, setWarehouseLocationField] = useState(false);
 
 
   const [inventory, setInventory] = useState([]);
@@ -55,6 +60,7 @@ export default function InventoryImportComponent(props) {
     "is_active": false,
     "country": "select",
     "warehouse": "",
+    "seller": "",
   });
   const [upc_code, setUpcCode] = useState("");
   const [batch_number, setBatchNumber] = useState(null);
@@ -66,6 +72,7 @@ export default function InventoryImportComponent(props) {
   const [certificate_url, setCertificateUrl] = useState("");
   const [country, setCountry] = useState("select");
   const [warehouse, setWarehouse] = useState("select");
+  const [seller, setSeller] = useState("select");
   const [is_all, setIsAll] = useState(false);
   const [is_upc_code, setIsUpcCode] = useState(false);
   const [is_batch_number, setIsBatchNumber] = useState(false);
@@ -76,6 +83,7 @@ export default function InventoryImportComponent(props) {
   const [is_best_before_months_value, setIsBestBeforeMonthsValue] = useState(false);
   const [is_certificate_url, setIsCertificateUrl] = useState(false);
   const [is_warehouse_location, setIsWarehouseLocation] = useState(false);
+  const [is_seller, setIsSeller] = useState(false);
   const [is_country, setIsCountry] = useState(false);
 
 
@@ -94,6 +102,7 @@ export default function InventoryImportComponent(props) {
     setIsBestBeforeMonthsValue(false);
     setIsCertificateUrl(false);
     setIsWarehouseLocation(false);
+    setIsSeller(false);
     setIsCountry(false);
     // setIsActive(false);
 
@@ -143,10 +152,10 @@ export default function InventoryImportComponent(props) {
     }
 
     if (best_before_months) {
-      if (best_before_months < 1){
+      if (best_before_months < 1) {
         setIsBestBeforeMonthsValue(true);
         setIsExpireDate(true);
-        isValid = false;  
+        isValid = false;
       }
     }
 
@@ -158,6 +167,11 @@ export default function InventoryImportComponent(props) {
     if (warehouse === "" || warehouse === "select" || warehouse === null || warehouse.replace(/\s/g, "").length <= 0) {
       // toast.error("Please enter upc code");
       setIsWarehouseLocation(true);
+      isValid = false;
+    }
+    if (!seller || seller === "" || seller === "select" || seller === null || seller.replace(/\s/g, "").length <= 0) {
+      // toast.error("Please enter seller name");
+      setIsSeller(true);
       isValid = false;
     }
     if (country === "select" || country === null || country.replace(/\s/g, "").length <= 0) {
@@ -189,6 +203,7 @@ export default function InventoryImportComponent(props) {
         certificate_url: certificate_url,
         country_id: parseInt(country),
         warehouse_location_state_id: parseInt(warehouse),
+        seller_id: parseInt(seller),
       }
       if (data.is_active === "on") {
         data.is_active = true;
@@ -214,6 +229,7 @@ export default function InventoryImportComponent(props) {
             setCertificateUrl("");
             setCountry("select");
             setWarehouse("select");
+            setSeller("");
 
             setIsAll(false);
             setIsUpcCode(false);
@@ -225,7 +241,10 @@ export default function InventoryImportComponent(props) {
             setIsBestBeforeMonthsValue(false);
             setIsCertificateUrl(false);
             setIsWarehouseLocation(false);
+            setIsSeller(false);
             setIsCountry(false);
+
+            setWarehouseLocationField(false);
 
           }
         })
@@ -348,6 +367,27 @@ export default function InventoryImportComponent(props) {
       });
   };
 
+  const getWarehouse = () => {
+    SellerApi.sellerDropdownAllList()
+      .then((response) => {
+        if (response?.data?.httpStatusCode === 200) {
+          setWarehouseList(response?.data.data?.seller_list);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime.",
+          {
+            autoClose: 5000,
+          }
+        );
+      });
+  }
+
 
   const countryChange = (event) => {
     setCountry(event.target.value);
@@ -409,6 +449,40 @@ export default function InventoryImportComponent(props) {
       });
   }
 
+  const sellerWarehouseDropdownList = (id) => {
+    SellerApi.sellerWarehouseDropdownList(id)
+      .then((response) => {
+        if (response?.data?.httpStatusCode === 200) {
+          setSellerWarehouseList(response?.data.data?.seller_warehouse_list);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime.",
+          {
+            autoClose: 5000,
+          }
+        );
+      });
+  }
+
+  const setSellerValue = (value) => {
+    setSeller(value);
+    if (value !== "select") {
+      setWarehouseLocationField(true);
+      sellerWarehouseDropdownList(value);
+      setWarehouse("select");
+    }
+    else {
+      setWarehouseLocationField(false);
+      setWarehouse("select");
+    }
+  }
+
   let onPageChange = function (e, page) {
     setCurrentPage(page)
     getInventoryList(id, page);
@@ -418,6 +492,7 @@ export default function InventoryImportComponent(props) {
     getInventoryList(id, 1);
     getCountry();
     getState();
+    getWarehouse();
   }, []);
 
   useEffect(() => {
@@ -433,6 +508,7 @@ export default function InventoryImportComponent(props) {
     setCertificateUrl("");
     setCountry("select");
     setWarehouse("select");
+    setSeller("select");
 
 
   }, [props?.id]);
@@ -477,6 +553,7 @@ export default function InventoryImportComponent(props) {
                     setCertificateUrl("");
                     setCountry("select");
                     setWarehouse("select");
+                    setSeller("select");
                     setIsAll(false);
                     setIsUpcCode(false);
                     setIsBatchNumber(false);
@@ -487,7 +564,9 @@ export default function InventoryImportComponent(props) {
                     setIsBestBeforeMonthsValue(false);
                     setIsCertificateUrl(false);
                     setIsWarehouseLocation(false);
+                    setIsSeller(false);
                     setIsCountry(false);
+                    setWarehouseLocationField(false);
                   }}
                 >
                   Back
@@ -504,8 +583,9 @@ export default function InventoryImportComponent(props) {
               <div className="tableRow">
                 <div className="col">UPC Code</div>
                 <div className="col text-center">Batch No</div>
+                <div className="col text-center">Seller</div>
                 <div className="col text-center">Warehouse</div>
-                <div className="col text-center">Country</div>
+                {/* <div className="col text-center">Country</div> */}
                 <div className="col  text-center">Quantity</div>
                 <div className="col text-center">Mfg Date</div>
                 <div className="col  text-center">Exp Date</div>
@@ -529,12 +609,15 @@ export default function InventoryImportComponent(props) {
                         <div className="col text-center px-2 elip-text" title={val?.batch_number ? val?.batch_number : "-"}>
                           {val?.batch_number ? val?.batch_number : "-"}
                         </div>
-                        <div className="col text-center px-2 elip-text" title={val?.warehouse_location_state_id?.name ? val?.warehouse_location_state_id?.name : "-"}>
-                          {val?.warehouse_location_state_id?.name ? val?.warehouse_location_state_id?.name : "-"}
+                        <div className="col text-center px-2 elip-text" title={val?.seller ? val?.seller : "-"}>
+                          {val?.seller ? val?.seller : "-"}
                         </div>
-                        <div className="col text-center px-2 elip-text" title={val?.country ? val?.country : "-"}>
+                        <div className="col text-center px-2 elip-text" title={val?.warehouse_location_state_id ? val?.warehouse_location_state_id : "-"}>
+                          {val?.warehouse_location_state_id ? val?.warehouse_location_state_id : "-"}
+                        </div>
+                        {/* <div className="col text-center px-2 elip-text" title={val?.country ? val?.country : "-"}>
                           {val?.country ? val?.country : "-"}
-                        </div>
+                        </div> */}
                         <div className="col text-center px-2 elip-text" title={val?.count ? val?.count : "-"}>
                           {val?.count ? val?.count : "-"}
                         </div>
@@ -542,7 +625,7 @@ export default function InventoryImportComponent(props) {
                           {val?.manufacture_date ? convertDateStringToDateAPI(val?.manufacture_date) : "-"}
                         </div>
                         <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.expire_date)}>
-                          {val?.expire_date ? convertDateStringToDateAPI(val?.expire_date): "-"}
+                          {val?.expire_date ? convertDateStringToDateAPI(val?.expire_date) : "-"}
                         </div>
                         <div className="col text-center px-2 elip-text" title={convertDateStringToDateAPI(val?.best_before_months)}>
                           {val?.best_before_months ? val?.best_before_months : "-"}
@@ -713,93 +796,6 @@ export default function InventoryImportComponent(props) {
               </div>
             </div>
 
-
-
-
-
-            {/* <div className="col-md-4">
-              <div className="login-form ">
-                <label>
-                  Warehouse Location<span className="mandatory-star">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="warehouse"
-                  value={warehouse}
-                  onChange={(e) => { setWarehouse(e.target.value) }}
-                />
-                {is_warehouse_location === true ? <small className="form-text text-danger" >Please Enter Warehouse Location</small> : ""}
-              </div>
-            </div> */}
-
-
-
-
-
-            <div className="col-md-4">
-              <div data-component="inventoryCountry">
-                <div className="login-form select-dropdown">
-                  <label>
-                    Warehouse Location<span className="mandatory-star">*</span>
-                  </label>
-
-
-                  <div className="sort-by-select-wrapper">
-                    {/* <Select
-                      disableUnderline
-                      variant="standard"
-                      // disabled={mode === "view" ? true : false}
-                      autoWidth={true}
-                      IconComponent={ExpandMoreIcon}
-                      name="country"
-                      // onChange={(e) => { setWarehouse(e.target.value) }}
-                      onChange={countryChange}
-                      className="sort-by-select w-100 selectCountry"
-                      value={country}
-                    >
-                      <MenuItem
-                        value="select"
-                        disabled
-                        className="field_toggle_checked"
-                      >
-                        Select Country{" "}
-                      </MenuItem>
-                      {
-                        countryList?.map(elem => {
-                          return (
-                            <>
-                              <MenuItem value={elem?.id}>
-                                {elem?.name}
-                              </MenuItem>
-                            </>
-                          )
-                        })
-                      }
-                    </Select> */}
-
-                    <select className='selectCountry'
-                      // disabled={this.state.mode === "view" ? true : false}
-                      value={warehouse}
-                      name="origin_country_id"
-                      onChange={(e) => { setWarehouse(e.target.value) }}
-                    >
-                      <option value={"select"} disabled>Select State</option>
-                      {stateList?.map(val => {
-                        return (
-                          <option value={val?.id}>{val?.name}</option>
-                        )
-                      })}
-                    </select>
-                  </div>
-                  {is_warehouse_location === true ? <small className="form-text text-danger" >Please Enter Warehouse Location</small> : ""}
-                </div>
-              </div>
-            </div>
-
-
-
-
-
             <div className="col-md-4">
               <div data-component="inventoryCountry">
                 <div className="login-form select-dropdown">
@@ -860,6 +856,143 @@ export default function InventoryImportComponent(props) {
                 </div>
               </div>
             </div>
+
+            <div className="col-md-4">
+              <div data-component="inventoryCountry">
+                <div className="login-form select-dropdown">
+                  <label>
+                    Seller<span className="mandatory-star">*</span>
+                  </label>
+
+
+                  <div className="sort-by-select-wrapper">
+                    <select className='selectCountry'
+                      // disabled={this.state.mode === "view" ? true : false}
+                      value={seller}
+                      onChange={(e) => { setSellerValue(e.target.value) }}
+                      name="seller"
+                    >
+                      <option value={"select"} disabled>Select Seller</option>
+                      {warehouseList?.map(val => {
+                        return (
+                          <option value={val?.id}>{val?.name}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                  {is_seller === true ? <small className="form-text text-danger" >Please Enter Seller Name</small> : ""}
+                </div>
+              </div>
+            </div>
+
+
+
+            {
+              warehouseLocationField ?
+                <>
+                  {/* <div className="col-md-4">
+                    <div className="login-form ">
+                      <label>
+                        Warehouse Location<span className="mandatory-star">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="warehouse"
+                        value={warehouse}
+                        onChange={(e) => { setWarehouse(e.target.value) }}
+                      />
+                      {is_warehouse_location === true ? <small className="form-text text-danger" >Please Enter Warehouse Location</small> : ""}
+                    </div>
+                  </div> */}
+
+
+
+
+
+                  <div className="col-md-4">
+                    <div data-component="inventoryCountry">
+                      <div className="login-form select-dropdown">
+                        <label>
+                          Warehouse Location<span className="mandatory-star">*</span>
+                        </label>
+
+
+                        <div className="sort-by-select-wrapper">
+                          {/* <Select
+                            disableUnderline
+                            variant="standard"
+                            // disabled={mode === "view" ? true : false}
+                            autoWidth={true}
+                            IconComponent={ExpandMoreIcon}
+                            name="country"
+                            // onChange={(e) => { setWarehouse(e.target.value) }}
+                            onChange={countryChange}
+                            className="sort-by-select w-100 selectCountry"
+                            value={country}
+                          >
+                            <MenuItem
+                              value="select"
+                              disabled
+                              className="field_toggle_checked"
+                            >
+                              Select Country{" "}
+                            </MenuItem>
+                            {
+                              countryList?.map(elem => {
+                                return (
+                                  <>
+                                    <MenuItem value={elem?.id}>
+                                      {elem?.name}
+                                    </MenuItem>
+                                  </>
+                                )
+                              })
+                            }
+                          </Select> */}
+
+                          <select className='selectCountry'
+                            // disabled={this.state.mode === "view" ? true : false}
+                            value={warehouse}
+                            name="origin_country_id"
+                            onChange={(e) => { setWarehouse(e.target.value) }}
+                          >
+                            {sellerWarehouseList?.length > 0 ?
+                              <option value={"select"} disabled>Select Warehouse</option>
+                              :
+                              <option value={"select"} disabled>No Warehouse Available</option>
+                            }
+                            {/* {stateList?.map(val => {
+                              return (
+                                <option value={val?.id}>{val?.name}</option>
+                              )
+                            })} */}
+                            {/* {warehouseList?.map(val => {
+                              return (
+                                <option value={val?.name}>{val?.name}</option>
+                              )
+                            })} */}
+                            {sellerWarehouseList?.map(val => {
+                              return (
+                                <option value={val?.id}>{val?.warehouse}</option>
+                              )
+                            })}
+                          </select>
+                        </div>
+                        {is_warehouse_location === true ? <small className="form-text text-danger" >Please Enter Warehouse Location</small> : ""}
+                      </div>
+                    </div>
+                  </div>
+
+                </>
+                :
+                <div className="col-md-4">
+                </div>
+            }
+
+
+
+
+
 
             <div className="col-md-4 mt-4">
               <div className="signup-check">

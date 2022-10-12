@@ -346,6 +346,7 @@ export const SELLER_EDIT = `${PRODUCT_SERVICE}/manage/seller/{{id}}`;
 export const SELLER_CREATE = `${PRODUCT_SERVICE}/manage/seller`;
 export const SELLER_DELETE = `${PRODUCT_SERVICE}/manage/seller/{{id}}/delete`;
 export const SELLER_DROPDOWN_ALL = `${PRODUCT_SERVICE}/manage/seller/all`;
+export const SELLER_WAREHOUSE_DROPDOWN = `${PRODUCT_SERVICE}/manage/seller/{{id}}/all/address`;
 
 //SELLER Address
 export const SELLER_ADDRESS_EDIT = `${PRODUCT_SERVICE}/manage/seller/{{id}}/address/edit`;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SELLER_LIST, SELLER_VIEW, SELLER_EDIT, SELLER_CREATE, SELLER_DELETE, SELLER_DROPDOWN_ALL, SELLER_ADDRESS_EDIT, SELLER_ADDRESS_CREATE, SELLER_ADDRESS_DELETE } from "../utils/constant";
+import { SELLER_LIST, SELLER_VIEW, SELLER_EDIT, SELLER_CREATE, SELLER_DELETE, SELLER_DROPDOWN_ALL, SELLER_WAREHOUSE_DROPDOWN, SELLER_ADDRESS_EDIT, SELLER_ADDRESS_CREATE, SELLER_ADDRESS_DELETE } from "../utils/constant";
 import cookie from "js-cookie";
 
 export class SellerApi {
@@ -68,6 +68,17 @@ export class SellerApi {
             }
         };
         return axios.get(`${SELLER_DROPDOWN_ALL}`, httpOptions)
+    }
+
+    static sellerWarehouseDropdownList(id) {
+        const token = cookie.get('access_token_admin');
+        const httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token} `
+            }
+        };
+        return axios.get(`${SELLER_WAREHOUSE_DROPDOWN}`.replace('{{id}}', id), httpOptions)
     }
 
 

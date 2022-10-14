@@ -85,14 +85,15 @@ export default class CertificationEditDetails extends Component {
 		// 	this.state.is_all = true;
 		// }
 		// if (this.state.certificationDetails?.certificate_number !== undefined) {
-		// 	if (this.state.certificationDetails?.certificate_number.replace(/\s/g, "").length <= 0) {
-		// 		if (this.state.is_certificate_number === false) {
-		// 			toast.error("Please enter the certificate number");
-		// 			this.state.is_certificate_number = true;
-		// 			this.state.is_all = true;
-		// 		}
-		// 	}
-		// }
+		if (this.state.certificationDetails?.certificate_number) {
+			if (this.state.certificationDetails?.certificate_number.replace(/\s/g, "").length <= 0) {
+				if (this.state.is_certificate_number === false) {
+					toast.error("Please enter the certificate number");
+					this.state.is_certificate_number = true;
+					this.state.is_all = true;
+				}
+			}
+		}
 		if (
 			this.state.certificationDetails?.path === "" ||
 			this.state.certificationDetails?.path === null ||

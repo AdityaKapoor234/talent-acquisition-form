@@ -46,6 +46,7 @@ export default class CouponEditDetails extends Component {
         discount_type: "",
         min_cart_amount: null,
         max_cart_amount: null,
+        maximum_discount_allowed: null,
         uses_per_coupon: null,
         uses_per_customer: null,
         coupon_value: null,
@@ -155,6 +156,15 @@ export default class CouponEditDetails extends Component {
       return false;
     }
     if (
+      this.state.couponDetails?.maximum_discount_allowed === "" ||
+      this.state.couponDetails?.maximum_discount_allowed === null ||
+      this.state.couponDetails?.maximum_discount_allowed < 1
+      // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
+    ) {
+      toast.error("Please enter the maximum discount allowed");
+      return false;
+    }
+    if (
       this.state.couponDetails?.uses_per_coupon === "" ||
       this.state.couponDetails?.uses_per_coupon === null ||
       this.state.couponDetails?.uses_per_coupon < 1
@@ -212,6 +222,7 @@ export default class CouponEditDetails extends Component {
         discount_type: this.state.couponDetails?.discount_type,
         min_cart_amount: parseInt(this.state.couponDetails?.min_cart_amount),
         max_cart_amount: parseInt(this.state.couponDetails?.max_cart_amount),
+        maximum_discount_allowed: parseInt(this.state.couponDetails?.maximum_discount_allowed),
         uses_per_coupon: parseInt(this.state.couponDetails?.uses_per_coupon),
         uses_per_customer: parseInt(this.state.couponDetails?.uses_per_customer),
         coupon_value: parseInt(this.state.couponDetails?.coupon_value),
@@ -267,6 +278,9 @@ export default class CouponEditDetails extends Component {
   maxCartAmountHandle = (value) => {
     this.state.couponDetails.max_cart_amount = value;
   };
+  maximumDiscountAllowedHandle = (value) => {
+    this.state.couponDetails.maximum_discount_allowed = value;
+  }
   usesPerCouponHandle = (value) => {
     this.state.couponDetails.uses_per_coupon = value;
   };
@@ -304,6 +318,7 @@ export default class CouponEditDetails extends Component {
             discount_type: response.data.data.coupon?.discount_type,
             min_cart_amount: response.data.data.coupon?.min_cart_amount,
             max_cart_amount: response.data.data.coupon?.max_cart_amount,
+            maximum_discount_allowed: response.data.data.coupon?.maximum_discount_allowed,
             uses_per_coupon: response.data.data.coupon?.uses_per_coupon,
             uses_per_customer: response.data.data.coupon?.uses_per_customer,
             coupon_value: response.data.data.coupon?.coupon_value,
@@ -426,6 +441,7 @@ export default class CouponEditDetails extends Component {
                   discountTypeHandle={this.discountTypeHandle.bind(this)}
                   minCartAmountHandle={this.minCartAmountHandle.bind(this)}
                   maxCartAmountHandle={this.maxCartAmountHandle.bind(this)}
+                  maximumDiscountAllowedHandle={this.maximumDiscountAllowedHandle.bind(this)}
                   usesPerCouponHandle={this.usesPerCouponHandle.bind(this)}
                   usesPerCustomerHandle={this.usesPerCustomerHandle.bind(this)}
                   couponValueHandle={this.couponValueHandle.bind(this)}

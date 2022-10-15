@@ -28,6 +28,7 @@ export default class CouponDetails extends Component {
         discount_type: props?.coupon?.discount_type,
         min_cart_amount: props?.coupon?.min_cart_amount,
         max_cart_amount: props?.coupon?.max_cart_amount,
+        maximum_discount_allowed: props?.coupon?.maximum_discount_allowed,
         uses_per_coupon: props?.coupon?.uses_per_coupon,
         uses_per_customer: props?.coupon?.uses_per_customer,
         coupon_value: props?.coupon?.coupon_value,
@@ -60,6 +61,7 @@ export default class CouponDetails extends Component {
           discount_type: nextProps?.coupon?.discount_type,
           min_cart_amount: nextProps?.coupon?.min_cart_amount,
           max_cart_amount: nextProps?.coupon?.max_cart_amount,
+          maximum_discount_allowed: nextProps?.coupon?.maximum_discount_allowed,
           uses_per_coupon: nextProps?.coupon?.uses_per_coupon,
           uses_per_customer: nextProps?.coupon?.uses_per_customer,
           coupon_value: nextProps?.coupon?.coupon_value,
@@ -124,6 +126,11 @@ export default class CouponDetails extends Component {
       input[event.target.name] = event.target.value.replace(/[^\d]/, "")
       this.setState({ input });
       this.props?.maxCartAmountHandle(event.target.value.replace(/[^\d]/, ""));
+    }
+    else if (event.target.name === "maximum_discount_allowed") {
+      input[event.target.name] = event.target.value.replace(/[^\d]/, "")
+      this.setState({ input });
+      this.props?.maximumDiscountAllowedHandle(event.target.value.replace(/[^\d]/, ""));
     }
     else if (event.target.name === "uses_per_coupon") {
       input[event.target.name] = event.target.value.replace(/[^\d]/, "")
@@ -374,6 +381,23 @@ export default class CouponDetails extends Component {
                               min={1}
                               value={this.state.input?.max_cart_amount}
                               name="max_cart_amount"
+                              onChange={this.handleChange.bind(this)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="login-form ">
+                            <label>
+                              Maximum Discount Allowed
+                              <span className="mandatory-star">*</span>
+                            </label>
+                            <input
+                              type="number"
+                              min={1}
+                              value={this.state.input?.maximum_discount_allowed}
+                              name="maximum_discount_allowed"
                               onChange={this.handleChange.bind(this)}
                             />
                           </div>
@@ -686,6 +710,21 @@ export default class CouponDetails extends Component {
                             <input
                               type="number"
                               value={this.state.input?.max_cart_amount}
+                              readOnly={true}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="login-form ">
+                            <label>
+                              Maximum Discount Allowed
+                              <span className="mandatory-star">*</span>
+                            </label>
+                            <input
+                              type="number"
+                              value={this.state.input?.maximum_discount_allowed}
                               readOnly={true}
                             />
                           </div>

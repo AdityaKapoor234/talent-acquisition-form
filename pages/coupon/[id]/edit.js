@@ -155,14 +155,16 @@ export default class CouponEditDetails extends Component {
       toast.error("Please enter the maximum cart amount");
       return false;
     }
-    if (
-      this.state.couponDetails?.maximum_discount_allowed === "" ||
-      this.state.couponDetails?.maximum_discount_allowed === null ||
-      this.state.couponDetails?.maximum_discount_allowed < 1
-      // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the maximum discount allowed");
-      return false;
+    if (this.state.couponDetails?.by_amount_or_percent === "percentage") {
+      if (
+        this.state.couponDetails?.maximum_discount_allowed === "" ||
+        this.state.couponDetails?.maximum_discount_allowed === null ||
+        this.state.couponDetails?.maximum_discount_allowed < 1
+        // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
+      ) {
+        toast.error("Please enter the maximum discount allowed");
+        return false;
+      }
     }
     if (
       this.state.couponDetails?.uses_per_coupon === "" ||
@@ -207,7 +209,7 @@ export default class CouponEditDetails extends Component {
       return false;
     }
 
-    
+
 
     return true;
   };
@@ -222,7 +224,7 @@ export default class CouponEditDetails extends Component {
         discount_type: this.state.couponDetails?.discount_type,
         min_cart_amount: parseInt(this.state.couponDetails?.min_cart_amount),
         max_cart_amount: parseInt(this.state.couponDetails?.max_cart_amount),
-        maximum_discount_allowed: parseInt(this.state.couponDetails?.maximum_discount_allowed),
+        maximum_discount_allowed: this.state.couponDetails?.by_amount_or_percent === "percentage" ? parseInt(this.state.couponDetails?.maximum_discount_allowed) : null,
         uses_per_coupon: parseInt(this.state.couponDetails?.uses_per_coupon),
         uses_per_customer: parseInt(this.state.couponDetails?.uses_per_customer),
         coupon_value: parseInt(this.state.couponDetails?.coupon_value),
@@ -353,11 +355,11 @@ export default class CouponEditDetails extends Component {
         for (let i in list) {
           if (model.indexOf(list[i].key) >= 0) {
             list[i]["select"] = true;
-          }else{
+          } else {
             list[i]["select"] = false;
           }
         }
-        this.setState({ userType:list })
+        this.setState({ userType: list })
       })
       .catch((error) => {
         toast.error(

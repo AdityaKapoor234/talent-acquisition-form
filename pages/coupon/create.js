@@ -30,20 +30,20 @@ export default class CouponCreate extends Component {
       userType: [],
       open: false,
       couponDetails: {
-        name:"",
-        code:"",
-        description:"",
-        start_date:"",
-        end_date:"",
-        discount_type:"",
-        min_cart_amount:null,
-        max_cart_amount:null,
+        name: "",
+        code: "",
+        description: "",
+        start_date: "",
+        end_date: "",
+        discount_type: "",
+        min_cart_amount: null,
+        max_cart_amount: null,
         maximum_discount_allowed: null,
-        uses_per_coupon:null,
-        uses_per_customer:null,
-        coupon_value:null,
-        by_amount_or_percent:"",
-        customer_type:"",
+        uses_per_coupon: null,
+        uses_per_customer: null,
+        coupon_value: null,
+        by_amount_or_percent: "",
+        customer_type: "",
         is_active: false,
         is_free_shipping: false,
         is_show_on_list: false,
@@ -96,40 +96,40 @@ export default class CouponCreate extends Component {
       this.state.couponDetails?.code === null ||
       this.state.couponDetails?.code === undefined
     ) {
-        toast.error("Please enter the code");
-        return false;
+      toast.error("Please enter the code");
+      return false;
     }
     if (
       this.state.couponDetails?.description === "" ||
       this.state.couponDetails?.description === null ||
       this.state.couponDetails?.description === undefined
     ) {
-        toast.error("Please enter the description");
-        return false;
+      toast.error("Please enter the description");
+      return false;
     }
     if (
       this.state.couponDetails?.start_date === "" ||
       this.state.couponDetails?.start_date === null ||
       this.state.couponDetails?.start_date === undefined
     ) {
-        toast.error("Please enter the start date");
-        return false;
+      toast.error("Please enter the start date");
+      return false;
     }
     if (
       this.state.couponDetails?.end_date === "" ||
       this.state.couponDetails?.end_date === null ||
       this.state.couponDetails?.end_date === undefined
     ) {
-        toast.error("Please enter the end date");
-        return false;
+      toast.error("Please enter the end date");
+      return false;
     }
     if (
       this.state.couponDetails?.discount_type === "select" ||
       this.state.couponDetails?.discount_type === null ||
       this.state.couponDetails?.discount_type === undefined
     ) {
-        toast.error("Please enter the discount type");
-        return false;
+      toast.error("Please enter the discount type");
+      return false;
     }
     if (
       this.state.couponDetails?.min_cart_amount === "" ||
@@ -150,15 +150,17 @@ export default class CouponCreate extends Component {
       toast.error("Please enter the maximum cart amount");
       return false;
     }
-    if (
-      this.state.couponDetails?.maximum_discount_allowed === "" ||
-      this.state.couponDetails?.maximum_discount_allowed === null ||
-      this.state.couponDetails?.maximum_discount_allowed === undefined ||
-      this.state.couponDetails?.maximum_discount_allowed < 1
-      // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the maximum discount allowed");
-      return false;
+    if (this.state.couponDetails?.by_amount_or_percent === "percentage") {
+      if (
+        this.state.couponDetails?.maximum_discount_allowed === "" ||
+        this.state.couponDetails?.maximum_discount_allowed === null ||
+        this.state.couponDetails?.maximum_discount_allowed === undefined ||
+        this.state.couponDetails?.maximum_discount_allowed < 1
+        // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
+      ) {
+        toast.error("Please enter the maximum discount allowed");
+        return false;
+      }
     }
     if (
       this.state.couponDetails?.uses_per_coupon === "" ||
@@ -192,11 +194,11 @@ export default class CouponCreate extends Component {
     if (
       this.state.couponDetails?.by_amount_or_percent === "" ||
       this.state.couponDetails?.by_amount_or_percent === null ||
-      this.state.couponDetails?.by_amount_or_percent === undefined 
+      this.state.couponDetails?.by_amount_or_percent === undefined
       // this.state.couponDetails?.by_amount_or_percent.replace(/\s/g, "").length <= 0
     ) {
-        toast.error("Please select either percentage or amount");
-        return false;
+      toast.error("Please select either percentage or amount");
+      return false;
     }
     if (
       this.state.couponDetails?.customer_type === "" ||
@@ -221,7 +223,7 @@ export default class CouponCreate extends Component {
         discount_type: this.state.couponDetails?.discount_type,
         min_cart_amount: parseInt(this.state.couponDetails?.min_cart_amount),
         max_cart_amount: parseInt(this.state.couponDetails?.max_cart_amount),
-        maximum_discount_allowed: parseInt(this.state.couponDetails?.maximum_discount_allowed),
+        maximum_discount_allowed: this.state.couponDetails?.by_amount_or_percent === "percentage" ? parseInt(this.state.couponDetails?.maximum_discount_allowed) : null,
         uses_per_coupon: parseInt(this.state.couponDetails?.uses_per_coupon),
         uses_per_customer: parseInt(this.state.couponDetails?.uses_per_customer),
         coupon_value: parseInt(this.state.couponDetails?.coupon_value),
@@ -310,7 +312,7 @@ export default class CouponCreate extends Component {
       .then((response) => {
         let list = response.data.data.list;
         for (let i in list) {
-            list[i]["select"] = false;
+          list[i]["select"] = false;
         }
         this.setState({ userType: list })
       })

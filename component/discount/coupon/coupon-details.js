@@ -390,23 +390,6 @@ export default class CouponDetails extends Component {
                         <div className="col-md-4">
                           <div className="login-form ">
                             <label>
-                              Maximum Discount Allowed
-                              <span className="mandatory-star">*</span>
-                            </label>
-                            <input
-                              type="number"
-                              min={1}
-                              value={this.state.input?.maximum_discount_allowed}
-                              name="maximum_discount_allowed"
-                              onChange={this.handleChange.bind(this)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4">
-                          <div className="login-form ">
-                            <label>
                               Uses per Coupon
                               <span className="mandatory-star">*</span>
                             </label>
@@ -503,6 +486,26 @@ export default class CouponDetails extends Component {
                           </div>
                         </div>
                       </div>
+                      {
+                        this.state.input?.by_amount_or_percent === "percentage" &&
+                        <div className="row">
+                          <div className="col-md-4">
+                            <div className="login-form ">
+                              <label>
+                                Maximum Discount Allowed
+                                <span className="mandatory-star">*</span>
+                              </label>
+                              <input
+                                type="number"
+                                min={1}
+                                value={this.state.input?.maximum_discount_allowed}
+                                name="maximum_discount_allowed"
+                                onChange={this.handleChange.bind(this)}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      }
 
                       <div className="col-md-12 ">
                         <label className="expertise">
@@ -719,21 +722,6 @@ export default class CouponDetails extends Component {
                         <div className="col-md-4">
                           <div className="login-form ">
                             <label>
-                              Maximum Discount Allowed
-                              <span className="mandatory-star">*</span>
-                            </label>
-                            <input
-                              type="number"
-                              value={this.state.input?.maximum_discount_allowed}
-                              readOnly={true}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4">
-                          <div className="login-form ">
-                            <label>
                               Uses per Coupon
                               <span className="mandatory-star">*</span>
                             </label>
@@ -824,6 +812,24 @@ export default class CouponDetails extends Component {
                           </div>
                         </div>
                       </div>
+                      {
+                        this.state.input?.by_amount_or_percent === "percentage" &&
+                        <div className="row">
+                          <div className="col-md-4">
+                            <div className="login-form ">
+                              <label>
+                                Maximum Discount Allowed
+                                <span className="mandatory-star">*</span>
+                              </label>
+                              <input
+                                type="number"
+                                value={this.state.input?.maximum_discount_allowed}
+                                readOnly={true}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      }
 
                       <div className="col-md-12 ">
                         <label className="expertise">
@@ -844,7 +850,7 @@ export default class CouponDetails extends Component {
                                         }
                                         checked={val?.select}
                                         value={val?.key}
-                                        // onChange={this.handleChangeDiet.bind(this)}
+                                      // onChange={this.handleChangeDiet.bind(this)}
                                       />
                                     }
                                     label={val?.user_type}

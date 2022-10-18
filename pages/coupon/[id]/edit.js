@@ -155,17 +155,17 @@ export default class CouponEditDetails extends Component {
       toast.error("Please enter the maximum cart amount");
       return false;
     }
-    if (this.state.couponDetails?.by_amount_or_percent === "percentage") {
-      if (
-        this.state.couponDetails?.maximum_discount_allowed === "" ||
-        this.state.couponDetails?.maximum_discount_allowed === null ||
-        this.state.couponDetails?.maximum_discount_allowed < 1
-        // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
-      ) {
-        toast.error("Please enter the maximum discount allowed");
-        return false;
-      }
-    }
+    // if (this.state.couponDetails?.by_amount_or_percent === "percentage") {
+    //   if (
+    //     this.state.couponDetails?.maximum_discount_allowed === "" ||
+    //     this.state.couponDetails?.maximum_discount_allowed === null ||
+    //     this.state.couponDetails?.maximum_discount_allowed < 1
+    //     // this.state.couponDetails?.maximum_discount_allowed.replace(/\s/g, "").length <= 0
+    //   ) {
+    //     toast.error("Please enter the maximum discount allowed");
+    //     return false;
+    //   }
+    // }
     if (
       this.state.couponDetails?.uses_per_coupon === "" ||
       this.state.couponDetails?.uses_per_coupon === null ||

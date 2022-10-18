@@ -493,7 +493,6 @@ export default class CouponDetails extends Component {
                             <div className="login-form ">
                               <label>
                                 Maximum Discount Allowed
-                                <span className="mandatory-star">*</span>
                               </label>
                               <input
                                 type="number"
@@ -819,7 +818,6 @@ export default class CouponDetails extends Component {
                             <div className="login-form ">
                               <label>
                                 Maximum Discount Allowed
-                                <span className="mandatory-star">*</span>
                               </label>
                               <input
                                 type="number"

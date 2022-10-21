@@ -26,12 +26,13 @@ export default class BannerCreate extends Component {
 			img_icon: "file-input-icon",
 			parentBanner: [],
 			input: {
-				name: "",
-				sort_order: null,
-				url: "",
-				banner: "",
-				banner_sm: '',
-				is_active: null,
+				name: props?.banner?.name ? props?.banner?.name : "",
+				sort_order: props?.banner?.sort_order ? props?.banner?.sort_order : null,
+				url: props?.banner?.url ? props?.banner?.url : "",
+				banner: props?.banner?.banner ? props?.banner?.banner : "",
+				banner_sm: props?.banner?.banner_sm ? props?.banner?.banner_sm : "",
+				sm_mobile: props?.banner?.sm_mobile ? props?.banner?.sm_mobile : "",
+				is_active: props?.banner?.is_active ? props?.banner?.is_active : null,
 			},
 		};
 	}
@@ -50,6 +51,7 @@ export default class BannerCreate extends Component {
 					url: nextProps?.banner?.url,
 					banner: nextProps?.banner?.banner,
 					banner_sm: nextProps?.banner?.banner_sm,
+					sm_mobile: nextProps?.banner?.sm_mobile,
 					is_active: nextProps?.banner?.is_active,
 				},
 			};
@@ -177,6 +179,18 @@ export default class BannerCreate extends Component {
 											urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
 										/>
 									</div>
+									<div className="mt-4">
+										<Photo
+											mode={this.state.mode}
+											label={"Mobile Banner image "}
+											accept=".jpg,.jpeg,.png"
+											name="sm_mobile"
+											img={this.state.input.sm_mobile}
+											setUrl={this.handlePhotoUrl.bind(this)}
+											value={this.state.img_icon}
+											urlLink={`${PRODUCT_SERVICE}/manage/category/photo/banner`}
+										/>
+									</div>
 									<div className="row mt-4">
 										<div className="col-md-4">
 
@@ -261,6 +275,14 @@ export default class BannerCreate extends Component {
 											label={"Short Banner image "}
 											accept=".jpg,.jpeg,.png"
 											img={this.state.input.banner_sm}
+										/>
+									</div>
+									<div className="mt-4">
+										<Photo
+											mode={this.state.mode}
+											label={"Mobile Banner image "}
+											accept=".jpg,.jpeg,.png"
+											img={this.state.input.sm_mobile}
 										/>
 									</div>
 									<div className="row mt-4">

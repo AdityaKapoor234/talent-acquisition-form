@@ -59,7 +59,7 @@ export default function BannerViewDetails({ id }) {
     BannerApi.bannerDelete(id, data)
       .then((response) => {
         if (response.data.httpStatusCode === 200) {
-			setBanner(response.data.data.banner);
+          setBanner(response.data.data.banner);
           toast.success(response.data.message);
           Router.push("/banner");
         }
@@ -98,15 +98,15 @@ export default function BannerViewDetails({ id }) {
                 <span>CMS / Banner / </span>View Banner
               </div>
               <div className="page-name">
-              Banner Details - {banner?.name}
+                Banner Details - {banner?.name}
               </div>
             </div>
             <div className="col-md-7 btn-save">
               <div
                 className="Cancel-btn custom-btn"
                 onClick={() => {
-					setOpen(true);
-				  }}
+                  setOpen(true);
+                }}
               >
                 <span>Delete </span>
               </div>

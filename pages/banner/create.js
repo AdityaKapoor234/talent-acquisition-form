@@ -33,6 +33,7 @@ export default class BannerCreate extends Component {
                 url: "",
                 banner: "",
                 banner_sm: '',
+                sm_mobile: "",
                 is_active: null,
             },
         };
@@ -58,16 +59,26 @@ export default class BannerCreate extends Component {
         }
         if (
             this.state.bannerDetails?.banner === "" ||
-            this.state.bannerDetails?.banner === null
+            this.state.bannerDetails?.banner === null ||
+            !this.state.bannerDetails?.banner
         ) {
             toast.error("Please upload banner image");
             this.state.is_all=true;
         }
         if (
             this.state.bannerDetails?.banner_sm === "" ||
-            this.state.bannerDetails?.banner_sm === null
+            this.state.bannerDetails?.banner_sm === null ||
+            !this.state.bannerDetails?.banner_sm
         ) {
             toast.error("Please upload short banner image");
+            this.state.is_all=true;
+        }
+        if (
+            this.state.bannerDetails?.sm_mobile === "" ||
+            this.state.bannerDetails?.sm_mobile === null ||
+            !this.state.bannerDetails?.sm_mobile
+        ) {
+            toast.error("Please upload mobile banner image");
             this.state.is_all=true;
         }
         if (
@@ -94,6 +105,7 @@ export default class BannerCreate extends Component {
                 url: this.state.bannerDetails?.url,
                 banner: this.state.bannerDetails?.banner,
                 banner_sm: this.state.bannerDetails?.banner_sm,
+                sm_mobile: this.state.bannerDetails?.sm_mobile,
                 is_active: this.state.bannerDetails?.is_active,
             };
             BannerApi.bannerCreate(data)

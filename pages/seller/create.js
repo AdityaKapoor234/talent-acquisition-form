@@ -33,8 +33,9 @@ export default class SellerCreate extends Component {
         };
     }
 
-    ValidateEmail=(mail)=> {
-        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    ValidateEmail = (mail) => {
+        // return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        return /^[a-zA-Z]{1}\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
             mail
         )
     }
@@ -57,11 +58,11 @@ export default class SellerCreate extends Component {
             toast.error("Please enter phone number");
             this.state.is_all = true;
         }
-        if (this.state.sellerDetails.pin_code){
+        if (this.state.sellerDetails.pin_code) {
             if (!this.state.sellerDetails.pin_code || this.state.sellerDetails.pin_code === "" || this.state.sellerDetails.pin_code === null || !this.state.sellerDetails.pin_code.match(/^[0-9]{6}$/)) {
                 toast.error("Please enter valid pin code");
                 this.state.is_all = true;
-            }                
+            }
         }
         // if (!this.state.sellerDetails.pin_code || this.state.sellerDetails.pin_code === "" || this.state.sellerDetails.pin_code === null || !this.state.sellerDetails.pin_code.match(/^[0-9]{6}$/)) {
         //     toast.error("Please enter your pin code");

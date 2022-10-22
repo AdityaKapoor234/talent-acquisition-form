@@ -50,7 +50,7 @@ export default class ArticleViewDetails extends Component {
         type_id: null,
         is_show_on_home: false,
         sort_order: null,
-        short_description:null
+        short_description: null
       },
     };
   }
@@ -80,7 +80,8 @@ export default class ArticleViewDetails extends Component {
   };
 
   ValidateEmail = (mail) => {
-    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    // return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    return /^[a-zA-Z]{1}\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       mail
     );
   };
@@ -177,9 +178,9 @@ export default class ArticleViewDetails extends Component {
       return false;
     }
     if (
-      !this.state.articleDetails?.content || 
-      this.state.articleDetails?.content ==="<p></p>\n" || 
-      this.state.articleDetails?.content.replace(/&nbsp;/g, "").length <=8
+      !this.state.articleDetails?.content ||
+      this.state.articleDetails?.content === "<p></p>\n" ||
+      this.state.articleDetails?.content.replace(/&nbsp;/g, "").length <= 8
       // this.state.articleDetails?.content === "" ||
       // this.state.articleDetails?.content === null ||
       // this.state.articleDetails?.content === undefined
@@ -192,7 +193,7 @@ export default class ArticleViewDetails extends Component {
     //   this.state.articleDetails?.published_at === "" ||
     //   this.state.articleDetails?.published_at === null ||
     //   this.state.articleDetails?.published_at === undefined
-      // this.state.articleDetails?.published_at.replace(/\s/g, "").length <= 0
+    // this.state.articleDetails?.published_at.replace(/\s/g, "").length <= 0
     // ) {
     //   toast.error("Please enter the publish date");
     //   return false;
@@ -206,7 +207,7 @@ export default class ArticleViewDetails extends Component {
       toast.error("Please enter the display order");
       return false;
     }
-    
+
 
     return true;
   };
@@ -232,7 +233,7 @@ export default class ArticleViewDetails extends Component {
             type_id: response.data.data.type_id,
             is_show_on_home: response.data.data.is_show_on_home,
             sort_order: response.data.data.sort_order,
-            short_description:response.data.data?.short_description
+            short_description: response.data.data?.short_description
           };
           this.setState({
             articleDetails: details,
@@ -250,26 +251,26 @@ export default class ArticleViewDetails extends Component {
         );
       });
   };
-    Delete = (id) => {
-      let data = {};
-      ArticleApi.ContentDelete(id, data)
-        .then((response) => {
-          if (response.data.httpStatusCode === 200) {
-            this.setState({ article: response.data.data });
-            Router.push("/article-content");
-            toast.success(response.data.message);
-          }
-        })
-        .catch((error) => {
-          toast.error(
-            error?.response &&
-              error?.response?.data &&
-              error?.response?.data?.message
-              ? error.response.data.message
-              : "Unable to process your request, please try after sometime"
-          );
-        });
-    };
+  Delete = (id) => {
+    let data = {};
+    ArticleApi.ContentDelete(id, data)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ article: response.data.data });
+          Router.push("/article-content");
+          toast.success(response.data.message);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
 
 
   componentDidMount() {

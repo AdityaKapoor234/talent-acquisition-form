@@ -66,7 +66,7 @@ export default class AskTheProsEditDetails extends Component {
 
       askTheProsQueryArticleDropdown: [],
       askTheProsQueryTypeDropdown: [],
-    
+
 
       // trustTheProsRefferalCodeDropdown: [],
       // proffesionalReferralCodeId: "",
@@ -81,7 +81,8 @@ export default class AskTheProsEditDetails extends Component {
   }
 
   ValidateEmail = (mail) => {
-    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    // return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    return /^[a-zA-Z]{1}\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       mail
     );
   };
@@ -186,7 +187,7 @@ export default class AskTheProsEditDetails extends Component {
         experience: this.state.askTheProsDetails?.experience,
         expertises: this.state.askTheProsDetails?.expertises,
 
-        user_id:  this.state.askTheProsDetails?.user_id,
+        user_id: this.state.askTheProsDetails?.user_id,
         education: this.state.askTheProsDetails?.education,
         recomended_article_category: this.state.askTheProsDetails?.recomended_article_category,
         article_type_id: this.state.askTheProsDetails?.article_type_id,
@@ -502,7 +503,7 @@ export default class AskTheProsEditDetails extends Component {
                   totalPageQueryList={this.state.totalPageQueryList}
 
                   askTheProsQueryArticleDropdown={this.state.askTheProsQueryArticleDropdown}
-                  askTheProsQueryTypeDropdown={this.state.askTheProsQueryTypeDropdown}  
+                  askTheProsQueryTypeDropdown={this.state.askTheProsQueryTypeDropdown}
 
                 />
               </div>

@@ -50,8 +50,8 @@ export default class ArticleEditDetails extends Component {
         type_id: null,
         is_show_on_home: false,
         sort_order: null,
-        video_url:null,
-        short_description:""
+        video_url: null,
+        short_description: ""
       },
     };
   }
@@ -81,7 +81,8 @@ export default class ArticleEditDetails extends Component {
   };
 
   ValidateEmail = (mail) => {
-    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    // return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    return /^[a-zA-Z]{1}\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       mail
     );
   };
@@ -168,9 +169,9 @@ export default class ArticleEditDetails extends Component {
       return false;
     }
     if (
-      !this.state.articleDetails?.content || 
-      this.state.articleDetails?.content ==="<p></p>\n" || 
-      this.state.articleDetails?.content.replace(/&nbsp;/g, "").length <=8
+      !this.state.articleDetails?.content ||
+      this.state.articleDetails?.content === "<p></p>\n" ||
+      this.state.articleDetails?.content.replace(/&nbsp;/g, "").length <= 8
     ) {
       toast.error("Please enter the content");
       return false;
@@ -183,7 +184,7 @@ export default class ArticleEditDetails extends Component {
       toast.error("Please enter the display order");
       return false;
     }
-    
+
 
     return true;
   };
@@ -203,8 +204,8 @@ export default class ArticleEditDetails extends Component {
         type_id: this.state.articleDetails?.type_id,
         is_show_on_home: this.state.articleDetails?.is_show_on_home,
         sort_order: this.state.articleDetails?.sort_order,
-        video_url:this.state.articleDetails?.video_url,
-        short_description:this.state.articleDetails?.short_description
+        video_url: this.state.articleDetails?.video_url,
+        short_description: this.state.articleDetails?.short_description
       };
       ArticleApi.ContentEdit(this.props.id, data)
         .then((response) => {
@@ -247,8 +248,8 @@ export default class ArticleEditDetails extends Component {
             type_id: response.data.data.type_id,
             is_show_on_home: response.data.data.is_show_on_home,
             sort_order: response.data.data.sort_order,
-            video_url:response.data.data.video_url,
-            short_description:response.data.data?.short_description
+            video_url: response.data.data.video_url,
+            short_description: response.data.data?.short_description
           };
           this.setState({
             articleDetails: details,
@@ -266,26 +267,26 @@ export default class ArticleEditDetails extends Component {
         );
       });
   };
-    Delete = (id) => {
-      let data = {};
-      ArticleApi.ContentDelete(id, data)
-        .then((response) => {
-          if (response.data.httpStatusCode === 200) {
-            this.setState({ article: response.data.data });
-            Router.push("/article-content");
-            toast.success(response.data.message);
-          }
-        })
-        .catch((error) => {
-          toast.error(
-            error?.response &&
-              error?.response?.data &&
-              error?.response?.data?.message
-              ? error.response.data.message
-              : "Unable to process your request, please try after sometime"
-          );
-        });
-    };
+  Delete = (id) => {
+    let data = {};
+    ArticleApi.ContentDelete(id, data)
+      .then((response) => {
+        if (response.data.httpStatusCode === 200) {
+          this.setState({ article: response.data.data });
+          Router.push("/article-content");
+          toast.success(response.data.message);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response &&
+            error?.response?.data &&
+            error?.response?.data?.message
+            ? error.response.data.message
+            : "Unable to process your request, please try after sometime"
+        );
+      });
+  };
 
 
   componentDidMount() {
@@ -294,8 +295,8 @@ export default class ArticleEditDetails extends Component {
       Router.push("/");
     }
     this.getarticleDetails(this.props.id);
-    this.setState({ 
-        id: this.props?.id
+    this.setState({
+      id: this.props?.id
     });
   }
   render() {

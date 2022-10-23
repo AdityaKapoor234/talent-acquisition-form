@@ -16,7 +16,7 @@ const Editor = dynamic(
 );
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
-import {PRODUCT_SERVICE} from "../../utils/constant";
+import { PRODUCT_SERVICE } from "../../utils/constant";
 
 export default class ArticleEditor extends Component {
   constructor(props) {
@@ -56,15 +56,15 @@ export default class ArticleEditor extends Component {
       // if (
       //   this.state.mode === "edit"
       // ) {
-        this.setState({
-          editorState: EditorState.createWithContent(
-            ContentState.createFromBlockArray(
-              convertFromHTML(`${this.state.value}`)
-            )
+      this.setState({
+        editorState: EditorState.createWithContent(
+          ContentState.createFromBlockArray(
+            convertFromHTML(`${this.state.value}`)
           )
-        })
-        // this.state.editorState = EditorState.createWithContent(ContentState.createFromText(`${this.state.value}`));
-        // this.state.editorState=EditorState.createWithContent(convertFromRaw(JSON.parse(post.this.state.value)))
+        )
+      })
+      // this.state.editorState = EditorState.createWithContent(ContentState.createFromText(`${this.state.value}`));
+      // this.state.editorState=EditorState.createWithContent(convertFromRaw(JSON.parse(post.this.state.value)))
       // }
     }
   };
@@ -88,7 +88,7 @@ export default class ArticleEditor extends Component {
       })
       this.setValue();
     }, 1000)
-    
+
   }
 
   render() {
@@ -101,22 +101,36 @@ export default class ArticleEditor extends Component {
           Authorization: `Bearer ${token}`,
         },
       };
-      const data = await axios.put(
-        `${PRODUCT_SERVICE}/manage/category/photo/banner`,
-        formData,
-        headers
-      );
+      let data = "";
+      await axios
+        .put(`${PRODUCT_SERVICE}/manage/category/photo/banner`, formData, headers)
+        .then((response) => {
+          data = response.data.data.url;
+        })
+        .catch((error) => {
+          // toast.error(error);
+          toast.error("Image should not exceed to 3 MB");
+          // toast.error("File size is more than 3 MB.");
+        });
+
+      // const data = await axios.put(
+      //   `${PRODUCT_SERVICE}/manage/category/photo/banner`,
+      //   formData,
+      //   headers
+      // );
+
       return new Promise((resolve, reject) => {
-        resolve({ data: { link: data?.data?.data?.url } });
+        // resolve({ data: { link: data?.data?.data?.url } });
+        resolve({ data: { link: data } });
       });
     }
     const { editorState } = this.state;
     return (
       <>
-      {/* {this.state.value} */}
+        {/* {this.state.value} */}
         <Editor
           editorState={editorState}
-          readOnly= {this.state.mode === "view" ? true : false}
+          readOnly={this.state.mode === "view" ? true : false}
           toolbarClassName="toolbar-class"
           wrapperClassName="wrapper-class"
           editorClassName="editor-class"
@@ -159,7 +173,7 @@ export default class ArticleEditor extends Component {
             image: {
               inDropdown: true,
               className: "content-image",
-              
+
               inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
               uploadCallback: uploadImageCallBack,
               alt: { present: false, mandatory: false },
@@ -167,7 +181,7 @@ export default class ArticleEditor extends Component {
                 height: 'auto',
                 width: 'auto',
               },
-            },          
+            },
           }}
         />
       </>

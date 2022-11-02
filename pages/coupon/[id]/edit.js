@@ -147,15 +147,15 @@ export default class CouponEditDetails extends Component {
       toast.error("Please enter the minimum cart amount");
       return false;
     }
-    if (
-      this.state.couponDetails?.max_cart_amount === "" ||
-      this.state.couponDetails?.max_cart_amount === null ||
-      this.state.couponDetails?.max_cart_amount < 1
-      // this.state.couponDetails?.max_cart_amount.replace(/\s/g, "").length <= 0
-    ) {
-      toast.error("Please enter the maximum cart amount");
-      return false;
-    }
+    // if (
+    //   this.state.couponDetails?.max_cart_amount === "" ||
+    //   this.state.couponDetails?.max_cart_amount === null ||
+    //   this.state.couponDetails?.max_cart_amount < 1
+    //   // this.state.couponDetails?.max_cart_amount.replace(/\s/g, "").length <= 0
+    // ) {
+    //   toast.error("Please enter the maximum cart amount");
+    //   return false;
+    // }
     // if (this.state.couponDetails?.by_amount_or_percent === "percentage") {
     //   if (
     //     this.state.couponDetails?.maximum_discount_allowed === "" ||
@@ -201,14 +201,15 @@ export default class CouponEditDetails extends Component {
       toast.error("Please select either amount or percentage");
       return false;
     }
-    if (
-      this.state.couponDetails?.customer_type === "" ||
-      this.state.couponDetails?.customer_type === null ||
-      this.state.couponDetails?.customer_type === undefined
-    ) {
-      toast.error("Please enter the customer type");
-      return false;
-    }
+    // if (
+    //   this.state.couponDetails?.customer_type?.length < 1 ||
+    //   this.state.couponDetails?.customer_type === "" ||
+    //   this.state.couponDetails?.customer_type === null ||
+    //   this.state.couponDetails?.customer_type === undefined
+    // ) {
+    //   toast.error("Please enter the customer type");
+    //   return false;
+    // }
 
 
 
@@ -224,7 +225,7 @@ export default class CouponEditDetails extends Component {
         end_date: this.convertDateStringToDate(this.state.couponDetails?.end_date),
         discount_type: this.state.couponDetails?.discount_type,
         min_cart_amount: parseInt(this.state.couponDetails?.min_cart_amount),
-        max_cart_amount: parseInt(this.state.couponDetails?.max_cart_amount),
+        max_cart_amount: this.state.couponDetails?.max_cart_amount ? parseInt(this.state.couponDetails?.max_cart_amount) : null,
         maximum_discount_allowed: this.state.couponDetails?.by_amount_or_percent === "percentage" ? parseInt(this.state.couponDetails?.maximum_discount_allowed) : null,
         uses_per_coupon: parseInt(this.state.couponDetails?.uses_per_coupon),
         uses_per_customer: parseInt(this.state.couponDetails?.uses_per_customer),

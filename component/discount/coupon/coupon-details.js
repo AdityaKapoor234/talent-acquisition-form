@@ -374,7 +374,7 @@ export default class CouponDetails extends Component {
                           <div className="login-form ">
                             <label>
                               Maximum Cart Amount
-                              <span className="mandatory-star">*</span>
+                              {/* <span className="mandatory-star">*</span> */}
                             </label>
                             <input
                               type="number"
@@ -508,7 +508,8 @@ export default class CouponDetails extends Component {
 
                       <div className="col-md-12 ">
                         <label className="expertise">
-                          Customer Type<span className="mandatory-star">*</span>
+                          Customer Type
+                          {/* <span className="mandatory-star">*</span> */}
                         </label>
                         <div className="signup-check multiselect">
                           {this.state.userType?.map((val) => {
@@ -707,7 +708,7 @@ export default class CouponDetails extends Component {
                           <div className="login-form ">
                             <label>
                               Maximum Cart Amount
-                              <span className="mandatory-star">*</span>
+                              {/* <span className="mandatory-star">*</span> */}
                             </label>
                             <input
                               type="number"
@@ -831,7 +832,8 @@ export default class CouponDetails extends Component {
 
                       <div className="col-md-12 ">
                         <label className="expertise">
-                          Customer Type<span className="mandatory-star">*</span>
+                          Customer Type
+                          {/* <span className="mandatory-star">*</span> */}
                         </label>
                         <div className="signup-check multiselect">
                           {this.state.userType?.map((val) => {

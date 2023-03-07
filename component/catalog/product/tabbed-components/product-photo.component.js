@@ -27,72 +27,76 @@ export default class ProductPhotoComponent extends Component {
 
     uploadFile = ({ target: { files } }) => {
         if (files?.length > 0) {
-            var uploadPic = false;
+            if (files[0]?.size < 3145728) {
+                var uploadPic = false;
 
-            var reader = new FileReader();
+                var reader = new FileReader();
 
-            //Read the contents of Image File.
-            reader.readAsDataURL(files[0]);
-            reader.onload = function (e) {
+                //Read the contents of Image File.
+                reader.readAsDataURL(files[0]);
+                reader.onload = function (e) {
 
-                //Initiate the JavaScript Image object.
-                var image = new Image();
+                    //Initiate the JavaScript Image object.
+                    var image = new Image();
 
-                //Set the Base64 string return from FileReader as source.
-                image.src = e.target.result;
+                    //Set the Base64 string return from FileReader as source.
+                    image.src = e.target.result;
 
-                //Validate the File Height and Width.
-                image.onload = function () {
-                    var height = this.height;
-                    var width = this.width;
-                    // if (height > 100 || width > 550) {
-                    if (width > 525) {
-                        toast.error("Width of Image must not exceed 525px.");
-                        uploadPic = false;
-                        // return false;
-                    }
-                    else {
-                        uploadPic = true;
-                        // return true;
-                    }
-                };
-            };
-
-            setTimeout(() => {
-
-
-                if (uploadPic) {
-                    const formData = new FormData();
-                    formData.append("media", files[0]);
-                    this.setState({ isLoader: true })
-                    const token = cookie.get("access_token_admin");
-                    const headers = {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
+                    //Validate the File Height and Width.
+                    image.onload = function () {
+                        var height = this.height;
+                        var width = this.width;
+                        // if (height > 100 || width > 550) {
+                        if (width > 525) {
+                            toast.error("Width of Image must not exceed 525px.");
+                            uploadPic = false;
+                            // return false;
+                        }
+                        else {
+                            uploadPic = true;
+                            // return true;
+                        }
                     };
-                    axios
-                        .put(`${PRODUCT_SERVICE}/manage/category/photo/product_photo`, formData, headers)
-                        .then((response) => {
-                            let photo = this.state.photos;
-                            photo.push({
-                                "id": 0,
-                                "is_primary": false,
-                                "path": response.data.data?.url,
-                                "sort_order": null,
-                                "removed": false
+                };
+
+                setTimeout(() => {
+
+
+                    if (uploadPic) {
+                        const formData = new FormData();
+                        formData.append("media", files[0]);
+                        this.setState({ isLoader: true })
+                        const token = cookie.get("access_token_admin");
+                        const headers = {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        };
+                        axios
+                            .put(`${PRODUCT_SERVICE}/manage/category/photo/product_photo`, formData, headers)
+                            .then((response) => {
+                                let photo = this.state.photos;
+                                photo.push({
+                                    "id": 0,
+                                    "is_primary": false,
+                                    "path": response.data.data?.url,
+                                    "sort_order": null,
+                                    "removed": false
+                                })
+                                this.setState({
+                                    isLoader: false,
+                                    photos: photo
+                                })
                             })
-                            this.setState({
-                                isLoader: false,
-                                photos: photo
-                            })
-                        })
-                        .catch((error) => {
-                            this.setState({ isLoader: false })
-                            toast.error(error);
-                        });
-                }
-            }, 700)
+                            .catch((error) => {
+                                this.setState({ isLoader: false })
+                                toast.error(error);
+                            });
+                    }
+                }, 700)
+            } else {
+                toast.error("File size is more than 3MB");
+            }
         }
     }
 

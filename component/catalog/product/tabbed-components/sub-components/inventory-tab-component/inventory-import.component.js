@@ -759,7 +759,8 @@ export default function InventoryImportComponent(props) {
                 <input
                   type="date"
                   name="manufacture_date"
-                  value={convertDateStringToDate(manufacture_date)}
+                  // value={convertDateStringToDate(manufacture_date)}
+                  value={manufacture_date}
                   onChange={(e) => { setManufactureDate(e.target.value) }}
                 />
                 {is_manufacture_date === true ? <small className="form-text text-danger" >Please Enter Manufacture Date</small> : ""}
@@ -773,7 +774,8 @@ export default function InventoryImportComponent(props) {
                 <input
                   type="date"
                   name="expire_date"
-                  value={convertDateStringToDate(expire_date)}
+                  // value={convertDateStringToDate(expire_date)}
+                  value={expire_date}
                   onChange={(e) => { setExpireDate(e.target.value) }}
                 />
                 {is_expire_date === true ? <small className="form-text text-danger" >Please Enter Either Expiry Date or Best Before (Months)</small> : ""}

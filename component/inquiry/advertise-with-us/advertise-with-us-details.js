@@ -119,6 +119,14 @@ export default class AdvertiseWithUsDetails extends Component {
 		return str;
 	};
 
+    convertTimeStringToTime = (dateStr) => {
+        let date = new Date(dateStr);
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        let str =
+            (date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()) + ":" + (date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds());
+        return str;
+    };
+
 	render() {
 		return (
 			<div data-component="edit-customer">
@@ -166,6 +174,22 @@ export default class AdvertiseWithUsDetails extends Component {
 												<input
 													type="text"
 													value={this.state.advertiseWithUs?.phone_no}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Date<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.advertiseWithUs?.created_at}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Time<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.convertTimeStringToTime(this.state.advertiseWithUs?.created_at_with_time)}
 													readOnly={true}
 												/>
 											</div>

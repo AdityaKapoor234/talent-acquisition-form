@@ -60,6 +60,7 @@ export default class EmailSupport extends Component {
               {/* <div className="col text-center">Type</div> */}
               <div className="col  text-center ">Email</div>
               <div className="col  text-center ">Phone No</div>
+              <div className="col  text-center ">Date</div>
               {/* <div className="col-2  text-center ">Category</div> */}
               <div className="col  text-center ">Description</div>
               <div className="col-1 text-center ">View</div>
@@ -81,6 +82,9 @@ export default class EmailSupport extends Component {
                   </div>
                   <div className="tableBody  col justify-content-center elip-text" title={p?.phone_number}>
                     {p?.phone_number}
+                  </div>
+                  <div className="tableBody  col justify-content-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>
+                    {this.convertDateStringToDate(p?.created_at)}
                   </div>
                   {/* <div className="col-2  text-center elip-text" title={p?.category}>{p?.category}</div> */}
                   <div className="col  text-center elip-text" title={p?.customer_query}>{p?.customer_query}</div>

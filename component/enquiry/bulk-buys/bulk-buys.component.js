@@ -60,8 +60,9 @@ export default class BulkBuys extends Component {
               {/* <div className="col text-center">Type</div> */}
               <div className="col-3 px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
+              <div className="col px-2 text-center">Date</div>
               <div className="col px-2 text-center">Product</div>
-              <div className="col-2 text-center ">View</div>
+              <div className="col-1 text-center ">View</div>
             </div>
           </div>
         </div>
@@ -78,8 +79,9 @@ export default class BulkBuys extends Component {
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
+                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                   <div className="col px-2 text-center elip-text" title={p?.order_product}>{p?.order_product}</div>
-                  <div className="col-2 text-center">
+                  <div className="col-1 text-center">
                     <RemoveRedEyeIcon
                       className="view-icon"
                       onClick={() => {

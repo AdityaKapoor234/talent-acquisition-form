@@ -13,6 +13,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ProductApi from "../../services/product";
 import { useRouter } from "next/router";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Product() {
 
@@ -22,6 +25,7 @@ export default function Product() {
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
     );
+    const [filter, setFilter] = useState("all");
     const [totalPage, setTotalPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoader, setIsLoader] = useState(true);
@@ -37,7 +41,11 @@ export default function Product() {
                 query: router_query_object,
             });
             setCurrentPage(1)
-            productList(1, wordEntered);
+            if (filter === "all") {
+                productList(1, wordEntered, "");
+            } else {
+                productList(1, wordEntered, filter);
+            }                
         }
     };
 
@@ -51,7 +59,11 @@ export default function Product() {
             query: router_query_object,
         });
         setCurrentPage(1)
-        productList(1, wordEntered);
+        if (filter === "all") {
+            productList(1, wordEntered, "");
+        } else {
+            productList(1, wordEntered, filter);
+        }    
     };
 
     const handleFilter = (event) => {
@@ -62,18 +74,35 @@ export default function Product() {
                 pathname: "/product-review",
                 query: "",
             });
-            productList(1, "");
+            if (filter === "all") {
+                productList(1, "", "");
+            } else {
+                productList(1, "", filter);
+            }    
         }
     };
 
     let onPageChange = function (e, page) {
         setCurrentPage(page)
-        productList(page, wordEntered)
+        if (filter === "all") {
+            productList(page, wordEntered, "");
+        } else {
+            productList(page, wordEntered, filter);
+        }
     };
 
-    const productList = (page, search) => {
+    const handleFilterChange = (value) => {
+		setFilter(value);
+		if (value === "all") {
+			productList(1, "", "");
+		} else {
+			productList(1, "", value);
+		}
+	};
+
+    const productList = (page, search, filter) => {
         setIsLoader(true);
-        ProductApi.ProductList(page, search)
+        ProductApi.ProductList(page, search, filter)
             .then((response) => {
                 setProduct(response.data.data.list);
                 setTotalProduct(response.data.data);
@@ -99,11 +128,15 @@ export default function Product() {
         if (token === undefined) {
             Router.push("/");
         }
-        productList(currentPage, "");
+        if (filter === "all") {
+            productList(currentPage, "", "");
+        } else {
+            productList(currentPage, "", filter);
+        }
     }, []);
 
     return (
-        <div>
+        <div page-component="product-page-status">
             <Head>
                 <title>{APP_NAME} - Product Review</title>
                 <meta name="description" content="Trusted Brands. Better Health." />
@@ -113,12 +146,39 @@ export default function Product() {
             <main>
                 <DashboardLayoutComponent>
                     <div className="row border-box">
-                        <div className="col-md-8">
+                        <div className="col-md-6">
                             <div className="hamburger">
                                 <span>Catalog / </span>Product Review
                             </div>
                             <div className="page-name">Product Review</div>
                         </div>
+                        <div className="col-md-2 select-dropdown">
+								<div className="sort-by-select-wrapper w-100">
+									<Select
+										disableUnderline
+										variant="standard"
+										autoWidth={true}
+										IconComponent={ExpandMoreIcon}
+										name="category_id"
+										onChange={(e) => handleFilterChange(e.target.value)}
+										className="sort-by-select"
+										value={filter}
+									>
+										<MenuItem
+											value="select"
+											disabled
+											className="field_toggle_checked"
+										>
+											Select Status
+										</MenuItem>
+										<MenuItem value="all">All</MenuItem>
+										<MenuItem value="published">Published</MenuItem>
+										<MenuItem value="draft">Draft</MenuItem>
+										<MenuItem value="archived">Archived</MenuItem>
+										<MenuItem value="out_of_stock">Coming Soon</MenuItem>
+									</Select>
+								</div>
+							</div>
                         <div className="col-md-4">
                             <div className="login-form ">
                                 <input

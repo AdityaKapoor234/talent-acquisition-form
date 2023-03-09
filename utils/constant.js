@@ -65,7 +65,7 @@ export const GET_BRANDS_EDIT = `${PRODUCT_SERVICE}/manage/brand/{{id}}`;
 export const GET_BRANDS_DELETE = `${PRODUCT_SERVICE}/manage/brand/{{id}}/delete`;
 
 //Product
-export const PRODUCTLIST = `${PRODUCT_SERVICE}/manage/product?page={{page}}&q={{search}}`;
+export const PRODUCTLIST = `${PRODUCT_SERVICE}/manage/product?page={{page}}&q={{search}}&filter={{filter}}`;
 
 //Flavor
 export const FLAVORLIST = `${PRODUCT_SERVICE}/manage/flavor?page={{page}}&q={{search}}`;
@@ -220,7 +220,7 @@ export const CANCEL=`${ORDER_SERVICE}/manage/order/cancelled/all?page={{page}}&q
 
 // BULK EDIT PRODUCT
 
-export const  BULK_EDIT_PRODUCT =`${PRODUCT_SERVICE}/manage/product?page={{page}}&q={{search}}`
+export const  BULK_EDIT_PRODUCT =`${PRODUCT_SERVICE}/manage/product?page={{page}}&q={{search}}&filter={{filter}}`
 export const UPDATE_PRICE = `${PRODUCT_SERVICE}/manage/product/{{id}}/price`
 
 

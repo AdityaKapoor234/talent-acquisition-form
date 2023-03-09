@@ -8,7 +8,7 @@ import cookie from "js-cookie";
 
 export class ProductApi {
 
-    static ProductList(page, search) {
+    static ProductList(page, search, filter) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -16,7 +16,7 @@ export class ProductApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.get(`${PRODUCTLIST}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+        return axios.get(`${PRODUCTLIST}`.replace('{{page}}', page).replace('{{search}}', search).replace('{{filter}}', filter), httpOptions)
     }
 
     static createProduct(data) {

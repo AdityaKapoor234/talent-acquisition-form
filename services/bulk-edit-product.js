@@ -6,7 +6,7 @@ import cookie from "js-cookie";
 
 export class BulkEditProductApi {
 
-    static BulkEditProductList(page, search) {
+    static BulkEditProductList(page, search, filter) {
         const token = cookie.get('access_token_admin');
         const httpOptions = {
             headers: {
@@ -14,7 +14,7 @@ export class BulkEditProductApi {
                 'Authorization': `Bearer ${token} `
             }
         };
-        return axios.get(`${BULK_EDIT_PRODUCT}`.replace('{{page}}', page).replace('{{search}}', search), httpOptions)
+        return axios.get(`${BULK_EDIT_PRODUCT}`.replace('{{page}}', page).replace('{{search}}', search).replace('{{filter}}', filter), httpOptions)
     }
 
     static updatePrice(id,data) {

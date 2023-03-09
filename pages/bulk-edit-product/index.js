@@ -16,6 +16,9 @@ import { useRouter } from "next/router";
 import Link from 'next/link'
 import BulkEditProductcomponent from "../../component/catalog/bulk-edit-product/bulk-edit-product.component";
 import { BulkEditProductApi } from "../../services/bulk-edit-product";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Bulk_Edit_Product() {
     const pathArr = useRouter();
@@ -27,6 +30,7 @@ export default function Bulk_Edit_Product() {
     const [wordEntered, setWordEntered] = useState(
         pathArr.query?.q ? pathArr.query?.q : ""
     );
+	const [filter, setFilter] = useState("all");
     const [totalPage, setTotalPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1)
     const [isLoader, setIsLoader] = useState(true);
@@ -42,7 +46,11 @@ export default function Bulk_Edit_Product() {
                 query: router_query_object,
             });
             setCurrentPage(1)
-            BulkEditProduct(1, wordEntered);
+            if (filter === "all") {
+                BulkEditProduct(1, wordEntered, "");
+			} else {
+                BulkEditProduct(1, wordEntered, filter);
+			}            
         }
     };
 
@@ -56,7 +64,11 @@ export default function Bulk_Edit_Product() {
             query: router_query_object,
         });
         setCurrentPage(1)
-        BulkEditProduct(1, wordEntered);
+        if (filter === "all") {
+            BulkEditProduct(1, wordEntered, "");
+        } else {
+            BulkEditProduct(1, wordEntered, filter);
+        }
     };
 
     const handleFilter = (event) => {
@@ -67,21 +79,37 @@ export default function Bulk_Edit_Product() {
                 pathname: "/bulk-edit-product",
                 query: "",
             });
-            BulkEditProduct(1, "");
+            if (filter === "all") {
+                BulkEditProduct(1, "", "");
+            } else {
+                BulkEditProduct(1, "", filter);
+            }
         }
     };
 
     let onPageChange = function (e, page) {
         setCurrentPage(page)
-        BulkEditProduct(page, wordEntered)
+        if (filter === "all") {
+            BulkEditProduct(page, wordEntered, "");
+        } else {
+            BulkEditProduct(page, wordEntered, filter);
+        }
     };
 
+	const handleFilterChange = (value) => {
+		setFilter(value);
+		if (value === "all") {
+            BulkEditProduct(1, "", "");
+		} else {
+            BulkEditProduct(1, "", value);
+		}
+	};
 
 
 
-    const BulkEditProduct = (page, search) => {
+    const BulkEditProduct = (page, search, filter) => {
         setIsLoader(true);
-        BulkEditProductApi.BulkEditProductList(page, search)
+        BulkEditProductApi.BulkEditProductList(page, search, filter)
             .then((response) => {
                 setProductType(response.data.data.list);
                 setTotalProduct(response.data.data.total);
@@ -108,10 +136,14 @@ export default function Bulk_Edit_Product() {
             Router.push("/");
         }
 
-        BulkEditProduct(currentPage, "")
+        if (filter === "all") {
+            BulkEditProduct(currentPage, "", "");
+        } else {
+            BulkEditProduct(currentPage, "", filter);
+        }
     }, []);
     return (
-        <div>
+        <div page-component="product-page-status">
             <div>
                 <Head>
                     <title>{APP_NAME} - Customer</title>
@@ -122,12 +154,39 @@ export default function Bulk_Edit_Product() {
                 <main>
                     <DashboardLayoutComponent>
                         <div className="row border-box">
-                            <div className="col-md-8">
+                            <div className="col-md-6">
                                 <div className="hamburger">
                                     <span>catalog / </span>Bulk Edit Products
                                 </div>
                                 <div className="page-name">Bulk Edit Products</div>
                             </div>
+							<div className="col-md-2 select-dropdown">
+								<div className="sort-by-select-wrapper w-100">
+									<Select
+										disableUnderline
+										variant="standard"
+										autoWidth={true}
+										IconComponent={ExpandMoreIcon}
+										name="category_id"
+										onChange={(e) => handleFilterChange(e.target.value)}
+										className="sort-by-select"
+										value={filter}
+									>
+										<MenuItem
+											value="select"
+											disabled
+											className="field_toggle_checked"
+										>
+											Select Status
+										</MenuItem>
+										<MenuItem value="all">All</MenuItem>
+										<MenuItem value="published">Published</MenuItem>
+										<MenuItem value="draft">Draft</MenuItem>
+										<MenuItem value="archived">Archived</MenuItem>
+										<MenuItem value="out_of_stock">Coming Soon</MenuItem>
+									</Select>
+								</div>
+							</div>
                             <div className="col-md-4">
                                 <div className="login-form ">
                                     <input

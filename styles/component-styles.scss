@@ -457,6 +457,39 @@
   }
 }
 
+[page-component="product-page-status"] {
+  .select-dropdown {
+    // display: flex;
+    // flex-direction: column;
+    // align-content:flex-start;
+    // justify-content: center;
+
+    .sort-by-select-wrapper {
+      display: inline-block;
+
+      .sort-by-select {
+        border-radius: 0rem;
+        color: $clr-label-name;
+        font-size: 0.9rem;
+        font-weight: 400;
+        border: 2px solid $clr-gray200;
+
+        height: 32px;
+        width: 100%;
+
+        >.MuiSelect-select {
+          padding: 0.7rem 2rem 0.7rem 0.7rem;
+          font-size: 0.9rem;
+        }
+
+        fieldset {
+          top: 0;
+        }
+      }
+    }
+  }
+}
+
 [data-component="product-photo-edit"] {
   .photo-uplaod {
     display: flex;
@@ -896,7 +929,7 @@
     background-color: white !important;
     padding: 20px 10px;
     justify-content: flex-start;
-    border: 1px solid $clr-gray200  !important;
+    border: 1px solid $clr-gray200 !important;
     height: 23.2rem;
     // height: 100%;
 
@@ -934,7 +967,7 @@
     justify-content: flex-start;
     display: flex;
     align-items: center;
-    border: 1px solid $clr-gray200  !important;
+    border: 1px solid $clr-gray200 !important;
 
     ul {
       display: flex;
@@ -963,7 +996,7 @@
     margin-bottom: 1rem;
     padding: 1rem;
     justify-content: flex-start;
-    border: 1px solid $clr-gray200  !important;
+    border: 1px solid $clr-gray200 !important;
 
     height: 100%;
 
@@ -1213,7 +1246,7 @@
   }
 
   .borderBox {
-    border: 2px solid $clr-gray200  !important;
+    border: 2px solid $clr-gray200 !important;
     outline: none;
 
     .borderBoxInfo {
@@ -1278,7 +1311,8 @@
     position: fixed;
     background: black;
   }
-  .backdrop{
+
+  .backdrop {
     position: fixed;
     // background: #333333;
     top: 0;
@@ -1286,6 +1320,7 @@
     right: 0;
     bottom: 0;
   }
+
   .controls {
     position: fixed;
     width: 100%;
@@ -1293,21 +1328,25 @@
     bottom: 0px;
     background: black;
   }
-  .controls-upper-area{
+
+  .controls-upper-area {
     text-align: center;
   }
-  .slider{
+
+  .slider {
     width: 50%;
   }
+
   .button-area {
     text-align: center;
     margin-top: 14px;
+
     // margin-bottom: 20px;
     button {
       margin-left: 10px;
       margin-right: 10px;
       background-color: black;
-      color:white;
+      color: white;
       border: 1px solid yellow;
       font-size: 20px;
     }
@@ -1337,12 +1376,12 @@
 //     cursor: pointer !important;
 //     font-weight: 500;
 //     color: #012169;
-    
-    
+
+
 //       // display: flex;
 //       // align-items: center;
 //       // width: 15%;
-    
+
 //   }
 
 //  .ReactTags__remove {

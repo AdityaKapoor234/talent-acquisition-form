@@ -41,6 +41,7 @@ export default function Order() {
     const [totalPage, setTotalPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoader, setIsLoader] = useState(true);
+    const [isLoaderExcelDownload, setIsLoaderExcelDownload] = useState(false);
     const [downloadOpen, setDownloadOpen] = useState(false);
     const [latest, setLatest] = useState("latest");
     const [limit, setLimit] = useState(15);
@@ -160,6 +161,7 @@ export default function Order() {
 
 
     function orderExcelList() {
+        setIsLoaderExcelDownload(true);
         if (validateDownload()) {
             // setIsLoader(true);
             // ExcelApi.OrderExcelList(page, sort, limit)
@@ -181,9 +183,11 @@ export default function Order() {
                     setDownloadPage("select");
                     setDownloadStatus("select");
                     setDownloadPageLimit("select");
+                    setIsLoaderExcelDownload(false);
                 })
                 .catch((error) => {
                     // setIsLoader(false);
+                    setIsLoaderExcelDownload(false);
                     toast.error(
                         error?.response &&
                             error?.response?.data &&
@@ -391,40 +395,61 @@ export default function Order() {
                 </main>
                 <Dialog
                     open={downloadOpen}
-                    onClose={() => {
-                        setDownloadOpen(false);
-                        setDownloadPage("select");
-                        setDownloadStatus("select");
-                        setDownloadPageLimit("select");
-                    }}
+                    onClose={
+                        isLoaderExcelDownload ? (
+                            null
+                        ) : (
+                            () => {
+                                setDownloadOpen(false);
+                                setDownloadPage("select");
+                                setDownloadStatus("select");
+                                setDownloadPageLimit("select");
+                            }
+                        )}
                     maxWidth="sm"
                     fullWidth
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle style={{ color: "#012169" }}>
-                        Download Order's Information
-                    </DialogTitle>
-                    <Box position="absolute" top={0} right={0}>
-                        <IconButton onClick={() => {
-                            setDownloadOpen(false);
-                            setDownloadPage("select");
-                            setDownloadStatus("select");
-                            setDownloadPageLimit("select");
-                        }}>
-                            <CloseIcon />
-                        </IconButton>
-                    </Box>
-                    <DialogContent>
-                        <Typography style={{ color: "#7e8f99" }}>
-                            <OrderExcelDownload
-                                totalPage={totalPage}
-                                limit={limit}
-                                handleDownloadPage={handleDownloadPage.bind(this)}
-                                handleDownloadStatus={handleDownloadStatus.bind(this)}
-                                handleDownloadPageLimit={handleDownloadPageLimit.bind(this)}
-                            />
-                            {/* Enter your specifications to download the order's information list in excel sheet
+                    {
+                        isLoaderExcelDownload ? (
+                            <div className="row justify-content-center">
+                                <div className="col-md-12 loader-cart">
+                                    <DialogTitle style={{ color: "#012169" }}>
+                                        Downloading Order's Information...
+                                    </DialogTitle>
+                                    <Box sx={{ display: "flex" }}>
+                                        <CircularProgress
+                                            style={{ color: "#F54A00" }}
+                                        />
+                                    </Box>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <DialogTitle style={{ color: "#012169" }}>
+                                    Download Order's Information
+                                </DialogTitle>
+                                <Box position="absolute" top={0} right={0}>
+                                    <IconButton onClick={() => {
+                                        setDownloadOpen(false);
+                                        setDownloadPage("select");
+                                        setDownloadStatus("select");
+                                        setDownloadPageLimit("select");
+                                    }}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Box>
+                                <DialogContent>
+                                    <Typography style={{ color: "#7e8f99" }}>
+                                        <OrderExcelDownload
+                                            totalPage={totalPage}
+                                            limit={limit}
+                                            handleDownloadPage={handleDownloadPage.bind(this)}
+                                            handleDownloadStatus={handleDownloadStatus.bind(this)}
+                                            handleDownloadPageLimit={handleDownloadPageLimit.bind(this)}
+                                        />
+                                        {/* Enter your specifications to download the order's information list in excel sheet
 
                             <div className="row mt-3">
                                 <div className="col d-flex align-items-center">
@@ -540,35 +565,39 @@ export default function Order() {
                                 </div>
                             </div> */}
 
-                        </Typography>
-                    </DialogContent>
-                    <DialogActions style={{ marginBottom: "0.5rem" }}>
-                        <Button
-                            onClick={() => {
-                                setDownloadOpen(false);
-                                setDownloadPage("select");
-                                setDownloadStatus("select");
-                                setDownloadPageLimit("select");
-                            }}
-                            style={{
-                                color: "#012169",
-                                background: "white",
-                                borderRadius: "0px",
-                            }}
-                            color="primary"
-                            variant="contained"
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            onClick={() => orderExcelList()}
-                            style={{ background: "#f54a00", borderRadius: "0px" }}
-                            color="secondary"
-                            variant="contained"
-                        >
-                            Download
-                        </Button>
-                    </DialogActions>
+                                    </Typography>
+                                </DialogContent>
+                                <DialogActions style={{ marginBottom: "0.5rem" }}>
+                                    <Button
+                                        onClick={() => {
+                                            setDownloadOpen(false);
+                                            setDownloadPage("select");
+                                            setDownloadStatus("select");
+                                            setDownloadPageLimit("select");
+                                        }}
+                                        style={{
+                                            color: "#012169",
+                                            background: "white",
+                                            borderRadius: "0px",
+                                        }}
+                                        color="primary"
+                                        variant="contained"
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={() => orderExcelList()}
+                                        style={{ background: "#f54a00", borderRadius: "0px" }}
+                                        color="secondary"
+                                        variant="contained"
+                                    >
+                                        Download
+                                    </Button>
+                                </DialogActions>
+                            </>
+                        )
+                    }
+
                 </Dialog>
 
             </div>

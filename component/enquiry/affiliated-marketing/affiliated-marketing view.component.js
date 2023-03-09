@@ -26,6 +26,36 @@ export default class AffiliateMarketingView extends Component {
         return null;
     }
 
+    convertDateStringToDate = (dateStr) => {
+        let months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+        ];
+
+        let date = new Date(dateStr);
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        let str =
+            date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+        return str;
+    };
+
+    convertTimeStringToTime = (dateStr) => {
+        let date = new Date(dateStr);
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        let str =
+            (date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()) + ":" + (date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds());
+        return str;
+    };
 
 
     render() {
@@ -105,6 +135,22 @@ export default class AffiliateMarketingView extends Component {
                                                     readOnly={true}
                                                 />
                                             </div> 
+											<div className="login-form ">
+												<label>Date<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+													value={this.state.affiliatemarketingview?.created_at}
+													readOnly={true}
+												/>
+											</div>
+											<div className="login-form ">
+												<label>Time<span className="mandatory-star">*</span></label>
+												<input
+													type="text"
+                                                    value={this.convertTimeStringToTime(this.state.affiliatemarketingview?.created_at_with_time)}
+													readOnly={true}
+												/>
+											</div>
                                             <div className="login-form ">
                                                 <label>Social Media / Online platform / Website<span className="mandatory-star">*</span></label>
                                                 <input

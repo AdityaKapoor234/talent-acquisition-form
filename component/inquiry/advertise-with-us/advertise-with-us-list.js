@@ -56,6 +56,7 @@ export default class AdvertiseWithUsList extends Component {
               <div className="col pe-1">Name</div>
               <div className="col px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
+              <div className="col px-2 text-center">Date</div>
               <div className="col-1 text-end">Action</div>
             </div>
           </div>
@@ -72,6 +73,7 @@ export default class AdvertiseWithUsList extends Component {
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
+                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                   <div className="col-1 text-end">
                     <RemoveRedEyeIcon
                       className="view-icon"

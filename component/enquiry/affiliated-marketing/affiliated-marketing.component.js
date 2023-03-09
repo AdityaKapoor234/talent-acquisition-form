@@ -60,6 +60,7 @@ export default class AffiliatedMarketing extends Component {
               {/* <div className="col text-center">Type</div> */}
               <div className="col px-2 text-center">Email</div>
               <div className="col px-2 text-center">Mobile No.</div>
+              <div className="col px-2 text-center">Date</div>
               {/* <div className="col px-2 text-center">Enquiry</div> */}
               <div className="col-2 text-center ">View</div>
             </div>
@@ -78,6 +79,7 @@ export default class AffiliatedMarketing extends Component {
                     {p?.email}
                   </div>
                   <div className="col px-2 text-center elip-text" title={p?.phone_no}>{p?.phone_no}</div>
+                  <div className="col px-2 text-center elip-text" title={this.convertDateStringToDate(p?.created_at)}>{this.convertDateStringToDate(p?.created_at)}</div>
                   {/* <div className="col px-2 text-center elip-text" title={p?.enquiry}>{p?.enquiry}</div> */}
                   <div className="col-2 text-center">
                     <RemoveRedEyeIcon

@@ -171,13 +171,17 @@ export default function Order() {
                     // setIsLoader(false);
                     // handleOnExport();
 
-                    var XLSX = require("xlsx");
-                    var wb = XLSX.utils.book_new();
-                    var ws = XLSX.utils.json_to_sheet(response.data.data.list);
+                    if (response.data.data.list?.length > 0) {
+                        var XLSX = require("xlsx");
+                        var wb = XLSX.utils.book_new();
+                        var ws = XLSX.utils.json_to_sheet(response.data.data.list);
 
-                    XLSX.utils.book_append_sheet(wb, ws, "OrderList");
+                        XLSX.utils.book_append_sheet(wb, ws, "OrderList");
 
-                    XLSX.writeFile(wb, "Order List.xlsx");
+                        XLSX.writeFile(wb, "Order List.xlsx");
+                    } else {
+                        toast.error("No Record Found");
+                    }
 
                     setDownloadOpen(false);
                     setDownloadPage("select");

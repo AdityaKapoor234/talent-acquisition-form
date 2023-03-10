@@ -79,6 +79,32 @@ export default class DealsEditDetails extends Component {
     return str;
   };
 
+  convertDateStringToDateGetAPI = (dateStr) => {
+    let months = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ];
+
+    let date = new Date(dateStr);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    let str =
+      // date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+      (date.getFullYear() < 10 ? `0${date.getFullYear()}` : date.getFullYear()) + "-" + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + "-" + (date.getDate() < 10 ? `0${date.getDate()}` : date.getDate());
+    // new Date(dateStr).toISOString().split('T')[0];
+    // date.toLocaleDateString('en-CA');
+    return str;
+  };
+
   urlPatternValidation = (URL) => {
     const regex = new RegExp('(https?://)');
     return regex.test(URL);
@@ -182,8 +208,8 @@ export default class DealsEditDetails extends Component {
         if (response.data.httpStatusCode === 200) {
           let details = {
             label: response.data.data.list.label ? response.data.data.list.label : "",
-            deal_start_date: response.data.data.list.deal_start_date ? response.data.data.list.deal_start_date : "",
-            deal_end_date: response.data.data.list.deal_end_date ? response.data.data.list.deal_end_date : "",
+            deal_start_date: response.data.data.list.deal_start_date ? this.convertDateStringToDateGetAPI(response.data.data.list.deal_start_date) : "",
+            deal_end_date: response.data.data.list.deal_end_date ? this.convertDateStringToDateGetAPI(response.data.data.list.deal_end_date) : "",
             color_code: response.data.data.list.color_code ? response.data.data.list.color_code : "",
             url: response.data.data.list.url ? response.data.data.list.url : "",
             icon_url: response.data.data.list.icon_url ? response.data.data.list.icon_url : "",
@@ -309,7 +335,7 @@ export default class DealsEditDetails extends Component {
             <div className="row">
               <div className="col-m-12">
                 <DealsCreateComponent
-                  deals={this.state.deals}
+                  deals={this.state.dealsDetails}
                   mode={this.state.mode}
                   handle={this.stateHandle.bind(this)}
                   brand={this.state.brand}

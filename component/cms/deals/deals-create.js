@@ -152,7 +152,8 @@ export default class DealsCreate extends Component {
 												<input
 													type="date"
 													name="deal_start_date"
-													value={this.convertDateStringToDate(this.state.input?.deal_start_date)}
+													// value={this.convertDateStringToDate(this.state.input?.deal_start_date)}
+													value={this.state.input?.deal_start_date}
 													label="none"
 													onChange={this.handleChange.bind(this)}
 												/>
@@ -164,7 +165,8 @@ export default class DealsCreate extends Component {
 												<input
 													type="date"
 													name="deal_end_date"
-													value={this.convertDateStringToDate(this.state.input?.deal_end_date)}
+													// value={this.convertDateStringToDate(this.state.input?.deal_end_date)}
+													value={this.state.input?.deal_end_date}
 													onChange={this.handleChange.bind(this)}
 												/>
 											</div>
@@ -303,7 +305,8 @@ export default class DealsCreate extends Component {
 												<input
 													type="date"
 													readOnly={true}
-													value={this.convertDateStringToDate(this.state.input?.deal_start_date)}
+													// value={this.convertDateStringToDate(this.state.input?.deal_start_date)}
+													value={this.state.input?.deal_start_date}
 												/>
 											</div>
 
@@ -314,7 +317,8 @@ export default class DealsCreate extends Component {
 												<input
 													type="date"
 													readOnly={true}
-													value={this.convertDateStringToDate(this.state.input?.deal_end_date)}
+													// value={this.convertDateStringToDate(this.state.input?.deal_end_date)}
+													value={this.state.input?.deal_end_date}
 												/>
 											</div>
 											<div className="login-form ">

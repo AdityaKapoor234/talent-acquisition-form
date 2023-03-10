@@ -78,6 +78,33 @@ export default class CouponEditDetails extends Component {
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     let str =
       date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+      // (date.getFullYear() < 10 ? `0${date.getFullYear()}` : date.getFullYear()) + "-" + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + "-" + (date.getDate() < 10 ? `0${date.getDate()}` : date.getDate());
+    // new Date(dateStr).toISOString().split('T')[0];
+    // date.toLocaleDateString('en-CA');
+    return str;
+  };
+
+  convertDateStringToDateGetAPI = (dateStr) => {
+    let months = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ];
+
+    let date = new Date(dateStr);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    let str =
+      // date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+      (date.getFullYear() < 10 ? `0${date.getFullYear()}` : date.getFullYear()) + "-" + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + "-" + (date.getDate() < 10 ? `0${date.getDate()}` : date.getDate());
     // new Date(dateStr).toISOString().split('T')[0];
     // date.toLocaleDateString('en-CA');
     return str;
@@ -317,8 +344,8 @@ export default class CouponEditDetails extends Component {
             name: response.data.data.coupon?.name,
             code: response.data.data.coupon?.code,
             description: response.data.data.coupon?.description,
-            start_date: response.data.data.coupon?.start_date,
-            end_date: response.data.data.coupon?.end_date,
+            start_date: this.convertDateStringToDateGetAPI(response.data.data.coupon?.start_date),
+            end_date: this.convertDateStringToDateGetAPI(response.data.data.coupon?.end_date),
             discount_type: response.data.data.coupon?.discount_type,
             min_cart_amount: response.data.data.coupon?.min_cart_amount,
             max_cart_amount: response.data.data.coupon?.max_cart_amount,

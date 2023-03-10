@@ -286,9 +286,10 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="date"
-                              value={this.convertDateStringToDate(
-                                this.state.input?.start_date
-                              )}
+                              // value={this.convertDateStringToDate(
+                              //   this.state.input?.start_date
+                              // )}
+                              value={this.state.input?.start_date}
                               name="start_date"
                               onChange={this.handleChange.bind(this)}
                             />
@@ -303,9 +304,10 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="date"
-                              value={this.convertDateStringToDate(
-                                this.state.input?.end_date
-                              )}
+                              // value={this.convertDateStringToDate(
+                              //   this.state.input?.end_date
+                              // )}
+                              value={this.state.input?.end_date}
                               name="end_date"
                               onChange={this.handleChange.bind(this)}
                             />
@@ -649,9 +651,10 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="date"
-                              value={this.convertDateStringToDate(
-                                this.state.input?.start_date
-                              )}
+                              // value={this.convertDateStringToDate(
+                              //   this.state.input?.start_date
+                              // )}
+                              value={this.state.input?.start_date}
                               readOnly={true}
                             />
                           </div>
@@ -665,9 +668,10 @@ export default class CouponDetails extends Component {
                             </label>
                             <input
                               type="date"
-                              value={this.convertDateStringToDate(
-                                this.state.input?.end_date
-                              )}
+                              // value={this.convertDateStringToDate(
+                              //   this.state.input?.end_date
+                              // )}
+                              value={this.state.input?.end_date}
                               readOnly={true}
                             />
                           </div>

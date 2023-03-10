@@ -33,10 +33,48 @@ export default function DealsViewDetails({ id }) {
   const [deals, setDeals] = useState([]);
   const [open, setOpen] = useState(false);
 
+  const convertDateStringToDateGetAPI = (dateStr) => {
+    let months = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ];
+
+    let date = new Date(dateStr);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    let str =
+      // date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+      (date.getFullYear() < 10 ? `0${date.getFullYear()}` : date.getFullYear()) + "-" + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + "-" + (date.getDate() < 10 ? `0${date.getDate()}` : date.getDate());
+    // new Date(dateStr).toISOString().split('T')[0];
+    // date.toLocaleDateString('en-CA');
+    return str;
+  };
+
   const dealsDetails = (id) => {
     DealsApi.dealsViewDetails(id)
       .then((response) => {
-        setDeals(response.data.data.list);
+        let details = {
+          label: response.data.data.list.label ? response.data.data.list.label : "",
+          deal_start_date: response.data.data.list.deal_start_date ? convertDateStringToDateGetAPI(response.data.data.list.deal_start_date) : "",
+          deal_end_date: response.data.data.list.deal_end_date ? convertDateStringToDateGetAPI(response.data.data.list.deal_end_date) : "",
+          color_code: response.data.data.list.color_code ? response.data.data.list.color_code : "",
+          url: response.data.data.list.url ? response.data.data.list.url : "",
+          icon_url: response.data.data.list.icon_url ? response.data.data.list.icon_url : "",
+          discount_image_url: response.data.data.list?.discount_image_url ? response.data.data.list?.discount_image_url : "",
+          brand_logo: response.data.data.list?.brand_logo ? response.data.data.list?.brand_logo : "",
+          is_active: response.data.data.list.is_active ? response.data.data.list.is_active : false,
+          sort_order: response.data.data.list.sort_order ? response.data.data.list.sort_order : null,
+        };
+        setDeals(details);
       })
       .catch((error) => {
         toast.error(

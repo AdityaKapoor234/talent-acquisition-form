@@ -2,14 +2,21 @@ import { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 export default function Order(props) {
     const [totalPage, setTotalPage] = useState(props?.totalPage);
+    const [totalRecord, setTotalRecord] = useState(props?.totalRecord);
     const [limit, setLimit] = useState(props?.limit);
     const [downloadPage, setDownloadPage] = useState(1);
     const [downloadStatus, setDownloadStatus] = useState("select");
     const [downloadPageLimit, setDownloadPageLimit] = useState("select");
     const [remainingDownPage, setRemainingDownPage] = useState([]);
+
+    const [specificRecord, setSpecificRecord] = useState("all");
 
     function downloadRows() {
         for (let i = 1; i <= totalPage; i++) {
@@ -30,9 +37,9 @@ export default function Order(props) {
         // console.log(typeof(value))
         // if (value.match(/^[0-9]$/)) {
         // if ( !== "e" && value !== "." && value !== "-" ) {
-            let a = value.replace(/[^\d]/, "")
-            setDownloadPageLimit(a);
-            props?.handleDownloadPageLimit(a);
+        let a = value.replace(/[^\d]/, "")
+        setDownloadPageLimit(a);
+        props?.handleDownloadPageLimit(a);
         // }
     };
     const ValidateNumber = (value) => {
@@ -40,11 +47,29 @@ export default function Order(props) {
             // '^[0-9]*$'
             value
         );
-      };
-    
+    };
+
+    const handleRadioChange = (event) => {
+        if (event.target.value === "all") {
+            // setDownloadPageLimit(totalRecord);
+            props?.handleDownloadPageLimit(totalRecord);
+        }
+
+        if (event.target.value === "specific") {
+            // setDownloadPageLimit("select");
+            props?.handleDownloadPageLimit("select");
+        }
+        setSpecificRecord(event.target.value);
+    };
+
 
     useEffect(() => {
         setTotalPage(props?.totalPage);
+        setTotalRecord(props?.totalRecord);
+        // setDownloadPageLimit(props?.totalRecord);
+        if (specificRecord !== "specific") {
+            props?.handleDownloadPageLimit(props?.totalRecord);
+        }
         setLimit(props?.limit);
     }, [props]);
     return (
@@ -128,24 +153,65 @@ export default function Order(props) {
                 </div>
             </div>
 
+
             <div className="row mt-3">
-                <div className="col d-flex align-items-center">
-                    No of Records
+                <div className="col-4 d-flex align-items-center">
+                    Dowload Record
                 </div>
-                <div className="col">
-                    <div className="login-form ">
-                        {/* <label>
+                <div className="col d-flex align-items-center">
+                    <RadioGroup
+                        row
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="label"
+                        value={specificRecord}
+                        onChange={handleRadioChange}
+                    >
+                        <div className="d-flex">
+                            <FormControlLabel
+                                value="all"
+                                control={
+                                    <Radio
+                                        size={"small"}
+                                        style={{ color: "#012169" }}
+                                    />
+                                }
+                                label="All Record"
+                            />
+                            <FormControlLabel
+                                value="specific"
+                                control={
+                                    <Radio
+                                        size={"small"}
+                                        style={{ color: "#012169" }}
+                                    />
+                                }
+                                label="Specific No of Records"
+                            />
+                        </div>
+                    </RadioGroup>
+                </div>
+            </div>
+
+            {
+                specificRecord === "specific" ?
+                    <div className="row mt-3">
+                        <div className="col d-flex align-items-center">
+                            No of Records
+                        </div>
+                        <div className="col">
+                            <div className="login-form ">
+                                {/* <label>
                           Display Order<span className="mandatory-star">*</span>
                         </label> */}
-                        <input
-                            type="number"
-                            min="0"
-                            value={downloadPageLimit}
-                            onChange={(event) => handleDownloadPageLimitChange(event.target.value)}
-                        />
-                    </div>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={downloadPageLimit}
+                                    onChange={(event) => handleDownloadPageLimitChange(event.target.value)}
+                                />
+                            </div>
 
-                    {/* <div className="sort w-100">
+                            {/* <div className="sort w-100">
                         <div className="sort-by-select-wrapper w-100">
                             <input type="number" value={downloadPageLimit} onChange={(event) => handleDownloadPageLimitChange(event.target.value)} />
                             <Select
@@ -222,8 +288,11 @@ export default function Order(props) {
                             </Select>
                         </div>
                     </div> */}
-                </div>
-            </div>
+                        </div>
+                    </div>
+                    :
+                    <></>
+            }
         </>
     );
 }

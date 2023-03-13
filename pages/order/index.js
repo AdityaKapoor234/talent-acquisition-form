@@ -151,7 +151,7 @@ export default function Order() {
             return false;
         }
 
-        if (downloadPageLimit === "" || downloadPageLimit === "select" || downloadPageLimit === null) {
+        if (!downloadPageLimit || downloadPageLimit === "select") {
             toast.error("Please enter items per page");
             return false;
         }
@@ -161,8 +161,8 @@ export default function Order() {
 
 
     function orderExcelList() {
-        setIsLoaderExcelDownload(true);
         if (validateDownload()) {
+            setIsLoaderExcelDownload(true);
             // setIsLoader(true);
             // ExcelApi.OrderExcelList(page, sort, limit)
             ExcelApi.OrderExcelList(1, downloadStatus, downloadPageLimit)
@@ -192,6 +192,8 @@ export default function Order() {
                 .catch((error) => {
                     // setIsLoader(false);
                     setIsLoaderExcelDownload(false);
+                    setDownloadStatus("select");
+                    setDownloadPageLimit("select");                
                     toast.error(
                         error?.response &&
                             error?.response?.data &&
@@ -448,6 +450,7 @@ export default function Order() {
                                     <Typography style={{ color: "#7e8f99" }}>
                                         <OrderExcelDownload
                                             totalPage={totalPage}
+                                            totalRecord={totalOrders.total}
                                             limit={limit}
                                             handleDownloadPage={handleDownloadPage.bind(this)}
                                             handleDownloadStatus={handleDownloadStatus.bind(this)}

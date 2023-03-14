@@ -382,14 +382,14 @@ a {
 
   .sort-by-select-wrapper {
     display: inline-block;
-
+    background-color: transparent !important;
     .sort-by-select {
       border-radius: 0rem;
       color: $clr-label-name;
       font-size: 0.9rem;
       font-weight: 400;
       border: 2px solid $clr-gray200;
-
+      background-color: transparent !important;
       >.MuiSelect-select {
         padding: 0.7rem 2rem 0.7rem 0.7rem;
         font-size: 0.9rem;

@@ -136,6 +136,7 @@ export default function photo({
     const myFile = dataURLtoFile(croppedImageUrl, filename);
     const formData = new FormData();
     formData.append("media", myFile);
+    if(urlLink)
     uploadfile(urlLink, formData, name);
     setModel(false);
   }

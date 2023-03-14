@@ -497,6 +497,11 @@
           top: 0;
         }
       }
+
+      .sort-by-select:focus {
+        background-color: transparent !important;
+      }
+  
     }
   }
 }
@@ -881,6 +886,11 @@
           top: 0;
         }
       }
+
+      .sort-by-select:focus {
+        background-color: transparent !important;
+      }
+  
     }
   }
 

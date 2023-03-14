@@ -300,6 +300,7 @@ export default function DashboardLayoutComponent({ children }) {
                                         <li className={categary === "sell-on-fitcart" ? "sub_active" : ""} onClick={() => handleCategary("/sell-on-fitcart", "sell-on-fitcart")}>Sell on Fitcart</li>
                                         <li className={categary === "bulk-buys" ? "sub_active" : ""} onClick={() => handleCategary("/bulk-buys", "bulk-buys")}>Bulk Buys</li>
                                         <li className={categary === "email-support" ? "sub_active" : ""} onClick={() => handleCategary("/email-support", "email-support")}>Email Support</li>
+                                        <li className={categary === "banners-content" ? "sub_active" : ""} onClick={() => handleCategary("/banners-content", "banners-content")}>Banner & Content</li>
                                         {/* <li className={categary === "subscription" ? "sub_active" : ""} onClick={() => handleCategary("/subscription", "subscription")}>Subscription</li> */}
                                         {/* <li className={categary === "trusted-health" ? "sub_active" : ""} onClick={() => handleCategary("/trusted-health", "trusted-health")}>Trusted Health</li> */}
                                     </ul>

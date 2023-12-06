@@ -267,14 +267,14 @@ export default class Home extends Component {
             <Header activeStep={this.state.step} />
           </div>
           <div className="row website-body">
-            <div className="col-4">
+            <div className="col-4 scroll" style={{ overflow: "scroll", height: "97vh" }}>
               <FormSideBar
                 step={this.state.step}
                 newForm={this.newForm.bind(this)}
                 sideBarMovement={this.sideBarMovement.bind(this)}
               />
             </div>
-            <div className="col" style={{ background: "rgba(245, 245, 245, 1)" }}>
+            <div className="col scroll" style={{ background: "rgba(245, 245, 245, 1)", overflow: "scroll", height: "97vh" }}>
               <Form
                 step={this.state.step}
                 input={this.state.input}

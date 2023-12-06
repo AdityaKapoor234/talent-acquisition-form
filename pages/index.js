@@ -42,6 +42,51 @@ export default class Home extends Component {
     this.setState({ input: value });
   };
 
+  newForm = () => {
+    this.setState({ 
+      input: {
+        name: "",
+        email: "",
+        dateOfBirth: "",
+        contactNo: "",
+        tenthMarkSheet: "",
+        twelthMarkSheet: "",
+        graduationMarkSheet: "",
+        postGraduationMarkSheet: "",
+        offerLetter: "",
+        salarySlips: "",
+        bankStatements: "",
+        incrementLetter: "",
+        others: "",
+        longQuestOne: "",
+        longQuestTwo: "",
+        longQuestThree: "",
+        emailTwo: "",
+        location: "",
+        interviewDate: "",
+        interviewTime: "",
+        timeZone: "select",
+        interviewMedium: "select",
+      }
+     });
+    this.setState({ step: 0 });
+    this.setState({ validationErrors: {} });
+  }
+
+  sideBarMovement = (value) => {
+    if (value < this.state.step) {
+      this.setState({ step: value });
+    } else {
+      if (this.validateData()) {
+        if (value === this.state.step + 1) {
+          this.setState({ step: value });
+        } else {
+          toast.error("You can move forward in the form only in sequential manner")
+        }
+      }
+    }
+  }
+
   ValidateEmail = (mail) => {
     // return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
     return /^[a-zA-Z]{1}\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
@@ -223,7 +268,11 @@ export default class Home extends Component {
           </div>
           <div className="row website-body">
             <div className="col-4">
-              <FormSideBar step={this.state.step} />
+              <FormSideBar
+                step={this.state.step}
+                newForm={this.newForm.bind(this)}
+                sideBarMovement={this.sideBarMovement.bind(this)}
+              />
             </div>
             <div className="col" style={{ background: "rgba(245, 245, 245, 1)" }}>
               <Form

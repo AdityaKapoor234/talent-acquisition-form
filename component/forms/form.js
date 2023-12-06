@@ -315,22 +315,26 @@ export default class FormSideBar extends Component {
                           1. 10th Marksheet*
                           <label for="img" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.tenthMarkSheet ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["tenthMarkSheet"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["tenthMarkSheet"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="tenthMarkSheet"
-                            // value={this.state.input.tenthMarkSheet}
+                          // value={this.state.input.tenthMarkSheet}
                           />
                           <div style={{ color: "red", fontSize: "12px" }}>
                             {this.state.validationErrors?.tenthMarkSheet ? this.state.validationErrors?.tenthMarkSheet : null}
@@ -340,22 +344,26 @@ export default class FormSideBar extends Component {
                           2. 12th Marksheet*
                           <label for="img2" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.twelthMarkSheet ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img2"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["twelthMarkSheet"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["twelthMarkSheet"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="twelthMarkSheet"
-                            // value={this.state.input.twelthMarkSheet}
+                          // value={this.state.input.twelthMarkSheet}
                           />
                           <div style={{ color: "red", fontSize: "12px" }}>
                             {this.state.validationErrors?.twelthMarkSheet ? this.state.validationErrors?.twelthMarkSheet : null}
@@ -365,22 +373,26 @@ export default class FormSideBar extends Component {
                           3. Graduation Marksheet*
                           <label for="img3" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.graduationMarkSheet ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img3"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["graduationMarkSheet"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["graduationMarkSheet"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="graduationMarkSheet"
-                            // value={this.state.input.graduationMarkSheet}
+                          // value={this.state.input.graduationMarkSheet}
                           />
                           <div style={{ color: "red", fontSize: "12px" }}>
                             {this.state.validationErrors?.graduationMarkSheet ? this.state.validationErrors?.graduationMarkSheet : null}
@@ -390,44 +402,52 @@ export default class FormSideBar extends Component {
                           4. Post Graduation Marksheet
                           <label for="img4" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.postGraduationMarkSheet ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img4"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["postGraduationMarkSheet"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["postGraduationMarkSheet"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="postGraduationMarkSheet"
-                            // value={this.state.input.postGraduationMarkSheet}
+                          // value={this.state.input.postGraduationMarkSheet}
                           />
                         </div>
                         <div className="fieldName mb-4">
                           5. Offer Letter*
                           <label for="img5" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.offerLetter ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img5"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["offerLetter"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["offerLetter"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="offerLetter"
-                            // value={this.state.input.offerLetter}
+                          // value={this.state.input.offerLetter}
                           />
                           <div style={{ color: "red", fontSize: "12px" }}>
                             {this.state.validationErrors?.offerLetter ? this.state.validationErrors?.offerLetter : null}
@@ -437,22 +457,26 @@ export default class FormSideBar extends Component {
                           6. Salary Slips*
                           <label for="img6" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.salarySlips ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img6"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["salarySlips"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["salarySlips"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="salarySlips"
-                            // value={this.state.input.salarySlips}
+                          // value={this.state.input.salarySlips}
                           />
                           <div style={{ color: "red", fontSize: "12px" }}>
                             {this.state.validationErrors?.salarySlips ? this.state.validationErrors?.salarySlips : null}
@@ -462,22 +486,26 @@ export default class FormSideBar extends Component {
                           7. Bank Statement*
                           <label for="img7" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.bankStatements ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img7"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["bankStatements"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["bankStatements"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="bankStatements"
-                            // value={this.state.input.bankStatements}
+                          // value={this.state.input.bankStatements}
                           />
                           <div style={{ color: "red", fontSize: "12px" }}>
                             {this.state.validationErrors?.bankStatements ? this.state.validationErrors?.bankStatements : null}
@@ -487,44 +515,52 @@ export default class FormSideBar extends Component {
                           8. Increment Letter (if any)
                           <label for="img8" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.incrementLetter ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img8"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["incrementLetter"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["incrementLetter"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="incrementLetter"
-                            // value={this.state.input.incrementLetter}
+                          // value={this.state.input.incrementLetter}
                           />
                         </div>
                         <div className="fieldName mb-4">
                           9. Others (if any)
                           <label for="img9" className="fileUploadBox d-flex justify-content-center align-items-center">
                             <img src="/images/talent/attachment-24px 2.svg" alt="" />
-                            &nbsp;Attach file upto 5kb
+                            &nbsp;{this.state.input.others ? "File Uploaded" : "Attach file upto 5mb"}
                           </label>
                           <input
                             id="img9"
                             type="file"
                             accept={".pdf"}
-                            onChange={() => {
-                              let input = this.state.input;
-                              input["others"] = "FileUploaded";
-                              this.setState({ input });
-                              this.props?.handle(input);
-                              toast.success("File Uploaded Successfully");
+                            onChange={(event) => {
+                              if (event.target.files[0]?.size < 5242880) {
+                                let input = this.state.input;
+                                input["others"] = "FileUploaded";
+                                this.setState({ input });
+                                this.props?.handle(input);
+                                toast.success("File Uploaded Successfully");
+                              } else {
+                                toast.error("File size is more than 5 mb");
+                              }
                             }}
                             style={{ display: "none" }}
                             name="others"
-                            // value={this.state.input.others}
+                          // value={this.state.input.others}
                           />
                         </div>
                       </>
@@ -947,7 +983,7 @@ export default class FormSideBar extends Component {
                                 name="timeZone"
                                 value={this.state.input.timeZone}
                                 onChange={this.handleChange.bind(this)}
-                                // value="select"
+                              // value="select"
                               >
                                 <MenuItem
                                   value={"select"}

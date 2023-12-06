@@ -26,7 +26,10 @@ export default class FormSideBar extends Component {
     return (
       <div data-component="form-sidebar">
         <div className="w-100 form-sidebar-padding">
-          <div className="newFormBox d-flex justify-content-center align-items-center mb-5">
+          <div
+            className="newFormBox d-flex justify-content-center align-items-center mb-5"
+            onClick={() => this.props.newForm()}
+          >
             <div className="row">
               <div className="col-3">
                 <img src="/images/talent/rectangle529.png" alt="" />
@@ -47,7 +50,10 @@ export default class FormSideBar extends Component {
             Explore the following Templates:
           </div>
 
-          <div className={this.state.tab === 0 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}>
+          <div
+            className={this.state.tab === 0 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}
+            onClick={() => this.props.sideBarMovement(0)}
+          >
             <div className="row">
               <div className="col-3">
                 <img src={this.state.tab === 0 ? "/images/talent/rectangle530.png" : "/images/talent/rectangle529.png"} alt="" />
@@ -65,7 +71,10 @@ export default class FormSideBar extends Component {
             </div>
           </div>
 
-          <div className={this.state.tab === 1 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}>
+          <div
+            className={this.state.tab === 1 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}
+            onClick={() => this.props.sideBarMovement(1)}
+          >
             <div className="row">
               <div className="col-3">
                 <img src={this.state.tab === 1 ? "/images/talent/rectangle530.png" : "/images/talent/rectangle529.png"} alt="" />
@@ -82,7 +91,10 @@ export default class FormSideBar extends Component {
               </div>
             </div>
           </div>
-          <div className={this.state.tab === 2 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}>
+          <div
+            className={this.state.tab === 2 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}
+            onClick={() => this.props.sideBarMovement(2)}
+          >
             <div className="row">
               <div className="col-3">
                 <img src={this.state.tab === 2 ? "/images/talent/rectangle530.png" : "/images/talent/rectangle529.png"} alt="" />
@@ -99,7 +111,10 @@ export default class FormSideBar extends Component {
               </div>
             </div>
           </div>
-          <div className={this.state.tab === 3 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}>
+          <div
+            className={this.state.tab === 3 ? "newFormBox-active d-flex justify-content-center align-items-center mb-3" : "newFormBox d-flex justify-content-center align-items-center mb-3"}
+            onClick={() => this.props.sideBarMovement(3)}
+          >
             <div className="row">
               <div className="col-3">
                 <img src={this.state.tab === 3 ? "/images/talent/rectangle530.png" : "/images/talent/rectangle529.png"} alt="" />

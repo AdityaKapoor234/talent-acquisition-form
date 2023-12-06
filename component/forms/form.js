@@ -1,18 +1,16 @@
 import React, { Component } from "react";
-import Router from "next/router";
 import { toast } from "react-toastify";
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Stack from "@mui/material/Stack";
-import dayjs from "dayjs";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+// import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 
 export default class FormSideBar extends Component {
@@ -839,9 +837,53 @@ export default class FormSideBar extends Component {
                           </div>
                           <div className="fieldName mb-4">
                             4. Interview Time
-                            <div className="d-flex align-items-center" style={{ border: "1px solid rgba(136, 136, 136, 1)", borderRadius: "4px", width: "fit-content" }}>
+                            <div className="d-flex align-items-center" style={{ border: "1px solid rgba(136, 136, 136, 1)", borderRadius: "4px", height: "40px", width: "220px" }}>
+                              <TextField
+                                type="text"
+                                size="small"
+                                id="outlined-basic"
+                                variant="outlined"
+                                fullWidth
+                                placeholder="Time: 12:00"
+                                InputProps={{
+                                  style: {
+                                    paddingRight: 2,
+                                  },
+                                  sx: {
+                                    width: "100%",
+                                    height: "40px",
+                                    border: "none",
+                                    outline: "none",
+                                    paddingLeft: "0.2rem",
+                                    paddingRight: "0.2rem",
+                                    background: "transparent",
+                                    fontFamily: "Roboto",
+                                    fontSize: "16px",
+                                    fontWeight: "400",
+                                    lineHeight: "19px",
+                                    letterSpacing: "0em",
+                                    textAlign: "left",
+                                    // color: "rgba(195, 195, 195, 1)",
+                                  },
+                                }}
+                                sx={{
+                                  "& .MuiOutlinedInput-root": {
+                                    "& > fieldset": {
+                                      border: "none"
+                                    }
+                                  }
+                                }}
+                                name="interviewTime"
+                                value={this.state.input.interviewTime}
+                                onChange={this.handleChange.bind(this)}
+                              />
+                              <AccessTimeIcon />&nbsp;&nbsp;
+                            </div>
+                            <div style={{ color: "red", fontSize: "12px" }}>
+                              {this.state.validationErrors?.interviewTime ? this.state.validationErrors?.interviewTime : null}
+                            </div>
+                            {/* <div className="d-flex align-items-center" style={{ border: "1px solid rgba(136, 136, 136, 1)", borderRadius: "4px", width: "fit-content" }}>
                               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                {/* <DemoContainer components={['TimePicker']}> */}
                                 <TimePicker
                                   onChange={(newValue) => {
                                     let input = this.state.input;
@@ -871,12 +913,11 @@ export default class FormSideBar extends Component {
                                     }
                                   }}
                                 />
-                                {/* </DemoContainer> */}
                               </LocalizationProvider>
                             </div>
                             <div style={{ color: "red", fontSize: "12px" }}>
                               {this.state.validationErrors?.interviewTime ? this.state.validationErrors?.interviewTime : null}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="fieldName mb-4">
                             5. Time Zone

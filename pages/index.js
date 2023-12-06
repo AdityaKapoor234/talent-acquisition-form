@@ -30,9 +30,9 @@ export default class Home extends Component {
         emailTwo: "",
         location: "",
         interviewDate: "",
-        interviewTime: "select",
+        interviewTime: "",
         timeZone: "select",
-        interviewMedium: "",
+        interviewMedium: "select",
       },
       validationErrors: {}
     };

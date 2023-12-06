@@ -174,8 +174,6 @@ export default class Home extends Component {
       }
     }
 
-    console.log(errors, "errors")
-
     this.setState({ validationErrors: errors });
     return isValid;
   };

@@ -232,7 +232,7 @@ export default class FormSideBar extends Component {
                                 }}
                                 value={this.state.input.dateOfBirth}
 
-                                disablePast
+                                disableFuture
                                 format="DD/MM/YYYY"
                                 openTo="year"
                                 views={["year", "month", "day"]}
